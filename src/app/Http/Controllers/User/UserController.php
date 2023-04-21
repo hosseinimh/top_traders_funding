@@ -12,6 +12,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -35,6 +36,11 @@ class UserController extends Controller
         return $this->onUpdate($this->service->changePassword(auth()->user(), $request->new_password));
     }
 
+    public function setLanguage(Request $request): HttpJsonResponse
+    {
+        return $this->onUpdate($this->service->setLanguage(auth()->user(), $request->language));
+    }
+
     public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse
     {
         return $this->onBoolean($this->service->forgotPassword('hosseinimh@gmail.com'));
@@ -45,6 +51,7 @@ class UserController extends Controller
         if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::USER, 'is_active' => 1])) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
+        $this->service->setLanguage(auth()->user(), $request->language);
 
         return $this->onItem(auth()->user());
     }

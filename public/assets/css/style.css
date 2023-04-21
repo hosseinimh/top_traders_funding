@@ -8990,7 +8990,6 @@ button,
 }
 .app-container {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
   margin: 0;
 }
@@ -23006,6 +23005,7 @@ button.toast-close-button {
   background-size: cover;
   opacity: 0.4;
   z-index: 10;
+  transition: all 0.3s;
 }
 .slick-slider .slider-content {
   position: relative;
@@ -29531,6 +29531,9 @@ span.multiselect-native-select select {
   }
 }
 @media (max-width: 767.98px) {
+  .d-md-none {
+    display: none !important;
+  }
   .app-main .app-main__inner {
     padding: 15px 15px 0;
   }

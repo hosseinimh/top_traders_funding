@@ -8,7 +8,10 @@ import {
     MESSAGE_CODES,
     MESSAGE_TYPES,
 } from "../../../constants";
-import { setLoadingAction } from "../../../state/layout/layoutActions";
+import {
+    setLoadingAction,
+    setSizeAction,
+} from "../../../state/layout/layoutActions";
 import {
     clearMessageAction,
     setMessageAction,
@@ -116,7 +119,10 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
         dispatch(setNavigateAction(navigate));
         dispatch(setDispatchAction(dispatch));
         dispatch(setPageUtilsAction(pageUtils));
-
+        onPageLayoutChanged();
+        window.addEventListener("resize", () => {
+            onPageLayoutChanged();
+        });
         loadModals();
     }, []);
 
@@ -143,37 +149,58 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
         // }
     };
 
+    const onPageLayoutChanged = () => {
+        dispatch(
+            setSizeAction(document.body.clientWidth, document.body.clientHeight)
+        );
+        try {
+            const container = document.querySelector(".app-container");
+
+            if (document.body.clientWidth < 1250) {
+                container.classList.add("closed-sidebar-mobile");
+                container.classList.add("closed-sidebar");
+            } else {
+                container.classList.remove("closed-sidebar-mobile");
+                container.classList.remove("closed-sidebar");
+            }
+        } catch {}
+    };
+
     const onAppContainerClick = (e) => {
         let element = e.target;
         const headerButton = findHeaderButtonClicked(element);
+        try {
+            document.getElementsByClassName("slide-img-bg")[0].style.opacity =
+                "0.4";
+        } catch {}
         switch (headerButton) {
             case HEADER_BUTTONS.SIDEBAR_BTN_LG:
                 closeAllDropDowns();
                 toggleSidebar("sidebar-btn-lg");
-                break;
+                return;
 
             case HEADER_BUTTONS.LANGUANCGE:
                 closeDropDowns([HEADER_BUTTONS.USER]);
                 toggleDropDown(headerButton);
-                break;
+                return;
             case HEADER_BUTTONS.USER:
                 closeDropDowns([HEADER_BUTTONS.LANGUANCGE]);
                 toggleDropDown(headerButton);
-                break;
+                return;
             case HEADER_BUTTONS.SIDEBAR_BTN_SM:
                 closeAllDropDowns();
                 toggleSidebar("sidebar-btn-sm");
-                break;
+                return;
             case HEADER_BUTTONS.MOBILE_DROPDOWN:
                 closeDropDowns([
                     HEADER_BUTTONS.LANGUANCGE,
                     HEADER_BUTTONS.USER,
                 ]);
                 toggleDropDown(headerButton);
-                break;
+                return;
             default:
                 closeAllDropDowns();
-                break;
+                return;
         }
     };
 
@@ -216,10 +243,10 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     };
 
     const closeDropDowns = (dropDowns) => {
-        try {
-            dropDowns.forEach((dropDown) => {
-                let [elementName, poupName] = getDropDown(dropDown);
-                if (elementName) {
+        dropDowns.forEach((dropDown) => {
+            let [elementName, poupName] = getDropDown(dropDown);
+            if (elementName) {
+                try {
                     if (dropDown === HEADER_BUTTONS.MOBILE_DROPDOWN) {
                         const popup =
                             document.getElementsByClassName(poupName)[0];
@@ -235,9 +262,9 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                         popup.removeAttribute("x-placement");
                         popup.style = "";
                     }
-                }
-            });
-        } catch {}
+                } catch {}
+            }
+        });
     };
 
     const closeAllDropDowns = () => {
@@ -280,6 +307,11 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                         popup.style =
                             "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
                     }
+                    try {
+                        document.getElementsByClassName(
+                            "slide-img-bg"
+                        )[0].style.opacity = "0.1";
+                    } catch {}
                 }
             }
         }
@@ -305,10 +337,15 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
             className={`app-container app-theme-white body-tabs-shadow${
                 userState.isAuthenticated ? " fixed-header fixed-sidebar" : ""
             }`}
+            style={{
+                minHeight: userState.isAuthenticated
+                    ? "100vh"
+                    : "calc(100vh - 60px) ",
+            }}
             onClick={(e) => onAppContainerClick(e)}
         >
             <TopLoadingBar />
-            {userState.isAuthenticated && <Header />}
+            <Header />
             {userState.isAuthenticated && (
                 <div className="app-main">
                     <Sidebar />

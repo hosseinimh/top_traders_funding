@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { AlertState } from "../../components";
-import { footer, general } from "../../../constants/strings";
+import { footer } from "../../../constants/strings";
 import BasePageLayout from "./BasePageLayout";
 import { Link } from "react-router-dom";
 import { BASE_PATH } from "../../../constants";
@@ -12,13 +12,19 @@ const LoginPageLayout = ({ children, pageUtils }) => {
 
     return (
         <BasePageLayout authPage={false} pageUtils={pageUtils}>
-            <div className="app-container">
-                <div className="h-100 bg-plum-plate bg-animation">
-                    <div className="d-flex h-100 justify-content-center align-items-center">
+            <div
+                className="app-container"
+                style={{ minHeight: "calc(100vh - 60px)" }}
+            >
+                <div
+                    className="bg-plum-plate bg-animation"
+                    style={{ minHeight: "calc(100vh - 60px)" }}
+                >
+                    <div
+                        className="d-flex justify-content-center align-items-center"
+                        style={{ minHeight: "calc(100vh - 60px)" }}
+                    >
                         <div className="mx-auto app-login-box col-md-8">
-                            <div className="app-logo-inverse mx-auto mb-3">
-                                <span>{general.brandLogo}</span>
-                            </div>
                             <div className="modal-dialog w-100 mx-auto">
                                 <div className="modal-content">
                                     <div className="modal-body">
@@ -64,7 +70,11 @@ const LoginPageLayout = ({ children, pageUtils }) => {
                                                 title={pageUtils.strings.login}
                                                 disabled={layoutState?.loading}
                                             >
-                                                {pageUtils.strings.login}
+                                                {(!layoutState?.width ||
+                                                    layoutState?.width > 395) &&
+                                                    pageUtils.strings.login}
+                                                {layoutState?.width < 395 &&
+                                                    pageUtils.strings.loginSM}
                                             </button>
                                         </div>
                                     </div>

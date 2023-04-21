@@ -11,15 +11,24 @@ const ForgetPageLayout = ({ children, pageUtils }) => {
 
     return (
         <BasePageLayout authPage={false} pageUtils={pageUtils}>
-            <div className="app-container app-theme-white body-tabs-shadow">
-                <div className="app-container">
-                    <div className="h-100">
-                        <div className="h-100 no-gutters row">
-                            <div className="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7">
-                                <div className="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                                    <div className="app-logo">
-                                        <span>{general.brandLogo}</span>
-                                    </div>
+            <div
+                className="app-container app-theme-white body-tabs-shadow"
+                style={{ minHeight: "calc(100vh - 60px)" }}
+            >
+                <div
+                    className="app-container"
+                    style={{ minHeight: "calc(100vh - 60px)" }}
+                >
+                    <div style={{ minHeight: "calc(100vh - 60px)" }}>
+                        <div
+                            className="no-gutters row"
+                            style={{ minHeight: "calc(100vh - 60px)" }}
+                        >
+                            <div
+                                className="d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7"
+                                style={{ minHeight: "calc(100vh - 60px)" }}
+                            >
+                                <div className="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9 mt-4">
                                     <h4>
                                         <div>{pageUtils.strings._title}</div>
                                         <span className="small">
@@ -53,7 +62,7 @@ const ForgetPageLayout = ({ children, pageUtils }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="d-lg-flex d-xs-none col-lg-5">
+                            <div className="d-lg-flex d-md-none col-lg-5">
                                 <div className="slider-light">
                                     <div className="slick-slider slick-initialized">
                                         <div>

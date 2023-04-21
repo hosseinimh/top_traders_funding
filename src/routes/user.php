@@ -24,6 +24,8 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 
 // 'user' | 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
+    Route::post('users/set_language', [UserController::class, 'setLanguage']);
+
     Route::post('app_rules', [AppRuleController::class, 'index']);
     Route::post('app_rules/show/{model}', [AppRuleController::class, 'show']);
 

@@ -5,7 +5,7 @@ namespace App\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method \App\Services\SendMail ForgotPassword(string $email, string $code)
+ * @method static \App\Services\SendMail ForgotPassword(string $email, string $code)
  */
 class SendMail extends Facade
 {

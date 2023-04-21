@@ -19,10 +19,6 @@ function Sidebar() {
         const container = document.querySelector(".scrollbar-sidebar");
         new PerfectScrollbar(container);
         initSidebarMenus();
-        onPageChanged();
-        window.addEventListener("resize", () => {
-            onPageChanged();
-        });
     }, []);
 
     const initSidebarMenus = () => {
@@ -56,20 +52,6 @@ function Sidebar() {
             link.setAttribute("aria-expanded", "false");
             slideUp(link.nextElementSibling);
         });
-    };
-
-    const onPageChanged = () => {
-        try {
-            const container = document.querySelector(".app-container");
-
-            if (document.body.clientWidth < 1250) {
-                container.classList.add("closed-sidebar-mobile");
-                container.classList.add("closed-sidebar");
-            } else {
-                container.classList.remove("closed-sidebar-mobile");
-                container.classList.remove("closed-sidebar");
-            }
-        } catch {}
     };
 
     const onLogout = () => {

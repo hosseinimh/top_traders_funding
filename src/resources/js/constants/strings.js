@@ -105,6 +105,7 @@ export const loginUserPage = {
     forget: "فراموشی کلمه عبور",
     signup: "ثبت نام",
     login: "ورود به داشبورد مدیریت",
+    loginSM: "ورود",
 };
 
 export const forgetPasswordPage = {
@@ -136,6 +137,7 @@ export const signupPage = {
     signup: "ثبت نام",
     haveAccount: "قبلا عضو شده‌اید؟",
     login: "ورود به داشبورد مدیریت",
+    loginSM: "ورود",
 };
 
 export const usersPage = {

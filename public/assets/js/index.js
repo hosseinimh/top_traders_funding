@@ -6594,7 +6594,8 @@ var loginUserPage = {
   passwordPlaceholder: "کلمه عبور",
   forget: "فراموشی کلمه عبور",
   signup: "ثبت نام",
-  login: "ورود به داشبورد مدیریت"
+  login: "ورود به داشبورد مدیریت",
+  loginSM: "ورود"
 };
 var forgetPasswordPage = {
   _title: "فراموشی کلمه عبور",
@@ -6623,7 +6624,8 @@ var signupPage = {
   familyPlaceholder: "نام خانوادگی",
   signup: "ثبت نام",
   haveAccount: "قبلا عضو شده‌اید؟",
-  login: "ورود به داشبورد مدیریت"
+  login: "ورود به داشبورد مدیریت",
+  loginSM: "ورود"
 };
 var usersPage = {
   _title: "کاربران",
@@ -12117,6 +12119,10 @@ var BasePageLayout = function BasePageLayout(_ref) {
     dispatch((0,_state_page_pageActions__WEBPACK_IMPORTED_MODULE_5__.setNavigateAction)(navigate));
     dispatch((0,_state_page_pageActions__WEBPACK_IMPORTED_MODULE_5__.setDispatchAction)(dispatch));
     dispatch((0,_state_page_pageActions__WEBPACK_IMPORTED_MODULE_5__.setPageUtilsAction)(pageUtils));
+    onPageLayoutChanged();
+    window.addEventListener("resize", function () {
+      onPageLayoutChanged();
+    });
     loadModals();
   }, []);
   var loadModals = function loadModals() {
@@ -12143,33 +12149,49 @@ var BasePageLayout = function BasePageLayout(_ref) {
     // }
   };
 
+  var onPageLayoutChanged = function onPageLayoutChanged() {
+    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_3__.setSizeAction)(document.body.clientWidth, document.body.clientHeight));
+    try {
+      var container = document.querySelector(".app-container");
+      if (document.body.clientWidth < 1250) {
+        container.classList.add("closed-sidebar-mobile");
+        container.classList.add("closed-sidebar");
+      } else {
+        container.classList.remove("closed-sidebar-mobile");
+        container.classList.remove("closed-sidebar");
+      }
+    } catch (_unused) {}
+  };
   var onAppContainerClick = function onAppContainerClick(e) {
     var element = e.target;
     var headerButton = findHeaderButtonClicked(element);
+    try {
+      document.getElementsByClassName("slide-img-bg")[0].style.opacity = "0.4";
+    } catch (_unused2) {}
     switch (headerButton) {
       case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_LG:
         closeAllDropDowns();
         toggleSidebar("sidebar-btn-lg");
-        break;
+        return;
       case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE:
         closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER]);
         toggleDropDown(headerButton);
-        break;
+        return;
       case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER:
         closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE]);
         toggleDropDown(headerButton);
-        break;
+        return;
       case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_SM:
         closeAllDropDowns();
         toggleSidebar("sidebar-btn-sm");
-        break;
+        return;
       case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN:
         closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER]);
         toggleDropDown(headerButton);
-        break;
+        return;
       default:
         closeAllDropDowns();
-        break;
+        return;
     }
   };
   var findHeaderButtonClicked = function findHeaderButtonClicked(element) {
@@ -12210,13 +12232,13 @@ var BasePageLayout = function BasePageLayout(_ref) {
     }
   };
   var closeDropDowns = function closeDropDowns(dropDowns) {
-    try {
-      dropDowns.forEach(function (dropDown) {
-        var _getDropDown = getDropDown(dropDown),
-          _getDropDown2 = _slicedToArray(_getDropDown, 2),
-          elementName = _getDropDown2[0],
-          poupName = _getDropDown2[1];
-        if (elementName) {
+    dropDowns.forEach(function (dropDown) {
+      var _getDropDown = getDropDown(dropDown),
+        _getDropDown2 = _slicedToArray(_getDropDown, 2),
+        elementName = _getDropDown2[0],
+        poupName = _getDropDown2[1];
+      if (elementName) {
+        try {
           if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN) {
             var popup = document.getElementsByClassName(poupName)[0];
             popup.classList.remove("header-mobile-open");
@@ -12229,9 +12251,9 @@ var BasePageLayout = function BasePageLayout(_ref) {
             _popup.removeAttribute("x-placement");
             _popup.style = "";
           }
-        }
-      });
-    } catch (_unused) {}
+        } catch (_unused3) {}
+      }
+    });
   };
   var closeAllDropDowns = function closeAllDropDowns() {
     closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN]);
@@ -12269,6 +12291,9 @@ var BasePageLayout = function BasePageLayout(_ref) {
           } else {
             _popup2.style = "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
           }
+          try {
+            document.getElementsByClassName("slide-img-bg")[0].style.opacity = "0.1";
+          } catch (_unused4) {}
         }
       }
     }
@@ -12289,10 +12314,13 @@ var BasePageLayout = function BasePageLayout(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     className: "app-container app-theme-white body-tabs-shadow".concat(userState.isAuthenticated ? " fixed-header fixed-sidebar" : ""),
+    style: {
+      minHeight: userState.isAuthenticated ? "100vh" : "calc(100vh - 60px) "
+    },
     onClick: function onClick(e) {
       return onAppContainerClick(e);
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.TopLoadingBar, {}), userState.isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.Header, {}), userState.isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.TopLoadingBar, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.Header, {}), userState.isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "app-main",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.Sidebar, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "app-main__outer",
@@ -12365,22 +12393,31 @@ var ForgetPageLayout = function ForgetPageLayout(_ref) {
     pageUtils: pageUtils,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "app-container app-theme-white body-tabs-shadow",
+      style: {
+        minHeight: "calc(100vh - 60px)"
+      },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "app-container",
+        style: {
+          minHeight: "calc(100vh - 60px)"
+        },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "h-100",
+          style: {
+            minHeight: "calc(100vh - 60px)"
+          },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "h-100 no-gutters row",
+            className: "no-gutters row",
+            style: {
+              minHeight: "calc(100vh - 60px)"
+            },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7",
+              className: "d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7",
+              style: {
+                minHeight: "calc(100vh - 60px)"
+              },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                className: "mx-auto app-login-box col-sm-12 col-md-10 col-lg-9",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  className: "app-logo",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                    children: _constants_strings__WEBPACK_IMPORTED_MODULE_4__.general.brandLogo
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
+                className: "mx-auto app-login-box col-sm-12 col-md-10 col-lg-9 mt-4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                     children: pageUtils.strings._title
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
@@ -12413,7 +12450,7 @@ var ForgetPageLayout = function ForgetPageLayout(_ref) {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "d-lg-flex d-xs-none col-lg-5",
+              className: "d-lg-flex d-md-none col-lg-5",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "slider-light",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
@@ -12528,18 +12565,22 @@ var LoginPageLayout = function LoginPageLayout(_ref) {
     pageUtils: pageUtils,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "app-container",
+      style: {
+        minHeight: "calc(100vh - 60px)"
+      },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "h-100 bg-plum-plate bg-animation",
+        className: "bg-plum-plate bg-animation",
+        style: {
+          minHeight: "calc(100vh - 60px)"
+        },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "d-flex h-100 justify-content-center align-items-center",
+          className: "d-flex justify-content-center align-items-center",
+          style: {
+            minHeight: "calc(100vh - 60px)"
+          },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
             className: "mx-auto app-login-box col-md-8",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              className: "app-logo-inverse mx-auto mb-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.brandLogo
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
               className: "modal-dialog w-100 mx-auto",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 className: "modal-content",
@@ -12576,13 +12617,13 @@ var LoginPageLayout = function LoginPageLayout(_ref) {
                     })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                     className: "mx-3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
                       className: "btn btn-primary btn-lg",
                       onClick: pageUtils.useForm.handleSubmit(pageUtils.onSubmit),
                       type: "button",
                       title: pageUtils.strings.login,
                       disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
-                      children: pageUtils.strings.login
+                      children: [(!(layoutState !== null && layoutState !== void 0 && layoutState.width) || (layoutState === null || layoutState === void 0 ? void 0 : layoutState.width) > 395) && pageUtils.strings.login, (layoutState === null || layoutState === void 0 ? void 0 : layoutState.width) < 395 && pageUtils.strings.loginSM]
                     })
                   })]
                 })]
@@ -12653,10 +12694,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _BasePageLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BasePageLayout */ "./resources/js/resources/components/Layout/BasePageLayout.jsx");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants */ "./resources/js/constants/index.js");
-/* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -12670,44 +12709,53 @@ var SignupPageLayout = function SignupPageLayout(_ref) {
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_BasePageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_BasePageLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
     authPage: false,
     pageUtils: pageUtils,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "app-container app-theme-white body-tabs-shadow",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      style: {
+        height: "calc(100vh - 60px)"
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "app-container",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "h-100",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "h-100 no-gutters row",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                className: "mx-auto app-login-box col-sm-12 col-md-10 col-lg-9",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  className: "app-logo",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                    children: _constants_strings__WEBPACK_IMPORTED_MODULE_4__.general.brandLogo
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        style: {
+          minHeight: "calc(100vh - 60px)"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          style: {
+            minHeight: "calc(100vh - 60px)"
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "no-gutters row",
+            style: {
+              minHeight: "calc(100vh - 60px)"
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7",
+              style: {
+                minHeight: "calc(100vh - 60px)"
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                className: "mx-auto app-login-box col-sm-12 col-md-10 col-lg-9 mt-4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                     children: pageUtils.strings.welcome
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
                     className: "small",
-                    children: [pageUtils.strings.description1, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    children: [pageUtils.strings.description1, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                       className: "text-success",
                       children: pageUtils.strings.description2
                     }), " ", pageUtils.strings.description3]
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "row",
                   children: children
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "mt-4 d-flex align-items-center",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                     className: "mr-auto",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                       className: "btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg",
                       onClick: pageUtils.useForm.handleSubmit(pageUtils.onSubmit),
                       type: "button",
@@ -12715,36 +12763,36 @@ var SignupPageLayout = function SignupPageLayout(_ref) {
                       disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
                       children: pageUtils.strings.signup
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h6", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h6", {
                     className: "mb-0 small",
-                    children: [pageUtils.strings.haveAccount, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+                    children: [pageUtils.strings.haveAccount, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
                       to: "".concat(_constants__WEBPACK_IMPORTED_MODULE_3__.BASE_PATH, "/users/login"),
                       className: "text-primary",
-                      children: pageUtils.strings.login
+                      children: [(!(layoutState !== null && layoutState !== void 0 && layoutState.width) || (layoutState === null || layoutState === void 0 ? void 0 : layoutState.width) > 395) && pageUtils.strings.login, (layoutState === null || layoutState === void 0 ? void 0 : layoutState.width) < 395 && pageUtils.strings.loginSM]
                     })]
                   })]
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "d-lg-flex d-xs-none col-lg-5",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: "d-lg-flex d-md-none col-lg-5",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "slider-light",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "slick-slider slick-initialized",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                       className: "position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark",
                       tabIndex: "-1",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                         className: "slide-img-bg",
                         style: {
                           backgroundImage: 'url("/assets/images/menu-bg1.jpg")'
                         }
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                         className: "slider-content",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
                           children: "Scalable, Modular, Consistent"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                           children: "Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components"
                         })]
                       })]
@@ -13316,11 +13364,6 @@ var Header = function Header() {
   var onChanePassword = function onChanePassword() {
     navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/change_password"));
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!userState.isAuthenticated) {
-      navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/login"));
-    }
-  }, [userState]);
   var renderLanguageDropdown = function renderLanguageDropdown() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "dropdown",
@@ -13604,7 +13647,7 @@ var Header = function Header() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "header__pane mr-auto",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+          children: (userState === null || userState === void 0 ? void 0 : userState.user) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
             type: "button",
             className: "hamburger close-sidebar-btn hamburger--elastic sidebar-btn-lg",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -13619,7 +13662,7 @@ var Header = function Header() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "app-header__mobile-menu",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        children: (userState === null || userState === void 0 ? void 0 : userState.user) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           type: "button",
           className: "hamburger hamburger--elastic mobile-toggle-nav sidebar-btn-sm",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -13651,7 +13694,7 @@ var Header = function Header() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "header-dots",
           children: renderLanguageDropdown()
-        }), renderUserLgDropdown()]
+        }), (userState === null || userState === void 0 ? void 0 : userState.user) && renderUserLgDropdown()]
       })
     })]
   });
@@ -13793,10 +13836,6 @@ function Sidebar() {
     var container = document.querySelector(".scrollbar-sidebar");
     new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__["default"](container);
     initSidebarMenus();
-    onPageChanged();
-    window.addEventListener("resize", function () {
-      onPageChanged();
-    });
   }, []);
   var initSidebarMenus = function initSidebarMenus() {
     var links = _toConsumableArray(document.querySelectorAll(".menu-container"));
@@ -13829,18 +13868,6 @@ function Sidebar() {
       link.setAttribute("aria-expanded", "false");
       (0,es6_slide_up_down__WEBPACK_IMPORTED_MODULE_3__.slideUp)(link.nextElementSibling);
     });
-  };
-  var onPageChanged = function onPageChanged() {
-    try {
-      var container = document.querySelector(".app-container");
-      if (document.body.clientWidth < 1250) {
-        container.classList.add("closed-sidebar-mobile");
-        container.classList.add("closed-sidebar");
-      } else {
-        container.classList.remove("closed-sidebar-mobile");
-        container.classList.remove("closed-sidebar");
-      }
-    } catch (_unused) {}
   };
   var onLogout = function onLogout() {
     dispatch((0,_state_user_userActions__WEBPACK_IMPORTED_MODULE_7__.fetchLogoutAction)());
@@ -15083,13 +15110,16 @@ var handleError = function handleError(data, dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_LOADING_ACTION": () => (/* binding */ SET_LOADING_ACTION),
-/* harmony export */   "setLoadingAction": () => (/* binding */ setLoadingAction)
+/* harmony export */   "SET_SIZE_ACTION": () => (/* binding */ SET_SIZE_ACTION),
+/* harmony export */   "setLoadingAction": () => (/* binding */ setLoadingAction),
+/* harmony export */   "setSizeAction": () => (/* binding */ setSizeAction)
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var SET_LOADING_ACTION = "SET_LOADING_ACTION";
+var SET_SIZE_ACTION = "SET_SIZE_ACTION";
 var setLoadingAction = function setLoadingAction(loading) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -15108,6 +15138,30 @@ var setLoadingAction = function setLoadingAction(loading) {
     }));
     return function (_x) {
       return _ref.apply(this, arguments);
+    };
+  }();
+};
+var setSizeAction = function setSizeAction(width, height) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            dispatch({
+              type: SET_SIZE_ACTION,
+              payload: {
+                width: width,
+                height: height
+              }
+            });
+          case 1:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }));
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
@@ -15134,7 +15188,9 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 var initialState = {
-  loading: false
+  loading: false,
+  width: 0,
+  height: 0
 };
 var layoutReducer = function layoutReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -15145,6 +15201,11 @@ var layoutReducer = function layoutReducer() {
     case _layoutActions__WEBPACK_IMPORTED_MODULE_0__.SET_LOADING_ACTION:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: payload
+      });
+    case _layoutActions__WEBPACK_IMPORTED_MODULE_0__.SET_SIZE_ACTION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        width: payload.width,
+        height: payload.height
       });
     default:
       return state;

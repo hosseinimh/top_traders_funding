@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\Language;
 use App\Constants\Role;
 use App\Constants\Status;
 use App\Facades\Helper;
@@ -67,6 +68,19 @@ class UserService
         $password = Hash::make($password);
 
         return DB::statement("UPDATE `tbl_users` SET `password`='$password' WHERE `id`=$user->id");
+    }
+
+    public function setLanguage(Model $model, string $language): bool
+    {
+        $languages = [Language::EN, Language::FA];
+        if (!in_array($language, $languages)) {
+            return false;
+        }
+
+        $data = [
+            'language' => $language
+        ];
+        return $model->update($data);
     }
 
     public function forgotPassword(string $email): mixed

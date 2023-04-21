@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('tbl_sent_emails', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 200);
-            $table->unsignedTinyInteger('is_active')->default(0);
+            $table->string('from', 50);
+            $table->string('to', 50);
+            $table->text('body');
             $table->timestamps();
             $table->softDeletes();
         });

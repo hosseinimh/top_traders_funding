@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -50,12 +50,6 @@ const Header = () => {
     const onChanePassword = () => {
         navigate(`${BASE_PATH}/users/change_password`);
     };
-
-    useEffect(() => {
-        if (!userState.isAuthenticated) {
-            navigate(`${BASE_PATH}/users/login`);
-        }
-    }, [userState]);
 
     const renderLanguageDropdown = () => {
         return (
@@ -333,29 +327,34 @@ const Header = () => {
                 <div className="logo-src">
                     <span>{general.brandLogo}</span>
                 </div>
+
                 <div className="header__pane mr-auto">
                     <div>
-                        <button
-                            type="button"
-                            className="hamburger close-sidebar-btn hamburger--elastic sidebar-btn-lg"
-                        >
-                            <span className="hamburger-box">
-                                <span className="hamburger-inner"></span>
-                            </span>
-                        </button>
+                        {userState?.user && (
+                            <button
+                                type="button"
+                                className="hamburger close-sidebar-btn hamburger--elastic sidebar-btn-lg"
+                            >
+                                <span className="hamburger-box">
+                                    <span className="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
             <div className="app-header__mobile-menu">
                 <div>
-                    <button
-                        type="button"
-                        className="hamburger hamburger--elastic mobile-toggle-nav sidebar-btn-sm"
-                    >
-                        <span className="hamburger-box">
-                            <span className="hamburger-inner"></span>
-                        </span>
-                    </button>
+                    {userState?.user && (
+                        <button
+                            type="button"
+                            className="hamburger hamburger--elastic mobile-toggle-nav sidebar-btn-sm"
+                        >
+                            <span className="hamburger-box">
+                                <span className="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="app-header__menu">
@@ -375,7 +374,7 @@ const Header = () => {
                     <div className="header-dots">
                         {renderLanguageDropdown()}
                     </div>
-                    {renderUserLgDropdown()}
+                    {userState?.user && renderUserLgDropdown()}
                 </div>
             </div>
         </div>
