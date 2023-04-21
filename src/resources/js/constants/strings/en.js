@@ -60,6 +60,9 @@ export const validation = {
 };
 
 export const header = {
+    chooseLanguage: "انتخاب زبان",
+    us: "English",
+    fa: "فارسی",
     tools: "امکانات",
     changePassword: "تغییر کلمه عبور",
     editProfile: "ویرایش پروفایل",
@@ -89,7 +92,7 @@ export const sidebar = {
 };
 
 export const dashboardPage = {
-    _title: "داشبورد",
+    _title: "Dashboard",
     _subTitle: "سامانه در یک نگاه",
     users: "کاربران",
 };
@@ -141,10 +144,10 @@ export const signupPage = {
 };
 
 export const usersPage = {
-    _title: "کاربران",
+    _title: "Users",
     _subTitle: "فهرست کاربران سامانه",
-    username: "نام کاربری",
-    usernamePlaceholder: "نام کاربری",
+    username: "Username",
+    usernamePlaceholder: "Username",
     nameFamily: "نام / نام خانوادگی",
     nameFamilyPlaceholder: "نام / نام خانوادگی",
     role: "نوع کاربری",
@@ -214,10 +217,10 @@ export const appRulesPage = {
 export const addAppRulePage = {
     _title: "افزودن قانون",
     _subTitle: "قانون جدید را وارد نمایید.",
-    title: "عنوان",
-    titlePlaceholder: "عنوان",
-    body: "متن",
-    bodyPlaceholder: "متن",
+    title: "title",
+    titlePlaceholder: "title",
+    body: "body",
+    bodyPlaceholder: "body",
     submitted: "افزودن قانون با موفقیت انجام گردید.",
 };
 

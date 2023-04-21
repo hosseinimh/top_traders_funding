@@ -6,14 +6,15 @@ import { clearMessageAction } from "../../../../state/message/messageActions";
 import { fetchLoginAction } from "../../../../state/user/userActions";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { loginUserPage as strings } from "../../../../constants/strings";
 import { loginUserSchema as schema } from "../../../validations";
+import { useLanguage } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
+        const { loginUserPage: strings } = useLanguage();
         super("Users", strings, form);
         this.onSubmit = this.onSubmit.bind(this);
     }

@@ -7,18 +7,19 @@ import {
     setPagePropsAction,
     setPageTitleAction,
 } from "../../../../state/page/pageActions";
-import { changePasswordUserPage as strings } from "../../../../constants/strings";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH, USER_ROLES } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { changePasswordUserSchema as schema } from "../../../validations";
+import { useLanguage } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
+        const { changePasswordUserPage: strings } = useLanguage();
         super("ChangePasswordUser", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

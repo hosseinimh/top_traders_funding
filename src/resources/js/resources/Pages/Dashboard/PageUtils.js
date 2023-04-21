@@ -1,14 +1,15 @@
+import { useLanguage } from "../../../hooks";
 import { Dashboard as Entity } from "../../../http/entities";
 import { setLoadingAction } from "../../../state/layout/layoutActions";
 import {
     setPageIconAction,
     setPagePropsAction,
 } from "../../../state/page/pageActions";
-import { dashboardPage as strings } from "../../../constants/strings";
 import { BasePageUtils } from "../../../utils/BasePageUtils";
 
 export class PageUtils extends BasePageUtils {
     constructor(useForm) {
+        const { dashboardPage: strings } = useLanguage();
         super("Dashboard", strings, useForm);
         this.entity = new Entity();
         this.initialPageProps = {

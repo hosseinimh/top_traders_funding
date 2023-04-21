@@ -1,18 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import {
-    appRulesPage as strings,
-    general,
-} from "../../../../constants/strings";
 import { ListPage, TableItems } from "../../../components";
 import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
+import { useLanguage } from "../../../../hooks";
 
 const AppRulesAdmin = () => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
     const columnsCount = 3;
+    const { appRulesPage: strings, general } = useLanguage();
     const pageUtils = new PageUtils();
 
     const renderHeader = () => (

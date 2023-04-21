@@ -7,17 +7,18 @@ import {
     setPagePropsAction,
     setPageTitleAction,
 } from "../../../../state/page/pageActions";
-import { editAppRulePage as strings } from "../../../../constants/strings";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { editAppRuleSchema as schema } from "../../../validations";
+import { useLanguage } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
+        const { editAppRulePage: strings } = useLanguage();
         super("AppRules", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

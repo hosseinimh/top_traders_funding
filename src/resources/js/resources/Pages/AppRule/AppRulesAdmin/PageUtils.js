@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
 
 import { AppRule as Entity } from "../../../../http/entities";
-import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { setPageIconAction } from "../../../../state/page/pageActions";
-import { appRulesPage as strings } from "../../../../constants/strings";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import utils from "../../../../utils/Utils";
+import { useLanguage } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm();
+        const { appRulesPage: strings } = useLanguage();
         super("AppRules", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

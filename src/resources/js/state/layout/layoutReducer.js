@@ -1,9 +1,11 @@
+import { LANGUAGES } from "../../constants";
 import * as actions from "./layoutActions";
 
 const initialState = {
     loading: false,
     width: 0,
     height: 0,
+    language: LANGUAGES.FA,
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {
@@ -18,6 +20,11 @@ const layoutReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 width: payload.width,
                 height: payload.height,
+            };
+        case actions.SET_LANGUAGE_ACTION:
+            return {
+                ...state,
+                language: payload,
             };
         default:
             return state;

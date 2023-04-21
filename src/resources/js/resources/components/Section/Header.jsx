@@ -2,17 +2,27 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { BASE_PATH, USER_ROLES, ASSETS_PATH } from "../../../constants";
+import {
+    BASE_PATH,
+    USER_ROLES,
+    ASSETS_PATH,
+    LANGUAGES,
+} from "../../../constants";
 import { header as strings, general } from "../../../constants/strings";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import CustomLink from "../Link/CustomLink";
+import { setLanguageAction } from "../../../state/layout/layoutActions";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userState = useSelector((state) => state.userReducer);
     const authUser = utils.getLSUser();
+
+    const changeLanguage = (language) => {
+        dispatch(setLanguageAction(language));
+    };
 
     const userTitle = () => {
         let title =
@@ -81,8 +91,7 @@ const Header = () => {
                             ></div>
                             <div className="menu-header-content text-center text-white">
                                 <h6 className="menu-header-subtitle mt-0">
-                                    {" "}
-                                    Choose Language
+                                    {strings.chooseLanguage}
                                 </h6>
                             </div>
                         </div>
@@ -91,9 +100,19 @@ const Header = () => {
                         type="button"
                         tabIndex="0"
                         className="dropdown-item"
+                        onClick={() => changeLanguage(LANGUAGES.EN)}
                     >
                         <span className="ml-3 opacity-8 flag large US"></span>{" "}
-                        USA
+                        {strings.us}
+                    </button>
+                    <button
+                        type="button"
+                        tabIndex="0"
+                        className="dropdown-item"
+                        onClick={() => changeLanguage(LANGUAGES.FA)}
+                    >
+                        <span className="ml-3 opacity-8 flag large IR"></span>{" "}
+                        {strings.fa}
                     </button>
                 </div>
             </div>

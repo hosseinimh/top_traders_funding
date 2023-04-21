@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { usersPage as strings, general } from "../../../../constants/strings";
 import {
     InputTextColumn,
     ListPage,
@@ -12,12 +11,14 @@ import {
 import utils from "../../../../utils/Utils";
 import { USER_ROLES } from "../../../../constants";
 import { PageUtils } from "./PageUtils";
+import { useLanguage } from "../../../../hooks";
 
 const Users = () => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
     const userState = useSelector((state) => state.userReducer);
     const columnsCount = 5;
+    const { usersPage: strings, general } = useLanguage();
     const pageUtils = new PageUtils();
 
     const renderSearch = () => (

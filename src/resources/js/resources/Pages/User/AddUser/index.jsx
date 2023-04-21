@@ -6,10 +6,11 @@ import {
     FormPage,
     InputCheckboxColumn,
 } from "../../../components";
-import { addUserPage as strings } from "../../../../constants/strings";
 import { PageUtils } from "./PageUtils";
+import { useLanguage } from "../../../../hooks";
 
 const AddUser = () => {
+    const { addUserPage: strings } = useLanguage();
     const pageUtils = new PageUtils();
 
     return (

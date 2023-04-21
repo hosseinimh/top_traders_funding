@@ -5,10 +5,11 @@ import {
     FormPage,
     InputCheckboxColumn,
 } from "../../../components";
-import { editCampaignPage as strings } from "../../../../constants/strings";
 import { PageUtils } from "./PageUtils";
+import { useLanguage } from "../../../../hooks";
 
 const EditCampaign = () => {
+    const { editCampaignPage: strings } = useLanguage();
     const pageUtils = new PageUtils();
 
     return (

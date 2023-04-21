@@ -7,11 +7,12 @@ import {
     FormPage,
     InputCheckboxColumn,
 } from "../../../components";
-import { editUserPage as strings } from "../../../../constants/strings";
 import { PageUtils } from "./PageUtils";
 import { USER_ROLES } from "../../../../constants";
+import { useLanguage } from "../../../../hooks";
 
 const EditUser = () => {
+    const { editUserPage: strings } = useLanguage();
     const pageUtils = new PageUtils();
     const userState = useSelector((state) => state.userReducer);
 

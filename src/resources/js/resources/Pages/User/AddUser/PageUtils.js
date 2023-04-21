@@ -3,16 +3,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { User as Entity } from "../../../../http/entities";
 import { setPageIconAction } from "../../../../state/page/pageActions";
-import { addUserPage as strings } from "../../../../constants/strings";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH, USER_ROLES } from "../../../../constants";
 import { addUserSchema as schema } from "../../../validations";
+import { useLanguage } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
+        const { addUserPage: strings } = useLanguage();
         super("Users", strings, form);
         this.entity = new Entity();
         this.callbackUrl = `${BASE_PATH}/users`;

@@ -35,6 +35,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     const navigate = useNavigate();
     const params = useParams();
     const [pageLoaded, setPageLoaded] = useState(false);
+    const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
     const messageState = useSelector((state) => state.messageReducer);
     const userState = useSelector((state) => state.userReducer);
@@ -94,6 +95,16 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
             pageUtils.onAction(pageState?.props);
         }
     }, [pageState?.props?.action]);
+
+    useEffect(() => {
+        dispatch(setPageUtilsAction(pageUtils));
+        dispatch(
+            setPageTitleAction(
+                pageUtils.strings._title,
+                pageUtils.strings._subTitle
+            )
+        );
+    }, [layoutState?.language]);
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0);
@@ -172,6 +183,8 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
         try {
             document.getElementsByClassName("slide-img-bg")[0].style.opacity =
                 "0.4";
+            document.getElementsByClassName("slider-light")[0].style.zIndex =
+                "inherit";
         } catch {}
         switch (headerButton) {
             case HEADER_BUTTONS.SIDEBAR_BTN_LG:
@@ -311,6 +324,9 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                         document.getElementsByClassName(
                             "slide-img-bg"
                         )[0].style.opacity = "0.1";
+                        document.getElementsByClassName(
+                            "slider-light"
+                        )[0].style.zIndex = "0";
                     } catch {}
                 }
             }
