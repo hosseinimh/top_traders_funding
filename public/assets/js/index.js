@@ -6362,6 +6362,27 @@ var UPLOADED_FILE = {
 
 /***/ }),
 
+/***/ "./resources/js/constants/headerButtons.js":
+/*!*************************************************!*\
+  !*** ./resources/js/constants/headerButtons.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "HEADER_BUTTONS": () => (/* binding */ HEADER_BUTTONS)
+/* harmony export */ });
+var HEADER_BUTTONS = {
+  SIDEBAR_BTN_LG: "SIDEBAR_BTN_LG",
+  SIDEBAR_BTN_SM: "SIDEBAR_BTN_SM",
+  USER: "USER",
+  LANGUANCGE: "LANGUANCGE",
+  MOBILE_DROPDOWN: "MOBILE_DROPDOWN"
+};
+
+/***/ }),
+
 /***/ "./resources/js/constants/index.js":
 /*!*****************************************!*\
   !*** ./resources/js/constants/index.js ***!
@@ -6371,22 +6392,25 @@ var UPLOADED_FILE = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ASSETS_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_5__.ASSETS_PATH),
-/* harmony export */   "BASE_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_5__.BASE_PATH),
+/* harmony export */   "ASSETS_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_6__.ASSETS_PATH),
+/* harmony export */   "BASE_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_6__.BASE_PATH),
 /* harmony export */   "BASE_URL": () => (/* binding */ BASE_URL),
-/* harmony export */   "IMAGES_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_5__.IMAGES_PATH),
-/* harmony export */   "MESSAGE_CODES": () => (/* reexport safe */ _messageCodes__WEBPACK_IMPORTED_MODULE_2__.MESSAGE_CODES),
-/* harmony export */   "MESSAGE_TYPES": () => (/* reexport safe */ _messageTypes__WEBPACK_IMPORTED_MODULE_1__.MESSAGE_TYPES),
-/* harmony export */   "PAGE_ITEMS": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_5__.PAGE_ITEMS),
-/* harmony export */   "UPLOADED_FILE": () => (/* reexport safe */ _UploadedFile__WEBPACK_IMPORTED_MODULE_3__.UPLOADED_FILE),
-/* harmony export */   "USER_ROLES": () => (/* reexport safe */ _userRoles__WEBPACK_IMPORTED_MODULE_4__.USER_ROLES)
+/* harmony export */   "HEADER_BUTTONS": () => (/* reexport safe */ _headerButtons__WEBPACK_IMPORTED_MODULE_1__.HEADER_BUTTONS),
+/* harmony export */   "IMAGES_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_6__.IMAGES_PATH),
+/* harmony export */   "MESSAGE_CODES": () => (/* reexport safe */ _messageCodes__WEBPACK_IMPORTED_MODULE_3__.MESSAGE_CODES),
+/* harmony export */   "MESSAGE_TYPES": () => (/* reexport safe */ _messageTypes__WEBPACK_IMPORTED_MODULE_2__.MESSAGE_TYPES),
+/* harmony export */   "PAGE_ITEMS": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_6__.PAGE_ITEMS),
+/* harmony export */   "UPLOADED_FILE": () => (/* reexport safe */ _UploadedFile__WEBPACK_IMPORTED_MODULE_4__.UPLOADED_FILE),
+/* harmony export */   "USER_ROLES": () => (/* reexport safe */ _userRoles__WEBPACK_IMPORTED_MODULE_5__.USER_ROLES)
 /* harmony export */ });
 /* harmony import */ var _server_config_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../server-config.json */ "./server-config.json");
-/* harmony import */ var _messageTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./messageTypes */ "./resources/js/constants/messageTypes.js");
-/* harmony import */ var _messageCodes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messageCodes */ "./resources/js/constants/messageCodes.js");
-/* harmony import */ var _UploadedFile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UploadedFile */ "./resources/js/constants/UploadedFile.js");
-/* harmony import */ var _userRoles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./userRoles */ "./resources/js/constants/userRoles.js");
-/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme */ "./resources/js/constants/theme.js");
+/* harmony import */ var _headerButtons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./headerButtons */ "./resources/js/constants/headerButtons.js");
+/* harmony import */ var _messageTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messageTypes */ "./resources/js/constants/messageTypes.js");
+/* harmony import */ var _messageCodes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messageCodes */ "./resources/js/constants/messageCodes.js");
+/* harmony import */ var _UploadedFile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UploadedFile */ "./resources/js/constants/UploadedFile.js");
+/* harmony import */ var _userRoles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./userRoles */ "./resources/js/constants/userRoles.js");
+/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme */ "./resources/js/constants/theme.js");
+
 
 
 
@@ -6530,6 +6554,7 @@ var validation = {
   emailMessage: "پست الکترونیک نامعتبر است."
 };
 var header = {
+  tools: "امکانات",
   changePassword: "تغییر کلمه عبور",
   editProfile: "ویرایش پروفایل",
   logout: "خروج"
@@ -10564,7 +10589,6 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     });
     _this = _super.call(this, "Users", _constants_strings__WEBPACK_IMPORTED_MODULE_4__.usersPage, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.User();
-    _this.entity.forgotPassword("hosseinimh@gmail.com");
     _this.initialPageProps = {
       pageNumber: 1,
       itemsCount: 0,
@@ -12241,21 +12265,147 @@ var BasePageLayout = function BasePageLayout(_ref) {
   };
 
   var onAppContainerClick = function onAppContainerClick(e) {
-    var clickedOnWidget = false;
     var element = e.target;
-    if (document.body.clientWidth >= 992) {
-      while (element.parentNode) {
-        var _element$parentNode$c;
-        if ((_element$parentNode$c = element.parentNode.classList) !== null && _element$parentNode$c !== void 0 && _element$parentNode$c.contains("widget-content")) {
-          clickedOnWidget = true;
-          break;
-        }
-        element = element.parentNode;
+    var headerButton = findHeaderButtonClicked(element);
+    console.log(headerButton);
+    switch (headerButton) {
+      case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_LG:
+        closeAllDropDowns();
+        toggleSidebar("sidebar-btn-lg");
+        break;
+      case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE:
+        closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER]);
+        toggleDropDown(headerButton);
+        break;
+      case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER:
+        closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE]);
+        toggleDropDown(headerButton);
+        break;
+      case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_SM:
+        closeAllDropDowns();
+        toggleSidebar("sidebar-btn-sm");
+        break;
+      case _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN:
+        closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER]);
+        toggleDropDown(headerButton);
+        break;
+      default:
+        closeAllDropDowns();
+        break;
+    }
+  };
+  var findHeaderButtonClicked = function findHeaderButtonClicked(element) {
+    do {
+      var _element$classList, _element$classList2, _element$classList3, _element$classList4, _element$classList5;
+      if ((_element$classList = element.classList) !== null && _element$classList !== void 0 && _element$classList.contains("sidebar-btn-lg")) {
+        return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_LG;
+      } else if ((_element$classList2 = element.classList) !== null && _element$classList2 !== void 0 && _element$classList2.contains("language-dropdown")) {
+        return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE;
+      } else if ((_element$classList3 = element.classList) !== null && _element$classList3 !== void 0 && _element$classList3.contains("user-dropdown")) {
+        return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER;
+      } else if ((_element$classList4 = element.classList) !== null && _element$classList4 !== void 0 && _element$classList4.contains("sidebar-btn-sm")) {
+        return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_SM;
+      } else if ((_element$classList5 = element.classList) !== null && _element$classList5 !== void 0 && _element$classList5.contains("mobile-dropdown")) {
+        return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN;
       }
-      if (!clickedOnWidget) {
-        dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_3__.closeDropDownAction)(["widget-content"]));
+      element = element.parentNode;
+    } while (element);
+    return null;
+  };
+  var toggleSidebar = function toggleSidebar(className) {
+    var element = document.querySelector(".".concat(className));
+    var container = document.querySelector(".app-container");
+    if (element.classList.contains("is-active")) {
+      element.classList.remove("is-active");
+      if (document.body.clientWidth < 1250) {
+        container.classList.remove("sidebar-mobile-open");
+      } else {
+        container.classList.remove("closed-sidebar");
+      }
+    } else {
+      element.classList.add("is-active");
+      if (document.body.clientWidth < 1250) {
+        container.classList.add("sidebar-mobile-open");
+      } else {
+        container.classList.add("closed-sidebar");
       }
     }
+  };
+  var closeDropDowns = function closeDropDowns(dropDowns) {
+    dropDowns.forEach(function (dropDown) {
+      var _getDropDown = getDropDown(dropDown),
+        _getDropDown2 = _slicedToArray(_getDropDown, 2),
+        elementName = _getDropDown2[0],
+        poupName = _getDropDown2[1];
+      if (elementName) {
+        if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN) {
+          var popup = document.getElementsByClassName(poupName)[0];
+          popup.classList.remove("header-mobile-open");
+        } else {
+          var element = document.getElementsByClassName(elementName)[0];
+          var btnGroup = element.parentElement;
+          var _popup = document.getElementsByClassName(poupName)[0];
+          btnGroup.classList.remove("show");
+          _popup.classList.remove("show");
+          _popup.removeAttribute("x-placement");
+          _popup.style = "";
+        }
+      }
+    });
+  };
+  var closeAllDropDowns = function closeAllDropDowns() {
+    closeDropDowns([_constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER, _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN]);
+  };
+  var toggleDropDown = function toggleDropDown(dropDown) {
+    var _getDropDown3 = getDropDown(dropDown),
+      _getDropDown4 = _slicedToArray(_getDropDown3, 2),
+      elementName = _getDropDown4[0],
+      poupName = _getDropDown4[1];
+    if (elementName) {
+      if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN) {
+        var popup = document.getElementsByClassName(poupName)[0];
+        if (popup.classList.contains("header-mobile-open")) {
+          popup.classList.remove("header-mobile-open");
+        } else {
+          popup.classList.add("header-mobile-open");
+        }
+      } else {
+        var element = document.getElementsByClassName(elementName)[0];
+        var btnGroup = element.parentElement;
+        var _popup2 = document.getElementsByClassName(poupName)[0];
+        if (btnGroup.classList.contains("show")) {
+          btnGroup.classList.remove("show");
+          element.setAttribute("aria-expanded", "false");
+          _popup2.classList.remove("show");
+          _popup2.removeAttribute("x-placement");
+          _popup2.style = "";
+        } else {
+          btnGroup.classList.add("show");
+          element.setAttribute("aria-expanded", "false");
+          _popup2.classList.add("show");
+          _popup2.setAttribute("x-placement", "bottom-start");
+          if (document.body.clientWidth < 992) {
+            _popup2.style = "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 2rem; left: 0px; will-change: transform;";
+          } else {
+            _popup2.style = "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
+          }
+        }
+      }
+    }
+  };
+  var getDropDown = function getDropDown(dropDown) {
+    var elementName, poupName;
+    if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE) {
+      elementName = "language-dropdown";
+      poupName = "language-popup";
+    } else if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER) {
+      elementName = "user-dropdown";
+      poupName = "user-popup";
+    } else if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.MOBILE_DROPDOWN) {
+      elementName = "mobile-dropdown";
+      poupName = "app-header__content";
+    }
+    return [elementName, poupName];
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
     className: "app-container app-theme-white body-tabs-shadow".concat(userState.isAuthenticated ? " fixed-header fixed-sidebar" : ""),
@@ -13236,14 +13386,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../constants */ "./resources/js/constants/index.js");
 /* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
-/* harmony import */ var _state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../state/layout/layoutActions */ "./resources/js/state/layout/layoutActions.js");
-/* harmony import */ var _state_user_userActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../state/user/userActions */ "./resources/js/state/user/userActions.js");
-/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../utils/Utils */ "./resources/js/utils/Utils.js");
-/* harmony import */ var _Link_CustomLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Link/CustomLink */ "./resources/js/resources/components/Link/CustomLink.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _state_user_userActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../state/user/userActions */ "./resources/js/state/user/userActions.js");
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/Utils */ "./resources/js/utils/Utils.js");
+/* harmony import */ var _Link_CustomLink__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Link/CustomLink */ "./resources/js/resources/components/Link/CustomLink.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -13257,21 +13406,29 @@ __webpack_require__.r(__webpack_exports__);
 
 var Header = function Header() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
-  var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.layoutReducer;
-  });
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   var userState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.userReducer;
   });
-  var authUser = _utils_Utils__WEBPACK_IMPORTED_MODULE_6__["default"].getLSUser();
+  var authUser = _utils_Utils__WEBPACK_IMPORTED_MODULE_5__["default"].getLSUser();
   var userTitle = function userTitle() {
     var title = (authUser === null || authUser === void 0 ? void 0 : authUser.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.ADMINISTRATOR ? _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.administrator : _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.user;
     title += ": [ ".concat(authUser === null || authUser === void 0 ? void 0 : authUser.username, " ]");
     return title;
   };
+  var widgetUserTitle = function widgetUserTitle() {
+    var title = (authUser === null || authUser === void 0 ? void 0 : authUser.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.ADMINISTRATOR ? _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.administrator : _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.user;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+        className: "mb-0",
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+        children: authUser === null || authUser === void 0 ? void 0 : authUser.username
+      })]
+    });
+  };
   var onLogout = function onLogout() {
-    dispatch((0,_state_user_userActions__WEBPACK_IMPORTED_MODULE_5__.fetchLogoutAction)());
+    dispatch((0,_state_user_userActions__WEBPACK_IMPORTED_MODULE_4__.fetchLogoutAction)());
   };
   var onEditUser = function onEditUser() {
     navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/edit"));
@@ -13279,203 +13436,342 @@ var Header = function Header() {
   var onChanePassword = function onChanePassword() {
     navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/change_password"));
   };
-  var closeWidget = function closeWidget() {
-    var btn = document.querySelector(".btn-group");
-    btn.classList.remove("show");
-    btn.childNodes[0].setAttribute("aria-expanded", "false");
-    btn.childNodes[1].classList.remove("show");
-    btn.childNodes[1].style = "";
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var _layoutState$dropDown;
-    if (layoutState !== null && layoutState !== void 0 && (_layoutState$dropDown = layoutState.dropDowns) !== null && _layoutState$dropDown !== void 0 && _layoutState$dropDown.includes("widget-content")) {
-      closeWidget();
-    }
-  }, [layoutState]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!userState.isAuthenticated) {
       navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/login"));
     }
   }, [userState]);
-  var toggleSidebar = function toggleSidebar(className) {
-    var element = document.querySelector(".".concat(className));
-    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_4__.toggleSidebarAction)(element));
+  var renderLanguageDropdown = function renderLanguageDropdown() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "dropdown",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        type: "button",
+        "data-toggle": "dropdown",
+        className: "p-0 mr-2 btn btn-link language-dropdown",
+        "aria-expanded": "false",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+          className: "icon-wrapper icon-wrapper-alt rounded-circle",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "icon-wrapper-bg bg-focus"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "language-icon opacity-8 flag large IR"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        tabIndex: "-1",
+        role: "menu",
+        "aria-hidden": "true",
+        className: "rm-pointers dropdown-menu dropdown-menu-right language-popup",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "dropdown-menu-header",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "dropdown-menu-header-inner pt-4 pb-4 bg-focus",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "menu-header-image opacity-05",
+              style: {
+                backgroundImage: "url(\"".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/menu-bg2.jpg\")")
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "menu-header-content text-center text-white",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h6", {
+                className: "menu-header-subtitle mt-0",
+                children: [" ", "Choose Language"]
+              })
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+          type: "button",
+          tabIndex: "0",
+          className: "dropdown-item",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "ml-3 opacity-8 flag large US"
+          }), " ", "USA"]
+        })]
+      })]
+    });
   };
-  var toggleDropDown = function toggleDropDown(className) {
-    var element = document.querySelector(".".concat(className));
-    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_4__.toggleDropDownAction)(element));
+  var renderUserLgDropdown = function renderUserLgDropdown() {
+    var _userState$user, _userState$user2;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "header-btn-lg pr-0",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "widget-content p-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "widget-content-wrapper",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "widget-content-left ml-2",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "btn-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false",
+                className: "p-0 btn user-dropdown",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                  width: "42",
+                  className: "rounded-circle",
+                  src: "".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/user.png"),
+                  alt: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                  className: "fa fa-angle-down ml-2 opacity-8"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                tabIndex: "-1",
+                role: "menu",
+                "aria-hidden": "true",
+                className: "rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-left user-popup",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "dropdown-menu-header",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "dropdown-menu-header-inner bg-info",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "menu-header-image opacity-2",
+                      style: {
+                        backgroundImage: "url(\"".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/menu-bg2.jpg\")")
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "menu-header-content text-right",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "widget-content p-0",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                          className: "widget-content-wrapper",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                            className: "widget-content-right mr-3 mb-3",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                              width: "42",
+                              className: "rounded-circle",
+                              src: "".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/user.png"),
+                              alt: ""
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                            className: "widget-content-right",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                              className: "widget-heading",
+                              children: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                              className: "widget-subheading opacity-6",
+                              children: widgetUserTitle()
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                            className: "widget-content-right mr-2",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                              className: "btn-pill btn-shadow btn-shine btn btn-focus mb-3",
+                              onMouseUp: onLogout,
+                              children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.logout
+                            })
+                          })]
+                        })
+                      })
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "scroll-area-xs",
+                  style: {
+                    height: "100px"
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "scrollbar-container ps",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("ul", {
+                      className: "nav flex-column",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                        className: "nav-item-header nav-item",
+                        children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.tools
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                        className: "nav-item",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          className: "nav-link mr-2",
+                          onClick: onChanePassword,
+                          children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.changePassword
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                        className: "nav-item",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          className: "nav-link mr-2",
+                          onClick: onEditUser,
+                          children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.editProfile
+                        })
+                      }), (userState === null || userState === void 0 ? void 0 : (_userState$user = userState.user) === null || _userState$user === void 0 ? void 0 : _userState$user.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.USER && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                          className: "nav-item-header nav-item",
+                          children: "My Account"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                          className: "nav-item",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+                            href: "#",
+                            className: "nav-link",
+                            children: ["Settings", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                              className: "ml-auto badge badge-success",
+                              children: "New"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                          className: "nav-item",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+                            href: "#",
+                            className: "nav-link",
+                            children: ["Messages", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                              className: "ml-auto badge badge-warning",
+                              children: "512"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                          className: "nav-item",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                            href: "#",
+                            className: "nav-link",
+                            children: "Logs"
+                          })
+                        })]
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "ps__rail-x",
+                      style: {
+                        left: "0px",
+                        bottom: "0px"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "ps__thumb-x",
+                        tabIndex: "0",
+                        style: {
+                          left: "0px",
+                          width: "0px"
+                        }
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                      className: "ps__rail-y",
+                      style: {
+                        top: "0px",
+                        right: "0px"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "ps__thumb-y",
+                        tabIndex: "0",
+                        style: {
+                          top: "0px",
+                          height: "0px"
+                        }
+                      })
+                    })]
+                  })
+                }), (userState === null || userState === void 0 ? void 0 : (_userState$user2 = userState.user) === null || _userState$user2 === void 0 ? void 0 : _userState$user2.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.USER && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
+                    className: "nav flex-column",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                      className: "nav-item-divider mb-0 nav-item"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                    className: "grid-menu grid-menu-2col",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                      className: "no-gutters row",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "col-sm-6",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+                          className: "btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                            className: "pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"
+                          }), " ", "Message Inbox"]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                        className: "col-sm-6",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+                          className: "btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                            className: "pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("b", {
+                            children: "Support Tickets"
+                          })]
+                        })
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("ul", {
+                    className: "nav flex-column",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                      className: "nav-item-divider nav-item"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                      className: "nav-item-btn text-center nav-item",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+                        className: "btn-wide btn btn-primary btn-sm",
+                        children: [" ", "Open Messages", " "]
+                      })
+                    })]
+                  })]
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            className: "widget-content-left  ml-3 header-user-info",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "widget-heading",
+              children: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "widget-subheading",
+              children: userTitle()
+            })]
+          })]
+        })
+      })
+    });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "app-header header-shadow",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "app-header__logo",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "logo-src",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.general.brandLogo
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "header__pane mr-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
             type: "button",
-            className: "hamburger close-sidebar-btn hamburger--elastic pc-close-sidebar",
-            onClick: function onClick() {
-              return toggleSidebar("pc-close-sidebar");
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            className: "hamburger close-sidebar-btn hamburger--elastic sidebar-btn-lg",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
               className: "hamburger-box",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                 className: "hamburger-inner"
               })
             })
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "app-header__mobile-menu",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           type: "button",
-          className: "hamburger hamburger--elastic mobile-toggle-nav mobile-close-sidebar",
-          onClick: function onClick() {
-            return toggleSidebar("mobile-close-sidebar");
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "hamburger hamburger--elastic mobile-toggle-nav sidebar-btn-sm",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "hamburger-box",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
               className: "hamburger-inner"
             })
           })
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "app-header__menu",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           type: "button",
           className: "btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav mobile-dropdown",
-          onClick: function onClick() {
-            return toggleDropDown("mobile-dropdown");
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "btn-icon-wrapper",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
               className: "fa fa-ellipsis-v fa-w-6"
             })
           })
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "app-header__content",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "app-header-left",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "header-btn-lg",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-            className: "widget-content p-0",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-              className: "widget-content-wrapper",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                className: "widget-content-left  ml-3 header-user-info",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                  className: "widget-heading",
-                  children: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                  className: "widget-subheading",
-                  children: userTitle()
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                className: "widget-content-left",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                  className: "btn-group",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
-                    "data-toggle": "dropdown",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false",
-                    className: "p-0 btn pc-dropdown",
-                    onClick: function onClick() {
-                      return toggleDropDown("pc-dropdown");
-                    },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
-                      width: "38",
-                      className: "rounded-circle",
-                      src: "".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/user.png"),
-                      alt: ""
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
-                      className: "fa fa-angle-down mr-2 opacity-8"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                    tabIndex: "-1",
-                    role: "menu",
-                    "aria-hidden": "true",
-                    className: "rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-left user-popup",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                      className: "dropdown-menu-header",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                        className: "dropdown-menu-header-inner bg-info",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                          className: "menu-header-image opacity-2",
-                          style: {
-                            backgroundImage: "url(\"".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/menu-bg2.jpg\")")
-                          }
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                          className: "menu-header-content text-right",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                            className: "widget-content p-0",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                              className: "widget-content-wrapper",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                                className: "widget-content-right ml-3",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
-                                  width: "38",
-                                  className: "rounded-circle",
-                                  src: "".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/user.png"),
-                                  alt: ""
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-                                className: "widget-content-right",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                                  className: "widget-heading",
-                                  children: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                                  className: "widget-subheading opacity-8",
-                                  children: userTitle()
-                                })]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-                                className: "widget-content-left ml-2",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
-                                  className: "btn-shadow btn-shine btn btn-focus",
-                                  onMouseUp: onLogout,
-                                  children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.logout
-                                })
-                              })]
-                            })
-                          })
-                        })]
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("ul", {
-                      className: "nav flex-column p-0",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
-                        className: "nav-item-btn nav-item",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_7__["default"], {
-                          onClick: onChanePassword,
-                          children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.changePassword
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
-                        className: "nav-item-btn nav-item",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_7__["default"], {
-                          onClick: onEditUser,
-                          children: _constants_strings__WEBPACK_IMPORTED_MODULE_3__.header.editProfile
-                        })
-                      })]
-                    })]
-                  })]
-                })
-              })]
-            })
-          })
-        })
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "header-dots",
+          children: renderLanguageDropdown()
+        }), renderUserLgDropdown()]
       })
     })]
   });
@@ -13618,9 +13914,6 @@ function Sidebar() {
     new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__["default"](container);
     initSidebarMenus();
     onPageChanged();
-    document.addEventListener("DOMContentLoaded", function () {
-      onPageChanged();
-    });
     window.addEventListener("resize", function () {
       onPageChanged();
     });
@@ -14909,19 +15202,14 @@ var handleError = function handleError(data, dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CLOSE_DROP_DOWN_ACTION": () => (/* binding */ CLOSE_DROP_DOWN_ACTION),
 /* harmony export */   "SET_LOADING_ACTION": () => (/* binding */ SET_LOADING_ACTION),
-/* harmony export */   "closeDropDownAction": () => (/* binding */ closeDropDownAction),
-/* harmony export */   "setLoadingAction": () => (/* binding */ setLoadingAction),
-/* harmony export */   "toggleDropDownAction": () => (/* binding */ toggleDropDownAction),
-/* harmony export */   "toggleSidebarAction": () => (/* binding */ toggleSidebarAction)
+/* harmony export */   "setLoadingAction": () => (/* binding */ setLoadingAction)
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var SET_LOADING_ACTION = "SET_LOADING_ACTION";
-var CLOSE_DROP_DOWN_ACTION = "CLOSE_DROP_DOWN_ACTION";
 var setLoadingAction = function setLoadingAction(loading) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -14942,108 +15230,6 @@ var setLoadingAction = function setLoadingAction(loading) {
       return _ref.apply(this, arguments);
     };
   }();
-};
-var closeDropDownAction = function closeDropDownAction(dropdowns) {
-  return /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dispatch) {
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            dispatch({
-              type: CLOSE_DROP_DOWN_ACTION,
-              payload: dropdowns
-            });
-          case 1:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }));
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-var toggleSidebarAction = function toggleSidebarAction(element) {
-  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var container;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          container = document.querySelector(".app-container");
-          if (element.classList.contains("is-active")) {
-            element.classList.remove("is-active");
-            if (document.body.clientWidth < 1250) {
-              container.classList.remove("sidebar-mobile-open");
-            } else {
-              container.classList.remove("closed-sidebar");
-            }
-          } else {
-            element.classList.add("is-active");
-            if (document.body.clientWidth < 1250) {
-              container.classList.add("sidebar-mobile-open");
-            } else {
-              container.classList.add("closed-sidebar");
-            }
-          }
-        case 2:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3);
-  }));
-};
-var toggleDropDownAction = function toggleDropDownAction(element) {
-  return /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-    var popup, appHeader;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
-        case 0:
-          popup = document.getElementsByClassName("user-popup")[0];
-          if (document.body.clientWidth < 992) {
-            appHeader = document.querySelector(".app-header__content");
-            if (element.classList.contains("active")) {
-              element.classList.remove("active");
-              appHeader.classList.remove("header-mobile-open");
-              toggleDropDown(popup, false);
-            } else {
-              element.classList.add("active");
-              appHeader.classList.add("header-mobile-open");
-              toggleDropDown(popup, true);
-            }
-          } else {
-            if (element.getAttribute("aria-expanded") === "true") {
-              element.setAttribute("aria-expanded", "false");
-              toggleDropDown(popup, false);
-            } else {
-              element.setAttribute("aria-expanded", "true");
-              toggleDropDown(popup, true);
-            }
-          }
-        case 2:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4);
-  }));
-};
-var toggleDropDown = function toggleDropDown(popup, show) {
-  var btnGroup = popup.parentNode;
-  if (show) {
-    btnGroup.classList.add("show");
-    popup.classList.add("show");
-    popup.setAttribute("x-placement", "bottom-start");
-    if (document.body.clientWidth < 992) {
-      popup.style = "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 0px; left: 0px; will-change: transform;";
-    } else {
-      popup.style = "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
-    }
-  } else {
-    btnGroup.classList.remove("show");
-    popup.classList.remove("show");
-    popup.removeAttribute("x-placement");
-    popup.style = "";
-  }
 };
 
 /***/ }),
@@ -15068,8 +15254,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 var initialState = {
-  loading: false,
-  dropDowns: null
+  loading: false
 };
 var layoutReducer = function layoutReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -15080,10 +15265,6 @@ var layoutReducer = function layoutReducer() {
     case _layoutActions__WEBPACK_IMPORTED_MODULE_0__.SET_LOADING_ACTION:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: payload
-      });
-    case _layoutActions__WEBPACK_IMPORTED_MODULE_0__.CLOSE_DROP_DOWN_ACTION:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        dropDowns: payload
       });
     default:
       return state;

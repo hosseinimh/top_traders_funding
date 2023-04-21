@@ -20,7 +20,6 @@ export class PageUtils extends BasePageUtils {
         });
         super("Users", strings, form);
         this.entity = new Entity();
-        this.entity.forgotPassword("hosseinimh@gmail.com");
         this.initialPageProps = {
             pageNumber: 1,
             itemsCount: 0,

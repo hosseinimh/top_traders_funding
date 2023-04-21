@@ -60,6 +60,7 @@ export const validation = {
 };
 
 export const header = {
+    tools: "امکانات",
     changePassword: "تغییر کلمه عبور",
     editProfile: "ویرایش پروفایل",
     logout: "خروج",

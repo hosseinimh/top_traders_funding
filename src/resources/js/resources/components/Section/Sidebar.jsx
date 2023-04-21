@@ -20,9 +20,6 @@ function Sidebar() {
         new PerfectScrollbar(container);
         initSidebarMenus();
         onPageChanged();
-        document.addEventListener("DOMContentLoaded", () => {
-            onPageChanged();
-        });
         window.addEventListener("resize", () => {
             onPageChanged();
         });

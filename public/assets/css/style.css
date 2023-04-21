@@ -9113,6 +9113,18 @@ button,
   font-family: "Crimson Text", noto color emoji;
   color: #000;
   font-size: 1.3rem;
+  animation: logospan 0.5s;
+  text-indent: 0;
+}
+@keyframes logospan {
+  0% {
+    text-indent: -100rem;
+  }
+  30% {
+     text-indent: -0.2rem;
+  } 100% {
+    text-indent: 0;
+ }
 }
 .app-header__menu,
 .app-header__mobile-menu {
@@ -9210,7 +9222,7 @@ button,
 }
 .header-btn-lg {
   padding: 0 1.5rem 0 0;
-  margin-left: 1.5rem;
+  margin-right: 1.5rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -12576,7 +12588,7 @@ body {
 }
 .dropdown-menu-header .dropdown-menu-header-inner {
   margin: -1px -1px 0;
-  padding: 1.5rem 0.5rem;
+  padding: 1.5rem 0.5rem 0.5rem;
   position: relative;
 }
 .dropdown-menu-header .menu-header-image {
@@ -29400,7 +29412,7 @@ span.multiselect-native-select select {
     display: none;
   }
   .app-header .app-header__content.header-mobile-open {
-    visibility: hidden;
+    visibility: visible;
     opacity: 1;
     top: 80px;
   }
@@ -29425,7 +29437,7 @@ span.multiselect-native-select select {
     position: fixed !important;
     z-index: 50;
     right: 5% !important;
-    top: 80px !important;
+    top: 150px !important;
     width: 90% !important;
     transform: translateX(0) !important;
     min-width: 10px !important;
@@ -29811,4 +29823,28 @@ span.multiselect-native-select select {
 }
 .display-linebreak {
   white-space: pre-line;
+}
+.flag {
+    height: 16px;
+    width: 16px;
+    background-size: 16px 16px
+}
+
+.flag.medium {
+    height: 24px;
+    width: 24px;
+    background-size: 24px 24px
+}
+
+.flag.large {
+    height: 32px;
+    width: 32px;
+    background-size: 32px 32px;
+}
+.IR {
+  background: url(../images/IR.svg) no-repeat;
+}
+
+.US {
+  background: url(../images/US.svg) no-repeat;
 }
