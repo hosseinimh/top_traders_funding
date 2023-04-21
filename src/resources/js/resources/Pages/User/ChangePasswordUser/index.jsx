@@ -11,12 +11,12 @@ const ChangePasswordUser = () => {
             <InputTextColumn
                 field="newPassword"
                 type="password"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
             />
             <InputTextColumn
                 field="confirmPassword"
                 type="password"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
             />
         </FormPage>
     );

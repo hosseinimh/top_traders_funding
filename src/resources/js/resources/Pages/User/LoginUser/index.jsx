@@ -11,14 +11,14 @@ const LoginUser = () => {
             <InputTextColumn
                 field="username"
                 showLabel={false}
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-12"
             />
             <InputTextColumn
                 field="password"
                 type="password"
                 showLabel={false}
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-12"
             />
         </LoginPageLayout>

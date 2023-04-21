@@ -24,11 +24,10 @@ export class PageUtils extends BasePageUtils {
     }
 
     async onSubmit(data) {
-        this.onSendRequest();
         const role = data.administrator
             ? USER_ROLES.ADMINISTRATOR
             : USER_ROLES.USER;
-        const result = await this.entity.store(
+        const promise = this.entity.store(
             data.username,
             data.password,
             data.confirmPassword,
@@ -37,6 +36,6 @@ export class PageUtils extends BasePageUtils {
             role,
             data.isActive ? 1 : 0
         );
-        this.handleModifyResultAndNavigate(result);
+        this.onModifySubmit(promise);
     }
 }

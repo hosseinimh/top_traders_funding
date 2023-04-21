@@ -14,19 +14,16 @@ const AddUser = () => {
 
     return (
         <FormPage pageUtils={pageUtils}>
-            <InputTextColumn
-                field="username"
-                inputStyle={{ textAlign: "left", direction: "ltr" }}
-            />
+            <InputTextColumn field="username" textAlign="left" />
             <InputTextColumn
                 field="password"
                 type="password"
-                inputStyle={{ textAlign: "left", direction: "ltr" }}
+                textAlign="left"
             />
             <InputTextColumn
                 field="confirmPassword"
                 type="password"
-                inputStyle={{ textAlign: "left", direction: "ltr" }}
+                textAlign="left"
             />
             <InputTextColumn field="name" />
             <InputTextColumn field="family" />

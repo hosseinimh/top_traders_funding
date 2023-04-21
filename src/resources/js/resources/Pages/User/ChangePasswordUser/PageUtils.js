@@ -71,21 +71,17 @@ export class PageUtils extends BasePageUtils {
     }
 
     async onSubmit(data) {
-        this.onSendRequest();
-        const role = data.administrator
-            ? USER_ROLES.ADMINISTRATOR
-            : USER_ROLES.USER;
-        const result =
+        const promise =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-                ? await this.entity.changePassword(
+                ? this.entity.changePassword(
                       this.pageState?.props?.userId,
                       data.newPassword,
                       data.confirmPassword
                   )
-                : await this.entity.changePasswordFromUser(
+                : this.entity.changePasswordFromUser(
                       data.newPassword,
                       data.confirmPassword
                   );
-        this.handleModifyResultAndNavigate(result);
+        this.onModifySubmit(promise);
     }
 }

@@ -36,6 +36,16 @@ export class BasePageUtils {
         this.dispatch(setPageUtilsLoadedAction());
     }
 
+    async fillForm(promise) {
+        this.dispatch(setLoadingAction(true));
+        const result = await promise;
+        this.handleFetchResult(
+            result,
+            this.propsIfOK(result),
+            this.propsIfNull()
+        );
+    }
+
     onSendRequest() {
         this.messageField = null;
         this.dispatch(setLoadingAction(true));
@@ -218,6 +228,12 @@ export class BasePageUtils {
                 item,
             })
         );
+    }
+
+    async onModifySubmit(promise) {
+        this.onSendRequest();
+        const result = await promise;
+        this.handleModifyResultAndNavigate(result);
     }
 
     onSubmit(data = null) {

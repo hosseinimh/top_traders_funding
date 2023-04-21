@@ -36,13 +36,8 @@ export class PageUtils extends BasePageUtils {
         }
     }
 
-    async fillForm(data = null) {
-        this.dispatch(setLoadingAction(true));
-        const result = await this.entity.getPaginate();
-        this.handleFetchResult(
-            result,
-            this.propsIfOK(result),
-            this.propsIfNull()
-        );
+    async fillForm() {
+        const promise = this.entity.getPaginate();
+        super.fillForm(promise);
     }
 }

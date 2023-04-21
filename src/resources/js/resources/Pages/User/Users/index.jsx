@@ -22,12 +22,7 @@ const Users = () => {
 
     const renderSearch = () => (
         <div className="row">
-            <InputTextColumn
-                field="username"
-                inputStyle={{
-                    textAlign: "left",
-                }}
-            />
+            <InputTextColumn field="username" textAlign="left" />
             <InputTextColumn field="nameFamily" />
         </div>
     );

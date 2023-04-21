@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { User as Entity } from "../../../../http/entities";
-import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import {
     setPageIconAction,
     setPagePropsAction,
@@ -72,16 +71,11 @@ export class PageUtils extends BasePageUtils {
     }
 
     async fillForm(data = null) {
-        this.dispatch(setLoadingAction(true));
-        const result = await this.entity.getPaginate(
+        const promise = this.entity.getPaginate(
             data?.username ?? "",
             data?.nameFamily ?? "",
             this.pageState.props?.pageNumber ?? 1
         );
-        this.handleFetchResult(
-            result,
-            this.propsIfOK(result),
-            this.propsIfNull()
-        );
+        super.fillForm(promise);
     }
 }

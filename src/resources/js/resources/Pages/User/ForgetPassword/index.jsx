@@ -11,7 +11,7 @@ const ForgetPassword = () => {
             <InputTextColumn
                 field="email"
                 showLabel={false}
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-12"
             />
         </ForgetPageLayout>

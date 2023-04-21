@@ -21,12 +21,8 @@ const EditUser = () => {
             <InputTextColumn field="family" />
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
                 <>
-                    <InputTextColumn
-                        field="email"
-                        inputStyle={{ textAlign: "left", direction: "ltr" }}
-                    />
+                    <InputTextColumn field="email" textAlign="left" />
                     <div className="col-md-3 col-sm-12 pb-4"></div>
-
                     <div className="col-md-3 col-sm-12 pb-4">
                         <label className="form-label">{strings.status}</label>
                         <InputCheckboxColumn field="isActive" checked={true} />

@@ -68,12 +68,11 @@ export class PageUtils extends BasePageUtils {
     }
 
     async onSubmit(data) {
-        this.onSendRequest();
-        const result = await this.entity.update(
+        const promise = this.entity.update(
             this.pageState?.props?.campaignId,
             data.title,
             data.isActive ? 1 : 0
         );
-        this.handleModifyResultAndNavigate(result);
+        super.onModifySubmit(promise);
     }
 }

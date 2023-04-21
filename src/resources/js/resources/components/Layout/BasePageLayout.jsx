@@ -146,7 +146,6 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     const onAppContainerClick = (e) => {
         let element = e.target;
         const headerButton = findHeaderButtonClicked(element);
-        console.log(headerButton);
         switch (headerButton) {
             case HEADER_BUTTONS.SIDEBAR_BTN_LG:
                 closeAllDropDowns();
@@ -217,24 +216,28 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     };
 
     const closeDropDowns = (dropDowns) => {
-        dropDowns.forEach((dropDown) => {
-            let [elementName, poupName] = getDropDown(dropDown);
-            if (elementName) {
-                if (dropDown === HEADER_BUTTONS.MOBILE_DROPDOWN) {
-                    const popup = document.getElementsByClassName(poupName)[0];
-                    popup.classList.remove("header-mobile-open");
-                } else {
-                    const element =
-                        document.getElementsByClassName(elementName)[0];
-                    const btnGroup = element.parentElement;
-                    const popup = document.getElementsByClassName(poupName)[0];
-                    btnGroup.classList.remove("show");
-                    popup.classList.remove("show");
-                    popup.removeAttribute("x-placement");
-                    popup.style = "";
+        try {
+            dropDowns.forEach((dropDown) => {
+                let [elementName, poupName] = getDropDown(dropDown);
+                if (elementName) {
+                    if (dropDown === HEADER_BUTTONS.MOBILE_DROPDOWN) {
+                        const popup =
+                            document.getElementsByClassName(poupName)[0];
+                        popup.classList.remove("header-mobile-open");
+                    } else {
+                        const element =
+                            document.getElementsByClassName(elementName)[0];
+                        const btnGroup = element.parentElement;
+                        const popup =
+                            document.getElementsByClassName(poupName)[0];
+                        btnGroup.classList.remove("show");
+                        popup.classList.remove("show");
+                        popup.removeAttribute("x-placement");
+                        popup.style = "";
+                    }
                 }
-            }
-        });
+            });
+        } catch {}
     };
 
     const closeAllDropDowns = () => {

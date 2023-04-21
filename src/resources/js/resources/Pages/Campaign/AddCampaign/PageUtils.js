@@ -24,11 +24,7 @@ export class PageUtils extends BasePageUtils {
     }
 
     async onSubmit(data) {
-        this.onSendRequest();
-        const result = await this.entity.store(
-            data.title,
-            data.isActive ? 1 : 0
-        );
-        this.handleModifyResultAndNavigate(result);
+        const promise = this.entity.store(data.title, data.isActive ? 1 : 0);
+        super.onModifySubmit(promise);
     }
 }

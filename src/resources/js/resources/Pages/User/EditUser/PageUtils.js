@@ -89,31 +89,18 @@ export class PageUtils extends BasePageUtils {
     }
 
     async onSubmit(data) {
-        this.onSendRequest();
-        const role = data.administrator
-            ? USER_ROLES.ADMINISTRATOR
-            : USER_ROLES.USER;
-        const result = await this.entity.update(
-            this.pageState?.props?.userId,
-            data.name,
-            data.family,
-            role,
-            data.isActive ? 1 : 0
-        );
-        this.handleModifyResultAndNavigate(result);
-    }
-
-    async handleUpdate(data) {
-        return this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-            ? await this.update(data)
-            : await this.updateFromUser(data);
+        const promise =
+            this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
+                ? this.update(data)
+                : this.updateFromUser(data);
+        this.onModifySubmit(promise);
     }
 
     async update(data) {
         const role = data.administrator
             ? USER_ROLES.ADMINISTRATOR
             : USER_ROLES.USER;
-        return await this.entity.update(
+        return this.entity.update(
             this.pageState?.props?.userId,
             data.name,
             data.family,
@@ -124,6 +111,6 @@ export class PageUtils extends BasePageUtils {
     }
 
     async updateFromUser(data) {
-        return await this.entity.updateFromUser(data.name, data.family);
+        return this.entity.updateFromUser(data.name, data.family);
     }
 }

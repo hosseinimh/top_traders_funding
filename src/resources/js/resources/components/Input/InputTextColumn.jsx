@@ -12,6 +12,7 @@ const InputTextColumn = ({
     inputStyle = {},
     defaultValue = "",
     showLabel = true,
+    textAlign = "",
 }) => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
@@ -47,26 +48,38 @@ const InputTextColumn = ({
         }
     }, [pageState]);
 
-    const renderInput = (field) => (
-        <>
-            <input
-                id={field.name}
-                {...field}
-                className={
-                    messageState?.messageField === field.name
-                        ? "form-control is-invalid"
-                        : "form-control"
-                }
-                placeholder={placeholder}
-                disabled={layoutState?.loading}
-                type={type}
-                style={{ ...inputStyle }}
-            />
-            {messageState?.messageField === field.name && (
-                <div className="invalid-feedback">{messageState?.message}</div>
-            )}
-        </>
-    );
+    const renderInput = (field) => {
+        let style;
+        if (textAlign === "left") {
+            style = { ...inputStyle, textAlign, direction: "ltr" };
+        } else if (textAlign === "right") {
+            style = { ...inputStyle, textAlign, direction: "rtl" };
+        } else {
+            style = { ...inputStyle };
+        }
+        return (
+            <>
+                <input
+                    id={field.name}
+                    {...field}
+                    className={
+                        messageState?.messageField === field.name
+                            ? "form-control is-invalid"
+                            : "form-control"
+                    }
+                    placeholder={placeholder}
+                    disabled={layoutState?.loading}
+                    type={type}
+                    style={{ ...style }}
+                />
+                {messageState?.messageField === field.name && (
+                    <div className="invalid-feedback">
+                        {messageState?.message}
+                    </div>
+                )}
+            </>
+        );
+    };
 
     return (
         <div className={`form-group ${columnClassName}`}>

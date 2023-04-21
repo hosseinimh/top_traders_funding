@@ -10,24 +10,24 @@ const Signup = () => {
         <SignupPageLayout pageUtils={pageUtils}>
             <InputTextColumn
                 field="username"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-6"
             />
             <InputTextColumn
                 field="email"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-6"
             />
             <InputTextColumn
                 field="password"
                 type="password"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-6"
             />
             <InputTextColumn
                 field="confirmPassword"
                 type="password"
-                inputStyle={{ direction: "ltr" }}
+                textAlign="left"
                 columnClassName="col-6"
             />
             <InputTextColumn field="name" columnClassName="col-6" />
