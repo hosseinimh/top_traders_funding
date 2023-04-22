@@ -98,11 +98,10 @@ export const dashboardPage = {
 };
 
 export const loginUserPage = {
-    _title: "ورود کاربری",
-    welcome: "خوش آمدید!",
+    welcome: "Welcome!",
     description: "لطفا نام کاربری و کلمه عبور خود را وارد نمائید.",
-    username: "نام کاربری",
-    usernamePlaceholder: "نام کاربری",
+    username: "Username",
+    usernamePlaceholder: "Username",
     password: "کلمه عبور",
     passwordPlaceholder: "کلمه عبور",
     forget: "فراموشی کلمه عبور",

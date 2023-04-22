@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { AlertState } from "../../components";
-import { footer } from "../../../constants/strings";
 import BasePageLayout from "./BasePageLayout";
 import { Link } from "react-router-dom";
 import { BASE_PATH } from "../../../constants";
+import { useLanguage } from "../../../hooks";
 
 const LoginPageLayout = ({ children, pageUtils }) => {
+    const { footer } = useLanguage();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (
@@ -80,7 +81,7 @@ const LoginPageLayout = ({ children, pageUtils }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="text-center text-white opacity-8 mt-3">
+                            <div className="text-center text-white opacity-8 mt-3 mb-4">
                                 {footer.copyright}
                             </div>
                         </div>

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
     BASE_PATH,
     HEADER_BUTTONS,
+    LANGUAGES,
     MESSAGE_CODES,
     MESSAGE_TYPES,
 } from "../../../constants";
@@ -135,6 +136,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
             onPageLayoutChanged();
         });
         loadModals();
+        utils.setLanguage();
     }, []);
 
     const loadModals = () => {

@@ -1,11 +1,13 @@
 import * as yup from "yup";
 
-import { signupPage as strings, validation } from "../../../constants/strings";
 import {
     emailValidator,
     nameValidator,
     stringValidator,
 } from "../CommonValidators";
+import utils from "../../../utils/Utils";
+
+const { signupPage: strings, validation } = utils.getLSLanguage();
 
 const signupSchema = yup.object().shape({
     username: stringValidator(yup.string(), strings.username, 6, 50),

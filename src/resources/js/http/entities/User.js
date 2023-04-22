@@ -80,6 +80,12 @@ export class User extends Entity {
         });
     }
 
+    async changeLanguage(language) {
+        return await this.handlePost(`${BASE_URL}/u/users/set_language`, {
+            language: language,
+        });
+    }
+
     async forgotPassword(email) {
         return await this.handlePost(`${BASE_URL}/u/users/forgot_password`, {
             email,

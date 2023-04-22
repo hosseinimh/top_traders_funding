@@ -1,7 +1,9 @@
 import * as yup from "yup";
 
-import { editCampaignPage as strings } from "../../../constants/strings";
 import { stringValidator } from "../CommonValidators";
+import { useLSLanguage } from "../../../hooks";
+
+const { editCampaignPage: strings } = useLSLanguage();
 
 const editCampaignSchema = yup.object().shape({
     title: stringValidator(yup.string(), strings.title, 6, 200),

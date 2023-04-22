@@ -1,7 +1,9 @@
 import * as yup from "yup";
 
-import { usersPage as strings } from "../../../constants/strings";
 import { nameValidator, stringValidator } from "../CommonValidators";
+import { useLSLanguage } from "../../../hooks";
+
+const { usersPage: strings } = useLSLanguage();
 
 const searchUserSchema = yup.object().shape({
     username: stringValidator(yup.string(), strings.username, null, 50, false),

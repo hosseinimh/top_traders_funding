@@ -1,11 +1,17 @@
 import { LANGUAGES } from "../../constants";
+import utils from "../../utils/Utils";
 import * as actions from "./layoutActions";
+
+const initLanguage = () => {
+    utils.setLanguage();
+    return utils.getLSVariable("language");
+};
 
 const initialState = {
     loading: false,
     width: 0,
     height: 0,
-    language: LANGUAGES.FA,
+    language: initLanguage(),
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {

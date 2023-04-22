@@ -1,7 +1,9 @@
 import { get, post, postFile } from "../http";
 import utils from "../../utils/Utils";
-import { general, utils as strings } from "../../constants/strings";
 import { BASE_PATH, BASE_URL } from "../../constants";
+import { useLSLanguage } from "../../hooks";
+
+const { utils: strings, general } = useLSLanguage();
 
 class Entity {
     constructor() {

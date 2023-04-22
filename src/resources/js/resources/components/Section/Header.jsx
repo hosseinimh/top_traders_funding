@@ -8,20 +8,37 @@ import {
     ASSETS_PATH,
     LANGUAGES,
 } from "../../../constants";
-import { header as strings, general } from "../../../constants/strings";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import CustomLink from "../Link/CustomLink";
-import { setLanguageAction } from "../../../state/layout/layoutActions";
+import {
+    setLanguageAction,
+    setLoadingAction,
+} from "../../../state/layout/layoutActions";
+import { useLanguage } from "../../../hooks";
+import { User } from "../../../http/entities";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { header: strings, general } = useLanguage();
     const userState = useSelector((state) => state.userReducer);
     const authUser = utils.getLSUser();
 
-    const changeLanguage = (language) => {
+    const changeLanguage = (language) => handleChangeLanguage(language);
+
+    const handleChangeLanguage = async (language) => {
+        const prevLanguage = utils.getLSVariable("language");
+        if (prevLanguage === language) {
+            return;
+        }
+        dispatch(setLoadingAction(true));
+        if (userState?.user) {
+            const user = new User();
+            await user.changeLanguage(language);
+        }
         dispatch(setLanguageAction(language));
+        window.location.reload();
     };
 
     const userTitle = () => {
@@ -62,6 +79,19 @@ const Header = () => {
     };
 
     const renderLanguageDropdown = () => {
+        let flag;
+        let language = utils.getLSVariable("language");
+        switch (language) {
+            case "fa":
+                flag = "IR";
+                break;
+            case "en":
+                flag = "US";
+                break;
+            default:
+                flag = "IR";
+                break;
+        }
         return (
             <div className="dropdown">
                 <button
@@ -72,7 +102,9 @@ const Header = () => {
                 >
                     <span className="icon-wrapper icon-wrapper-alt rounded-circle">
                         <span className="icon-wrapper-bg bg-focus"></span>
-                        <span className="language-icon opacity-8 flag large IR"></span>
+                        <span
+                            className={`language-icon opacity-8 flag large ${flag}`}
+                        ></span>
                     </span>
                 </button>
                 <div
@@ -99,7 +131,9 @@ const Header = () => {
                     <button
                         type="button"
                         tabIndex="0"
-                        className="dropdown-item"
+                        className={`dropdown-item ${
+                            flag === "US" ? "active" : ""
+                        }`}
                         onClick={() => changeLanguage(LANGUAGES.EN)}
                     >
                         <span className="ml-3 opacity-8 flag large US"></span>{" "}
@@ -108,7 +142,9 @@ const Header = () => {
                     <button
                         type="button"
                         tabIndex="0"
-                        className="dropdown-item"
+                        className={`dropdown-item ${
+                            flag === "IR" ? "active" : ""
+                        }`}
                         onClick={() => changeLanguage(LANGUAGES.FA)}
                     >
                         <span className="ml-3 opacity-8 flag large IR"></span>{" "}

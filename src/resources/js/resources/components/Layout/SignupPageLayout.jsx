@@ -39,7 +39,7 @@ const SignupPageLayout = ({ children, pageUtils }) => {
                                         </span>
                                     </h4>
                                     <div className="row">{children}</div>
-                                    <div className="mt-4 d-flex align-items-center">
+                                    <div className="mt-4 d-flex align-items-center mb-4">
                                         <div className="mr-auto">
                                             <button
                                                 className="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg"
@@ -74,7 +74,11 @@ const SignupPageLayout = ({ children, pageUtils }) => {
                                     <div className="slick-slider slick-initialized">
                                         <div>
                                             <div
-                                                className="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark"
+                                                className="position-relative d-flex justify-content-center align-items-center bg-premium-dark"
+                                                style={{
+                                                    minHeight:
+                                                        "calc(100vh - 60px)",
+                                                }}
                                                 tabIndex="-1"
                                             >
                                                 <div

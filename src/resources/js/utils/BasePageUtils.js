@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
 import { MESSAGE_CODES, MESSAGE_TYPES } from "../constants";
-import { general } from "../constants/strings";
 import { setLoadingAction } from "../state/layout/layoutActions";
 import {
     clearMessageAction,
@@ -12,6 +11,9 @@ import {
     setPageUtilsLoadedAction,
 } from "../state/page/pageActions";
 import utils from "./Utils";
+import { useLSLanguage } from "../hooks";
+
+const { general } = useLSLanguage();
 
 export class BasePageUtils {
     constructor(name, strings = {}, useForm = null) {

@@ -1,6 +1,7 @@
-import { validation } from "../../../constants/strings";
+import utils from "../../../utils/Utils";
 
 const emailValidator = (schema, field, required = true) => {
+    const { validation } = utils.getLSLanguage();
     schema = schema
         .email(validation.emailMessage)
         .matches(/@[^.]*\./, validation.emailMessage)

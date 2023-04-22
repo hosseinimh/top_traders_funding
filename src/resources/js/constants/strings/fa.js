@@ -98,7 +98,6 @@ export const dashboardPage = {
 };
 
 export const loginUserPage = {
-    _title: "ورود کاربری",
     welcome: "خوش آمدید!",
     description: "لطفا نام کاربری و کلمه عبور خود را وارد نمائید.",
     username: "نام کاربری",

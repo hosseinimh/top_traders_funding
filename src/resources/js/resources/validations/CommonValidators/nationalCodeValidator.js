@@ -1,6 +1,7 @@
-import { validation } from "../../../constants/strings";
+import utils from "../../../utils/Utils";
 
 const nationalCodeValidator = (schema, field, required = true) => {
+    const { validation } = utils.getLSLanguage();
     schema = schema
         .matches(/^[0-9]+$/, validation.numberMessage.replace(":field", field))
         .min(

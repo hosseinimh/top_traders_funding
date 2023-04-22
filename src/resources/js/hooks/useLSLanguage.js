@@ -1,11 +1,10 @@
-import { useSelector } from "react-redux";
-
 import { en, fa } from "../constants/strings";
 import { LANGUAGES } from "../constants";
+import utils from "../utils/Utils";
 
-const useLanguage = () => {
-    const layoutState = useSelector((state) => state.layoutReducer);
-    switch (layoutState?.language) {
+const useLSLanguage = () => {
+    const language = utils.getLSVariable("language");
+    switch (language) {
         case LANGUAGES.EN:
             return en;
         case LANGUAGES.FA:
@@ -15,4 +14,4 @@ const useLanguage = () => {
     }
 };
 
-export default useLanguage;
+export default useLSLanguage;

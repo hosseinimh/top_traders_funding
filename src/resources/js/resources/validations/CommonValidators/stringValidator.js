@@ -1,4 +1,4 @@
-import { validation } from "../../../constants/strings";
+import utils from "../../../utils/Utils";
 
 const stringValidator = (
     schema,
@@ -7,6 +7,7 @@ const stringValidator = (
     max = null,
     required = true
 ) => {
+    const { validation } = utils.getLSLanguage();
     if (min) {
         schema = schema.min(
             min,

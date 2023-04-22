@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { footer as strings, general } from "../../../constants/strings";
+import { useLanguage } from "../../../hooks";
 
 const Footer = () => {
-    const ls = useSelector((state) => state.layoutReducer);
+    const { footer: strings } = useLanguage();
 
     return (
         <>

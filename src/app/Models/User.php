@@ -21,6 +21,7 @@ class User extends Authenticatable
         'family',
         'email',
         'google_id',
+        'language',
         'role',
         'is_active',
     ];

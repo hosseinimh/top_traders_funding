@@ -1,7 +1,9 @@
 import * as yup from "yup";
 
-import { addAppRulePage as strings } from "../../../constants/strings";
 import { stringValidator } from "../CommonValidators";
+import utils from "../../../utils/Utils";
+
+const { addAppRulePage: strings } = utils.getLSLanguage();
 
 const addAppRuleSchema = yup.object().shape({
     title: stringValidator(yup.string(), strings.title, 6, 200),

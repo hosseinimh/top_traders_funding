@@ -1,5 +1,8 @@
 import CryptoJS from "crypto-js";
 
+import { LANGUAGES } from "../constants";
+import { en, fa } from "../constants/strings";
+
 function isValidMobile(value) {
     const prefix = [
         "0910",
@@ -163,6 +166,18 @@ const getLSUser = () => {
     }
 
     return user;
+};
+
+const getLSLanguage = () => {
+    const language = getLSVariable("language");
+    switch (language) {
+        case LANGUAGES.EN:
+            return en;
+        case LANGUAGES.FA:
+            return fa;
+        default:
+            return fa;
+    }
 };
 
 const convertNumberToPersion = () => {
@@ -381,7 +396,15 @@ function toEnglishDigits(num) {
 }
 
 const isNumber = (number) => !isNaN(parseInt(number));
+
 const isId = (id) => !isNaN(parseInt(id)) && id > 0;
+
+const setLanguage = () => {
+    const language = getLSVariable("language");
+    if (![LANGUAGES.EN, LANGUAGES.FA].includes(language)) {
+        setLSVariable("language", LANGUAGES.FA);
+    }
+};
 
 const utils = {
     isValidMobile,
@@ -394,6 +417,7 @@ const utils = {
     setLSVariable,
     getLSToken,
     getLSUser,
+    getLSLanguage,
     clearLS,
     convertNumberToPersion,
     convertNumberToEnglish,
@@ -406,6 +430,7 @@ const utils = {
     wordifyfa,
     isNumber,
     isId,
+    setLanguage,
 };
 
 export default utils;

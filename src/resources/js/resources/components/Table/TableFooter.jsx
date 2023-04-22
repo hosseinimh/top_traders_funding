@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { general } from "../../../constants/strings";
 import utils from "../../../utils/Utils";
+import { useLanguage } from "../../../hooks";
 
 const TableFooter = ({ columnsCount, pageUtils }) => {
+    const { general } = useLanguage();
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
 

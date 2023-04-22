@@ -2,14 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { IMAGES_PATH } from "../../../constants";
-import { general } from "../../../constants/strings";
+import { useLanguage } from "../../../hooks";
 
 const TableItems = ({ children, columnsCount }) => {
-    const ls = useSelector((state) => state.layoutReducer);
+    const { general } = useLanguage();
+    const layoutState = useSelector((state) => state.layoutReducer);
 
     if (children?.length > 0) {
         return children;
-    } else if (ls?.loading) {
+    } else if (layoutState?.loading) {
         return (
             <tr>
                 <td colSpan={columnsCount} className="img-loading-wrapper">

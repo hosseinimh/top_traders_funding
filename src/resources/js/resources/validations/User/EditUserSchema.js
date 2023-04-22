@@ -1,7 +1,9 @@
 import * as yup from "yup";
 
-import { editUserPage as strings } from "../../../constants/strings";
 import { emailValidator, nameValidator } from "../CommonValidators";
+import { useLSLanguage } from "../../../hooks";
+
+const { editUserPage: strings } = useLSLanguage();
 
 const editUserSchema = yup.object().shape({
     name: nameValidator(yup.string(), strings.name, 2, 50),

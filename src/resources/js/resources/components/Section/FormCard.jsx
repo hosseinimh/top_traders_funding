@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { general } from "../../../constants/strings";
+import { useLanguage } from "../../../hooks";
 
 const FormCard = ({
     children,
@@ -11,6 +11,7 @@ const FormCard = ({
     onSubmit = null,
     hasCancel = true,
 }) => {
+    const { general } = useLanguage();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (
