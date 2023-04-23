@@ -1,10 +1,10 @@
 import React from "react";
 
 import { BASE_PATH } from "../../../constants";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const FallbackError = () => {
-    const { footer, general } = useLanguage();
+    const { footer, general } = useLocale();
     return (
         <div className="app-container app-theme-white body-tabs-shadow">
             <div className="app-container">

@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { IMAGES_PATH } from "../../../constants";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const TableItems = ({ children, columnsCount }) => {
-    const { general } = useLanguage();
+    const { general } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     if (children?.length > 0) {

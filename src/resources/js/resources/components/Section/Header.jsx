@@ -6,50 +6,45 @@ import {
     BASE_PATH,
     USER_ROLES,
     ASSETS_PATH,
-    LANGUAGES,
+    LOCALES,
 } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import CustomLink from "../Link/CustomLink";
 import {
-    setLanguageAction,
+    setLocaleAction,
     setLoadingAction,
 } from "../../../state/layout/layoutActions";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 import { User } from "../../../http/entities";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { header: strings, general } = useLanguage();
+    const { header: strings, general } = useLocale();
     const userState = useSelector((state) => state.userReducer);
     const authUser = utils.getLSUser();
 
-    const changeLanguage = (language) => handleChangeLanguage(language);
+    const setLocale = (locale) => handleSetLocale(locale);
 
-    const handleChangeLanguage = async (language) => {
-        const prevLanguage = utils.getLSVariable("language");
-        if (prevLanguage === language) {
+    const handleSetLocale = async (locale) => {
+        const prevLocale = utils.getLSVariable("locale");
+        if (prevLocale === locale) {
             return;
         }
         dispatch(setLoadingAction(true));
+        dispatch(setLocaleAction(locale));
         if (userState?.user) {
             const user = new User();
-            await user.changeLanguage(language);
+            await user.setLocale(locale);
         }
-        dispatch(setLanguageAction(language));
         window.location.reload();
     };
 
     const userTitle = () => {
-        let title =
-            authUser?.role === USER_ROLES.ADMINISTRATOR
-                ? general.administrator
-                : general.user;
-
-        title += `: [ ${authUser?.username} ]`;
-
-        return title;
+        return authUser?.role === USER_ROLES.ADMINISTRATOR
+            ? general.administrator
+            : general.user;
     };
 
     const widgetUserTitle = () => {
@@ -78,10 +73,10 @@ const Header = () => {
         navigate(`${BASE_PATH}/users/change_password`);
     };
 
-    const renderLanguageDropdown = () => {
+    const renderLocalesDropdown = () => {
         let flag;
-        let language = utils.getLSVariable("language");
-        switch (language) {
+        let locale = utils.getLSVariable("locale");
+        switch (locale) {
             case "fa":
                 flag = "IR";
                 break;
@@ -97,7 +92,7 @@ const Header = () => {
                 <button
                     type="button"
                     data-toggle="dropdown"
-                    className="p-0 mr-2 btn btn-link language-dropdown"
+                    className="p-0 btn btn-link locale-dropdown"
                     aria-expanded="false"
                 >
                     <span className="icon-wrapper icon-wrapper-alt rounded-circle">
@@ -111,7 +106,7 @@ const Header = () => {
                     tabIndex="-1"
                     role="menu"
                     aria-hidden="true"
-                    className="rm-pointers dropdown-menu dropdown-menu-right language-popup"
+                    className="rm-pointers dropdown-menu dropdown-menu-left locale-popup"
                 >
                     <div className="dropdown-menu-header">
                         <div className="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
@@ -123,7 +118,7 @@ const Header = () => {
                             ></div>
                             <div className="menu-header-content text-center text-white">
                                 <h6 className="menu-header-subtitle mt-0">
-                                    {strings.chooseLanguage}
+                                    {strings.chooseLocale}
                                 </h6>
                             </div>
                         </div>
@@ -134,9 +129,9 @@ const Header = () => {
                         className={`dropdown-item ${
                             flag === "US" ? "active" : ""
                         }`}
-                        onClick={() => changeLanguage(LANGUAGES.EN)}
+                        onClick={() => setLocale(LOCALES.EN)}
                     >
-                        <span className="ml-3 opacity-8 flag large US"></span>{" "}
+                        <span className="mxdir-3 opacity-8 flag large US"></span>{" "}
                         {strings.us}
                     </button>
                     <button
@@ -145,9 +140,9 @@ const Header = () => {
                         className={`dropdown-item ${
                             flag === "IR" ? "active" : ""
                         }`}
-                        onClick={() => changeLanguage(LANGUAGES.FA)}
+                        onClick={() => setLocale(LOCALES.FA)}
                     >
-                        <span className="ml-3 opacity-8 flag large IR"></span>{" "}
+                        <span className="mxdir-3 opacity-8 flag large IR"></span>{" "}
                         {strings.fa}
                     </button>
                 </div>
@@ -157,10 +152,10 @@ const Header = () => {
 
     const renderUserLgDropdown = () => {
         return (
-            <div className="header-btn-lg pr-0">
+            <div className="header-btn-lg">
                 <div className="widget-content p-0">
                     <div className="widget-content-wrapper">
-                        <div className="widget-content-left ml-2">
+                        <div className="widget-content-left">
                             <div className="btn-group">
                                 <a
                                     data-toggle="dropdown"
@@ -174,7 +169,7 @@ const Header = () => {
                                         src={`${ASSETS_PATH}/images/user.png`}
                                         alt={`${authUser?.name} ${authUser?.family}`}
                                     />
-                                    <i className="fa fa-angle-down ml-2 opacity-8"></i>
+                                    <i className="fa fa-angle-down mxdir-2 opacity-8"></i>
                                 </a>
                                 <div
                                     tabIndex="-1"
@@ -190,10 +185,10 @@ const Header = () => {
                                                     backgroundImage: `url("${ASSETS_PATH}/images/menu-bg2.jpg")`,
                                                 }}
                                             ></div>
-                                            <div className="menu-header-content text-right">
+                                            <div className="menu-header-content">
                                                 <div className="widget-content p-0">
                                                     <div className="widget-content-wrapper">
-                                                        <div className="widget-content-right mr-3 mb-3">
+                                                        <div className="widget-content-left mx-2 mxdir-3 mb-3">
                                                             <img
                                                                 width="42"
                                                                 className="rounded-circle"
@@ -209,7 +204,7 @@ const Header = () => {
                                                                 {widgetUserTitle()}
                                                             </div>
                                                         </div>
-                                                        <div className="widget-content-right mr-2">
+                                                        <div className="widget-content-left mx-2">
                                                             <button
                                                                 className="btn-pill btn-shadow btn-shine btn btn-focus mb-3"
                                                                 onMouseUp={
@@ -235,7 +230,7 @@ const Header = () => {
                                                 </li>
                                                 <li className="nav-item">
                                                     <CustomLink
-                                                        className="nav-link mr-2"
+                                                        className="nav-link mxdir-2"
                                                         onClick={
                                                             onChanePassword
                                                         }
@@ -245,7 +240,7 @@ const Header = () => {
                                                 </li>
                                                 <li className="nav-item">
                                                     <CustomLink
-                                                        className="nav-link mr-2"
+                                                        className="nav-link mxdir-2"
                                                         onClick={onEditUser}
                                                     >
                                                         {strings.editProfile}
@@ -362,7 +357,7 @@ const Header = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="widget-content-left  ml-3 header-user-info">
+                        <div className="widget-content-left mxdir-3 header-user-info">
                             <div className="widget-heading">
                                 {`${authUser?.name} ${authUser?.family}`}
                             </div>
@@ -383,7 +378,7 @@ const Header = () => {
                     <span>{general.brandLogo}</span>
                 </div>
 
-                <div className="header__pane mr-auto">
+                <div className="header__pane mxdir-auto">
                     <div>
                         {userState?.user && (
                             <button
@@ -426,9 +421,7 @@ const Header = () => {
             </div>
             <div className="app-header__content">
                 <div className="app-header-left">
-                    <div className="header-dots">
-                        {renderLanguageDropdown()}
-                    </div>
+                    <div className="header-dots">{renderLocalesDropdown()}</div>
                     {userState?.user && renderUserLgDropdown()}
                 </div>
             </div>

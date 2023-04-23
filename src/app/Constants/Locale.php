@@ -2,7 +2,7 @@
 
 namespace App\Constants;
 
-abstract class Language
+abstract class Locale
 {
     const EN = 'en';
     const FA = 'fa';

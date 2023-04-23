@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { PageLayout, TableCard } from "../";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const ListPage = ({
     pageUtils,
@@ -13,7 +13,7 @@ const ListPage = ({
     backUrl = null,
 }) => {
     const navigate = useNavigate();
-    const { general } = useLanguage();
+    const { general } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (

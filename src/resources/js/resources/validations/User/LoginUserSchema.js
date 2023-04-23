@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { stringValidator } from "../CommonValidators";
 import utils from "../../../utils/Utils";
 
-const { loginUserPage: strings } = utils.getLSLanguage();
+const { loginUserPage: strings } = utils.getLSLocale();
 
 const loginUserSchema = yup.object().shape({
     username: stringValidator(yup.string(), strings.username, 6, 50),

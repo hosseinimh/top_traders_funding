@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import BasePageLayout from "./BasePageLayout";
 import { BASE_PATH } from "../../../constants";
 import { Link } from "react-router-dom";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const ForgetPageLayout = ({ children, pageUtils }) => {
-    const { general } = useLanguage();
+    const { general } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (
@@ -38,7 +38,7 @@ const ForgetPageLayout = ({ children, pageUtils }) => {
                                     </h4>
                                     <div className="row">{children}</div>
                                     <div className="mt-4 d-flex align-items-center mb-4">
-                                        <div className="mr-auto">
+                                        <div className="mxdir-auto">
                                             <button
                                                 className="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg"
                                                 onClick={pageUtils.useForm.handleSubmit(

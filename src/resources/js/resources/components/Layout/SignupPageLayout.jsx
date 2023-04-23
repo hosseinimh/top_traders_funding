@@ -40,7 +40,7 @@ const SignupPageLayout = ({ children, pageUtils }) => {
                                     </h4>
                                     <div className="row">{children}</div>
                                     <div className="mt-4 d-flex align-items-center mb-4">
-                                        <div className="mr-auto">
+                                        <div className="mxdir-auto">
                                             <button
                                                 className="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg"
                                                 onClick={pageUtils.useForm.handleSubmit(

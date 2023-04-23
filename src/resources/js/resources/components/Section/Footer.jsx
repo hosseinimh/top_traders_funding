@@ -1,9 +1,11 @@
 import React from "react";
 
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
+import utils from "../../../utils/Utils";
+import { LOCALES } from "../../../constants";
 
 const Footer = () => {
-    const { footer: strings } = useLanguage();
+    const { footer: strings } = useLocale();
 
     return (
         <>
@@ -20,17 +22,25 @@ const Footer = () => {
                     </div>
                     <div className="app-footer-left">
                         <ul className="nav">
-                            <li className="nav-item d-flex">
-                                <span className="nav-link pl-0">
+                            <li
+                                className={`nav-item d-flex ${
+                                    utils.getLSVariable("locale") === LOCALES.FA
+                                        ? "flex-row"
+                                        : "flex-row-reverse"
+                                }`}
+                            >
+                                <span className="nav-link">
                                     {strings.developedBy}:
                                 </span>
-                                <a
-                                    href={strings.developerUrl}
-                                    target={"_blank"}
-                                    className="nav-link pr-2"
-                                >
-                                    {strings.developer}
-                                </a>
+                                <span>
+                                    <a
+                                        href={strings.developerUrl}
+                                        target={"_blank"}
+                                        className="nav-link px-0"
+                                    >
+                                        {strings.developer}
+                                    </a>
+                                </span>
                             </li>
                         </ul>
                     </div>

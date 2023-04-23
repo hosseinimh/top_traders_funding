@@ -2,7 +2,7 @@
 
 return
     [
-        '_title' => 'تامین مالی تریدرهای برتر',
+        '_title' => 'Top Traders Funding',
         'server_error' => 'خطایی رخ داد',
         'store_error' => 'خطایی در ثبت داده رخ داد',
         'update_error' => 'خطایی در ویرایش داده رخ داد',

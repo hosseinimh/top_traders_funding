@@ -1,7 +1,7 @@
 import utils from "../../../utils/Utils";
 
 const emailValidator = (schema, field, required = true) => {
-    const { validation } = utils.getLSLanguage();
+    const { validation } = utils.getLSLocale();
     schema = schema
         .email(validation.emailMessage)
         .matches(/@[^.]*\./, validation.emailMessage)

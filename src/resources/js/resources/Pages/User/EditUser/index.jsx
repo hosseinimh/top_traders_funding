@@ -9,10 +9,10 @@ import {
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
 import { USER_ROLES } from "../../../../constants";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 const EditUser = () => {
-    const { editUserPage: strings } = useLanguage();
+    const { editUserPage: strings } = useLocale();
     const pageUtils = new PageUtils();
     const userState = useSelector((state) => state.userReducer);
 

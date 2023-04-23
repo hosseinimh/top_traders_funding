@@ -5,10 +5,10 @@ import { AlertState } from "../../components";
 import BasePageLayout from "./BasePageLayout";
 import { Link } from "react-router-dom";
 import { BASE_PATH } from "../../../constants";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const LoginPageLayout = ({ children, pageUtils }) => {
-    const { footer } = useLanguage();
+    const { footer } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (

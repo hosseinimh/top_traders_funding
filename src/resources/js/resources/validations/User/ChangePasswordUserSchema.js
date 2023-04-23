@@ -1,9 +1,9 @@
 import * as yup from "yup";
 
 import { stringValidator } from "../CommonValidators";
-import { useLSLanguage } from "../../../hooks";
+import { useLSLocale } from "../../../hooks";
 
-const { changePasswordUserPage: strings, validation } = useLSLanguage();
+const { changePasswordUserPage: strings, validation } = useLSLocale();
 
 const changePasswordUserSchema = yup.object().shape({
     newPassword: stringValidator(yup.string(), strings.newPassword, 6, 50),

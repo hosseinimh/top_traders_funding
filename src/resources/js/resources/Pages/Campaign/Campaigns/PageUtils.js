@@ -5,12 +5,12 @@ import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import utils from "../../../../utils/Utils";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm();
-        const { campaignsPage: strings } = useLanguage();
+        const { campaignsPage: strings } = useLocale();
         super("Campaigns", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

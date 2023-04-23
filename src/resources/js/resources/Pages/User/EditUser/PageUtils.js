@@ -13,14 +13,14 @@ import { BASE_PATH, USER_ROLES } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { editUserSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { editUserPage: strings } = useLanguage();
+        const { editUserPage: strings } = useLocale();
         super("Users", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

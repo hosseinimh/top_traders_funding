@@ -12,14 +12,14 @@ import { BASE_PATH, USER_ROLES } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { changePasswordUserSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { changePasswordUserPage: strings } = useLanguage();
+        const { changePasswordUserPage: strings } = useLocale();
         super("ChangePasswordUser", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

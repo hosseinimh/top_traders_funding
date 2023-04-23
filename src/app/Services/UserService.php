@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Constants\Language;
+use App\Constants\Locale;
 use App\Constants\Role;
 use App\Constants\Status;
 use App\Facades\Helper;
@@ -70,15 +70,15 @@ class UserService
         return DB::statement("UPDATE `tbl_users` SET `password`='$password' WHERE `id`=$user->id");
     }
 
-    public function setLanguage(Model $model, string $language): bool
+    public function setLocale(Model $model, string $locale): bool
     {
-        $languages = [Language::EN, Language::FA];
-        if (!in_array($language, $languages)) {
+        $locales = [Locale::EN, Locale::FA];
+        if (!in_array($locale, $locales)) {
             return false;
         }
 
         $data = [
-            'language' => $language
+            'locale' => $locale
         ];
         return $model->update($data);
     }

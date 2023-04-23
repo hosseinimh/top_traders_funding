@@ -7,10 +7,10 @@ import {
     InputCheckboxColumn,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 const AddUser = () => {
-    const { addUserPage: strings } = useLanguage();
+    const { addUserPage: strings } = useLocale();
     const pageUtils = new PageUtils();
 
     return (

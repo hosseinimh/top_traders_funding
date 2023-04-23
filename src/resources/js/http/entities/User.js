@@ -80,9 +80,9 @@ export class User extends Entity {
         });
     }
 
-    async changeLanguage(language) {
-        return await this.handlePost(`${BASE_URL}/u/users/set_language`, {
-            language: language,
+    async setLocale(locale) {
+        return await this.handlePost(`${BASE_URL}/u/users/set_locale`, {
+            _locale: locale,
         });
     }
 

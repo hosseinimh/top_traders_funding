@@ -11,14 +11,14 @@ import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { editAppRuleSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { editAppRulePage: strings } = useLanguage();
+        const { editAppRulePage: strings } = useLocale();
         super("AppRules", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

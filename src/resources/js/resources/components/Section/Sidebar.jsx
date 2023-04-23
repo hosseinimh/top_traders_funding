@@ -8,11 +8,11 @@ import { easeOutQuint } from "es6-easings";
 import { BASE_PATH, USER_ROLES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import { CustomLink } from "../";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 function Sidebar() {
     const dispatch = useDispatch();
-    const { sidebar: strings, general } = useLanguage();
+    const { sidebar: strings, general } = useLocale();
     const pageState = useSelector((state) => state.pageReducer);
     const userState = useSelector((state) => state.userReducer);
 

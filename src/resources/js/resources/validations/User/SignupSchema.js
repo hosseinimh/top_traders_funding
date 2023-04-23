@@ -7,7 +7,7 @@ import {
 } from "../CommonValidators";
 import utils from "../../../utils/Utils";
 
-const { signupPage: strings, validation } = utils.getLSLanguage();
+const { signupPage: strings, validation } = utils.getLSLocale();
 
 const signupSchema = yup.object().shape({
     username: stringValidator(yup.string(), strings.username, 6, 50),

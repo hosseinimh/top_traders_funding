@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-import { LANGUAGES } from "../constants";
+import { LOCALES } from "../constants";
 import { en, fa } from "../constants/strings";
 
 function isValidMobile(value) {
@@ -111,7 +111,7 @@ const getLSVariable = (key) => {
 
         if (!text) return null;
 
-        const bytes = CryptoJS.AES.decrypt(text, "mehrdad_javan");
+        const bytes = CryptoJS.AES.decrypt(text, "top_traders_funding");
         const value = bytes.toString(CryptoJS.enc.Utf8);
 
         return value;
@@ -122,7 +122,10 @@ const getLSVariable = (key) => {
 
 const setLSVariable = (key, value) => {
     try {
-        const text = CryptoJS.AES.encrypt(value, "mehrdad_javan").toString();
+        const text = CryptoJS.AES.encrypt(
+            value,
+            "top_traders_funding"
+        ).toString();
 
         localStorage.setItem(key, text);
     } catch (error) {}
@@ -168,12 +171,12 @@ const getLSUser = () => {
     return user;
 };
 
-const getLSLanguage = () => {
-    const language = getLSVariable("language");
-    switch (language) {
-        case LANGUAGES.EN:
+const getLSLocale = () => {
+    const locale = getLSVariable("locale");
+    switch (locale) {
+        case LOCALES.EN:
             return en;
-        case LANGUAGES.FA:
+        case LOCALES.FA:
             return fa;
         default:
             return fa;
@@ -399,11 +402,12 @@ const isNumber = (number) => !isNaN(parseInt(number));
 
 const isId = (id) => !isNaN(parseInt(id)) && id > 0;
 
-const setLanguage = () => {
-    const language = getLSVariable("language");
-    if (![LANGUAGES.EN, LANGUAGES.FA].includes(language)) {
-        setLSVariable("language", LANGUAGES.FA);
+const initLocale = () => {
+    const locale = getLSVariable("locale");
+    if (![LOCALES.EN, LOCALES.FA].includes(locale)) {
+        setLSVariable("locale", LOCALES.FA);
     }
+    return getLSVariable("locale");
 };
 
 const utils = {
@@ -417,7 +421,7 @@ const utils = {
     setLSVariable,
     getLSToken,
     getLSUser,
-    getLSLanguage,
+    getLSLocale,
     clearLS,
     convertNumberToPersion,
     convertNumberToEnglish,
@@ -430,7 +434,7 @@ const utils = {
     wordifyfa,
     isNumber,
     isId,
-    setLanguage,
+    initLocale,
 };
 
 export default utils;

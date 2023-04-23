@@ -3,7 +3,7 @@ import { HEADER_BUTTONS } from "./headerButtons";
 import { MESSAGE_TYPES } from "./messageTypes";
 import { MESSAGE_CODES } from "./messageCodes";
 import { UPLOADED_FILE } from "./UploadedFile";
-import { LANGUAGES } from "./languages";
+import { LOCALES } from "./locales";
 import { USER_ROLES } from "./userRoles";
 import { BASE_PATH, ASSETS_PATH, IMAGES_PATH, PAGE_ITEMS } from "./theme";
 
@@ -19,6 +19,6 @@ export {
     MESSAGE_TYPES,
     MESSAGE_CODES,
     UPLOADED_FILE,
-    LANGUAGES,
+    LOCALES,
     USER_ROLES,
 };

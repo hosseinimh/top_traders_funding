@@ -5,12 +5,12 @@ import { USER_ROLES } from "../../../constants";
 import { BlankPage, Card, Span } from "../../components";
 import { PageUtils } from "./PageUtils";
 import utils from "../../../utils/Utils";
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const Dashboard = () => {
     const pageState = useSelector((state) => state.pageReducer);
     const userState = useSelector((state) => state.userReducer);
-    const { dashboardPage: strings } = useLanguage();
+    const { dashboardPage: strings } = useLocale();
     const pageUtils = new PageUtils();
 
     const renderReview = () =>

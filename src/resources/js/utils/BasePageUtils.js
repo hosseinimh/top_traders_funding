@@ -11,9 +11,9 @@ import {
     setPageUtilsLoadedAction,
 } from "../state/page/pageActions";
 import utils from "./Utils";
-import { useLSLanguage } from "../hooks";
+import { useLSLocale } from "../hooks";
 
-const { general } = useLSLanguage();
+const { general } = useLSLocale();
 
 export class BasePageUtils {
     constructor(name, strings = {}, useForm = null) {

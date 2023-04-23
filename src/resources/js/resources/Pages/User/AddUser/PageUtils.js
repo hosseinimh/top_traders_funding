@@ -6,14 +6,14 @@ import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH, USER_ROLES } from "../../../../constants";
 import { addUserSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { addUserPage: strings } = useLanguage();
+        const { addUserPage: strings } = useLocale();
         super("Users", strings, form);
         this.entity = new Entity();
         this.callbackUrl = `${BASE_PATH}/users`;

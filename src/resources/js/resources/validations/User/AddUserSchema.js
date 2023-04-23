@@ -5,9 +5,9 @@ import {
     nameValidator,
     stringValidator,
 } from "../CommonValidators";
-import { useLSLanguage } from "../../../hooks";
+import { useLSLocale } from "../../../hooks";
 
-const { addUserPage: strings, validation } = useLSLanguage();
+const { addUserPage: strings, validation } = useLSLocale();
 
 const addUserSchema = yup.object().shape({
     username: stringValidator(yup.string(), strings.username, 6, 50),

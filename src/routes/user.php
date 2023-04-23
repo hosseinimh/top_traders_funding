@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Administrator\DashboardController;
+use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\AppRuleController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\UserController;
@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 
 // 'user' | 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
-    Route::post('users/set_language', [UserController::class, 'setLanguage']);
+    Route::post('users/set_locale', [UserController::class, 'setLocale']);
 
     Route::post('app_rules', [AppRuleController::class, 'index']);
     Route::post('app_rules/show/{model}', [AppRuleController::class, 'show']);

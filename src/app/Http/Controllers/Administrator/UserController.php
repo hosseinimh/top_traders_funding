@@ -59,7 +59,6 @@ class UserController extends Controller
         if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::ADMINISTRATOR, 'is_active' => 1])) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
-        $this->service->setLanguage(auth()->user(), $request->language);
 
         return $this->onItem(auth()->user());
     }

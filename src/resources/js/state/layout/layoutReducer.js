@@ -1,17 +1,11 @@
-import { LANGUAGES } from "../../constants";
 import utils from "../../utils/Utils";
 import * as actions from "./layoutActions";
-
-const initLanguage = () => {
-    utils.setLanguage();
-    return utils.getLSVariable("language");
-};
 
 const initialState = {
     loading: false,
     width: 0,
     height: 0,
-    language: initLanguage(),
+    locale: utils.initLocale(),
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {
@@ -27,10 +21,10 @@ const layoutReducer = (state = initialState, { type, payload }) => {
                 width: payload.width,
                 height: payload.height,
             };
-        case actions.SET_LANGUAGE_ACTION:
+        case actions.SET_LOCALE_ACTION:
             return {
                 ...state,
-                language: payload,
+                locale: payload,
             };
         default:
             return state;

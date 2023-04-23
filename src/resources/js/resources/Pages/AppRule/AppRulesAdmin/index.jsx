@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { ListPage, TableItems } from "../../../components";
 import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 const AppRulesAdmin = () => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
     const columnsCount = 3;
-    const { appRulesPage: strings, general } = useLanguage();
+    const { appRulesPage: strings, general } = useLocale();
     const pageUtils = new PageUtils();
 
     const renderHeader = () => (

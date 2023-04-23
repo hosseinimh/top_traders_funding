@@ -36,9 +36,9 @@ class UserController extends Controller
         return $this->onUpdate($this->service->changePassword(auth()->user(), $request->new_password));
     }
 
-    public function setLanguage(Request $request): HttpJsonResponse
+    public function setLocale(Request $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->setLanguage(auth()->user(), $request->language));
+        return $this->onUpdate($this->service->setLocale(auth()->user(), $request->locale));
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse
@@ -51,7 +51,6 @@ class UserController extends Controller
         if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::USER, 'is_active' => 1])) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
-        $this->service->setLanguage(auth()->user(), $request->language);
 
         return $this->onItem(auth()->user());
     }

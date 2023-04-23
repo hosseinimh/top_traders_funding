@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\Locale;
 use App\Constants\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('family')->nullable();
             $table->string('email')->unique();
             $table->string('google_id')->nullable();
-            $table->string('language')->nullable();
+            $table->string('locale')->default(Locale::FA);
             $table->unsignedTinyInteger('role')->default(Role::USER);
             $table->unsignedTinyInteger('is_active')->default(0);
             $table->timestamps();

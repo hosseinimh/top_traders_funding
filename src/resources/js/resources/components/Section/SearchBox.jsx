@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const SearchBox = ({ children, pageUtils, onSubmit, onReset }) => {
-    const { general } = useLanguage();
+    const { general } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (

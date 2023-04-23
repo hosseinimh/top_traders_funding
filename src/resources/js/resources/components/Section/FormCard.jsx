@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
-import { useLanguage } from "../../../hooks";
+import { useLocale } from "../../../hooks";
 
 const FormCard = ({
     children,
@@ -11,7 +11,7 @@ const FormCard = ({
     onSubmit = null,
     hasCancel = true,
 }) => {
-    const { general } = useLanguage();
+    const { general } = useLocale();
     const layoutState = useSelector((state) => state.layoutReducer);
 
     return (
@@ -26,7 +26,7 @@ const FormCard = ({
                             <div className="col-sm-12">
                                 {hasSubmit && (
                                     <button
-                                        className="btn btn-success px-4 ml-2"
+                                        className="btn btn-success px-4 mxdir-2"
                                         type="button"
                                         title={
                                             pageUtils?.strings &&

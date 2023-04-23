@@ -60,7 +60,7 @@ export const validation = {
 };
 
 export const header = {
-    chooseLanguage: "انتخاب زبان",
+    chooseLocale: "انتخاب زبان",
     us: "English",
     fa: "فارسی",
     tools: "امکانات",

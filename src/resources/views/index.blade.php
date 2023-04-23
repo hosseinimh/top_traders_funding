@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+@if (app()->currentLocale() === \App\Constants\Locale::FA)
+<html lang="{{app()->currentLocale()}}" dir="rtl">
+@else
+<html lang="{{app()->currentLocale()}}" dir="ltr">
+@endif
 
 <head>
     <base href="./">
@@ -22,7 +26,11 @@
     $fileModified = '';
     }
     @endphp
+    @if (app()->currentLocale() === \App\Constants\Locale::FA)
+    <link href="{{$THEME::CSS_PATH}}/style_rtl.css?v={{$fileModified}}" rel="stylesheet">
+    @else
     <link href="{{$THEME::CSS_PATH}}/style.css?v={{$fileModified}}" rel="stylesheet">
+    @endif
 </head>
 
 <body>

@@ -1,4 +1,4 @@
-import useLanguage from "./useLanguage";
-import useLSLanguage from "./useLSLanguage";
+import useLocale from "./useLocale";
+import useLSLocale from "./useLSLocale";
 
-export { useLanguage, useLSLanguage };
+export { useLocale, useLSLocale };

@@ -1,9 +1,9 @@
 import * as yup from "yup";
 
 import { emailValidator } from "../CommonValidators";
-import { useLSLanguage } from "../../../hooks";
+import { useLSLocale } from "../../../hooks";
 
-const { forgetPasswordPage: strings } = useLSLanguage();
+const { forgetPasswordPage: strings } = useLSLocale();
 
 const forgetPasswordSchema = yup.object().shape({
     email: emailValidator(yup.string(), strings.email),

@@ -2,9 +2,9 @@ import { post } from "../../http";
 import { handleError } from "../globalActions";
 import utils from "../../utils/Utils";
 import { BASE_URL, USER_ROLES } from "../../constants";
-import { useLSLanguage } from "../../hooks";
+import { useLSLocale } from "../../hooks";
 
-const { utils: strings } = useLSLanguage();
+const { utils: strings } = useLSLocale();
 
 export const FETCH_LOGIN_REQUEST_ACTION = "FETCH_LOGIN_REQUEST_ACTION";
 export const FETCH_LOGIN_SUCCESS_ACTION = "FETCH_LOGIN_SUCCESS_ACTION";
@@ -23,11 +23,9 @@ export const fetchLoginAction =
                 role === USER_ROLES.ADMINISTRATOR
                     ? `${BASE_URL}/a/users/login`
                     : `${BASE_URL}/u/users/login`;
-            const language = utils.getLSVariable("language") ?? "fa";
             const response = await post(url, {
                 username,
                 password,
-                language,
             });
 
             if (!utils.isJsonString(response.data)) {

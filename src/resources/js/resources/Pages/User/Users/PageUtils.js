@@ -10,14 +10,14 @@ import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { searchUserSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { usersPage: strings } = useLanguage();
+        const { usersPage: strings } = useLocale();
         super("Users", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

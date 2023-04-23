@@ -6397,7 +6397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "BASE_URL": () => (/* binding */ BASE_URL),
 /* harmony export */   "HEADER_BUTTONS": () => (/* reexport safe */ _headerButtons__WEBPACK_IMPORTED_MODULE_1__.HEADER_BUTTONS),
 /* harmony export */   "IMAGES_PATH": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_7__.IMAGES_PATH),
-/* harmony export */   "LANGUAGES": () => (/* reexport safe */ _languages__WEBPACK_IMPORTED_MODULE_5__.LANGUAGES),
+/* harmony export */   "LOCALES": () => (/* reexport safe */ _locales__WEBPACK_IMPORTED_MODULE_5__.LOCALES),
 /* harmony export */   "MESSAGE_CODES": () => (/* reexport safe */ _messageCodes__WEBPACK_IMPORTED_MODULE_3__.MESSAGE_CODES),
 /* harmony export */   "MESSAGE_TYPES": () => (/* reexport safe */ _messageTypes__WEBPACK_IMPORTED_MODULE_2__.MESSAGE_TYPES),
 /* harmony export */   "PAGE_ITEMS": () => (/* reexport safe */ _theme__WEBPACK_IMPORTED_MODULE_7__.PAGE_ITEMS),
@@ -6409,7 +6409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _messageTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messageTypes */ "./resources/js/constants/messageTypes.js");
 /* harmony import */ var _messageCodes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messageCodes */ "./resources/js/constants/messageCodes.js");
 /* harmony import */ var _UploadedFile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UploadedFile */ "./resources/js/constants/UploadedFile.js");
-/* harmony import */ var _languages__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./languages */ "./resources/js/constants/languages.js");
+/* harmony import */ var _locales__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./locales */ "./resources/js/constants/locales.js");
 /* harmony import */ var _userRoles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./userRoles */ "./resources/js/constants/userRoles.js");
 /* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme */ "./resources/js/constants/theme.js");
 
@@ -6425,18 +6425,18 @@ var BASE_URL = _server_config_json__WEBPACK_IMPORTED_MODULE_0__.baseUrl;
 
 /***/ }),
 
-/***/ "./resources/js/constants/languages.js":
-/*!*********************************************!*\
-  !*** ./resources/js/constants/languages.js ***!
-  \*********************************************/
+/***/ "./resources/js/constants/locales.js":
+/*!*******************************************!*\
+  !*** ./resources/js/constants/locales.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LANGUAGES": () => (/* binding */ LANGUAGES)
+/* harmony export */   "LOCALES": () => (/* binding */ LOCALES)
 /* harmony export */ });
-var LANGUAGES = {
+var LOCALES = {
   EN: "en",
   FA: "fa"
 };
@@ -6575,7 +6575,7 @@ var validation = {
   emailMessage: "پست الکترونیک نامعتبر است."
 };
 var header = {
-  chooseLanguage: "انتخاب زبان",
+  chooseLocale: "انتخاب زبان",
   us: "English",
   fa: "فارسی",
   tools: "امکانات",
@@ -6854,7 +6854,7 @@ var validation = {
   emailMessage: "پست الکترونیک نامعتبر است."
 };
 var header = {
-  chooseLanguage: "انتخاب زبان",
+  chooseLocale: "انتخاب زبان",
   us: "English",
   fa: "فارسی",
   tools: "امکانات",
@@ -7112,21 +7112,21 @@ var USER_ROLES = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useLSLanguage": () => (/* reexport safe */ _useLSLanguage__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "useLanguage": () => (/* reexport safe */ _useLanguage__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "useLSLocale": () => (/* reexport safe */ _useLSLocale__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   "useLocale": () => (/* reexport safe */ _useLocale__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _useLanguage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useLanguage */ "./resources/js/hooks/useLanguage.js");
-/* harmony import */ var _useLSLanguage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useLSLanguage */ "./resources/js/hooks/useLSLanguage.js");
+/* harmony import */ var _useLocale__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useLocale */ "./resources/js/hooks/useLocale.js");
+/* harmony import */ var _useLSLocale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useLSLocale */ "./resources/js/hooks/useLSLocale.js");
 
 
 
 
 /***/ }),
 
-/***/ "./resources/js/hooks/useLSLanguage.js":
-/*!*********************************************!*\
-  !*** ./resources/js/hooks/useLSLanguage.js ***!
-  \*********************************************/
+/***/ "./resources/js/hooks/useLSLocale.js":
+/*!*******************************************!*\
+  !*** ./resources/js/hooks/useLSLocale.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7140,25 +7140,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var useLSLanguage = function useLSLanguage() {
-  var language = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSVariable("language");
-  switch (language) {
-    case _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.EN:
+var useLSLocale = function useLSLocale() {
+  var locale = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSVariable("locale");
+  switch (locale) {
+    case _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.EN:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_0__.en;
-    case _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.FA:
+    case _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.FA:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_0__.fa;
     default:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_0__.fa;
   }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLSLanguage);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLSLocale);
 
 /***/ }),
 
-/***/ "./resources/js/hooks/useLanguage.js":
-/*!*******************************************!*\
-  !*** ./resources/js/hooks/useLanguage.js ***!
-  \*******************************************/
+/***/ "./resources/js/hooks/useLocale.js":
+/*!*****************************************!*\
+  !*** ./resources/js/hooks/useLocale.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7172,20 +7172,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var useLanguage = function useLanguage() {
+var useLocale = function useLocale() {
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
     return state.layoutReducer;
   });
-  switch (layoutState === null || layoutState === void 0 ? void 0 : layoutState.language) {
-    case _constants__WEBPACK_IMPORTED_MODULE_2__.LANGUAGES.EN:
+  switch (layoutState === null || layoutState === void 0 ? void 0 : layoutState.locale) {
+    case _constants__WEBPACK_IMPORTED_MODULE_2__.LOCALES.EN:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_1__.en;
-    case _constants__WEBPACK_IMPORTED_MODULE_2__.LANGUAGES.FA:
+    case _constants__WEBPACK_IMPORTED_MODULE_2__.LOCALES.FA:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_1__.fa;
     default:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_1__.fa;
   }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLanguage);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLocale);
 
 /***/ }),
 
@@ -7622,9 +7622,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLSLanguage)(),
-  strings = _useLSLanguage.utils,
-  general = _useLSLanguage.general;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLSLocale)(),
+  strings = _useLSLocale.utils,
+  general = _useLSLocale.general;
 var Entity = /*#__PURE__*/function () {
   function Entity() {
     _classCallCheck(this, Entity);
@@ -8124,15 +8124,15 @@ var User = /*#__PURE__*/function (_Entity) {
       return changePasswordFromUser;
     }()
   }, {
-    key: "changeLanguage",
+    key: "setLocale",
     value: function () {
-      var _changeLanguage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(language) {
+      var _setLocale = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(locale) {
         return _regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
               _context9.next = 2;
-              return this.handlePost("".concat(_constants__WEBPACK_IMPORTED_MODULE_0__.BASE_URL, "/u/users/set_language"), {
-                language: language
+              return this.handlePost("".concat(_constants__WEBPACK_IMPORTED_MODULE_0__.BASE_URL, "/u/users/set_locale"), {
+                _locale: locale
               });
             case 2:
               return _context9.abrupt("return", _context9.sent);
@@ -8142,10 +8142,10 @@ var User = /*#__PURE__*/function (_Entity) {
           }
         }, _callee9, this);
       }));
-      function changeLanguage(_x25) {
-        return _changeLanguage.apply(this, arguments);
+      function setLocale(_x25) {
+        return _setLocale.apply(this, arguments);
       }
-      return changeLanguage;
+      return setLocale;
     }()
   }, {
     key: "forgotPassword",
@@ -8253,13 +8253,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "post": () => (/* binding */ post),
 /* harmony export */   "postFile": () => (/* binding */ postFile)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/Utils */ "./resources/js/utils/Utils.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-axios__WEBPACK_IMPORTED_MODULE_0__["default"].defaults.withCredentials = true;
+
+axios__WEBPACK_IMPORTED_MODULE_1__["default"].defaults.withCredentials = true;
 var createConfig = function createConfig() {
   var config = {
     headers: {
@@ -8285,12 +8292,15 @@ var get = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           data = _args.length > 1 && _args[1] !== undefined ? _args[1] : null;
-          _context.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(url, data, createConfig());
-        case 3:
+          data = _objectSpread(_objectSpread({}, data), {}, {
+            _locale: _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSVariable("locale")
+          });
+          _context.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(url, data, createConfig());
+        case 4:
           response = _context.sent;
           return _context.abrupt("return", response);
-        case 5:
+        case 6:
         case "end":
           return _context.stop();
       }
@@ -8309,12 +8319,15 @@ var post = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           data = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : null;
-          _context2.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, data, createConfig());
-        case 3:
+          data = _objectSpread(_objectSpread({}, data), {}, {
+            _locale: _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSVariable("locale")
+          });
+          _context2.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, data, createConfig());
+        case 4:
           response = _context2.sent;
           return _context2.abrupt("return", response);
-        case 5:
+        case 6:
         case "end":
           return _context2.stop();
       }
@@ -8333,12 +8346,15 @@ var postFile = /*#__PURE__*/function () {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           data = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : null;
-          _context3.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post(url, data, createFileConfig());
-        case 3:
+          data = _objectSpread(_objectSpread({}, data), {}, {
+            _locale: _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSVariable("locale")
+          });
+          _context3.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, data, createFileConfig());
+        case 4:
           response = _context3.sent;
           return _context3.abrupt("return", response);
-        case 5:
+        case 6:
         case "end":
           return _context3.stop();
       }
@@ -8467,8 +8483,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_5__.addAppRuleSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLanguage)(),
-      strings = _useLanguage.addAppRulePage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLocale)(),
+      strings = _useLocale.addAppRulePage;
     _this = _super.call(this, "AppRules", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.AppRule();
     _this.callbackUrl = "".concat(_constants__WEBPACK_IMPORTED_MODULE_4__.BASE_PATH, "/app_rules/admin");
@@ -8595,8 +8611,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var _this;
     _classCallCheck(this, PageUtils);
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)();
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-      strings = _useLanguage.appRulesPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+      strings = _useLocale.appRulesPage;
     _this = _super.call(this, "AppRules", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_0__.AppRule();
     _this.initialPageProps = {
@@ -8688,9 +8704,9 @@ var AppRulesAdmin = function AppRulesAdmin() {
     return state.pageReducer;
   });
   var columnsCount = 3;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-    strings = _useLanguage.appRulesPage,
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+    strings = _useLocale.appRulesPage,
+    general = _useLocale.general;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_4__.PageUtils();
   var renderHeader = function renderHeader() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
@@ -8816,8 +8832,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_6__.editAppRuleSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLanguage)(),
-      strings = _useLanguage.editAppRulePage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLocale)(),
+      strings = _useLocale.editAppRulePage;
     _this = _super.call(this, "AppRules", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.AppRule();
     _this.initialPageProps = {
@@ -9031,8 +9047,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_5__.addCampaignSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLanguage)(),
-      strings = _useLanguage.addCampaignPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLocale)(),
+      strings = _useLocale.addCampaignPage;
     _this = _super.call(this, "Campaigns", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.Campaign();
     _this.callbackUrl = "".concat(_constants__WEBPACK_IMPORTED_MODULE_4__.BASE_PATH, "/campaigns");
@@ -9095,8 +9111,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AddCampaign = function AddCampaign() {
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    strings = _useLanguage.addCampaignPage;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    strings = _useLocale.addCampaignPage;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_2__.PageUtils();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components__WEBPACK_IMPORTED_MODULE_1__.FormPage, {
     pageUtils: pageUtils,
@@ -9169,8 +9185,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var _this;
     _classCallCheck(this, PageUtils);
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)();
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-      strings = _useLanguage.campaignsPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+      strings = _useLocale.campaignsPage;
     _this = _super.call(this, "Campaigns", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_0__.Campaign();
     _this.initialPageProps = {
@@ -9241,10 +9257,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/Utils */ "./resources/js/utils/Utils.js");
-/* harmony import */ var _PageUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PageUtils */ "./resources/js/resources/Pages/Campaign/Campaigns/PageUtils.js");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../hooks */ "./resources/js/hooks/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components */ "./resources/js/resources/components/index.js");
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../utils/Utils */ "./resources/js/utils/Utils.js");
+/* harmony import */ var _PageUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PageUtils */ "./resources/js/resources/Pages/Campaign/Campaigns/PageUtils.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../hooks */ "./resources/js/hooks/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -9260,22 +9278,22 @@ var Campaigns = function Campaigns() {
     return state.pageReducer;
   });
   var columnsCount = 3;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLanguage)(),
-    strings = _useLanguage.campaignsPage,
-    general = _useLanguage.general;
-  var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_3__.PageUtils();
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+    strings = _useLocale.campaignsPage,
+    general = _useLocale.general;
+  var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_4__.PageUtils();
   var renderHeader = function renderHeader() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
         scope: "col",
         style: {
           width: "50px"
         },
         children: "#"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
         scope: "col",
         children: strings.title
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
         scope: "col",
         style: {
           width: "100px"
@@ -9287,20 +9305,20 @@ var Campaigns = function Campaigns() {
   var renderItems = function renderItems() {
     var _pageState$props, _pageState$props$item;
     var children = pageState === null || pageState === void 0 ? void 0 : (_pageState$props = pageState.props) === null || _pageState$props === void 0 ? void 0 : (_pageState$props$item = _pageState$props.items) === null || _pageState$props$item === void 0 ? void 0 : _pageState$props$item.map(function (item, index) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
             scope: "row",
-            children: _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].en2faDigits(index + 1)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+            children: _utils_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].en2faDigits(index + 1)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
             children: item.title
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
             children: item.isActive === 1 ? strings.active : strings.notActive
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tr", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
             colSpan: columnsCount,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
               type: "button",
               className: "btn btn-warning mb-2 px-4 ml-2",
               onClick: function onClick() {
@@ -9314,12 +9332,12 @@ var Campaigns = function Campaigns() {
         })]
       }, item.id);
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(TableItems, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components__WEBPACK_IMPORTED_MODULE_2__.TableItems, {
       columnsCount: columnsCount,
       children: children
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(ListPage, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components__WEBPACK_IMPORTED_MODULE_2__.ListPage, {
     pageUtils: pageUtils,
     table: {
       renderHeader: renderHeader,
@@ -9387,8 +9405,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_6__.editCampaignSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLanguage)(),
-      strings = _useLanguage.editCampaignPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLocale)(),
+      strings = _useLocale.editCampaignPage;
     _this = _super.call(this, "Campaigns", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.Campaign();
     _this.initialPageProps = {
@@ -9534,8 +9552,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EditCampaign = function EditCampaign() {
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    strings = _useLanguage.editCampaignPage;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    strings = _useLocale.editCampaignPage;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_2__.PageUtils();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components__WEBPACK_IMPORTED_MODULE_1__.FormPage, {
     pageUtils: pageUtils,
@@ -9603,8 +9621,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
   function PageUtils(useForm) {
     var _this;
     _classCallCheck(this, PageUtils);
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_0__.useLanguage)(),
-      strings = _useLanguage.dashboardPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_0__.useLocale)(),
+      strings = _useLocale.dashboardPage;
     _this = _super.call(this, "Dashboard", strings, useForm);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.Dashboard();
     _this.initialPageProps = {
@@ -9726,8 +9744,8 @@ var Dashboard = function Dashboard() {
   var userState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.userReducer;
   });
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLanguage)(),
-    strings = _useLanguage.dashboardPage;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLocale)(),
+    strings = _useLocale.dashboardPage;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_4__.PageUtils();
   var renderReview = function renderReview() {
     var _userState$user;
@@ -9821,8 +9839,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_5__.addUserSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLanguage)(),
-      strings = _useLanguage.addUserPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLocale)(),
+      strings = _useLocale.addUserPage;
     _this = _super.call(this, "Users", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.User();
     _this.callbackUrl = "".concat(_constants__WEBPACK_IMPORTED_MODULE_4__.BASE_PATH, "/users");
@@ -9886,8 +9904,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AddUser = function AddUser() {
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    strings = _useLanguage.addUserPage;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    strings = _useLocale.addUserPage;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_2__.PageUtils();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components__WEBPACK_IMPORTED_MODULE_1__.FormPage, {
     pageUtils: pageUtils,
@@ -9994,8 +10012,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_7__.changePasswordUserSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLanguage)(),
-      strings = _useLanguage.changePasswordUserPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLocale)(),
+      strings = _useLocale.changePasswordUserPage;
     _this = _super.call(this, "ChangePasswordUser", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.User();
     _this.initialPageProps = {
@@ -10225,8 +10243,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_7__.editUserSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLanguage)(),
-      strings = _useLanguage.editUserPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLocale)(),
+      strings = _useLocale.editUserPage;
     _this = _super.call(this, "Users", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.User();
     _this.initialPageProps = {
@@ -10440,8 +10458,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var EditUser = function EditUser() {
   var _userState$user;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-    strings = _useLanguage.editUserPage;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+    strings = _useLocale.editUserPage;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_3__.PageUtils();
   var userState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.userReducer;
@@ -10537,8 +10555,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_4__.forgetPasswordSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-      strings = _useLanguage.forgetPasswordPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+      strings = _useLocale.forgetPasswordPage;
     _this = _super.call(this, "Users", strings, form);
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -10659,8 +10677,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_6__.loginUserSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLanguage)(),
-      strings = _useLanguage.loginUserPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLocale)(),
+      strings = _useLocale.loginUserPage;
     _this = _super.call(this, "Users", strings, form);
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -10785,8 +10803,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_4__.signupSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-      strings = _useLanguage.signupPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+      strings = _useLocale.signupPage;
     _this = _super.call(this, "Users", strings, form);
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -10929,8 +10947,8 @@ var PageUtils = /*#__PURE__*/function (_BasePageUtils) {
     var form = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
       resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_0__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_6__.searchUserSchema)
     });
-    var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLanguage)(),
-      strings = _useLanguage.usersPage;
+    var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLocale)(),
+      strings = _useLocale.usersPage;
     _this = _super.call(this, "Users", strings, form);
     _this.entity = new _http_entities__WEBPACK_IMPORTED_MODULE_1__.User();
     _this.initialPageProps = {
@@ -11060,9 +11078,9 @@ var Users = function Users() {
     return state.userReducer;
   });
   var columnsCount = 5;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLanguage)(),
-    strings = _useLanguage.usersPage,
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLocale)(),
+    strings = _useLocale.usersPage,
+    general = _useLocale.general;
   var pageUtils = new _PageUtils__WEBPACK_IMPORTED_MODULE_5__.PageUtils();
   var renderSearch = function renderSearch() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -11444,9 +11462,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FallbackError = function FallbackError() {
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLanguage)(),
-    footer = _useLanguage.footer,
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLocale)(),
+    footer = _useLocale.footer,
+    general = _useLocale.general;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "app-container app-theme-white body-tabs-shadow",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -12586,7 +12604,7 @@ var BasePageLayout = function BasePageLayout(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_state_page_pageActions__WEBPACK_IMPORTED_MODULE_5__.setPageUtilsAction)(pageUtils));
     dispatch((0,_state_page_pageActions__WEBPACK_IMPORTED_MODULE_5__.setPageTitleAction)(pageUtils.strings._title, pageUtils.strings._subTitle));
-  }, [layoutState === null || layoutState === void 0 ? void 0 : layoutState.language]);
+  }, [layoutState === null || layoutState === void 0 ? void 0 : layoutState.locale]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () {
     window.scrollTo(0, 0);
     var user = _utils_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].getLSUser();
@@ -12610,7 +12628,7 @@ var BasePageLayout = function BasePageLayout(_ref) {
       onPageLayoutChanged();
     });
     loadModals();
-    _utils_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].setLanguage();
+    _utils_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].initLocale();
   }, []);
   var loadModals = function loadModals() {
     var modalObjs = [];
@@ -12687,7 +12705,7 @@ var BasePageLayout = function BasePageLayout(_ref) {
       var _element$classList, _element$classList2, _element$classList3, _element$classList4, _element$classList5;
       if ((_element$classList = element.classList) !== null && _element$classList !== void 0 && _element$classList.contains("sidebar-btn-lg")) {
         return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.SIDEBAR_BTN_LG;
-      } else if ((_element$classList2 = element.classList) !== null && _element$classList2 !== void 0 && _element$classList2.contains("language-dropdown")) {
+      } else if ((_element$classList2 = element.classList) !== null && _element$classList2 !== void 0 && _element$classList2.contains("locale-dropdown")) {
         return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE;
       } else if ((_element$classList3 = element.classList) !== null && _element$classList3 !== void 0 && _element$classList3.contains("user-dropdown")) {
         return _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER;
@@ -12775,9 +12793,9 @@ var BasePageLayout = function BasePageLayout(_ref) {
           _popup2.classList.add("show");
           _popup2.setAttribute("x-placement", "bottom-start");
           if (document.body.clientWidth < 992) {
-            _popup2.style = "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 2rem; left: 0px; will-change: transform;";
+            _popup2.style = "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 2rem; will-change: transform;";
           } else {
-            _popup2.style = "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
+            _popup2.style = "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; will-change: transform;";
           }
           try {
             document.getElementsByClassName("slide-img-bg")[0].style.opacity = "0.1";
@@ -12790,8 +12808,8 @@ var BasePageLayout = function BasePageLayout(_ref) {
   var getDropDown = function getDropDown(dropDown) {
     var elementName, poupName;
     if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.LANGUANCGE) {
-      elementName = "language-dropdown";
-      poupName = "language-popup";
+      elementName = "locale-dropdown";
+      poupName = "locale-popup";
     } else if (dropDown === _constants__WEBPACK_IMPORTED_MODULE_2__.HEADER_BUTTONS.USER) {
       elementName = "user-dropdown";
       poupName = "user-popup";
@@ -12874,8 +12892,8 @@ __webpack_require__.r(__webpack_exports__);
 var ForgetPageLayout = function ForgetPageLayout(_ref) {
   var children = _ref.children,
     pageUtils = _ref.pageUtils;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -12921,7 +12939,7 @@ var ForgetPageLayout = function ForgetPageLayout(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                   className: "mt-4 d-flex align-items-center mb-4",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                    className: "mr-auto",
+                    className: "mxdir-auto",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                       className: "btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg",
                       onClick: pageUtils.useForm.handleSubmit(pageUtils.onSubmit),
@@ -13051,8 +13069,8 @@ __webpack_require__.r(__webpack_exports__);
 var LoginPageLayout = function LoginPageLayout(_ref) {
   var children = _ref.children,
     pageUtils = _ref.pageUtils;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLanguage)(),
-    footer = _useLanguage.footer;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_5__.useLocale)(),
+    footer = _useLocale.footer;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -13250,7 +13268,7 @@ var SignupPageLayout = function SignupPageLayout(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
                   className: "mt-4 d-flex align-items-center mb-4",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "mr-auto",
+                    className: "mxdir-auto",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                       className: "btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg",
                       onClick: pageUtils.useForm.handleSubmit(pageUtils.onSubmit),
@@ -13578,8 +13596,8 @@ var ListPage = function ListPage(_ref) {
     _ref$backUrl = _ref.backUrl,
     backUrl = _ref$backUrl === void 0 ? null : _ref$backUrl;
   var navigate = (0,react_router__WEBPACK_IMPORTED_MODULE_5__.useNavigate)();
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -13667,46 +13685,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks */ "./resources/js/hooks/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/Utils */ "./resources/js/utils/Utils.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../constants */ "./resources/js/constants/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
 
 
 var Footer = function Footer() {
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useLanguage)(),
-    strings = _useLanguage.footer;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_1__.useLocale)(),
+    strings = _useLocale.footer;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "app-footer",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "app-footer__inner",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "app-footer-right",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
             className: "nav",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
                 className: "nav-link",
                 children: strings.copyright
               })
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "app-footer-left",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
             className: "nav",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
-              className: "nav-item d-flex",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-                className: "nav-link pl-0",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+              className: "nav-item d-flex ".concat(_utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSVariable("locale") === _constants__WEBPACK_IMPORTED_MODULE_3__.LOCALES.FA ? "flex-row" : "flex-row-reverse"),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                className: "nav-link",
                 children: [strings.developedBy, ":"]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                href: strings.developerUrl,
-                target: "_blank",
-                className: "nav-link pr-2",
-                children: strings.developer
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                  href: strings.developerUrl,
+                  target: "_blank",
+                  className: "nav-link px-0",
+                  children: strings.developer
+                })
               })]
             })
           })
@@ -13751,8 +13775,8 @@ var FormCard = function FormCard(_ref) {
     onSubmit = _ref$onSubmit === void 0 ? null : _ref$onSubmit,
     _ref$hasCancel = _ref.hasCancel,
     hasCancel = _ref$hasCancel === void 0 ? true : _ref$hasCancel;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -13775,7 +13799,7 @@ var FormCard = function FormCard(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "col-sm-12",
               children: [hasSubmit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-                className: "btn btn-success px-4 ml-2",
+                className: "btn btn-success px-4 mxdir-2",
                 type: "button",
                 title: pageUtils !== null && pageUtils !== void 0 && pageUtils.strings && "submit" in pageUtils.strings ? pageUtils.strings["submit"] : general.submit,
                 onClick: pageUtils === null || pageUtils === void 0 ? void 0 : pageUtils.useForm.handleSubmit(onSubmit !== null && onSubmit !== void 0 ? onSubmit : pageUtils.onSubmit),
@@ -13843,39 +13867,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var Header = function Header() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useNavigate)();
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLanguage)(),
-    strings = _useLanguage.header,
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.useLocale)(),
+    strings = _useLocale.header,
+    general = _useLocale.general;
   var userState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.userReducer;
   });
   var authUser = _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].getLSUser();
-  var changeLanguage = function changeLanguage(language) {
-    return handleChangeLanguage(language);
+  var setLocale = function setLocale(locale) {
+    return handleSetLocale(locale);
   };
-  var handleChangeLanguage = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(language) {
-      var prevLanguage, user;
+  var handleSetLocale = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(locale) {
+      var prevLocale, user;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            prevLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].getLSVariable("language");
-            if (!(prevLanguage === language)) {
+            prevLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].getLSVariable("locale");
+            if (!(prevLocale === locale)) {
               _context.next = 3;
               break;
             }
             return _context.abrupt("return");
           case 3:
             dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_6__.setLoadingAction)(true));
+            dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_6__.setLocaleAction)(locale));
             if (!(userState !== null && userState !== void 0 && userState.user)) {
-              _context.next = 8;
+              _context.next = 9;
               break;
             }
             user = new _http_entities__WEBPACK_IMPORTED_MODULE_8__.User();
-            _context.next = 8;
-            return user.changeLanguage(language);
-          case 8:
-            dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_6__.setLanguageAction)(language));
+            _context.next = 9;
+            return user.setLocale(locale);
+          case 9:
             window.location.reload();
           case 10:
           case "end":
@@ -13883,14 +13907,12 @@ var Header = function Header() {
         }
       }, _callee);
     }));
-    return function handleChangeLanguage(_x) {
+    return function handleSetLocale(_x) {
       return _ref.apply(this, arguments);
     };
   }();
   var userTitle = function userTitle() {
-    var title = (authUser === null || authUser === void 0 ? void 0 : authUser.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.ADMINISTRATOR ? general.administrator : general.user;
-    title += ": [ ".concat(authUser === null || authUser === void 0 ? void 0 : authUser.username, " ]");
-    return title;
+    return (authUser === null || authUser === void 0 ? void 0 : authUser.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.ADMINISTRATOR ? general.administrator : general.user;
   };
   var widgetUserTitle = function widgetUserTitle() {
     var title = (authUser === null || authUser === void 0 ? void 0 : authUser.role) === _constants__WEBPACK_IMPORTED_MODULE_2__.USER_ROLES.ADMINISTRATOR ? general.administrator : general.user;
@@ -13912,10 +13934,10 @@ var Header = function Header() {
   var onChanePassword = function onChanePassword() {
     navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.BASE_PATH, "/users/change_password"));
   };
-  var renderLanguageDropdown = function renderLanguageDropdown() {
+  var renderLocalesDropdown = function renderLocalesDropdown() {
     var flag;
-    var language = _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].getLSVariable("language");
-    switch (language) {
+    var locale = _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].getLSVariable("locale");
+    switch (locale) {
       case "fa":
         flag = "IR";
         break;
@@ -13931,7 +13953,7 @@ var Header = function Header() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
         type: "button",
         "data-toggle": "dropdown",
-        className: "p-0 mr-2 btn btn-link language-dropdown",
+        className: "p-0 btn btn-link locale-dropdown",
         "aria-expanded": "false",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "icon-wrapper icon-wrapper-alt rounded-circle",
@@ -13945,7 +13967,7 @@ var Header = function Header() {
         tabIndex: "-1",
         role: "menu",
         "aria-hidden": "true",
-        className: "rm-pointers dropdown-menu dropdown-menu-right language-popup",
+        className: "rm-pointers dropdown-menu dropdown-menu-left locale-popup",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "dropdown-menu-header",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
@@ -13959,7 +13981,7 @@ var Header = function Header() {
               className: "menu-header-content text-center text-white",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h6", {
                 className: "menu-header-subtitle mt-0",
-                children: strings.chooseLanguage
+                children: strings.chooseLocale
               })
             })]
           })
@@ -13968,20 +13990,20 @@ var Header = function Header() {
           tabIndex: "0",
           className: "dropdown-item ".concat(flag === "US" ? "active" : ""),
           onClick: function onClick() {
-            return changeLanguage(_constants__WEBPACK_IMPORTED_MODULE_2__.LANGUAGES.EN);
+            return setLocale(_constants__WEBPACK_IMPORTED_MODULE_2__.LOCALES.EN);
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "ml-3 opacity-8 flag large US"
+            className: "mxdir-3 opacity-8 flag large US"
           }), " ", strings.us]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("button", {
           type: "button",
           tabIndex: "0",
           className: "dropdown-item ".concat(flag === "IR" ? "active" : ""),
           onClick: function onClick() {
-            return changeLanguage(_constants__WEBPACK_IMPORTED_MODULE_2__.LANGUAGES.FA);
+            return setLocale(_constants__WEBPACK_IMPORTED_MODULE_2__.LOCALES.FA);
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "ml-3 opacity-8 flag large IR"
+            className: "mxdir-3 opacity-8 flag large IR"
           }), " ", strings.fa]
         })]
       })]
@@ -13990,13 +14012,13 @@ var Header = function Header() {
   var renderUserLgDropdown = function renderUserLgDropdown() {
     var _userState$user, _userState$user2;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-      className: "header-btn-lg pr-0",
+      className: "header-btn-lg",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "widget-content p-0",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "widget-content-wrapper",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-            className: "widget-content-left ml-2",
+            className: "widget-content-left",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
               className: "btn-group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("a", {
@@ -14010,7 +14032,7 @@ var Header = function Header() {
                   src: "".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/user.png"),
                   alt: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
-                  className: "fa fa-angle-down ml-2 opacity-8"
+                  className: "fa fa-angle-down mxdir-2 opacity-8"
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
                 tabIndex: "-1",
@@ -14027,13 +14049,13 @@ var Header = function Header() {
                         backgroundImage: "url(\"".concat(_constants__WEBPACK_IMPORTED_MODULE_2__.ASSETS_PATH, "/images/menu-bg2.jpg\")")
                       }
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                      className: "menu-header-content text-right",
+                      className: "menu-header-content",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                         className: "widget-content p-0",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
                           className: "widget-content-wrapper",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                            className: "widget-content-right mr-3 mb-3",
+                            className: "widget-content-left mx-2 mxdir-3 mb-3",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
                               width: "42",
                               className: "rounded-circle",
@@ -14050,7 +14072,7 @@ var Header = function Header() {
                               children: widgetUserTitle()
                             })]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                            className: "widget-content-right mr-2",
+                            className: "widget-content-left mx-2",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
                               className: "btn-pill btn-shadow btn-shine btn btn-focus mb-3",
                               onMouseUp: onLogout,
@@ -14076,14 +14098,14 @@ var Header = function Header() {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("li", {
                         className: "nav-item",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                          className: "nav-link mr-2",
+                          className: "nav-link mxdir-2",
                           onClick: onChanePassword,
                           children: strings.changePassword
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("li", {
                         className: "nav-item",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Link_CustomLink__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                          className: "nav-link mr-2",
+                          className: "nav-link mxdir-2",
                           onClick: onEditUser,
                           children: strings.editProfile
                         })
@@ -14196,7 +14218,7 @@ var Header = function Header() {
               })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-            className: "widget-content-left  ml-3 header-user-info",
+            className: "widget-content-left mxdir-3 header-user-info",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               className: "widget-heading",
               children: "".concat(authUser === null || authUser === void 0 ? void 0 : authUser.name, " ").concat(authUser === null || authUser === void 0 ? void 0 : authUser.family)
@@ -14219,7 +14241,7 @@ var Header = function Header() {
           children: general.brandLogo
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-        className: "header__pane mr-auto",
+        className: "header__pane mxdir-auto",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           children: (userState === null || userState === void 0 ? void 0 : userState.user) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
             type: "button",
@@ -14267,7 +14289,7 @@ var Header = function Header() {
         className: "app-header-left",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "header-dots",
-          children: renderLanguageDropdown()
+          children: renderLocalesDropdown()
         }), (userState === null || userState === void 0 ? void 0 : userState.user) && renderUserLgDropdown()]
       })
     })]
@@ -14303,8 +14325,8 @@ var SearchBox = function SearchBox(_ref) {
     pageUtils = _ref.pageUtils,
     onSubmit = _ref.onSubmit,
     onReset = _ref.onReset;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -14402,9 +14424,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function Sidebar() {
   var _userState$user, _userState$user2;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLanguage)(),
-    strings = _useLanguage.sidebar,
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_8__.useLocale)(),
+    strings = _useLocale.sidebar,
+    general = _useLocale.general;
   var pageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.pageReducer;
   });
@@ -14757,8 +14779,8 @@ var TableFooter = function TableFooter(_ref) {
   var _pageState$props, _pageState$props2, _pageState$props3, _pageState$props4, _pageState$props12;
   var columnsCount = _ref.columnsCount,
     pageUtils = _ref.pageUtils;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -14882,8 +14904,8 @@ __webpack_require__.r(__webpack_exports__);
 var TableItems = function TableItems(_ref) {
   var children = _ref.children,
     columnsCount = _ref.columnsCount;
-  var _useLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLanguage)(),
-    general = _useLanguage.general;
+  var _useLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__.useLocale)(),
+    general = _useLocale.general;
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.layoutReducer;
   });
@@ -15201,8 +15223,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLanguage(),
-  strings = _utils$getLSLanguage.addAppRulePage;
+var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLocale(),
+  strings = _utils$getLSLocale.addAppRulePage;
 var addAppRuleSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   title: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.title, 6, 200),
   body: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.body, 6, 2000)
@@ -15228,8 +15250,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.editAppRulePage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.editAppRulePage;
 var editAppRuleSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   title: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.title, 6, 200),
   body: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.body, 6, 2000)
@@ -15255,8 +15277,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.addCampaignPage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.addCampaignPage;
 var addCampaignSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   title: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.title, 6, 200)
 });
@@ -15281,8 +15303,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.editCampaignPage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.editCampaignPage;
 var editCampaignSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   title: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.title, 6, 200)
 });
@@ -15305,8 +15327,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var emailValidator = function emailValidator(schema, field) {
   var required = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLanguage(),
-    validation = _utils$getLSLanguage.validation;
+  var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLocale(),
+    validation = _utils$getLSLocale.validation;
   schema = schema.email(validation.emailMessage).matches(/@[^.]*\./, validation.emailMessage).min(5, validation.minMessage.replace(":field", field).replace(":min", "5")).max(50, validation.maxMessage.replace(":field", field).replace(":max", "50"));
   if (required) {
     schema = schema.required(validation.requiredMessage.replace(":field", field));
@@ -15362,8 +15384,8 @@ var nameValidator = function nameValidator(schema, field) {
   var min = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
   var max = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 50;
   var required = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-  var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].getLSLanguage(),
-    validation = _utils$getLSLanguage.validation;
+  var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].getLSLocale(),
+    validation = _utils$getLSLocale.validation;
   return (0,_stringValidator__WEBPACK_IMPORTED_MODULE_0__["default"])(schema, field, min, max, required).matches(/^[آ-ی ]+$/, validation.stringMessage.replace(":field", field));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (nameValidator);
@@ -15385,8 +15407,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var nationalCodeValidator = function nationalCodeValidator(schema, field) {
   var required = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLanguage(),
-    validation = _utils$getLSLanguage.validation;
+  var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLocale(),
+    validation = _utils$getLSLocale.validation;
   schema = schema.matches(/^[0-9]+$/, validation.numberMessage.replace(":field", field)).min(10, validation.minDigitMessage.replace(":field", field).replace(":min", "10")).max(10, validation.maxDigitMessage.replace(":field", field).replace(":max", "10"));
   if (required) {
     schema = schema.required(validation.requiredMessage.replace(":field", field));
@@ -15414,8 +15436,8 @@ var stringValidator = function stringValidator(schema, field) {
   var min = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var max = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   var required = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-  var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLanguage(),
-    validation = _utils$getLSLanguage.validation;
+  var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].getLSLocale(),
+    validation = _utils$getLSLocale.validation;
   if (min) {
     schema = schema.min(min, validation.minMessage.replace(":field", field).replace(":min", min));
   }
@@ -15448,9 +15470,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.addUserPage,
-  validation = _useLSLanguage.validation;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.addUserPage,
+  validation = _useLSLocale.validation;
 var addUserSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   username: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.username, 6, 50),
   email: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.emailValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.email),
@@ -15480,9 +15502,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.changePasswordUserPage,
-  validation = _useLSLanguage.validation;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.changePasswordUserPage,
+  validation = _useLSLocale.validation;
 var changePasswordUserSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   newPassword: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.newPassword, 6, 50),
   confirmPassword: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.confirmPassword).oneOf([yup__WEBPACK_IMPORTED_MODULE_0__.ref("newPassword")], validation.confirmedMessage.replace(":field", strings.newPassword))
@@ -15508,8 +15530,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.editUserPage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.editUserPage;
 var editUserSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   name: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.nameValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.name, 2, 50),
   family: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.nameValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.family, 2, 50),
@@ -15536,8 +15558,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.forgetPasswordPage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.forgetPasswordPage;
 var forgetPasswordSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   email: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.emailValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.email)
 });
@@ -15562,8 +15584,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLanguage(),
-  strings = _utils$getLSLanguage.loginUserPage;
+var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLocale(),
+  strings = _utils$getLSLocale.loginUserPage;
 var loginUserSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   username: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.username, 6, 50),
   password: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.password, 6, 50)
@@ -15589,8 +15611,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLanguage)(),
-  strings = _useLSLanguage.usersPage;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__.useLSLocale)(),
+  strings = _useLSLocale.usersPage;
 var searchUserSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   username: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.username, null, 50, false),
   nameFamily: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.nameValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.nameFamily, null, 50, false)
@@ -15616,9 +15638,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _utils$getLSLanguage = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLanguage(),
-  strings = _utils$getLSLanguage.signupPage,
-  validation = _utils$getLSLanguage.validation;
+var _utils$getLSLocale = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSLocale(),
+  strings = _utils$getLSLocale.signupPage,
+  validation = _utils$getLSLocale.validation;
 var signupSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
   username: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.stringValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.username, 6, 50),
   email: (0,_CommonValidators__WEBPACK_IMPORTED_MODULE_1__.emailValidator)(yup__WEBPACK_IMPORTED_MODULE_0__.string(), strings.email),
@@ -15725,11 +15747,11 @@ var handleError = function handleError(data, dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SET_LANGUAGE_ACTION": () => (/* binding */ SET_LANGUAGE_ACTION),
 /* harmony export */   "SET_LOADING_ACTION": () => (/* binding */ SET_LOADING_ACTION),
+/* harmony export */   "SET_LOCALE_ACTION": () => (/* binding */ SET_LOCALE_ACTION),
 /* harmony export */   "SET_SIZE_ACTION": () => (/* binding */ SET_SIZE_ACTION),
-/* harmony export */   "setLanguageAction": () => (/* binding */ setLanguageAction),
 /* harmony export */   "setLoadingAction": () => (/* binding */ setLoadingAction),
+/* harmony export */   "setLocaleAction": () => (/* binding */ setLocaleAction),
 /* harmony export */   "setSizeAction": () => (/* binding */ setSizeAction)
 /* harmony export */ });
 /* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/Utils */ "./resources/js/utils/Utils.js");
@@ -15740,7 +15762,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var SET_LOADING_ACTION = "SET_LOADING_ACTION";
 var SET_SIZE_ACTION = "SET_SIZE_ACTION";
-var SET_LANGUAGE_ACTION = "SET_LANGUAGE_ACTION";
+var SET_LOCALE_ACTION = "SET_LOCALE_ACTION";
 var setLoadingAction = function setLoadingAction(loading) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -15786,16 +15808,16 @@ var setSizeAction = function setSizeAction(width, height) {
     };
   }();
 };
-var setLanguageAction = function setLanguageAction(language) {
+var setLocaleAction = function setLocaleAction(locale) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
-            _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].setLSVariable("language", language);
+            _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].setLSVariable("locale", locale);
             dispatch({
-              type: SET_LANGUAGE_ACTION,
-              payload: language
+              type: SET_LOCALE_ACTION,
+              payload: locale
             });
           case 2:
           case "end":
@@ -15822,9 +15844,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants */ "./resources/js/constants/index.js");
-/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/Utils */ "./resources/js/utils/Utils.js");
-/* harmony import */ var _layoutActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layoutActions */ "./resources/js/state/layout/layoutActions.js");
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/Utils */ "./resources/js/utils/Utils.js");
+/* harmony import */ var _layoutActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./layoutActions */ "./resources/js/state/layout/layoutActions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -15833,16 +15854,11 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _ty
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
-
-var initLanguage = function initLanguage() {
-  _utils_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].setLanguage();
-  return _utils_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].getLSVariable("language");
-};
 var initialState = {
   loading: false,
   width: 0,
   height: 0,
-  language: initLanguage()
+  locale: _utils_Utils__WEBPACK_IMPORTED_MODULE_0__["default"].initLocale()
 };
 var layoutReducer = function layoutReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -15850,18 +15866,18 @@ var layoutReducer = function layoutReducer() {
     type = _ref.type,
     payload = _ref.payload;
   switch (type) {
-    case _layoutActions__WEBPACK_IMPORTED_MODULE_2__.SET_LOADING_ACTION:
+    case _layoutActions__WEBPACK_IMPORTED_MODULE_1__.SET_LOADING_ACTION:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: payload
       });
-    case _layoutActions__WEBPACK_IMPORTED_MODULE_2__.SET_SIZE_ACTION:
+    case _layoutActions__WEBPACK_IMPORTED_MODULE_1__.SET_SIZE_ACTION:
       return _objectSpread(_objectSpread({}, state), {}, {
         width: payload.width,
         height: payload.height
       });
-    case _layoutActions__WEBPACK_IMPORTED_MODULE_2__.SET_LANGUAGE_ACTION:
+    case _layoutActions__WEBPACK_IMPORTED_MODULE_1__.SET_LOCALE_ACTION:
       return _objectSpread(_objectSpread({}, state), {}, {
-        language: payload
+        locale: payload
       });
     default:
       return state;
@@ -16434,8 +16450,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLSLanguage)(),
-  strings = _useLSLanguage.utils;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_4__.useLSLocale)(),
+  strings = _useLSLocale.utils;
 var FETCH_LOGIN_REQUEST_ACTION = "FETCH_LOGIN_REQUEST_ACTION";
 var FETCH_LOGIN_SUCCESS_ACTION = "FETCH_LOGIN_SUCCESS_ACTION";
 var FETCH_LOGIN_FAILURE_ACTION = "FETCH_LOGIN_FAILURE_ACTION";
@@ -16444,7 +16460,7 @@ var CLEAR_LOGIN_REQUEST_ACTION = "CLEAR_LOGIN_REQUEST_ACTION";
 var fetchLoginAction = function fetchLoginAction(username, password, role) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
-      var _utils$getLSVariable, url, language, response;
+      var url, response;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -16453,17 +16469,15 @@ var fetchLoginAction = function fetchLoginAction(username, password, role) {
             });
             _context.prev = 1;
             url = role === _constants__WEBPACK_IMPORTED_MODULE_3__.USER_ROLES.ADMINISTRATOR ? "".concat(_constants__WEBPACK_IMPORTED_MODULE_3__.BASE_URL, "/a/users/login") : "".concat(_constants__WEBPACK_IMPORTED_MODULE_3__.BASE_URL, "/u/users/login");
-            language = (_utils$getLSVariable = _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].getLSVariable("language")) !== null && _utils$getLSVariable !== void 0 ? _utils$getLSVariable : "fa";
-            _context.next = 6;
+            _context.next = 5;
             return (0,_http__WEBPACK_IMPORTED_MODULE_0__.post)(url, {
               username: username,
-              password: password,
-              language: language
+              password: password
             });
-          case 6:
+          case 5:
             response = _context.sent;
             if (_utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].isJsonString(response.data)) {
-              _context.next = 10;
+              _context.next = 9;
               break;
             }
             dispatch({
@@ -16471,36 +16485,36 @@ var fetchLoginAction = function fetchLoginAction(username, password, role) {
               payload: strings.notValidJson
             });
             return _context.abrupt("return");
-          case 10:
+          case 9:
             if (!(response.data._result === "1")) {
-              _context.next = 16;
+              _context.next = 15;
               break;
             }
             _utils_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].setLSVariable("user", JSON.stringify(response.data.item));
             window.location.reload();
             return _context.abrupt("return");
-          case 16:
+          case 15:
             (0,_globalActions__WEBPACK_IMPORTED_MODULE_1__.handleError)(response.data, dispatch);
             dispatch({
               type: FETCH_LOGIN_FAILURE_ACTION,
               payload: response.data._error
             });
-          case 18:
-            _context.next = 24;
+          case 17:
+            _context.next = 23;
             break;
-          case 20:
-            _context.prev = 20;
+          case 19:
+            _context.prev = 19;
             _context.t0 = _context["catch"](1);
             console.log(_context.t0);
             dispatch({
               type: FETCH_LOGIN_FAILURE_ACTION,
               payload: _context.t0.message
             });
-          case 24:
+          case 23:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[1, 20]]);
+      }, _callee, null, [[1, 19]]);
     }));
     return function (_x) {
       return _ref.apply(this, arguments);
@@ -16671,8 +16685,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
-var _useLSLanguage = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLSLanguage)(),
-  general = _useLSLanguage.general;
+var _useLSLocale = (0,_hooks__WEBPACK_IMPORTED_MODULE_6__.useLSLocale)(),
+  general = _useLSLocale.general;
 var BasePageUtils = /*#__PURE__*/function () {
   function BasePageUtils(name) {
     var strings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -17010,7 +17024,7 @@ var getLSVariable = function getLSVariable(key) {
   try {
     var text = localStorage.getItem(key);
     if (!text) return null;
-    var bytes = crypto_js__WEBPACK_IMPORTED_MODULE_0___default().AES.decrypt(text, "mehrdad_javan");
+    var bytes = crypto_js__WEBPACK_IMPORTED_MODULE_0___default().AES.decrypt(text, "top_traders_funding");
     var value = bytes.toString((crypto_js__WEBPACK_IMPORTED_MODULE_0___default().enc.Utf8));
     return value;
   } catch (error) {
@@ -17019,7 +17033,7 @@ var getLSVariable = function getLSVariable(key) {
 };
 var setLSVariable = function setLSVariable(key, value) {
   try {
-    var text = crypto_js__WEBPACK_IMPORTED_MODULE_0___default().AES.encrypt(value, "mehrdad_javan").toString();
+    var text = crypto_js__WEBPACK_IMPORTED_MODULE_0___default().AES.encrypt(value, "top_traders_funding").toString();
     localStorage.setItem(key, text);
   } catch (error) {}
 };
@@ -17050,12 +17064,12 @@ var getLSUser = function getLSUser() {
   }
   return user;
 };
-var getLSLanguage = function getLSLanguage() {
-  var language = getLSVariable("language");
-  switch (language) {
-    case _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.EN:
+var getLSLocale = function getLSLocale() {
+  var locale = getLSVariable("locale");
+  switch (locale) {
+    case _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.EN:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_2__.en;
-    case _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.FA:
+    case _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.FA:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_2__.fa;
     default:
       return _constants_strings__WEBPACK_IMPORTED_MODULE_2__.fa;
@@ -17212,11 +17226,12 @@ var isNumber = function isNumber(number) {
 var isId = function isId(id) {
   return !isNaN(parseInt(id)) && id > 0;
 };
-var setLanguage = function setLanguage() {
-  var language = getLSVariable("language");
-  if (![_constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.EN, _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.FA].includes(language)) {
-    setLSVariable("language", _constants__WEBPACK_IMPORTED_MODULE_1__.LANGUAGES.FA);
+var initLocale = function initLocale() {
+  var locale = getLSVariable("locale");
+  if (![_constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.EN, _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.FA].includes(locale)) {
+    setLSVariable("locale", _constants__WEBPACK_IMPORTED_MODULE_1__.LOCALES.FA);
   }
+  return getLSVariable("locale");
 };
 var utils = {
   isValidMobile: isValidMobile,
@@ -17229,7 +17244,7 @@ var utils = {
   setLSVariable: setLSVariable,
   getLSToken: getLSToken,
   getLSUser: getLSUser,
-  getLSLanguage: getLSLanguage,
+  getLSLocale: getLSLocale,
   clearLS: clearLS,
   convertNumberToPersion: convertNumberToPersion,
   convertNumberToEnglish: convertNumberToEnglish,
@@ -17242,7 +17257,7 @@ var utils = {
   wordifyfa: wordifyfa,
   isNumber: isNumber,
   isId: isId,
-  setLanguage: setLanguage
+  initLocale: initLocale
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (utils);
 

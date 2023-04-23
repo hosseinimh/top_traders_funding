@@ -11,14 +11,14 @@ import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { editCampaignSchema as schema } from "../../../validations";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
     constructor() {
         const form = useForm({
             resolver: yupResolver(schema),
         });
-        const { editCampaignPage: strings } = useLanguage();
+        const { editCampaignPage: strings } = useLocale();
         super("Campaigns", strings, form);
         this.entity = new Entity();
         this.initialPageProps = {

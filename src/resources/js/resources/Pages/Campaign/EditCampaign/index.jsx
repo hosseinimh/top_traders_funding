@@ -6,10 +6,10 @@ import {
     InputCheckboxColumn,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
-import { useLanguage } from "../../../../hooks";
+import { useLocale } from "../../../../hooks";
 
 const EditCampaign = () => {
-    const { editCampaignPage: strings } = useLanguage();
+    const { editCampaignPage: strings } = useLocale();
     const pageUtils = new PageUtils();
 
     return (

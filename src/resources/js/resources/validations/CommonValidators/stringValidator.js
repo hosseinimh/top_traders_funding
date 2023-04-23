@@ -7,7 +7,7 @@ const stringValidator = (
     max = null,
     required = true
 ) => {
-    const { validation } = utils.getLSLanguage();
+    const { validation } = utils.getLSLocale();
     if (min) {
         schema = schema.min(
             min,

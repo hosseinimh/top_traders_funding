@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
     BASE_PATH,
     HEADER_BUTTONS,
-    LANGUAGES,
+    LOCALES,
     MESSAGE_CODES,
     MESSAGE_TYPES,
 } from "../../../constants";
@@ -105,7 +105,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                 pageUtils.strings._subTitle
             )
         );
-    }, [layoutState?.language]);
+    }, [layoutState?.locale]);
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0);
@@ -136,7 +136,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
             onPageLayoutChanged();
         });
         loadModals();
-        utils.setLanguage();
+        utils.initLocale();
     }, []);
 
     const loadModals = () => {
@@ -223,7 +223,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
         do {
             if (element.classList?.contains("sidebar-btn-lg")) {
                 return HEADER_BUTTONS.SIDEBAR_BTN_LG;
-            } else if (element.classList?.contains("language-dropdown")) {
+            } else if (element.classList?.contains("locale-dropdown")) {
                 return HEADER_BUTTONS.LANGUANCGE;
             } else if (element.classList?.contains("user-dropdown")) {
                 return HEADER_BUTTONS.USER;
@@ -317,10 +317,10 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                     popup.setAttribute("x-placement", "bottom-start");
                     if (document.body.clientWidth < 992) {
                         popup.style =
-                            "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 2rem; left: 0px; will-change: transform;";
+                            "position: absolute; transform: translate3d(2rem, 62px, 0px); top: 2rem; will-change: transform;";
                     } else {
                         popup.style =
-                            "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; left: 0px; will-change: transform;";
+                            "position: absolute; transform: translate3d(0px, 44px, 0px); top: 0px; will-change: transform;";
                     }
                     try {
                         document.getElementsByClassName(
@@ -338,8 +338,8 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     const getDropDown = (dropDown) => {
         let elementName, poupName;
         if (dropDown === HEADER_BUTTONS.LANGUANCGE) {
-            elementName = "language-dropdown";
-            poupName = "language-popup";
+            elementName = "locale-dropdown";
+            poupName = "locale-popup";
         } else if (dropDown === HEADER_BUTTONS.USER) {
             elementName = "user-dropdown";
             poupName = "user-popup";

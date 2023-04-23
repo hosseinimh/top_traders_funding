@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\Locale;
 use Illuminate\Support\Facades\Facade;
 
 return [
