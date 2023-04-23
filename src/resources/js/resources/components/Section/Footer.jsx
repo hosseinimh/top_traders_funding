@@ -22,13 +22,7 @@ const Footer = () => {
                     </div>
                     <div className="app-footer-left">
                         <ul className="nav">
-                            <li
-                                className={`nav-item d-flex ${
-                                    utils.getLSVariable("locale") === LOCALES.FA
-                                        ? "flex-row"
-                                        : "flex-row-reverse"
-                                }`}
-                            >
+                            <li className="nav-item d-flex">
                                 <span className="nav-link">
                                     {strings.developedBy}:
                                 </span>

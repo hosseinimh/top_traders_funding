@@ -23,7 +23,11 @@ export class PageUtils extends BasePageUtils {
         this.dispatch(setLoadingAction(true));
         this.dispatch(clearMessageAction());
         this.dispatch(
-            fetchLoginAction(data.username, data.password, USER_ROLES.USER)
+            fetchLoginAction(
+                data.username,
+                data.password,
+                USER_ROLES.ADMINISTRATOR
+            )
         );
     }
 }

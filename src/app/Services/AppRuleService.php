@@ -11,7 +11,7 @@ class AppRuleService
         return Model::where('id', $id)->first();
     }
 
-    public function getPaginate(): mixed
+    public function getAll(): mixed
     {
         return Model::orderBy('id', 'ASC')->get();
     }

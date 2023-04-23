@@ -24,7 +24,7 @@ const SearchBox = ({ children, pageUtils, onSubmit, onReset }) => {
                 <div className="row">
                     <div className="col-sm-12">
                         <button
-                            className="btn btn-dark px-4 ml-2"
+                            className="btn btn-dark px-4 mxdir-2"
                             type="button"
                             disabled={layoutState?.loading}
                             title={general.search}

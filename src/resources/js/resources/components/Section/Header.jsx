@@ -328,28 +328,23 @@ const Header = () => {
                                                     <div className="col-sm-6">
                                                         <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
                                                             <i className="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>{" "}
-                                                            Message Inbox
+                                                            {
+                                                                strings.messageInbox
+                                                            }
                                                         </button>
                                                     </div>
                                                     <div className="col-sm-6">
                                                         <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
                                                             <i className="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>
                                                             <b>
-                                                                Support Tickets
+                                                                {
+                                                                    strings.supportTickets
+                                                                }
                                                             </b>
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ul className="nav flex-column">
-                                                <li className="nav-item-divider nav-item"></li>
-                                                <li className="nav-item-btn text-center nav-item">
-                                                    <button className="btn-wide btn btn-primary btn-sm">
-                                                        {" "}
-                                                        Open Messages{" "}
-                                                    </button>
-                                                </li>
-                                            </ul>
                                         </>
                                     )}
                                 </div>

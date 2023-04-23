@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AppRule\IndexAppRulesRequest;
 use App\Models\AppRule as Model;
 use App\Packages\JsonResponse;
 use App\Services\AppRuleService;
@@ -16,9 +15,9 @@ class AppRuleController extends Controller
         parent::__construct($response);
     }
 
-    public function index(IndexAppRulesRequest $request): HttpJsonResponse
+    public function index(): HttpJsonResponse
     {
-        return $this->onItems($this->service->getPaginate());
+        return $this->onItems($this->service->getAll());
     }
 
     public function show(Model $model): HttpJsonResponse

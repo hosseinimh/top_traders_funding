@@ -134,10 +134,7 @@ function Sidebar() {
             </div>
             <div className="scrollbar-sidebar ps ps--active-y">
                 <div className="app-sidebar__inner">
-                    <ul className="vertical-nav-menu metismenu">
-                        <li className="app-sidebar__heading">
-                            {strings.mainContainer}
-                        </li>
+                    <ul className="vertical-nav-menu metismenu mt-4">
                         {renderMenuItem(
                             `${BASE_PATH}`,
                             strings.dashboard,
@@ -162,37 +159,39 @@ function Sidebar() {
                                 "pe-7s-id",
                                 "Campaigns"
                             )}
-                        <li
-                            className={`${
-                                ["Users"].includes(pageState?.page)
-                                    ? "mm-active"
-                                    : ""
-                            }`}
-                        >
-                            <a
-                                href="#"
-                                aria-expanded="false"
-                                className="menu-container mb-1"
-                            >
-                                <i className="metismenu-icon pe-7s-config"></i>
-                                {strings.systemManagement}
-                                <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                            </a>
-                            <ul
-                                className="mm-collapse"
-                                style={
+                        {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+                            <li
+                                className={`${
                                     ["Users"].includes(pageState?.page)
-                                        ? { display: "block" }
-                                        : {}
-                                }
+                                        ? "mm-active"
+                                        : ""
+                                }`}
                             >
-                                {renderSubMenuItem(
-                                    `${BASE_PATH}/users`,
-                                    strings.users,
-                                    "Users"
-                                )}
-                            </ul>
-                        </li>
+                                <a
+                                    href="#"
+                                    aria-expanded="false"
+                                    className="menu-container mb-1"
+                                >
+                                    <i className="metismenu-icon pe-7s-config"></i>
+                                    {strings.systemManagement}
+                                    <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul
+                                    className="mm-collapse"
+                                    style={
+                                        ["Users"].includes(pageState?.page)
+                                            ? { display: "block" }
+                                            : {}
+                                    }
+                                >
+                                    {renderSubMenuItem(
+                                        `${BASE_PATH}/users`,
+                                        strings.users,
+                                        "Users"
+                                    )}
+                                </ul>
+                            </li>
+                        )}
                         <li className="app-sidebar__heading">
                             {strings.userContainer}
                         </li>

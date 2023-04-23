@@ -21,7 +21,7 @@ class UserController extends Controller
         parent::__construct($response);
     }
 
-    public function show(): HttpJsonResponse
+    public function showFromUser(): HttpJsonResponse
     {
         return $this->onItem($this->service->get(auth()->user()->id));
     }

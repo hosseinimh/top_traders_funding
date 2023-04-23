@@ -67,6 +67,8 @@ export const header = {
     changePassword: "تغییر کلمه عبور",
     editProfile: "ویرایش پروفایل",
     logout: "خروج",
+    messageInbox: "پیام",
+    supportTickets: "تیکت‌ها",
 };
 
 export const footer = {

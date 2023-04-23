@@ -56,7 +56,14 @@ function AuthRoute() {
                         </>
                     )}
 
-                    {lsUser?.role === USER_ROLES.USER && <></>}
+                    {lsUser?.role === USER_ROLES.USER && (
+                        <>
+                            <Route
+                                path={`${BASE_PATH}/app_rules`}
+                                element={<Pages.AppRulesUser />}
+                            />
+                        </>
+                    )}
 
                     <Route
                         path={`${BASE_PATH}/users/edit`}
@@ -83,6 +90,11 @@ function AuthRoute() {
                         path={`${BASE_PATH}/users/login`}
                         exact={true}
                         element={<Pages.LoginUser />}
+                    />
+                    <Route
+                        path={`${BASE_PATH}/users/login_admin`}
+                        exact={true}
+                        element={<Pages.LoginAdmin />}
                     />
                     <Route
                         path={`${BASE_PATH}/users/forget`}

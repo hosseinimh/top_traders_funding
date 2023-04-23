@@ -26,6 +26,7 @@ export const fetchLoginAction =
             const response = await post(url, {
                 username,
                 password,
+                role,
             });
 
             if (!utils.isJsonString(response.data)) {

@@ -7,7 +7,7 @@ export class AppRule extends Entity {
         super();
     }
 
-    async getPaginate() {
+    async getAll() {
         return await this.handlePost(`${BASE_URL}/u/app_rules`);
     }
 
