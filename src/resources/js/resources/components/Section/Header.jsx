@@ -34,10 +34,8 @@ const Header = () => {
         }
         dispatch(setLoadingAction(true));
         dispatch(setLocaleAction(locale));
-        if (userState?.user) {
-            const user = new User();
-            await user.setLocale(locale);
-        }
+        const user = new User();
+        await user.setLocale(locale);
         window.location.reload();
     };
 

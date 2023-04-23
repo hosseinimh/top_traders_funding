@@ -12,6 +12,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('users/forgot_password', [UserController::class, 'forgotPassword']);
     Route::post('users/signup', [UserController::class, 'signup']);
     Route::post('users/logout', [UserController::class, 'logout']);
+    Route::post('users/set_locale', [UserController::class, 'setLocale']);
 });
 
 // 'user' type users
@@ -24,8 +25,6 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 
 // 'user' | 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
-    Route::post('users/set_locale', [UserController::class, 'setLocale']);
-
     Route::post('app_rules', [AppRuleController::class, 'index']);
     Route::post('app_rules/show/{model}', [AppRuleController::class, 'show']);
 

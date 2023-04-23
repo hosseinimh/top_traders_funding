@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function setLocale(Request $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->setLocale(auth()->user(), $request->locale));
+        return $this->onUpdate($this->service->setLocale(auth()->user(), $request->_locale));
     }
 
     public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse

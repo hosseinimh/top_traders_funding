@@ -2,8 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import BasePageLayout from "./BasePageLayout";
-import { BASE_PATH } from "../../../constants";
+import { BASE_PATH, LOCALES } from "../../../constants";
 import { Link } from "react-router-dom";
+import utils from "../../../utils/Utils";
 
 const SignupPageLayout = ({ children, pageUtils }) => {
     const layoutState = useSelector((state) => state.layoutReducer);
@@ -53,11 +54,13 @@ const SignupPageLayout = ({ children, pageUtils }) => {
                                                 {pageUtils.strings.signup}
                                             </button>
                                         </div>
-                                        <h6 className="mb-0 small">
-                                            {pageUtils.strings.haveAccount}{" "}
+                                        <div className="mb-0 d-flex">
+                                            <span className="small mxdir-2">
+                                                {pageUtils.strings.haveAccount}
+                                            </span>
                                             <Link
                                                 to={`${BASE_PATH}/users/login`}
-                                                className="text-primary"
+                                                className="text-primary small"
                                             >
                                                 {(!layoutState?.width ||
                                                     layoutState?.width > 395) &&
@@ -65,7 +68,7 @@ const SignupPageLayout = ({ children, pageUtils }) => {
                                                 {layoutState?.width < 395 &&
                                                     pageUtils.strings.loginSM}
                                             </Link>
-                                        </h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

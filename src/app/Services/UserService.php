@@ -70,10 +70,10 @@ class UserService
         return DB::statement("UPDATE `tbl_users` SET `password`='$password' WHERE `id`=$user->id");
     }
 
-    public function setLocale(Model $model, string $locale): bool
+    public function setLocale(Model|null $model, string $locale): bool
     {
         $locales = [Locale::EN, Locale::FA];
-        if (!in_array($locale, $locales)) {
+        if (!in_array($locale, $locales) || !$model) {
             return false;
         }
 
