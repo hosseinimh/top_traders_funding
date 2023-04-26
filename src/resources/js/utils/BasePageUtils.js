@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { MESSAGE_CODES, MESSAGE_TYPES } from "../constants";
+import { BASE_PATH, MESSAGE_CODES, MESSAGE_TYPES } from "../constants";
 import { setLoadingAction } from "../state/layout/layoutActions";
 import {
     clearMessageAction,
@@ -21,7 +21,8 @@ export class BasePageUtils {
         this.strings = strings;
         this.useForm = useForm;
         this.initialPageProps = {};
-        this.callbackUrl = "";
+        this.params = {};
+        this.callbackUrl = BASE_PATH;
         this.messageField = null;
         this.pageState = useSelector((state) => state.pageReducer);
         this.userState = useSelector((state) => state.userReducer);
@@ -33,7 +34,8 @@ export class BasePageUtils {
         this.onReset = this.onReset.bind(this);
     }
 
-    onLoad() {
+    onLoad(params = {}) {
+        this.params = params;
         this.dispatch(setPagePropsAction(this.initialPageProps));
         this.dispatch(setPageUtilsLoadedAction());
     }

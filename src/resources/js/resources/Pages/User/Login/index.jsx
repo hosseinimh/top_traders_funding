@@ -3,8 +3,8 @@ import React from "react";
 import { InputTextColumn, LoginPageLayout } from "../../../components";
 import { PageUtils } from "./PageUtils";
 
-const LoginUser = () => {
-    const pageUtils = new PageUtils();
+const Login = ({ role }) => {
+    const pageUtils = new PageUtils(role);
 
     return (
         <LoginPageLayout pageUtils={pageUtils}>
@@ -25,4 +25,4 @@ const LoginUser = () => {
     );
 };
 
-export default LoginUser;
+export default Login;

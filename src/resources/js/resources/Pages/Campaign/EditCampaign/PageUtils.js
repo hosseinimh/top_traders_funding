@@ -21,27 +21,25 @@ export class PageUtils extends BasePageUtils {
         const { editCampaignPage: strings } = useLocale();
         super("Campaigns", strings, form);
         this.entity = new Entity();
-        this.initialPageProps = {
-            campaignId: null,
-        };
         this.callbackUrl = `${BASE_PATH}/campaigns`;
     }
 
     onLoad(params) {
-        super.onLoad();
-        const data = { campaignId: params?.campaignId };
+        super.onLoad(params);
+        this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.dispatch(setPagePropsAction(data));
-        this.fillForm(data);
+        this.fillForm({ campaignId: params.campaignId });
+    }
+
+    validateIfNotValidateParams() {
+        this.navigateIfNotValidId(this.params?.campaignId);
     }
 
     async fillForm(data) {
         try {
             this.dispatch(setLoadingAction(true));
-            this.navigateIfNotValidId(data.campaignId);
             const result = await this.fetchItem(data.campaignId);
             this.navigateIfItemNotFound(result);
-            this.updateForm(result);
             this.handleFetchResult(result);
         } catch {
         } finally {
@@ -53,12 +51,9 @@ export class PageUtils extends BasePageUtils {
         return await this.entity.get(id);
     }
 
-    updateForm(result) {
+    handleFetchResult(result) {
         this.useForm.setValue("title", result.item.title);
         this.useForm.setValue("isActive", result.item.isActive);
-    }
-
-    handleFetchResult(result) {
         this.dispatch(setPagePropsAction({ campaignId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
@@ -70,7 +65,7 @@ export class PageUtils extends BasePageUtils {
 
     async onSubmit(data) {
         const promise = this.entity.update(
-            this.pageState?.props?.campaignId,
+            this.params.campaignId,
             data.title,
             data.isActive ? 1 : 0
         );

@@ -1,6 +1,5 @@
 import Dashboard from "./Dashboard";
-import LoginUser from "./User/LoginUser";
-import LoginAdmin from "./User/LoginAdmin";
+import Login from "./User/Login";
 import ForgetPassword from "./User/ForgetPassword";
 import Signup from "./User/Signup";
 import Users from "./User/Users";
@@ -14,11 +13,11 @@ import EditAppRule from "./AppRule/EditAppRule";
 import Campaigns from "./Campaign/Campaigns";
 import AddCampaign from "./Campaign/AddCampaign";
 import EditCampaign from "./Campaign/EditCampaign";
+import Tickets from "./Ticket/Tickets";
 
 export {
     Dashboard,
-    LoginUser,
-    LoginAdmin,
+    Login,
     ForgetPassword,
     Signup,
     Users,
@@ -32,4 +31,5 @@ export {
     Campaigns,
     AddCampaign,
     EditCampaign,
+    Tickets,
 };

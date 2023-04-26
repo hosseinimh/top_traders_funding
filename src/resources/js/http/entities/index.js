@@ -3,5 +3,6 @@ import { Dashboard } from "./Dashboard";
 import { User } from "./User";
 import { AppRule } from "./AppRule";
 import { Campaign } from "./Campaign";
+import { Ticket } from "./Ticket";
 
-export { Error, Dashboard, User, AppRule, Campaign };
+export { Error, Dashboard, User, AppRule, Campaign, Ticket };

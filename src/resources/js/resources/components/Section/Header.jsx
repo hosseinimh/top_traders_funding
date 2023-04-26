@@ -229,19 +229,19 @@ const Header = () => {
                                                 <li className="nav-item">
                                                     <CustomLink
                                                         className="nav-link mxdir-2"
-                                                        onClick={
-                                                            onChanePassword
-                                                        }
+                                                        onClick={onEditUser}
                                                     >
-                                                        {strings.changePassword}
+                                                        {strings.editProfile}
                                                     </CustomLink>
                                                 </li>
                                                 <li className="nav-item">
                                                     <CustomLink
                                                         className="nav-link mxdir-2"
-                                                        onClick={onEditUser}
+                                                        onClick={
+                                                            onChanePassword
+                                                        }
                                                     >
-                                                        {strings.editProfile}
+                                                        {strings.changePassword}
                                                     </CustomLink>
                                                 </li>
                                                 {userState?.user?.role ===

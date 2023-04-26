@@ -9,6 +9,8 @@ import addAppRuleSchema from "./AppRule/AddAppRuleSchema";
 import editAppRuleSchema from "./AppRule/EditAppRuleSchema";
 import addCampaignSchema from "./Campaign/AddCampaignSchema";
 import editCampaignSchema from "./Campaign/EditCampaignSchema";
+import addTicketSchema from "./Ticket/AddTicketSchema";
+import addTicketThreadSchema from "./Ticket/AddTicketThreadSchema";
 
 export {
     loginUserSchema,
@@ -22,4 +24,6 @@ export {
     editAppRuleSchema,
     addCampaignSchema,
     editCampaignSchema,
+    addTicketSchema,
+    addTicketThreadSchema,
 };

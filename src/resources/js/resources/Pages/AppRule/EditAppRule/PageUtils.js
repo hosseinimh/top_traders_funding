@@ -21,27 +21,25 @@ export class PageUtils extends BasePageUtils {
         const { editAppRulePage: strings } = useLocale();
         super("AppRules", strings, form);
         this.entity = new Entity();
-        this.initialPageProps = {
-            appRuleId: null,
-        };
         this.callbackUrl = `${BASE_PATH}/app_rules/admin`;
     }
 
     onLoad(params) {
-        super.onLoad();
-        const data = { appRuleId: params?.appRuleId };
+        super.onLoad(params);
+        this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.dispatch(setPagePropsAction(data));
-        this.fillForm(data);
+        this.fillForm({ appRuleId: params.appRuleId });
+    }
+
+    validateIfNotValidateParams() {
+        this.navigateIfNotValidId(this.params?.appRuleId);
     }
 
     async fillForm(data) {
         try {
             this.dispatch(setLoadingAction(true));
-            this.navigateIfNotValidId(data.appRuleId);
             const result = await this.fetchItem(data.appRuleId);
             this.navigateIfItemNotFound(result);
-            this.updateForm(result);
             this.handleFetchResult(result);
         } catch {
         } finally {
@@ -53,12 +51,9 @@ export class PageUtils extends BasePageUtils {
         return await this.entity.get(id);
     }
 
-    updateForm(result) {
+    handleFetchResult(result) {
         this.useForm.setValue("title", result.item.title);
         this.useForm.setValue("body", result.item.body);
-    }
-
-    handleFetchResult(result) {
         this.dispatch(setPagePropsAction({ appRuleId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
@@ -70,7 +65,7 @@ export class PageUtils extends BasePageUtils {
 
     async onSubmit(data) {
         const promise = this.entity.update(
-            this.pageState?.props?.appRuleId,
+            this.params.appRuleId,
             data.title,
             data.body
         );

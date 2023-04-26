@@ -16,8 +16,8 @@ export class PageUtils extends BasePageUtils {
         };
     }
 
-    onLoad() {
-        super.onLoad();
+    onLoad(params) {
+        super.onLoad(params);
         this.dispatch(setPageIconAction("pe-7s-users"));
         this.fillForm();
     }

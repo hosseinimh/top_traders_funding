@@ -19,8 +19,8 @@ export class PageUtils extends BasePageUtils {
         this.callbackUrl = `${BASE_PATH}/users`;
     }
 
-    onLoad() {
-        super.onLoad();
+    onLoad(params) {
+        super.onLoad(params);
         this.dispatch(setPageIconAction("pe-7s-id"));
     }
 

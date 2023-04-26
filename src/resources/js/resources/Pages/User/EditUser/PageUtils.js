@@ -23,9 +23,6 @@ export class PageUtils extends BasePageUtils {
         const { editUserPage: strings } = useLocale();
         super("Users", strings, form);
         this.entity = new Entity();
-        this.initialPageProps = {
-            userId: null,
-        };
         this.callbackUrl =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? `${BASE_PATH}/users`
@@ -33,26 +30,27 @@ export class PageUtils extends BasePageUtils {
     }
 
     onLoad(params) {
-        super.onLoad();
-        let userId = utils.isId(params?.userId)
-            ? parseInt(params?.userId)
-            : this.userState?.user?.id;
+        super.onLoad(params);
+        this.validateIfNotValidateParams();
         const name =
             userId === this.userState?.user?.id ? "EditProfile" : "Users";
-        const data = { userId };
         this.dispatch(setPageAction(name));
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.dispatch(setPagePropsAction(data));
-        this.fillForm(data);
+        this.fillForm(this.params);
+    }
+
+    validateIfNotValidateParams() {
+        this.params.userId = utils.isId(this.params?.userId)
+            ? parseInt(this.params?.userId)
+            : this.userState?.user?.id;
+        this.navigateIfNotValidId(this.params.userId);
     }
 
     async fillForm(data) {
         try {
             this.dispatch(setLoadingAction(true));
-            this.navigateIfNotValidId(data.userId);
             const result = await this.fetchItem(data.userId);
             this.navigateIfItemNotFound(result);
-            this.updateForm(result);
             this.handleFetchResult(result);
         } catch {
         } finally {
@@ -66,7 +64,7 @@ export class PageUtils extends BasePageUtils {
             : await this.entity.getFromUser();
     }
 
-    updateForm(result) {
+    handleFetchResult(result) {
         this.useForm.setValue("name", result.item.name);
         this.useForm.setValue("family", result.item.family);
         this.useForm.setValue("email", result.item.email);
@@ -77,9 +75,6 @@ export class PageUtils extends BasePageUtils {
                 : "user",
             "on"
         );
-    }
-
-    handleFetchResult(result) {
         this.dispatch(setPagePropsAction({ userId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
@@ -92,17 +87,17 @@ export class PageUtils extends BasePageUtils {
     async onSubmit(data) {
         const promise =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-                ? this.update(data)
-                : this.updateFromUser(data);
+                ? this.handleSubmit(data)
+                : this.handleSubmitFromUser(data);
         this.onModifySubmit(promise);
     }
 
-    async update(data) {
+    async handleSubmit(data) {
         const role = data.administrator
             ? USER_ROLES.ADMINISTRATOR
             : USER_ROLES.USER;
         return this.entity.update(
-            this.pageState?.props?.userId,
+            this.params.userId,
             data.name,
             data.family,
             data.email,
@@ -111,7 +106,7 @@ export class PageUtils extends BasePageUtils {
         );
     }
 
-    async updateFromUser(data) {
+    async handleSubmitFromUser(data) {
         return this.entity.updateFromUser(data.name, data.family);
     }
 }

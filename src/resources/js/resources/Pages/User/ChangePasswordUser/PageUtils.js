@@ -22,9 +22,6 @@ export class PageUtils extends BasePageUtils {
         const { changePasswordUserPage: strings } = useLocale();
         super("ChangePasswordUser", strings, form);
         this.entity = new Entity();
-        this.initialPageProps = {
-            userId: null,
-        };
         this.callbackUrl =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? `${BASE_PATH}/users`
@@ -32,20 +29,22 @@ export class PageUtils extends BasePageUtils {
     }
 
     onLoad(params) {
-        super.onLoad();
-        let userId = utils.isId(params?.userId)
-            ? parseInt(params?.userId)
-            : this.userState?.user?.id;
-        const data = { userId };
+        super.onLoad(params);
+        this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-pen"));
-        this.dispatch(setPagePropsAction(data));
-        this.fillForm(data);
+        this.fillForm(this.params);
+    }
+
+    validateIfNotValidateParams() {
+        this.params.userId = utils.isId(this.params?.userId)
+            ? parseInt(this.params?.userId)
+            : this.userState?.user?.id;
+        this.navigateIfNotValidId(this.params.userId);
     }
 
     async fillForm(data) {
         try {
             this.dispatch(setLoadingAction(true));
-            this.navigateIfNotValidId(data.userId);
             const result = await this.fetchItem(data.userId);
             this.navigateIfItemNotFound(result);
             this.handleFetchResult(result);
@@ -75,7 +74,7 @@ export class PageUtils extends BasePageUtils {
         const promise =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? this.entity.changePassword(
-                      this.pageState?.props?.userId,
+                      this.params.userId,
                       data.newPassword,
                       data.confirmPassword
                   )

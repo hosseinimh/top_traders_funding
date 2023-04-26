@@ -4,6 +4,7 @@ use App\Http\Controllers\Administrator\AppRuleController;
 use App\Http\Controllers\Administrator\CampaignController;
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\ErrorController;
+use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,11 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
 
     Route::post('campaigns/store', [CampaignController::class, 'store']);
     Route::post('campaigns/update/{model}', [CampaignController::class, 'update']);
+
+    Route::post('tickets/{user}', [TicketController::class, 'index']);
+    Route::post('tickets/show/{model}', [TicketController::class, 'show']);
+    Route::post('tickets/store/{user}', [TicketController::class, 'store']);
+    Route::post('tickets/store_thread/{model}', [TicketController::class, 'storeThread']);
+    Route::post('tickets/seen/{model}', [TicketController::class, 'seen']);
+    Route::post('tickets/change_status/{model}', [TicketController::class, 'changeStatus']);
 });

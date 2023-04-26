@@ -1,3 +1,4 @@
+import { USER_ROLES } from "../../../constants";
 import { useLocale } from "../../../hooks";
 import { Dashboard as Entity } from "../../../http/entities";
 import { setLoadingAction } from "../../../state/layout/layoutActions";
@@ -12,13 +13,18 @@ export class PageUtils extends BasePageUtils {
         const { dashboardPage: strings } = useLocale();
         super("Dashboard", strings, useForm);
         this.entity = new Entity();
-        this.initialPageProps = {
-            usersCount: 0,
-        };
+        this.initialPageProps =
+            this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+                ? {
+                      usersCount: 0,
+                  }
+                : {
+                      tradesCount: 0,
+                  };
     }
 
-    onLoad() {
-        super.onLoad();
+    onLoad(params) {
+        super.onLoad(params);
         this.dispatch(setPageIconAction("pe-7s-rocket"));
         this.dispatch(setPagePropsAction(this.initialPageProps));
         this.fillForm();
@@ -32,7 +38,10 @@ export class PageUtils extends BasePageUtils {
 
     async fetchData() {
         try {
-            let result = await this.entity.get();
+            let result =
+                this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+                    ? await this.entity.get()
+                    : await this.entity.getFromUser();
             this.handleFetchResult(
                 result,
                 this.propsIfOK(result),
@@ -42,8 +51,12 @@ export class PageUtils extends BasePageUtils {
     }
 
     propsIfOK(result) {
-        return {
-            usersCount: result?.usersCount ?? 0,
-        };
+        return this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+            ? {
+                  usersCount: result?.usersCount ?? 0,
+              }
+            : {
+                  tradesCount: result?.tradesCount ?? 0,
+              };
     }
 }

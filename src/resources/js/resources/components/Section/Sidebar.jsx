@@ -144,6 +144,13 @@ function Sidebar() {
                         <li className="app-sidebar__heading">
                             {strings.servicesContainer}
                         </li>
+                        {userState?.user?.role === USER_ROLES.USER &&
+                            renderMenuItem(
+                                `${BASE_PATH}/tickets`,
+                                strings.tickets,
+                                "pe-7s-id",
+                                "AppRules"
+                            )}
                         {renderMenuItem(
                             userState?.user?.role === USER_ROLES.ADMINISTRATOR
                                 ? `${BASE_PATH}/app_rules/admin`

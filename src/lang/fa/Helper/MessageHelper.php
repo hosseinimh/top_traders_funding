@@ -6,6 +6,7 @@ $templateMessages = [
     'maxString' => 'طول فیلد :field حداکثر باید :length حرف باشد.',
     'numeric' => 'مقدار فیلد :field تنها باید شامل اعداد باشد.',
     'minNumeric' => 'مقدار فیلد :field حداقل باید برابر یا بزرگ‌تر از :value باشد.',
+    'maxNumeric' => 'مقدار فیلد :field حداکثر باید برابر یا کم‌تر ز :value باشد.',
     'digits' => 'طول فیلد :field باید :length رقم باشد.',
     'maxDigits' => 'حداکثر طول فیلد :field باید :length رقم باشد.',
     'gtNumeric' => 'مقدار فیلد :field باید بزرگ‌تر از :value  باشد.',
@@ -42,6 +43,13 @@ $numericMessage = function ($field) use ($templateMessages) {
 
 $minNumericMessage = function ($field, $value) use ($templateMessages) {
     $message = $templateMessages['minNumeric'];
+    $message = str_replace(':field', $field, $message);
+
+    return str_replace(':value', $value, $message);
+};
+
+$maxNumericMessage = function ($field, $value) use ($templateMessages) {
+    $message = $templateMessages['maxNumeric'];
     $message = str_replace(':field', $field, $message);
 
     return str_replace(':value', $value, $message);

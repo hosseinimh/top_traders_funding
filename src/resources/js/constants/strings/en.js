@@ -85,7 +85,7 @@ export const sidebar = {
     appRules: "قوانین",
     campaigns: "کمپین‌ها",
     servicesContainer: "خدمات",
-    baseInformation: "اطلاعات پایه",
+    tickets: "تیکت‌های پشتیبانی",
     systemManagement: "مدیریت سیستم",
     userContainer: "مدیریت کاربری",
     editProfile: "ویرایش پروفایل",
@@ -263,4 +263,40 @@ export const editCampaignPage = {
     status: "وضعیت",
     isActive: "فعال",
     submitted: "ویرایش کمپین با موفقیت انجام گردید.",
+};
+
+export const ticketTypes = {
+    type1: "مورد شکایت",
+    type2: "پیشنهاد",
+    type3: "اعلام خرابی",
+    type4: "پشتیبانی فنی، مالی",
+    type5: "سایر موارد",
+};
+
+export const addTicketPage = {
+    _title: "ثبت تیکت",
+    _subTitle: "",
+    type: "نوع تیکت",
+    subject: "موضوع",
+    subjectPlaceholder: "موضوع",
+    content: "متن",
+    submit: "ثبت",
+    saved: "ثبت تیکت با موفقیت انجام شد.",
+};
+
+export const ticketThreadsPage = {
+    _title: "مشاهده تیکت",
+    _subTitle: "",
+    content: "متن",
+    closeTicket: "بستن تیکت",
+};
+
+export const ticketsPage = {
+    _title: "تیکت‌ها",
+    _subTitle: "",
+    add: "ثبت تیکت",
+    user: "کاربر",
+    type: "نوع",
+    subject: "موضوع",
+    lastUpdate: "آخرین بروزرسانی",
 };

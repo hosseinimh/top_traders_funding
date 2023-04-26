@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\AppRuleController;
 use App\Http\Controllers\User\CampaignController;
+use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,13 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 
     Route::post('users/update', [UserController::class, 'update']);
     Route::post('users/change_password', [UserController::class, 'changePassword']);
+
+    Route::post('tickets', [TicketController::class, 'index']);
+    Route::post('tickets/show/{model}', [TicketController::class, 'show']);
+    Route::post('tickets/store', [TicketController::class, 'store']);
+    Route::post('tickets/store_thread/{model}', [TicketController::class, 'storeThread']);
+    Route::post('tickets/seen/{model}', [TicketController::class, 'seen']);
+    Route::post('tickets/change_status/{model}', [TicketController::class, 'changeStatus']);
 });
 
 // 'user' | 'administrator' type users

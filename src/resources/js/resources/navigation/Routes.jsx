@@ -53,6 +53,10 @@ function AuthRoute() {
                                 path={`${BASE_PATH}/users/edit/:userId`}
                                 element={<Pages.EditUser />}
                             />
+                            <Route
+                                path={`${BASE_PATH}/tickets/:userId`}
+                                element={<Pages.Tickets />}
+                            />
                         </>
                     )}
 
@@ -61,6 +65,10 @@ function AuthRoute() {
                             <Route
                                 path={`${BASE_PATH}/app_rules`}
                                 element={<Pages.AppRulesUser />}
+                            />
+                            <Route
+                                path={`${BASE_PATH}/tickets`}
+                                element={<Pages.Tickets />}
                             />
                         </>
                     )}
@@ -89,12 +97,14 @@ function AuthRoute() {
                     <Route
                         path={`${BASE_PATH}/users/login`}
                         exact={true}
-                        element={<Pages.LoginUser />}
+                        element={<Pages.Login role={USER_ROLES.USER} />}
                     />
                     <Route
                         path={`${BASE_PATH}/users/login_admin`}
                         exact={true}
-                        element={<Pages.LoginAdmin />}
+                        element={
+                            <Pages.Login role={USER_ROLES.ADMINISTRATOR} />
+                        }
                     />
                     <Route
                         path={`${BASE_PATH}/users/forget`}
