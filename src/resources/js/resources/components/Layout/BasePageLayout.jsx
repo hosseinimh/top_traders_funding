@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
     BASE_PATH,
     HEADER_BUTTONS,
-    LOCALES,
     MESSAGE_CODES,
     MESSAGE_TYPES,
 } from "../../../constants";
@@ -19,13 +18,13 @@ import {
     setRenderMessageAction,
 } from "../../../state/message/messageActions";
 import {
-    setPageParamsAction,
     setDispatchAction,
     setNavigateAction,
     setPageAction,
     setPagePropsAction,
     setPageUtilsAction,
     setPageTitleAction,
+    clearPagePropsAction,
 } from "../../../state/page/pageActions";
 import { clearLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
@@ -80,16 +79,18 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     }, [pageUtils?.useForm?.formState?.errors]);
 
     useEffect(() => {
-        if (params && pageState?.pageUtils && pageState?.dispatch) {
-            setPageLoaded(true);
-        }
-    }, [pageState]);
-
-    useEffect(() => {
         if (pageLoaded) {
-            pageUtils.onLoad(params);
+            pageUtils.onLoad();
         }
     }, [pageLoaded]);
+
+    useEffect(() => {
+        if (params && pageState?.pageUtils && pageState?.dispatch) {
+            setPageLoaded(true);
+        } else {
+            setPageLoaded(false);
+        }
+    }, [pageUtils]);
 
     useEffect(() => {
         if (pageState?.props?.action) {
@@ -127,7 +128,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                 pageUtils.strings._subTitle
             )
         );
-        dispatch(setPageParamsAction(params));
+        dispatch(clearPagePropsAction());
         dispatch(setNavigateAction(navigate));
         dispatch(setDispatchAction(dispatch));
         dispatch(setPageUtilsAction(pageUtils));

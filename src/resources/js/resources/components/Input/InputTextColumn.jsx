@@ -13,6 +13,7 @@ const InputTextColumn = ({
     defaultValue = "",
     showLabel = true,
     textAlign = "",
+    readonly = false,
 }) => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
@@ -68,7 +69,7 @@ const InputTextColumn = ({
                             : "form-control"
                     }
                     placeholder={placeholder}
-                    disabled={layoutState?.loading}
+                    disabled={layoutState?.loading || readonly}
                     type={type}
                     style={{ ...style }}
                 />

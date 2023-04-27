@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Constants\ErrorCode;
 use App\Constants\Locale;
 use App\Constants\Role;
 use App\Constants\Status;
 use App\Facades\Helper;
 use App\Facades\SendMail;
 use App\Models\User as Model;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,15 +25,16 @@ class UserService
         return Model::where('email', $email)->first();
     }
 
-    public function getPaginate(string|null $username, string|null $name, int $page, int $pageItems): mixed
+    public function getPaginate(string|null $username, string|null $name, string|null $email, int $page, int $pageItems): mixed
     {
         return Model::where('username', 'LIKE', '%' . $username . '%')->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%' . $name . '%');
-        })->orderBy('name', 'ASC')->orderBy('id', 'ASC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+            $query->where('name', 'LIKE', '%' . $name . '%')->orWhere('family', 'LIKE', '%' . $name . '%');
+        })->where('email', 'LIKE', '%' . $email . '%')->orderBy('name', 'ASC')->orderBy('id', 'ASC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
     public function store(string $username, string $password, string $name, string $family, string $email, int $role, int $isActive): mixed
     {
+        $this->throwIfEmailNotUnique($email);
         $role = ($role >= Role::USER && $role <= Role::ADMINISTRATOR) ? $role : Role::USER;
         $isActive = $isActive === Status::ACTIVE ? Status::ACTIVE : Status::NOT_ACTIVE;
         $data = [
@@ -50,6 +53,7 @@ class UserService
 
     public function update(Model $model, string $name, string $family, string $email, int $role, int $isActive): bool
     {
+        $this->throwIfEmailNotUnique($email, $model);
         $role = ($role >= Role::USER && $role <= Role::ADMINISTRATOR) ? $role : Role::USER;
         $isActive = $isActive === Status::ACTIVE ? Status::ACTIVE : Status::NOT_ACTIVE;
         $data = [
@@ -89,15 +93,24 @@ class UserService
         SendMail::ForgotPassword($email, $code);
     }
 
-    public function count(string|null $username, string|null $name): int
+    public function count(string|null $username, string|null $name, string|null $email): int
     {
         return Model::where('username', 'LIKE', '%' . $username . '%')->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%' . $name . '%');
-        })->count();
+            $query->where('name', 'LIKE', '%' . $name . '%')->orWhere('family', 'LIKE', '%' . $name . '%');
+        })->where('email', 'LIKE', '%' . $email . '%')->count();
     }
 
     public function countAll(): int
     {
         return Model::count();
+    }
+
+    private function throwIfEmailNotUnique(string $email, mixed $targetModel = null)
+    {
+        $user = $this->getByEmail($email);
+        if (!$user || ($targetModel instanceof Model && $targetModel->id === $user->id)) {
+            return;
+        }
+        throw new Exception(__('user.email_unique'), ErrorCode::CUSTOM_ERROR);
     }
 }

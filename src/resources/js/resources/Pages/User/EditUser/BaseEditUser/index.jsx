@@ -6,23 +6,31 @@ import {
     InputTextColumn,
     FormPage,
     InputCheckboxColumn,
-} from "../../../components";
+} from "../../../../components";
 import { PageUtils } from "./PageUtils";
-import { USER_ROLES } from "../../../../constants";
-import { useLocale } from "../../../../hooks";
+import { USER_ROLES } from "../../../../../constants";
+import { useLocale } from "../../../../../hooks";
 
-const EditUser = () => {
+const BaseEditUser = ({ userId }) => {
     const { editUserPage: strings } = useLocale();
-    const pageUtils = new PageUtils();
+    const pageUtils = new PageUtils(userId);
     const userState = useSelector((state) => state.userReducer);
 
     return (
         <FormPage pageUtils={pageUtils}>
             <InputTextColumn field="name" />
             <InputTextColumn field="family" />
+            <InputTextColumn
+                field="email"
+                textAlign="left"
+                readonly={
+                    userState?.user?.role === USER_ROLES.ADMINISTRATOR
+                        ? false
+                        : true
+                }
+            />
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
                 <>
-                    <InputTextColumn field="email" textAlign="left" />
                     <div className="col-md-3 col-sm-12 pb-4"></div>
                     <div className="col-md-3 col-sm-12 pb-4">
                         <label className="form-label">{strings.status}</label>
@@ -39,4 +47,4 @@ const EditUser = () => {
     );
 };
 
-export default EditUser;
+export default BaseEditUser;

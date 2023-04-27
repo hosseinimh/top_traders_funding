@@ -3,6 +3,7 @@ export const layout = { brand: "Top Traders Funding" };
 export const general = {
     brand: "Top Traders Funding",
     brandLogo: "Top Traders Funding",
+    locale: "english",
     add: "افزودن",
     edit: "ویرایش",
     remove: "حذف",
@@ -151,6 +152,8 @@ export const usersPage = {
     usernamePlaceholder: "Username",
     nameFamily: "نام / نام خانوادگی",
     nameFamilyPlaceholder: "نام / نام خانوادگی",
+    email: "پست الکترونیک",
+    emailPlaceholder: "پست الکترونیک",
     role: "نوع کاربری",
     status: "وضعیت",
     active: "فعال",
@@ -203,7 +206,9 @@ export const changePasswordUserPage = {
     _title: "تغییر کلمه عبور",
     _subTitle: "لطفا کلمه عبور مورد نظر خود را وارد نمایید.",
     newPassword: "کلمه عبور جدید",
+    newPasswordPlaceholder: "کلمه عبور",
     confirmPassword: "تایید کلمه عبور جدید",
+    confirmPasswordPlaceholder: "کلمه عبور",
     submitted: "تغییر کلمه عبور با موفقیت انجام گردید.",
 };
 

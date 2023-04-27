@@ -4,8 +4,10 @@ import ForgetPassword from "./User/ForgetPassword";
 import Signup from "./User/Signup";
 import Users from "./User/Users";
 import AddUser from "./User/AddUser";
-import EditUser from "./User/EditUser";
-import ChangePasswordUser from "./User/ChangePasswordUser";
+import EditCurrentUser from "./User/EditUser/EditCurrentUser";
+import EditUser from "./User/EditUser/EditUser";
+import ChangePasswordCurrentUser from "./User/ChangePasswordUser/ChangePasswordCurrentUser";
+import ChangePasswordUser from "./User/ChangePasswordUser/ChangePasswordUser";
 import AppRulesAdmin from "./AppRule/AppRulesAdmin";
 import AppRulesUser from "./AppRule/AppRulesUser";
 import AddAppRule from "./AppRule/AddAppRule";
@@ -22,7 +24,9 @@ export {
     Signup,
     Users,
     AddUser,
+    EditCurrentUser,
     EditUser,
+    ChangePasswordCurrentUser,
     ChangePasswordUser,
     AppRulesAdmin,
     AppRulesUser,

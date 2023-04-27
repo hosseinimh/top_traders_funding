@@ -3,6 +3,7 @@ export const layout = { brand: "Top Traders Funding" };
 export const general = {
     brand: "Top Traders Funding",
     brandLogo: "Top Traders Funding",
+    locale: "فارسی",
     add: "افزودن",
     edit: "ویرایش",
     remove: "حذف",
@@ -101,7 +102,7 @@ export const dashboardPage = {
 
 export const loginUserPage = {
     welcome: "خوش آمدید!",
-    description: "لطفا نام کاربری و کلمه عبور خود را وارد نمائید.",
+    description: "لطفا نام کاربری و کلمه عبور خود را وارد نمایید.",
     username: "نام کاربری",
     usernamePlaceholder: "نام کاربری",
     password: "کلمه عبور",
@@ -114,7 +115,7 @@ export const loginUserPage = {
 
 export const forgetPasswordPage = {
     _title: "فراموشی کلمه عبور",
-    description: "لطفا پست الکترونیک خود را وارد نمائید.",
+    description: "لطفا پست الکترونیک خود را وارد نمایید.",
     email: "پست الکترونیک",
     emailPlaceholder: "پست الکترونیک",
     login: "ورود به داشبورد مدیریت",
@@ -151,6 +152,8 @@ export const usersPage = {
     usernamePlaceholder: "نام کاربری",
     nameFamily: "نام / نام خانوادگی",
     nameFamilyPlaceholder: "نام / نام خانوادگی",
+    email: "پست الکترونیک",
+    emailPlaceholder: "پست الکترونیک",
     role: "نوع کاربری",
     status: "وضعیت",
     active: "فعال",
@@ -184,7 +187,7 @@ export const addUserPage = {
 
 export const editUserPage = {
     _title: "ویرایش کاربر",
-    _subTitle: "مشخصات کاربر تعریف شده را ویرایش نمایید.",
+    _subTitle: "مشخصات کاربر تعریف‌شده را ویرایش نمایید.",
     name: "نام",
     namePlaceholder: "نام",
     family: "نام خانوادگی",
@@ -203,7 +206,9 @@ export const changePasswordUserPage = {
     _title: "تغییر کلمه عبور",
     _subTitle: "لطفا کلمه عبور مورد نظر خود را وارد نمایید.",
     newPassword: "کلمه عبور جدید",
+    newPasswordPlaceholder: "کلمه عبور جدید",
     confirmPassword: "تایید کلمه عبور جدید",
+    confirmPasswordPlaceholder: "تایید کلمه عبور جدید",
     submitted: "تغییر کلمه عبور با موفقیت انجام گردید.",
 };
 
@@ -227,7 +232,7 @@ export const addAppRulePage = {
 
 export const editAppRulePage = {
     _title: "ویرایش قانون",
-    _subTitle: "قانون تعریف شده را ویرایش نمایید.",
+    _subTitle: "قانون تعریف‌شده را ویرایش نمایید.",
     title: "عنوان",
     titlePlaceholder: "عنوان",
     body: "متن",
@@ -257,7 +262,7 @@ export const addCampaignPage = {
 
 export const editCampaignPage = {
     _title: "ویرایش کمپین",
-    _subTitle: "مشخصات کمپین تعریف شده را ویرایش نمایید.",
+    _subTitle: "مشخصات کمپین تعریف‌شده را ویرایش نمایید.",
     title: "عنوان",
     titlePlaceholder: "عنوان",
     status: "وضعیت",

@@ -11,7 +11,7 @@ return [
     'email_required' => $requiredMessage('پست الکترونیک'),
     'email_min' => $minStringMessage('پست الکترونیک', 5),
     'email_max' => $maxStringMessage('پست الکترونیک', 50),
-    'email_unique' => 'این پست الکترونیک قبلا ثبت نام کرده است.',
+    'email_unique' => 'این پست الکترونیک قبلا ثبت‌نام کرده است.',
     'password_required' => $requiredMessage('کلمه عبور'),
     'password_min' => $minStringMessage('کلمه عبور', 6),
     'password_max' => $maxStringMessage('کلمه عبور', 50),

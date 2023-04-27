@@ -29,8 +29,8 @@ export class PageUtils extends BasePageUtils {
         };
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.dispatch(setPageIconAction("pe-7s-users"));
         this.fillForm();
     }
@@ -39,6 +39,15 @@ export class PageUtils extends BasePageUtils {
         switch (props.action) {
             case "CHANGE_PASSWORD":
                 this.changePasswordAction(props.item);
+
+                break;
+            case "SET_PAGE":
+                props.action = null;
+                this.onSubmit({
+                    username: this.useForm.getValues("username") ?? "",
+                    nameFamily: this.useForm.getValues("nameFamily") ?? "",
+                    email: this.useForm.getValues("email") ?? "",
+                });
 
                 break;
         }
@@ -75,6 +84,7 @@ export class PageUtils extends BasePageUtils {
         const promise = this.entity.getPaginate(
             data?.username ?? "",
             data?.nameFamily ?? "",
+            data?.email ?? "",
             this.pageState.props?.pageNumber ?? 1
         );
         super.fillForm(promise);

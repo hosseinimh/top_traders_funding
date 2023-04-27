@@ -7,10 +7,11 @@ export class User extends Entity {
         super();
     }
 
-    async getPaginate(username, nameFamily, _pn = 1, _pi = PAGE_ITEMS) {
+    async getPaginate(username, nameFamily, email, _pn = 1, _pi = PAGE_ITEMS) {
         return await this.handlePost(`${BASE_URL}/a/users`, {
             username: username,
-            name_family: nameFamily,
+            name: nameFamily,
+            email: email,
             _pn,
             _pi,
         });

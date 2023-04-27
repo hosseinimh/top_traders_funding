@@ -14,7 +14,7 @@ export class PageUtils extends BasePageUtils {
         super("Dashboard", strings, useForm);
         this.entity = new Entity();
         this.initialPageProps =
-            this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+            this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? {
                       usersCount: 0,
                   }
@@ -23,8 +23,8 @@ export class PageUtils extends BasePageUtils {
                   };
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.dispatch(setPageIconAction("pe-7s-rocket"));
         this.dispatch(setPagePropsAction(this.initialPageProps));
         this.fillForm();
@@ -39,7 +39,7 @@ export class PageUtils extends BasePageUtils {
     async fetchData() {
         try {
             let result =
-                this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+                this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                     ? await this.entity.get()
                     : await this.entity.getFromUser();
             this.handleFetchResult(
@@ -51,7 +51,7 @@ export class PageUtils extends BasePageUtils {
     }
 
     propsIfOK(result) {
-        return this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+        return this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
             ? {
                   usersCount: result?.usersCount ?? 0,
               }

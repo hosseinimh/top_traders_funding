@@ -1,10 +1,10 @@
 import React from "react";
 
-import { InputTextColumn, FormPage } from "../../../components";
+import { InputTextColumn, FormPage } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 
-const ChangePasswordUser = () => {
-    const pageUtils = new PageUtils();
+const BaseChangePasswordUser = ({ userId }) => {
+    const pageUtils = new PageUtils(userId);
 
     return (
         <FormPage pageUtils={pageUtils}>
@@ -22,4 +22,4 @@ const ChangePasswordUser = () => {
     );
 };
 
-export default ChangePasswordUser;
+export default BaseChangePasswordUser;

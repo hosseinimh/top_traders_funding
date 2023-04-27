@@ -22,7 +22,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:50',
             'family' => 'required|min:2|max:50',
-            'email' => 'required|min:5|max:50|unique:tbl_users',
+            'email' => 'required|min:5|max:50',
         ];
     }
 
@@ -32,7 +32,6 @@ class UpdateUserRequest extends FormRequest
             'email.required' => __('user.email_required'),
             'email.min' => __('user.email_min'),
             'email.max' => __('user.email_max'),
-            'email.unique' => __('user.email_unique'),
             'name.required' => __('user.name_required'),
             'name.min' => __('user.name_min'),
             'name.max' => __('user.name_max'),

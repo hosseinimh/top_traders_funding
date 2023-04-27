@@ -24,15 +24,15 @@ export class PageUtils extends BasePageUtils {
         this.callbackUrl = `${BASE_PATH}/campaigns`;
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.fillForm({ campaignId: params.campaignId });
+        this.fillForm(this.pageState.params);
     }
 
     validateIfNotValidateParams() {
-        this.navigateIfNotValidId(this.params?.campaignId);
+        this.navigateIfNotValidId(this.pageState.params.campaignId);
     }
 
     async fillForm(data) {
@@ -57,15 +57,15 @@ export class PageUtils extends BasePageUtils {
         this.dispatch(setPagePropsAction({ campaignId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
-                `${strings._title} [ ${result.item.title} ]`,
-                strings._subTitle
+                `${this.strings._title} [ ${result.item.title} ]`,
+                this.strings._subTitle
             )
         );
     }
 
     async onSubmit(data) {
         const promise = this.entity.update(
-            this.params.campaignId,
+            this.pageState.params.campaignId,
             data.title,
             data.isActive ? 1 : 0
         );

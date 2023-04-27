@@ -1,49 +1,51 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { User as Entity } from "../../../../http/entities";
+import { User as Entity } from "../../../../../http/entities";
 import {
     setPageAction,
     setPageIconAction,
-    setPagePropsAction,
     setPageTitleAction,
-} from "../../../../state/page/pageActions";
-import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH, USER_ROLES } from "../../../../constants";
-import utils from "../../../../utils/Utils";
-import { setLoadingAction } from "../../../../state/layout/layoutActions";
-import { editUserSchema as schema } from "../../../validations";
-import { useLocale } from "../../../../hooks";
+} from "../../../../../state/page/pageActions";
+import { BasePageUtils } from "../../../../../utils/BasePageUtils";
+import { BASE_PATH, USER_ROLES } from "../../../../../constants";
+import { setLoadingAction } from "../../../../../state/layout/layoutActions";
+import { editUserSchema as schema } from "../../../../validations";
+import { useLocale } from "../../../../../hooks";
+import { setPagePropsAction } from "../../../../../state/page/pageActions";
 
 export class PageUtils extends BasePageUtils {
-    constructor() {
+    constructor(userId) {
         const form = useForm({
             resolver: yupResolver(schema),
         });
         const { editUserPage: strings } = useLocale();
         super("Users", strings, form);
         this.entity = new Entity();
+        this.initialPageProps = {
+            userId,
+        };
         this.callbackUrl =
             this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? `${BASE_PATH}/users`
                 : BASE_PATH;
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
         this.validateIfNotValidateParams();
         const name =
-            userId === this.userState?.user?.id ? "EditProfile" : "Users";
+            this.initialPageProps.userId === this.userState?.user?.id
+                ? "EditProfile"
+                : "Users";
         this.dispatch(setPageAction(name));
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.fillForm(this.params);
+        this.dispatch(setPagePropsAction(this.initialPageProps));
+        super.onLoad();
+        this.fillForm(this.initialPageProps);
     }
 
     validateIfNotValidateParams() {
-        this.params.userId = utils.isId(this.params?.userId)
-            ? parseInt(this.params?.userId)
-            : this.userState?.user?.id;
-        this.navigateIfNotValidId(this.params.userId);
+        this.navigateIfNotValidId(this.initialPageProps.userId);
     }
 
     async fillForm(data) {
@@ -75,11 +77,10 @@ export class PageUtils extends BasePageUtils {
                 : "user",
             "on"
         );
-        this.dispatch(setPagePropsAction({ userId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
-                `${strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
-                strings._subTitle
+                `${this.strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
+                this.strings._subTitle
             )
         );
     }
@@ -97,7 +98,7 @@ export class PageUtils extends BasePageUtils {
             ? USER_ROLES.ADMINISTRATOR
             : USER_ROLES.USER;
         return this.entity.update(
-            this.params.userId,
+            this.pageState?.props?.userId,
             data.name,
             data.family,
             data.email,

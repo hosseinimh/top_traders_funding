@@ -14,6 +14,7 @@ const searchUserSchema = yup.object().shape({
         50,
         false
     ),
+    email: stringValidator(yup.string(), strings.email, null, 50, false),
 });
 
 export default searchUserSchema;

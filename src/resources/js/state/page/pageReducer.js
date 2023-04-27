@@ -10,7 +10,6 @@ const initialState = {
     subTitle: "",
     icon: null,
     pageUtils: null,
-    pageUtilsLoaded: false,
 };
 
 const pageReducer = (state = initialState, { type, payload }) => {
@@ -20,10 +19,12 @@ const pageReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 page: payload,
             };
+        case actions.CLEAR_PROPS_ACTION:
+            return { ...state, props: {} };
         case actions.SET_PROPS_ACTION:
             return { ...state, props: { ...state.props, ...payload } };
         case actions.SET_PARAMS_ACTION:
-            return { ...state, params: { ...state.params, ...payload } };
+            return { ...state, params: { ...payload } };
         case actions.SET_DISPATCH_ACTION:
             return {
                 ...state,
@@ -49,11 +50,6 @@ const pageReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 pageUtils: payload,
-            };
-        case actions.SET_PAGE_UTILS_LOADED_ACTION:
-            return {
-                ...state,
-                pageUtilsLoaded: true,
             };
         default:
             return state;

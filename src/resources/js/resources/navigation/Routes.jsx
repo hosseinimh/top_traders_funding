@@ -8,12 +8,12 @@ import utils from "../../utils/Utils";
 import { BASE_PATH, USER_ROLES } from "../../constants";
 
 function AuthRoute() {
-    const us = useSelector((state) => state.userReducer);
+    const userState = useSelector((state) => state.userReducer);
     const lsUser = utils.getLSUser();
 
     return (
         <Router>
-            {us.isAuthenticated && (
+            {userState.isAuthenticated && (
                 <Routes>
                     {lsUser?.role === USER_ROLES.ADMINISTRATOR && (
                         <>
@@ -54,6 +54,10 @@ function AuthRoute() {
                                 element={<Pages.EditUser />}
                             />
                             <Route
+                                path={`${BASE_PATH}/users`}
+                                element={<Pages.Users />}
+                            />
+                            <Route
                                 path={`${BASE_PATH}/tickets/:userId`}
                                 element={<Pages.Tickets />}
                             />
@@ -75,24 +79,20 @@ function AuthRoute() {
 
                     <Route
                         path={`${BASE_PATH}/users/edit`}
-                        element={<Pages.EditUser />}
+                        element={<Pages.EditCurrentUser />}
                     />
                     <Route
-                        path={`${BASE_PATH}/users`}
-                        element={<Pages.Users />}
+                        path={`${BASE_PATH}/users/change_password`}
+                        element={<Pages.ChangePasswordCurrentUser />}
                     />
                     <Route
                         path={`${BASE_PATH}`}
                         element={<Pages.Dashboard />}
                     />
-                    <Route
-                        path={`${BASE_PATH}/users/change_password`}
-                        element={<Pages.ChangePasswordUser />}
-                    />
                     <Route path="*" element={<Navigate to={BASE_PATH} />} />
                 </Routes>
             )}
-            {!us.isAuthenticated && (
+            {!userState.isAuthenticated && (
                 <Routes>
                     <Route
                         path={`${BASE_PATH}/users/login`}

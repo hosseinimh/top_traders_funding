@@ -1,10 +1,19 @@
 import stringValidator from "./stringValidator";
-import utils from "../../../utils/Utils";
+
+import { useLSLocale } from "../../../hooks";
 
 const nameValidator = (schema, field, min = 2, max = 50, required = true) => {
-    const { validation } = utils.getLSLocale();
+    const { general, validation } = useLSLocale();
+    let locale;
+    const regex = required
+        ? general.locale === "english"
+            ? /^[a-zA-Z ]+$/
+            : /^[آ-ی ]+$/
+        : general.locale === "english"
+        ? /^[a-zA-Z ]*$/
+        : /^[آ-ی ]*$/;
     return stringValidator(schema, field, min, max, required).matches(
-        /^[آ-ی ]+$/,
+        regex,
         validation.stringMessage.replace(":field", field)
     );
 };

@@ -17,7 +17,7 @@ const Users = () => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const pageState = useSelector((state) => state.pageReducer);
     const userState = useSelector((state) => state.userReducer);
-    const columnsCount = 5;
+    const columnsCount = 6;
     const { usersPage: strings, general } = useLocale();
     const pageUtils = new PageUtils();
 
@@ -25,6 +25,7 @@ const Users = () => {
         <div className="row">
             <InputTextColumn field="username" textAlign="left" />
             <InputTextColumn field="nameFamily" />
+            <InputTextColumn field="email" textAlign="left" />
         </div>
     );
 
@@ -37,6 +38,9 @@ const Users = () => {
                 {strings.username}
             </th>
             <th scope="col">{strings.nameFamily}</th>
+            <th scope="col" style={{ width: "150px" }}>
+                {strings.email}
+            </th>
             <th scope="col" style={{ width: "150px" }}>
                 {strings.role}
             </th>
@@ -57,6 +61,7 @@ const Users = () => {
                     </td>
                     <td>{item.username}</td>
                     <td>{`${item.name} ${item.family}`}</td>
+                    <td>{item.email}</td>
                     <td>
                         {item.role === USER_ROLES.ADMINISTRATOR
                             ? general.administrator

@@ -26,6 +26,7 @@ const AddUser = () => {
                 type="password"
                 textAlign="left"
             />
+            <InputTextColumn field="email" textAlign="left" />
             <InputTextColumn field="name" />
             <InputTextColumn field="family" />
             <div className="col-md-3 col-sm-12 pb-4">

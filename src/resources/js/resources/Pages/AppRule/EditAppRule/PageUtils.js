@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AppRule as Entity } from "../../../../http/entities";
 import {
     setPageIconAction,
-    setPagePropsAction,
     setPageTitleAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
@@ -24,15 +23,15 @@ export class PageUtils extends BasePageUtils {
         this.callbackUrl = `${BASE_PATH}/app_rules/admin`;
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.fillForm({ appRuleId: params.appRuleId });
+        this.fillForm(this.pageState.params);
     }
 
     validateIfNotValidateParams() {
-        this.navigateIfNotValidId(this.params?.appRuleId);
+        this.navigateIfNotValidId(this.pageState.params.appRuleId);
     }
 
     async fillForm(data) {
@@ -54,18 +53,17 @@ export class PageUtils extends BasePageUtils {
     handleFetchResult(result) {
         this.useForm.setValue("title", result.item.title);
         this.useForm.setValue("body", result.item.body);
-        this.dispatch(setPagePropsAction({ appRuleId: result.item.id }));
         this.dispatch(
             setPageTitleAction(
-                `${strings._title} [ ${result.item.title} ]`,
-                strings._subTitle
+                `${this.strings._title} [ ${result.item.title} ]`,
+                this.strings._subTitle
             )
         );
     }
 
     async onSubmit(data) {
         const promise = this.entity.update(
-            this.params.appRuleId,
+            this.pageState.params.appRuleId,
             data.title,
             data.body
         );

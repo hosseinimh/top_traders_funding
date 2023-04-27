@@ -6,10 +6,7 @@ import {
     clearMessageAction,
     setMessageAction,
 } from "../state/message/messageActions";
-import {
-    setPagePropsAction,
-    setPageUtilsLoadedAction,
-} from "../state/page/pageActions";
+import { setPagePropsAction } from "../state/page/pageActions";
 import utils from "./Utils";
 import { useLSLocale } from "../hooks";
 
@@ -21,23 +18,22 @@ export class BasePageUtils {
         this.strings = strings;
         this.useForm = useForm;
         this.initialPageProps = {};
-        this.params = {};
         this.callbackUrl = BASE_PATH;
         this.messageField = null;
         this.pageState = useSelector((state) => state.pageReducer);
         this.userState = useSelector((state) => state.userReducer);
         this.dispatch = this.pageState.dispatch;
         this.navigate = this.pageState.navigate;
+        this.params = this.pageState.params;
         this.onAdd = this.onAdd.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onReset = this.onReset.bind(this);
     }
 
-    onLoad(params = {}) {
+    onLoad(params) {
         this.params = params;
         this.dispatch(setPagePropsAction(this.initialPageProps));
-        this.dispatch(setPageUtilsLoadedAction());
     }
 
     async fillForm(promise) {
@@ -171,8 +167,6 @@ export class BasePageUtils {
                 )
             );
             this.navigate(this.callbackUrl);
-
-            throw new Error();
         }
     }
 

@@ -18,21 +18,21 @@ export class PageUtils extends BasePageUtils {
         this.entity = new Entity();
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
     }
 
     validateIfNotValidateParams() {
-        this.params.userId = utils.isId(this.params?.userId)
-            ? parseInt(this.params?.userId)
+        const userId = utils.isId(this.pageState.params.userId)
+            ? parseInt(this.pageState.params.userId)
             : this.userState?.user?.id;
-        this.navigateIfNotValidId(this.params.userId);
+        this.navigateIfNotValidId(userId);
         this.callbackUrl =
-            this.params.userId === this.userState?.user?.id
+            userId === this.userState?.user?.id
                 ? `${BASE_PATH}/tickets`
-                : `${BASE_PATH}/tickets/${this.params.userId}`;
+                : `${BASE_PATH}/tickets/${userId}`;
     }
 
     async onSubmit(data) {

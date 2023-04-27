@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function index(IndexUsersRequest $request): HttpJsonResponse
     {
-        return $this->onItems($this->service->getPaginate($request->username, $request->name, $request->_pn, $request->_pi), $this->service->count($request->username, $request->name));
+        return $this->onItems($this->service->getPaginate($request->username, $request->name, $request->email, $request->_pn, $request->_pi), $this->service->count($request->username, $request->name, $request->email));
     }
 
     public function show(Model $model): HttpJsonResponse

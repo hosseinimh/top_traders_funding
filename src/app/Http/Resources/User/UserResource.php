@@ -14,6 +14,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'name' => Helper::localeNumbers($this->name),
             'family' => Helper::localeNumbers($this->family),
+            'email' => $this->email,
             'googleId' => intval($this->google_id),
             'role' => intval($this->role),
             'isActive' => intval($this->is_active),

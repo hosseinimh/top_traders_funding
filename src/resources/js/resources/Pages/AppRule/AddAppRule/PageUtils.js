@@ -19,8 +19,8 @@ export class PageUtils extends BasePageUtils {
         this.callbackUrl = `${BASE_PATH}/app_rules/admin`;
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.dispatch(setPageIconAction("pe-7s-id"));
     }
 

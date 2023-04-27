@@ -1,12 +1,9 @@
 import { useForm } from "react-hook-form";
 
 import { Ticket as Entity } from "../../../../http/entities";
-import {
-    setPageIconAction,
-    setPagePropsAction,
-} from "../../../../state/page/pageActions";
+import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH, USER_ROLES } from "../../../../constants";
+import { USER_ROLES } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { useLocale } from "../../../../hooks";
 
@@ -20,27 +17,27 @@ export class PageUtils extends BasePageUtils {
             pageNumber: 1,
             itemsCount: 0,
             items: null,
-            userId: null,
         };
     }
 
     onLoad() {
         super.onLoad();
-        let userId =
-            this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
-                ? utils.isId(params?.userId)
-                    ? parseInt(params?.userId)
-                    : null
-                : this.pageState?.user?.id;
-        const data = { userId };
+        this.validateIfNotValidateParams();
         this.dispatch(setPageIconAction("pe-7s-id"));
-        this.dispatch(setPagePropsAction(data));
-        this.fillForm(data);
+        this.fillForm(this.params);
+    }
+
+    validateIfNotValidateParams() {
+        const userId = utils.isId(this.pageState.params.userId)
+            ? parseInt(this.pageState.params.userId)
+            : this.userState.user.id;
+        this.navigateIfNotValidId(userId);
+        this.params = { ...this.params, userId };
     }
 
     async fillForm(data = null) {
         const promise =
-            this.pageState?.user?.role === USER_ROLES.ADMINISTRATOR
+            this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
                 ? this.entity.getPaginate(data?.userId)
                 : this.entity.getPaginateFromUser();
         super.fillForm(promise);

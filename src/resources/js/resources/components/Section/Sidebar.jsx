@@ -212,7 +212,7 @@ function Sidebar() {
                             `${BASE_PATH}/users/change_password`,
                             strings.changePassword,
                             "pe-7s-pen",
-                            "ChangePasswordUser"
+                            "ChangePasswordProfile"
                         )}
                         <li>
                             <CustomLink

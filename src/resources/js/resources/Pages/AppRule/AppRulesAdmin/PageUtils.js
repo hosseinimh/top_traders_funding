@@ -20,8 +20,8 @@ export class PageUtils extends BasePageUtils {
         };
     }
 
-    onLoad(params) {
-        super.onLoad(params);
+    onLoad() {
+        super.onLoad();
         this.dispatch(setPageIconAction("pe-7s-users"));
         this.fillForm();
     }
