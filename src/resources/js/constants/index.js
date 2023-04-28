@@ -6,7 +6,14 @@ import { UPLOADED_FILE } from "./UploadedFile";
 import { LOCALES } from "./locales";
 import { USER_ROLES } from "./userRoles";
 import { TICKET_TYPES } from "./ticketTypes";
-import { BASE_PATH, ASSETS_PATH, IMAGES_PATH, PAGE_ITEMS } from "./theme";
+import { TICKET_STATUSES } from "./ticketStatuses";
+import {
+    BASE_PATH,
+    ASSETS_PATH,
+    IMAGES_PATH,
+    STORAGE_PATH,
+    PAGE_ITEMS,
+} from "./theme";
 
 const BASE_URL = serverConfig.baseUrl;
 
@@ -15,6 +22,7 @@ export {
     BASE_PATH,
     ASSETS_PATH,
     IMAGES_PATH,
+    STORAGE_PATH,
     PAGE_ITEMS,
     HEADER_BUTTONS,
     MESSAGE_TYPES,
@@ -23,4 +31,5 @@ export {
     LOCALES,
     USER_ROLES,
     TICKET_TYPES,
+    TICKET_STATUSES,
 };

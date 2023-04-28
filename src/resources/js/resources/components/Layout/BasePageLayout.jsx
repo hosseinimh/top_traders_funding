@@ -25,6 +25,7 @@ import {
     setPageUtilsAction,
     setPageTitleAction,
     clearPagePropsAction,
+    setPageParamsAction,
 } from "../../../state/page/pageActions";
 import { clearLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
@@ -128,6 +129,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
                 pageUtils.strings._subTitle
             )
         );
+        dispatch(setPageParamsAction(params));
         dispatch(clearPagePropsAction());
         dispatch(setNavigateAction(navigate));
         dispatch(setDispatchAction(dispatch));

@@ -9,6 +9,9 @@ import AlertState from "./Alert/AlertState";
 import ErrorBoundry from "./Error/ErrorBoundry";
 import FallbackError from "./Error/FallbackError";
 
+// Grid
+import ColumnRow from "./Grid/ColumnRow";
+
 // Input
 import InputTextColumn from "./Input/InputTextColumn";
 import InputTextAreaColumn from "./Input/InputTextAreaColumn";
@@ -66,6 +69,7 @@ export {
     AlertMessage,
     AlertState,
     ErrorBoundry,
+    ColumnRow,
     FallbackError,
     InputTextColumn,
     InputTextAreaColumn,

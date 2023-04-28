@@ -33,6 +33,7 @@ export class PageUtils extends BasePageUtils {
 
     onLoad() {
         this.validateIfNotValidateParams();
+        super.onLoad();
         const name =
             this.initialPageProps.userId === this.userState?.user?.id
                 ? "ChangePasswordProfile"
@@ -40,7 +41,7 @@ export class PageUtils extends BasePageUtils {
         this.dispatch(setPageAction(name));
         this.dispatch(setPageIconAction("pe-7s-id"));
         this.dispatch(setPagePropsAction(this.initialPageProps));
-        super.onLoad();
+
         this.fillForm(this.initialPageProps);
     }
 

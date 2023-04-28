@@ -1,10 +1,8 @@
 import stringValidator from "./stringValidator";
-
 import { useLSLocale } from "../../../hooks";
 
 const nameValidator = (schema, field, min = 2, max = 50, required = true) => {
     const { general, validation } = useLSLocale();
-    let locale;
     const regex = required
         ? general.locale === "english"
             ? /^[a-zA-Z ]+$/

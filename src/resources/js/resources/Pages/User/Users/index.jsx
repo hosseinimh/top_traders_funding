@@ -93,6 +93,15 @@ const Users = () => {
                         >
                             {strings.changePassword}
                         </button>
+                        <button
+                            type="button"
+                            className="btn btn-success mb-2 px-4 ml-2"
+                            onClick={() => pageUtils.onTickets(item)}
+                            title={strings.tickets}
+                            disabled={layoutState?.loading}
+                        >
+                            {strings.tickets}
+                        </button>
                     </td>
                 </tr>
             </React.Fragment>

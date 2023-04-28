@@ -25,8 +25,8 @@ export class PageUtils extends BasePageUtils {
     }
 
     onLoad() {
-        super.onLoad();
         this.validateIfNotValidateParams();
+        super.onLoad();
         this.dispatch(setPageIconAction("pe-7s-id"));
         this.fillForm(this.pageState.params);
     }

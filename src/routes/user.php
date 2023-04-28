@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 
     Route::post('tickets', [TicketController::class, 'index']);
     Route::post('tickets/show/{model}', [TicketController::class, 'show']);
+    Route::post('tickets/show_seen/{model}', [TicketController::class, 'showAndSeen']);
     Route::post('tickets/store', [TicketController::class, 'store']);
     Route::post('tickets/store_thread/{model}', [TicketController::class, 'storeThread']);
     Route::post('tickets/seen/{model}', [TicketController::class, 'seen']);

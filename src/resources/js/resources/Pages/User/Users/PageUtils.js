@@ -35,6 +35,24 @@ export class PageUtils extends BasePageUtils {
         this.fillForm();
     }
 
+    onChangePassword(item) {
+        this.dispatch(
+            setPagePropsAction({
+                action: "CHANGE_PASSWORD",
+                item,
+            })
+        );
+    }
+
+    onTickets(item) {
+        this.dispatch(
+            setPagePropsAction({
+                action: "TICKETS",
+                item,
+            })
+        );
+    }
+
     onAction(props) {
         switch (props.action) {
             case "CHANGE_PASSWORD":
@@ -48,6 +66,10 @@ export class PageUtils extends BasePageUtils {
                     nameFamily: this.useForm.getValues("nameFamily") ?? "",
                     email: this.useForm.getValues("email") ?? "",
                 });
+
+                break;
+            case "TICKETS":
+                this.ticketsAction(props.item);
 
                 break;
         }
@@ -71,13 +93,10 @@ export class PageUtils extends BasePageUtils {
         }
     }
 
-    onChangePassword(item) {
-        this.dispatch(
-            setPagePropsAction({
-                action: "CHANGE_PASSWORD",
-                item,
-            })
-        );
+    ticketsAction({ id }) {
+        if (utils.isId(id)) {
+            this.navigate(`${BASE_PATH}/tickets/${id}`);
+        }
     }
 
     async fillForm(data = null) {

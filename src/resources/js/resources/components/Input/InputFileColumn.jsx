@@ -2,69 +2,58 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const InputFileColumn = ({
-    field,
-    accept = ".jpg, .jpeg, .png, .pdf, .doc, .docx",
-    onChangeFile,
-    useForm,
-    columnClassName = "col-md-3 col-12 pb-4",
-    strings,
+  field,
+  accept = ".jpg, .jpeg, .png, .pdf, .doc, .docx",
+  onChangeFile,
+  useForm,
+  columnClassName = "col-md-3 col-12 pb-2",
+  strings,
 }) => {
-    const ls = useSelector((state) => state.layoutReducer);
-    const ms = useSelector((state) => state.messageReducer);
-    const [label, setLabel] = useState(
-        strings && field in strings ? strings[field] : ""
-    );
-    const [placeholder, setPlaceholder] = useState(
-        strings && `${field}Placeholder` in strings
-            ? strings[`${field}Placeholder`]
-            : ""
-    );
-    const [form, setForm] = useState(useForm);
+  const layoutState = useSelector((state) => state.layoutReducer);
+  const pageState = useSelector((state) => state.pageReducer);
+  const messageState = useSelector((state) => state.messageReducer);
+  const [label, setLabel] = useState(
+    strings && field in strings ? strings[field] : ""
+  );
+  const [form, setForm] = useState(useForm);
 
-    useEffect(() => {
-        if (!strings) {
-            setLabel(
-                ls?.pageProps?.strings && field in ls.pageProps.strings
-                    ? ls?.pageProps?.strings[field]
-                    : ""
-            );
-            setPlaceholder(
-                ls?.pageProps?.strings &&
-                    `${field}Placeholder` in ls.pageProps.strings
-                    ? ls.pageProps.strings[`${field}Placeholder`]
-                    : ""
-            );
+  useEffect(() => {
+    if (!strings) {
+      setLabel(
+        pageState?.pageUtils?.strings && field in pageState.pageUtils.strings
+          ? pageState?.pageUtils?.strings[field]
+          : ""
+      );
+    }
+
+    if (!useForm) {
+      setForm(pageState?.pageUtils?.useForm);
+    }
+  }, [pageState]);
+
+  return (
+    <div className={columnClassName}>
+      <label className="form-label" htmlFor={field}>
+        {label}
+      </label>
+      <input
+        {...form?.register(`${field}`)}
+        className={
+          messageState?.messageField === field
+            ? "form-control-file is-invalid"
+            : "form-control-file"
         }
-
-        if (!useForm) {
-            setForm(ls?.pageProps?.useForm);
-        }
-    }, [ls]);
-
-    return (
-        <div className={columnClassName}>
-            <label className="form-label" htmlFor={field}>
-                {label}
-            </label>
-            <input
-                {...form?.register(`${field}`)}
-                className={
-                    ms?.messageField === field
-                        ? "form-control is-invalid"
-                        : "form-control"
-                }
-                id={field}
-                placeholder={placeholder}
-                disabled={ls?.loading}
-                type="file"
-                accept={accept}
-                onChange={(e) => onChangeFile(e)}
-            />
-            {ms?.messageField === field && (
-                <div className="invalid-feedback">{ms?.message}</div>
-            )}
-        </div>
-    );
+        id={field}
+        disabled={layoutState?.loading}
+        type="file"
+        accept={accept}
+        onChange={(e) => onChangeFile(e)}
+      />
+      {messageState?.messageField === field && (
+        <div className="invalid-feedback">{messageState?.message}</div>
+      )}
+    </div>
+  );
 };
 
 export default InputFileColumn;

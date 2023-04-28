@@ -15,8 +15,8 @@ class TicketService
     public function getPaginate(int $userId, int $page, int $pageItems): mixed
     {
         return Model::select('tbl_tickets.*', 'tbl_ticket_threads.user_seen_time', 'tbl_ticket_threads.admin_seen_time')->leftJoin('tbl_ticket_threads', function ($join) {
-            $join->on('tbl_tickets.id', '=', 'tbl_ticket_threads.ticket_id')->whereRaw('`tbl_ticket_threads`.`id` IN (SELECT MAX(`threads`.`id`) FROM `tbl_ticket_threads` AS `threads` JOIN `tbl_tickets` AS `tickets` ON `threads`.`ticket_id`=`tickets`.`id`)');
-        })->where('user_id', $userId)->groupBy('tbl_tickets.id')->orderBy('tbl_tickets.updated_at', 'DESC')->orderBy('tbl_tickets.id', 'DESC')->orderBy('tbl_ticket_threads.id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+            $join->on('tbl_tickets.id', '=', 'tbl_ticket_threads.ticket_id')->whereRaw('`tbl_ticket_threads`.`id` IN (SELECT MAX(`id`) FROM `tbl_ticket_threads` WHERE `ticket_id`=`tbl_tickets`.`id`)');
+        })->where('user_id', $userId)->orderBy('tbl_tickets.updated_at', 'DESC')->orderBy('tbl_tickets.id', 'DESC')->orderBy('tbl_ticket_threads.id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
     public function threads(int $ticketId): mixed
@@ -58,14 +58,20 @@ class TicketService
         return $thread ?? null;
     }
 
-    public function userSeen(int $id): bool
+    public function userSeen(Model $model): bool
     {
-        return TicketThread::query()->where('ticket_id', $id)->update(['user_seen_time' => date('Y-m-d H:i:s')]);
+        if ($model->user_seen_time) {
+            return false;
+        }
+        return TicketThread::query()->where('ticket_id', $model->id)->update(['user_seen_time' => date('Y-m-d H:i:s')]);
     }
 
-    public function adminSeen(int $id): bool
+    public function adminSeen(Model $model): bool
     {
-        return TicketThread::query()->where('ticket_id', $id)->update(['admin_seen_time' => date('Y-m-d H:i:s')]);
+        if ($model->admin_seen_time) {
+            return false;
+        }
+        return TicketThread::query()->where('ticket_id', $model->id)->update(['admin_seen_time' => date('Y-m-d H:i:s')]);
     }
 
     public function changeStatus(Model $model, int $status): bool
@@ -75,6 +81,11 @@ class TicketService
         ];
 
         return $model->update($data);
+    }
+
+    public function count(int $userId): int
+    {
+        return TicketThread::query()->join('tbl_tickets', 'tbl_ticket_threads.ticket_id', '=', 'tbl_tickets.id')->where('user_id', $userId)->count();
     }
 
     public function countUnseen(int $userId): int

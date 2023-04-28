@@ -14,11 +14,6 @@ const Signup = () => {
                 columnClassName="col-6"
             />
             <InputTextColumn
-                field="email"
-                textAlign="left"
-                columnClassName="col-6"
-            />
-            <InputTextColumn
                 field="password"
                 type="password"
                 textAlign="left"
@@ -27,6 +22,11 @@ const Signup = () => {
             <InputTextColumn
                 field="confirmPassword"
                 type="password"
+                textAlign="left"
+                columnClassName="col-6"
+            />
+            <InputTextColumn
+                field="email"
                 textAlign="left"
                 columnClassName="col-6"
             />

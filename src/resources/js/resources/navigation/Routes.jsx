@@ -58,25 +58,35 @@ function AuthRoute() {
                                 element={<Pages.Users />}
                             />
                             <Route
+                                path={`${BASE_PATH}/tickets/add/:userId`}
+                                element={<Pages.AddTicket />}
+                            />
+                            <Route
                                 path={`${BASE_PATH}/tickets/:userId`}
                                 element={<Pages.Tickets />}
                             />
                         </>
                     )}
-
                     {lsUser?.role === USER_ROLES.USER && (
                         <>
                             <Route
                                 path={`${BASE_PATH}/app_rules`}
                                 element={<Pages.AppRulesUser />}
                             />
-                            <Route
-                                path={`${BASE_PATH}/tickets`}
-                                element={<Pages.Tickets />}
-                            />
                         </>
                     )}
-
+                    <Route
+                        path={`${BASE_PATH}/tickets/add`}
+                        element={<Pages.AddTicketCurrentUser />}
+                    />
+                    <Route
+                        path={`${BASE_PATH}/tickets`}
+                        element={<Pages.TicketsCurrentUser />}
+                    />
+                    <Route
+                        path={`${BASE_PATH}/tickets/threads/:ticketId`}
+                        element={<Pages.TicketThreads />}
+                    />
                     <Route
                         path={`${BASE_PATH}/users/edit`}
                         element={<Pages.EditCurrentUser />}

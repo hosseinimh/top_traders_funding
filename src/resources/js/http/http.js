@@ -38,7 +38,7 @@ export const post = async (url, data = null) => {
 };
 
 export const postFile = async (url, data = null) => {
-    data = { ...data, _locale: utils.getLSVariable("locale") };
+    data.append("_locale", utils.getLSVariable("locale"));
     const response = await axios.post(url, data, createFileConfig());
 
     return response;

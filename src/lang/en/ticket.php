@@ -22,4 +22,5 @@ return [
     'content_required' => $requiredMessage('متن پیام'),
     'content_min' => $minStringMessage('متن پیام', 10),
     'content_max' => $maxStringMessage('متن پیام', 1000),
+    'administrator_tickets_error' => 'ارسال تیکت برای مدیر امکان‌پذیر نمی‌باشد.'
 ];
