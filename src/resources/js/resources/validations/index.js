@@ -11,8 +11,8 @@ import addCampaignSchema from "./Campaign/AddCampaignSchema";
 import editCampaignSchema from "./Campaign/EditCampaignSchema";
 import addTicketSchema from "./Ticket/AddTicketSchema";
 import addTicketThreadSchema from "./Ticket/AddTicketThreadSchema";
-import addServerSchema from "./Server/AddServerSchema";
-import editServerSchema from "./Server/EditServerSchema";
+import addChallengeServerSchema from "./ChallengeServer/AddChallengeServerSchema";
+import editChallengeServerSchema from "./ChallengeServer/EditChallengeServerSchema";
 
 export {
   loginUserSchema,
@@ -28,6 +28,6 @@ export {
   editCampaignSchema,
   addTicketSchema,
   addTicketThreadSchema,
-  addServerSchema,
-  editServerSchema,
+  addChallengeServerSchema,
+  editChallengeServerSchema,
 };

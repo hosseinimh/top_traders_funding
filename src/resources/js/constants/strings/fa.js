@@ -83,7 +83,7 @@ export const sidebar = {
   mainContainer: "امکانات",
   appRules: "قوانین",
   campaigns: "کمپین‌ها",
-  servers: "سرورها",
+  challengeServers: "سرورها",
   servicesContainer: "خدمات",
   tickets: "تیکت‌های پشتیبانی",
   systemManagement: "مدیریت سیستم",
@@ -313,7 +313,7 @@ export const ticketsPage = {
   administratorTicketsError: "ارسال تیکت برای مدیر امکان‌پذیر نمی‌باشد.",
 };
 
-export const serversPage = {
+export const challengeServersPage = {
   _title: "سرورها",
   _subTitle: "فهرست سرورها",
   name: "نام سرور",
@@ -321,7 +321,7 @@ export const serversPage = {
   add: "افزودن سرور",
 };
 
-export const addServerPage = {
+export const addChallengeServerPage = {
   _title: "افزودن سرور",
   _subTitle: "سرور جدید را وارد نمایید.",
   name: "نام سرور",
@@ -331,7 +331,7 @@ export const addServerPage = {
   submitted: "افزودن سرور با موفقیت انجام گردید.",
 };
 
-export const editServerPage = {
+export const editChallengeServerPage = {
   _title: "ویرایش سرور",
   _subTitle: "مشخصات سرور را ویرایش نمایید.",
   name: "نام سرور",

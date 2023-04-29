@@ -20,9 +20,9 @@ import Tickets from "./Ticket/Tickets/Tickets";
 import AddTicketCurrentUser from "./Ticket/AddTicket/AddTicketCurrentUser";
 import AddTicket from "./Ticket/AddTicket/AddTicket";
 import TicketThreads from "./Ticket/TicketThreads";
-import AddServer from "./Server/AddServer";
-import EditServer from "./Server/EditServer";
-import Servers from "./Server/Servers";
+import AddChallengeServer from "./ChallengeServer/AddChallengeServer";
+import EditChallengeServer from "./ChallengeServer/EditChallengeServer";
+import ChallengeServers from "./ChallengeServer/ChallengeServers";
 
 export {
   Dashboard,
@@ -47,7 +47,7 @@ export {
   TicketsCurrentUser,
   Tickets,
   TicketThreads,
-  AddServer,
-  EditServer,
-  Servers,
+  AddChallengeServer,
+  EditChallengeServer,
+  ChallengeServers,
 };

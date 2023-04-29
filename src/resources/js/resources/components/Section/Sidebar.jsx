@@ -164,10 +164,10 @@ function Sidebar() {
               )}
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
               renderMenuItem(
-                `${BASE_PATH}/servers`,
-                strings.servers,
+                `${BASE_PATH}/challenge_servers`,
+                strings.challengeServers,
                 "pe-7s-id",
-                "Servers"
+                "ChallengeServers"
               )}
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
               <li

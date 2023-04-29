@@ -63,16 +63,16 @@ function AuthRoute() {
                 element={<Pages.Tickets />}
               />
               <Route
-                path={`${BASE_PATH}/servers/add`}
-                element={<Pages.AddServer />}
+                path={`${BASE_PATH}/challenge_servers/add`}
+                element={<Pages.AddChallengeServer />}
               />
               <Route
-                path={`${BASE_PATH}/servers/edit/:serverId`}
-                element={<Pages.EditServer />}
+                path={`${BASE_PATH}/challenge_servers/edit/:serverId`}
+                element={<Pages.EditChallengeServer />}
               />
               <Route
-                path={`${BASE_PATH}/servers`}
-                element={<Pages.Servers />}
+                path={`${BASE_PATH}/challenge_servers`}
+                element={<Pages.ChallengeServers />}
               />
             </>
           )}
