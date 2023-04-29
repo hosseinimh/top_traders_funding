@@ -11,19 +11,23 @@ import addCampaignSchema from "./Campaign/AddCampaignSchema";
 import editCampaignSchema from "./Campaign/EditCampaignSchema";
 import addTicketSchema from "./Ticket/AddTicketSchema";
 import addTicketThreadSchema from "./Ticket/AddTicketThreadSchema";
+import addServerSchema from "./Server/AddServerSchema";
+import editServerSchema from "./Server/EditServerSchema";
 
 export {
-    loginUserSchema,
-    forgetPasswordSchema,
-    signupSchema,
-    searchUserSchema,
-    addUserSchema,
-    editUserSchema,
-    changePasswordUserSchema,
-    addAppRuleSchema,
-    editAppRuleSchema,
-    addCampaignSchema,
-    editCampaignSchema,
-    addTicketSchema,
-    addTicketThreadSchema,
+  loginUserSchema,
+  forgetPasswordSchema,
+  signupSchema,
+  searchUserSchema,
+  addUserSchema,
+  editUserSchema,
+  changePasswordUserSchema,
+  addAppRuleSchema,
+  editAppRuleSchema,
+  addCampaignSchema,
+  editCampaignSchema,
+  addTicketSchema,
+  addTicketThreadSchema,
+  addServerSchema,
+  editServerSchema,
 };

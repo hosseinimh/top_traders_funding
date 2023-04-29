@@ -42,6 +42,7 @@ export const utils = {
 export const validation = {
   stringMessage: ":field تنها باید شامل حروف باشد.",
   numberMessage: ":field تنها باید شامل اعداد باشد.",
+  asciiStringMessage: ":field تنها باید شامل حروف انگلیسی باشد.",
   requiredMessage: "لطفا :field را وارد نمایید.",
   validMessage: "لطفا :field را به درستی وارد نمایید.",
   confirmedMessage: ":field با تاییدیه اش مطابقت نمی نماید.",
@@ -82,6 +83,7 @@ export const sidebar = {
   mainContainer: "امکانات",
   appRules: "قوانین",
   campaigns: "کمپین‌ها",
+  servers: "سرورها",
   servicesContainer: "خدمات",
   tickets: "تیکت‌های پشتیبانی",
   systemManagement: "مدیریت سیستم",
@@ -309,4 +311,32 @@ export const ticketsPage = {
   new: "جدید",
   lastUpdate: "آخرین بروزرسانی",
   administratorTicketsError: "ارسال تیکت برای مدیر امکان‌پذیر نمی‌باشد.",
+};
+
+export const serversPage = {
+  _title: "سرورها",
+  _subTitle: "فهرست سرورها",
+  name: "نام سرور",
+  title: "عنوان",
+  add: "افزودن سرور",
+};
+
+export const addServerPage = {
+  _title: "افزودن سرور",
+  _subTitle: "سرور جدید را وارد نمایید.",
+  name: "نام سرور",
+  namePlaceholder: "نام سرور",
+  title: "عنوان",
+  titlePlaceholder: "عنوان",
+  submitted: "افزودن سرور با موفقیت انجام گردید.",
+};
+
+export const editServerPage = {
+  _title: "ویرایش سرور",
+  _subTitle: "مشخصات سرور را ویرایش نمایید.",
+  name: "نام سرور",
+  namePlaceholder: "نام سرور",
+  title: "عنوان",
+  titlePlaceholder: "عنوان",
+  submitted: "ویرایش سرور با موفقیت انجام گردید.",
 };

@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\AppRuleController;
 use App\Http\Controllers\User\CampaignController;
+use App\Http\Controllers\User\ServerController;
 use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,7 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
 
     Route::post('campaigns', [CampaignController::class, 'index']);
     Route::post('campaigns/show/{model}', [CampaignController::class, 'show']);
+
+    Route::post('servers', [ServerController::class, 'index']);
+    Route::post('servers/show/{model}', [ServerController::class, 'show']);
 });

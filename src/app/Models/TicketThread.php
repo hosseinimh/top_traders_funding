@@ -26,7 +26,7 @@ class TicketThread extends Model
     {
         static::deleting(function ($thread) {
             if ($thread->file) {
-                @unlink(storage_path('app') . '/public/storage/tickets/threads/' . $thread->file);
+                @unlink(storage_path('app') . '/public/storage/ticket_threads/' . $thread->file);
             }
         });
     }

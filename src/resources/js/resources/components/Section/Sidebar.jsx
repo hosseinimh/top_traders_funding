@@ -162,6 +162,13 @@ function Sidebar() {
                 "pe-7s-id",
                 "Campaigns"
               )}
+            {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+              renderMenuItem(
+                `${BASE_PATH}/servers`,
+                strings.servers,
+                "pe-7s-id",
+                "Servers"
+              )}
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
               <li
                 className={`${
