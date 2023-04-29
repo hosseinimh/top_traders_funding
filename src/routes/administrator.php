@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Administrator\AppRuleController;
 use App\Http\Controllers\Administrator\CampaignController;
+use App\Http\Controllers\Administrator\ChallengeBalanceController;
+use App\Http\Controllers\Administrator\ChallengeLeverageController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\ErrorController;
@@ -41,4 +43,10 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
 
     Route::post('challenge_servers/store', [ChallengeServerController::class, 'store']);
     Route::post('challenge_servers/update/{model}', [ChallengeServerController::class, 'update']);
+
+    Route::post('challenge_balances/store', [ChallengeBalanceController::class, 'store']);
+    Route::post('challenge_balances/update/{model}', [ChallengeBalanceController::class, 'update']);
+
+    Route::post('challenge_leverages/store', [ChallengeLeverageController::class, 'store']);
+    Route::post('challenge_leverages/update/{model}', [ChallengeLeverageController::class, 'update']);
 });

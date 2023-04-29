@@ -13,6 +13,10 @@ import addTicketSchema from "./Ticket/AddTicketSchema";
 import addTicketThreadSchema from "./Ticket/AddTicketThreadSchema";
 import addChallengeServerSchema from "./ChallengeServer/AddChallengeServerSchema";
 import editChallengeServerSchema from "./ChallengeServer/EditChallengeServerSchema";
+import addChallengeBalanceSchema from "./ChallengeBalance/AddChallengeBalanceSchema";
+import editChallengeBalanceSchema from "./ChallengeBalance/EditChallengeBalanceSchema";
+import addChallengeLeverageSchema from "./ChallengeLeverage/AddChallengeLeverageSchema";
+import editChallengeLeverageSchema from "./ChallengeLeverage/EditChallengeLeverageSchema";
 
 export {
   loginUserSchema,
@@ -30,4 +34,8 @@ export {
   addTicketThreadSchema,
   addChallengeServerSchema,
   editChallengeServerSchema,
+  addChallengeBalanceSchema,
+  editChallengeBalanceSchema,
+  addChallengeLeverageSchema,
+  editChallengeLeverageSchema,
 };

@@ -23,6 +23,12 @@ import TicketThreads from "./Ticket/TicketThreads";
 import AddChallengeServer from "./ChallengeServer/AddChallengeServer";
 import EditChallengeServer from "./ChallengeServer/EditChallengeServer";
 import ChallengeServers from "./ChallengeServer/ChallengeServers";
+import AddChallengeBalance from "./ChallengeBalance/AddChallengeBalance";
+import EditChallengeBalance from "./ChallengeBalance/EditChallengeBalance";
+import ChallengeBalances from "./ChallengeBalance/ChallengeBalances";
+import AddChallengeLeverage from "./ChallengeLeverage/AddChallengeLeverage";
+import EditChallengeLeverage from "./ChallengeLeverage/EditChallengeLeverage";
+import ChallengeLeverages from "./ChallengeLeverage/ChallengeLeverages";
 
 export {
   Dashboard,
@@ -50,4 +56,10 @@ export {
   AddChallengeServer,
   EditChallengeServer,
   ChallengeServers,
+  AddChallengeBalance,
+  EditChallengeBalance,
+  ChallengeBalances,
+  AddChallengeLeverage,
+  EditChallengeLeverage,
+  ChallengeLeverages,
 };

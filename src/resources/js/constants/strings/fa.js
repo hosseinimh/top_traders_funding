@@ -55,7 +55,7 @@ export const validation = {
   betweenDigitsMessage:
     "طول فیلد :field، حداقل :digit1 و حداکثر :digit2 رقم است.",
   minNumberMessage: "حداقل مقدار فیلد :field، باید :min باشد.",
-  maxNumberMessage: "حداکثر مقدار فیلد :field، باید :min باشد.",
+  maxNumberMessage: "حداکثر مقدار فیلد :field، باید :max باشد.",
 };
 
 export const header = {
@@ -83,9 +83,12 @@ export const sidebar = {
   mainContainer: "امکانات",
   appRules: "قوانین",
   campaigns: "کمپین‌ها",
+  challengeBalances: "بالانس اکانت‌ها",
+  challengeLeverages: "اهرم‌ها",
   challengeServers: "سرورها",
   servicesContainer: "خدمات",
   tickets: "تیکت‌های پشتیبانی",
+  challengesManagement: "مدیریت چالش‌ها",
   systemManagement: "مدیریت سیستم",
   userContainer: "مدیریت کاربری",
   editProfile: "ویرایش پروفایل",
@@ -339,4 +342,50 @@ export const editChallengeServerPage = {
   title: "عنوان",
   titlePlaceholder: "عنوان",
   submitted: "ویرایش سرور با موفقیت انجام گردید.",
+};
+
+export const challengeBalancesPage = {
+  _title: "بالانس اکانت‌ها",
+  _subTitle: "فهرست بالانس اکانت‌ها",
+  value: "ارزش",
+  add: "افزودن بالانس اکانت‌",
+};
+
+export const addChallengeBalancePage = {
+  _title: "افزودن بالانس اکانت‌",
+  _subTitle: "بالانس اکانت‌ جدید را وارد نمایید.",
+  value: "ارزش",
+  valuePlaceholder: "ارزش",
+  submitted: "افزودن بالانس اکانت‌ با موفقیت انجام گردید.",
+};
+
+export const editChallengeBalancePage = {
+  _title: "ویرایش بالانس اکانت‌",
+  _subTitle: "مشخصات بالانس اکانت‌ را ویرایش نمایید.",
+  value: "ارزش",
+  valuePlaceholder: "ارزش",
+  submitted: "ویرایش بالانس اکانت‌ با موفقیت انجام گردید.",
+};
+
+export const challengeLeveragesPage = {
+  _title: "اهرم‌ها",
+  _subTitle: "فهرست اهرم‌ها",
+  value: "اهرم",
+  add: "افزودن اهرم",
+};
+
+export const addChallengeLeveragePage = {
+  _title: "افزودن اهرم",
+  _subTitle: "اهرم جدید را وارد نمایید.",
+  value: "اهرم",
+  valuePlaceholder: "اهرم",
+  submitted: "افزودن اهرم با موفقیت انجام گردید.",
+};
+
+export const editChallengeLeveragePage = {
+  _title: "ویرایش اهرم",
+  _subTitle: "اهرم تعریف شده را ویرایش نمایید.",
+  value: "اهرم",
+  valuePlaceholder: "اهرم",
+  submitted: "ویرایش اهرم با موفقیت انجام گردید.",
 };

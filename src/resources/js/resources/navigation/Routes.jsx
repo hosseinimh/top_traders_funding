@@ -63,6 +63,30 @@ function AuthRoute() {
                 element={<Pages.Tickets />}
               />
               <Route
+                path={`${BASE_PATH}/challenge_balances/add`}
+                element={<Pages.AddChallengeBalance />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_balances/edit/:serverId`}
+                element={<Pages.EditChallengeBalance />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_balances`}
+                element={<Pages.ChallengeBalances />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_leverages/add`}
+                element={<Pages.AddChallengeLeverage />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_leverages/edit/:serverId`}
+                element={<Pages.EditChallengeLeverage />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_leverages`}
+                element={<Pages.ChallengeLeverages />}
+              />
+              <Route
                 path={`${BASE_PATH}/challenge_servers/add`}
                 element={<Pages.AddChallengeServer />}
               />

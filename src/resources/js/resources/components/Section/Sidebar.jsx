@@ -162,13 +162,59 @@ function Sidebar() {
                 "pe-7s-id",
                 "Campaigns"
               )}
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-              renderMenuItem(
-                `${BASE_PATH}/challenge_servers`,
-                strings.challengeServers,
-                "pe-7s-id",
-                "ChallengeServers"
-              )}
+            {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+              <li
+                className={`${
+                  [
+                    "ChallengeBalances",
+                    "ChallengeLeverages",
+                    "ChallengeServers",
+                  ].includes(pageState?.page)
+                    ? "mm-active"
+                    : ""
+                }`}
+              >
+                <a
+                  href="#"
+                  aria-expanded="false"
+                  className="menu-container mb-1"
+                >
+                  <i className="metismenu-icon pe-7s-config"></i>
+                  {strings.challengesManagement}
+                  <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                </a>
+                <ul
+                  className="mm-collapse"
+                  style={
+                    [
+                      "ChallengeBalances",
+                      "ChallengeLeverages",
+                      "ChallengeServers",
+                    ].includes(pageState?.page)
+                      ? { display: "block" }
+                      : {}
+                  }
+                >
+                  {renderSubMenuItem(
+                    `${BASE_PATH}/challenge_balances`,
+                    strings.challengeBalances,
+                    "ChallengeBalances"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_leverages`,
+                    strings.challengeLeverages,
+                    "pe-7s-id",
+                    "ChallengeLeverages"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_servers`,
+                    strings.challengeServers,
+                    "pe-7s-id",
+                    "ChallengeServers"
+                  )}
+                </ul>
+              </li>
+            )}
             {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
               <li
                 className={`${
