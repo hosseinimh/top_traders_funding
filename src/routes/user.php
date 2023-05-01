@@ -5,6 +5,7 @@ use App\Http\Controllers\User\AppRuleController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\ChallengeBalanceController;
 use App\Http\Controllers\User\ChallengeLeverageController;
+use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController;
 use App\Http\Controllers\User\TicketController;
@@ -56,4 +57,7 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
     Route::post('challenge_leverages/show/{model}', [ChallengeLeverageController::class, 'show']);
 
     Route::post('challenge_rules/show', [ChallengeRuleController::class, 'show']);
+
+    Route::post('challenge_platforms', [ChallengePlatformController::class, 'index']);
+    Route::post('challenge_platforms/show/{model}', [ChallengePlatformController::class, 'show']);
 });

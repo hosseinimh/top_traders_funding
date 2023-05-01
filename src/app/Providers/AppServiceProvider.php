@@ -7,6 +7,7 @@ use App\Http\Controllers\Administrator\AppRuleController;
 use App\Http\Controllers\Administrator\CampaignController;
 use App\Http\Controllers\Administrator\ChallengeBalanceController;
 use App\Http\Controllers\Administrator\ChallengeLeverageController;
+use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\User\AppRuleController as UserAppRuleController;
 use App\Http\Controllers\User\CampaignController as UserCampaignController;
 use App\Http\Controllers\User\ChallengeBalanceController as UserChallengeBalanceController;
 use App\Http\Controllers\User\ChallengeLeverageController as UserChallengeLeverageController;
+use App\Http\Controllers\User\ChallengePlatformController as UserChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController as UserChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController as UserChallengeServerController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -26,6 +28,7 @@ use App\Http\Resources\AppRule\AppRuleResource;
 use App\Http\Resources\Campaign\CampaignResource;
 use App\Http\Resources\ChallengeBalance\ChallengeBalanceResource;
 use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
+use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
 use App\Http\Resources\ChallengeRule\ChallengeRuleResource;
 use App\Http\Resources\ChallengeServer\ChallengeServerResource;
 use App\Http\Resources\Error\ErrorResource;
@@ -37,6 +40,7 @@ use App\Services\AppRuleService;
 use App\Services\CampaignService;
 use App\Services\ChallengeBalanceService;
 use App\Services\ChallengeLeverageService;
+use App\Services\ChallengePlatformService;
 use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ErrorService;
@@ -143,6 +147,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserChallengeRuleController::class, function ($app) {
             return new UserChallengeRuleController(new JsonResponse(ChallengeRuleResource::class), $app->make(ChallengeRuleService::class));
+        });
+
+        $this->app->bind(ChallengePlatformController::class, function ($app) {
+            return new ChallengePlatformController(new JsonResponse(ChallengePlatformResource::class), $app->make(ChallengePlatformService::class));
+        });
+
+        $this->app->bind(UserChallengePlatformController::class, function ($app) {
+            return new UserChallengePlatformController(new JsonResponse(ChallengePlatformResource::class), $app->make(ChallengePlatformService::class));
         });
     }
 }

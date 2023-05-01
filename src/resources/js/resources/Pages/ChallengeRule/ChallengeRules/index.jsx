@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { ListPage, TableItems } from "../../../components";
+import { ColumnRow, ListPage, TableItems } from "../../../components";
 import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";

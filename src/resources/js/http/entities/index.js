@@ -8,6 +8,7 @@ import { ChallengeServer } from "./ChallengeServer";
 import { ChallengeBalance } from "./ChallengeBalance";
 import { ChallengeLeverage } from "./ChallengeLeverage";
 import { ChallengeRule } from "./ChallengeRule";
+import { ChallengePlatform } from "./ChallengePlatform";
 
 export {
   Error,
@@ -20,4 +21,5 @@ export {
   ChallengeBalance,
   ChallengeLeverage,
   ChallengeRule,
+  ChallengePlatform,
 };

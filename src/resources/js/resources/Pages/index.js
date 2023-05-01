@@ -31,6 +31,9 @@ import EditChallengeLeverage from "./ChallengeLeverage/EditChallengeLeverage";
 import ChallengeLeverages from "./ChallengeLeverage/ChallengeLeverages";
 import EditChallengeRule from "./ChallengeRule/EditChallengeRule";
 import ChallengeRules from "./ChallengeRule/ChallengeRules";
+import AddChallengePlatform from "./ChallengePlatform/AddChallengePlatform";
+import EditChallengePlatform from "./ChallengePlatform/EditChallengePlatform";
+import ChallengePlatforms from "./ChallengePlatform/ChallengePlatforms";
 
 export {
   Dashboard,
@@ -66,4 +69,7 @@ export {
   ChallengeLeverages,
   EditChallengeRule,
   ChallengeRules,
+  AddChallengePlatform,
+  EditChallengePlatform,
+  ChallengePlatforms,
 };

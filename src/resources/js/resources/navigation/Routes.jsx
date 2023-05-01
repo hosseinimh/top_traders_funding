@@ -67,7 +67,7 @@ function AuthRoute() {
                 element={<Pages.AddChallengeBalance />}
               />
               <Route
-                path={`${BASE_PATH}/challenge_balances/edit/:serverId`}
+                path={`${BASE_PATH}/challenge_balances/edit/:balanceId`}
                 element={<Pages.EditChallengeBalance />}
               />
               <Route
@@ -79,7 +79,7 @@ function AuthRoute() {
                 element={<Pages.AddChallengeLeverage />}
               />
               <Route
-                path={`${BASE_PATH}/challenge_leverages/edit/:serverId`}
+                path={`${BASE_PATH}/challenge_leverages/edit/:leverageId`}
                 element={<Pages.EditChallengeLeverage />}
               />
               <Route
@@ -105,6 +105,18 @@ function AuthRoute() {
               <Route
                 path={`${BASE_PATH}/challenge_rules`}
                 element={<Pages.ChallengeRules />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_platforms/add`}
+                element={<Pages.AddChallengePlatform />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_platforms/edit/:platformId`}
+                element={<Pages.EditChallengePlatform />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_platforms`}
+                element={<Pages.ChallengePlatforms />}
               />
             </>
           )}

@@ -87,6 +87,7 @@ export const sidebar = {
   challengeLeverages: "اهرم‌ها",
   challengeServers: "سرورها",
   challengeRules: "قوانین",
+  challengePlatforms: "پلتفرم‌ها",
   servicesContainer: "خدمات",
   tickets: "تیکت‌های پشتیبانی",
   challengesManagement: "مدیریت چالش‌ها",
@@ -451,4 +452,27 @@ export const editChallengeRulePage = {
   tradeDaysFree: "حداقل روزهای ترید (حساب رایگان)",
   tradeDaysFreePlaceholder: "حداقل روزهای ترید",
   submitted: "ویرایش قوانین چالش با موفقیت انجام گردید.",
+};
+
+export const challengePlatformsPage = {
+  _title: "پلتفرم‌ها",
+  _subTitle: "فهرست پلتفرم‌ها",
+  value: "پلتفرم",
+  add: "افزودن پلتفرم",
+};
+
+export const addChallengePlatformPage = {
+  _title: "افزودن پلتفرم",
+  _subTitle: "پلتفرم جدید را وارد نمایید.",
+  value: "پلتفرم",
+  valuePlaceholder: "پلتفرم",
+  submitted: "افزودن پلتفرم با موفقیت انجام گردید.",
+};
+
+export const editChallengePlatformPage = {
+  _title: "ویرایش پلتفرم",
+  _subTitle: "پلتفرم تعریف شده را ویرایش نمایید.",
+  value: "پلتفرم",
+  valuePlaceholder: "پلتفرم",
+  submitted: "ویرایش پلتفرم با موفقیت انجام گردید.",
 };

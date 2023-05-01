@@ -2,10 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { ChallengeBalance as Entity } from "../../../../http/entities";
-import {
-  setPageIconAction,
-  setPageTitleAction,
-} from "../../../../state/page/pageActions";
+import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
@@ -17,7 +14,7 @@ export class PageUtils extends BasePageUtils {
     const form = useForm({
       resolver: yupResolver(schema),
     });
-    const { sditEditChallengeBalancePage: strings } = useLocale();
+    const { editChallengeBalancePage: strings } = useLocale();
     super("ChallengeBalances", strings, form);
     this.entity = new Entity();
     this.callbackUrl = `${BASE_PATH}/challenge_balances`;
@@ -51,14 +48,7 @@ export class PageUtils extends BasePageUtils {
   }
 
   handleFetchResult(result) {
-    this.useForm.setValue("name", result.item.name);
-    this.useForm.setValue("title", result.item.title);
-    this.dispatch(
-      setPageTitleAction(
-        `${this.strings._title} [ ${result.item.name} ]`,
-        this.strings._subTitle
-      )
-    );
+    this.useForm.setValue("value", result.item.value);
   }
 
   async onSubmit(data) {
