@@ -49,12 +49,16 @@ export class PageUtils extends BasePageUtils {
 
   handleFetchResult(result) {
     this.useForm.setValue("value", result.item.value);
+    this.useForm.setValue("free", result.item.free);
+    this.useForm.setValue("real", result.item.real);
   }
 
   async onSubmit(data) {
     const promise = this.entity.update(
       this.pageState.params.platformId,
-      data.value
+      data.value,
+      data.free ? 1 : 0,
+      data.real ? 1 : 0
     );
     super.onModifySubmit(promise);
   }

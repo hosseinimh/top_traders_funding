@@ -19,11 +19,11 @@ class ChallengeServerController extends Controller
 
     public function store(StoreChallengeServerRequest $request): HttpJsonResponse
     {
-        return $this->onStore($this->service->store($request->name, $request->title));
+        return $this->onStore($this->service->store($request->name, $request->title, $request->free, $request->real));
     }
 
     public function update(Model $model, UpdateChallengeServerRequest $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->update($model, $request->name, $request->title));
+        return $this->onUpdate($this->service->update($model, $request->name, $request->title, $request->free, $request->real));
     }
 }

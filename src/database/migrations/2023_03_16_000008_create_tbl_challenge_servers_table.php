@@ -17,6 +17,8 @@ class CreateTblChallengeServersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('title');
+            $table->unsignedTinyInteger('free')->default(1);
+            $table->unsignedTinyInteger('real')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

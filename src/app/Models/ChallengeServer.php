@@ -15,5 +15,7 @@ class ChallengeServer extends Model
     protected $fillable = [
         'name',
         'title',
+        'free',
+        'real',
     ];
 }

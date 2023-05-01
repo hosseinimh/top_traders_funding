@@ -19,11 +19,11 @@ class ChallengePlatformController extends Controller
 
     public function store(StoreChallengePlatformRequest $request): HttpJsonResponse
     {
-        return $this->onStore($this->service->store($request->value));
+        return $this->onStore($this->service->store($request->value, $request->free, $request->real));
     }
 
     public function update(Model $model, UpdateChallengePlatformRequest $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->update($model, $request->value));
+        return $this->onUpdate($this->service->update($model, $request->value, $request->free, $request->real));
     }
 }

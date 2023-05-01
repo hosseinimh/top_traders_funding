@@ -14,5 +14,7 @@ class ChallengeBalance extends Model
 
     protected $fillable = [
         'value',
+        'free',
+        'real',
     ];
 }

@@ -11,6 +11,8 @@ class ChallengePlatformResource extends JsonResource
         return [
             'id' => intval($this->id),
             'value' => $this->value,
+            'free' => intval($this->free),
+            'real' => intval($this->real),
         ];
     }
 }

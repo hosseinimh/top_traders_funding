@@ -7,29 +7,31 @@ import { LOCALES } from "./locales";
 import { USER_ROLES } from "./userRoles";
 import { TICKET_TYPES } from "./ticketTypes";
 import { TICKET_STATUSES } from "./ticketStatuses";
+import { CHALLENGE_LEVELS } from "./challengeLevels";
 import {
-    BASE_PATH,
-    ASSETS_PATH,
-    IMAGES_PATH,
-    STORAGE_PATH,
-    PAGE_ITEMS,
+  BASE_PATH,
+  ASSETS_PATH,
+  IMAGES_PATH,
+  STORAGE_PATH,
+  PAGE_ITEMS,
 } from "./theme";
 
 const BASE_URL = serverConfig.baseUrl;
 
 export {
-    BASE_URL,
-    BASE_PATH,
-    ASSETS_PATH,
-    IMAGES_PATH,
-    STORAGE_PATH,
-    PAGE_ITEMS,
-    HEADER_BUTTONS,
-    MESSAGE_TYPES,
-    MESSAGE_CODES,
-    UPLOADED_FILE,
-    LOCALES,
-    USER_ROLES,
-    TICKET_TYPES,
-    TICKET_STATUSES,
+  BASE_URL,
+  BASE_PATH,
+  ASSETS_PATH,
+  IMAGES_PATH,
+  STORAGE_PATH,
+  PAGE_ITEMS,
+  HEADER_BUTTONS,
+  MESSAGE_TYPES,
+  MESSAGE_CODES,
+  UPLOADED_FILE,
+  LOCALES,
+  USER_ROLES,
+  TICKET_TYPES,
+  TICKET_STATUSES,
+  CHALLENGE_LEVELS,
 };

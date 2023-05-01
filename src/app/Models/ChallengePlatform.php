@@ -14,5 +14,7 @@ class ChallengePlatform extends Model
 
     protected $fillable = [
         'value',
+        'free',
+        'real',
     ];
 }

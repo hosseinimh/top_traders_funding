@@ -14,5 +14,7 @@ class ChallengeLeverage extends Model
 
     protected $fillable = [
         'value',
+        'free',
+        'real',
     ];
 }

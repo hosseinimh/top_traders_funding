@@ -137,6 +137,13 @@ function Sidebar() {
               "pe-7s-rocket",
               "Dashboard"
             )}
+            {userState?.user?.role === USER_ROLES.USER &&
+              renderMenuItem(
+                `${BASE_PATH}/challenges/take/free`,
+                strings.takeFreeChallenge,
+                "pe-7s-rocket",
+                "TakeFreeChallenge"
+              )}
             <li className="app-sidebar__heading">
               {strings.servicesContainer}
             </li>

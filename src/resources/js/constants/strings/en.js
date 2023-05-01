@@ -79,6 +79,8 @@ export const footer = {
 
 export const sidebar = {
   dashboard: "داشبورد",
+  takeFreeChallenge: "شرکت در چالش رایگان",
+  takePaidChallenge: "شرکت در چالش جدید",
   users: "کاربران",
   mainContainer: "امکانات",
   appRules: "قوانین",
@@ -333,6 +335,8 @@ export const addChallengeServerPage = {
   namePlaceholder: "نام سرور",
   title: "عنوان",
   titlePlaceholder: "عنوان",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "افزودن سرور با موفقیت انجام گردید.",
 };
 
@@ -343,6 +347,8 @@ export const editChallengeServerPage = {
   namePlaceholder: "نام سرور",
   title: "عنوان",
   titlePlaceholder: "عنوان",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "ویرایش سرور با موفقیت انجام گردید.",
 };
 
@@ -358,6 +364,8 @@ export const addChallengeBalancePage = {
   _subTitle: "بالانس اکانت‌ جدید را وارد نمایید.",
   value: "ارزش",
   valuePlaceholder: "ارزش",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "افزودن بالانس اکانت‌ با موفقیت انجام گردید.",
 };
 
@@ -366,6 +374,8 @@ export const editChallengeBalancePage = {
   _subTitle: "مشخصات بالانس اکانت‌ را ویرایش نمایید.",
   value: "ارزش",
   valuePlaceholder: "ارزش",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "ویرایش بالانس اکانت‌ با موفقیت انجام گردید.",
 };
 
@@ -381,6 +391,8 @@ export const addChallengeLeveragePage = {
   _subTitle: "اهرم جدید را وارد نمایید.",
   value: "اهرم",
   valuePlaceholder: "اهرم",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "افزودن اهرم با موفقیت انجام گردید.",
 };
 
@@ -389,6 +401,8 @@ export const editChallengeLeveragePage = {
   _subTitle: "اهرم تعریف شده را ویرایش نمایید.",
   value: "اهرم",
   valuePlaceholder: "اهرم",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "ویرایش اهرم با موفقیت انجام گردید.",
 };
 
@@ -466,6 +480,8 @@ export const addChallengePlatformPage = {
   _subTitle: "پلتفرم جدید را وارد نمایید.",
   value: "پلتفرم",
   valuePlaceholder: "پلتفرم",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "افزودن پلتفرم با موفقیت انجام گردید.",
 };
 
@@ -474,5 +490,7 @@ export const editChallengePlatformPage = {
   _subTitle: "پلتفرم تعریف شده را ویرایش نمایید.",
   value: "پلتفرم",
   valuePlaceholder: "پلتفرم",
+  free: "استفاده در چالش رایگان",
+  real: "استفاده در چالش غیر رایگان",
   submitted: "ویرایش پلتفرم با موفقیت انجام گردید.",
 };

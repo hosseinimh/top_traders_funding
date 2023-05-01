@@ -53,6 +53,8 @@ export class PageUtils extends BasePageUtils {
   handleFetchResult(result) {
     this.useForm.setValue("name", result.item.name);
     this.useForm.setValue("title", result.item.title);
+    this.useForm.setValue("free", result.item.free);
+    this.useForm.setValue("real", result.item.real);
     this.dispatch(
       setPageTitleAction(
         `${this.strings._title} [ ${result.item.name} ]`,
@@ -65,7 +67,9 @@ export class PageUtils extends BasePageUtils {
     const promise = this.entity.update(
       this.pageState.params.serverId,
       data.name,
-      data.title
+      data.title,
+      data.free ? 1 : 0,
+      data.real ? 1 : 0
     );
     super.onModifySubmit(promise);
   }

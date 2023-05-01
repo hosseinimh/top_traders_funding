@@ -126,6 +126,10 @@ function AuthRoute() {
                 path={`${BASE_PATH}/app_rules`}
                 element={<Pages.AppRulesUser />}
               />
+              <Route
+                path={`${BASE_PATH}/challenges/take/free`}
+                element={<Pages.TakeFreeChallenge />}
+              />
             </>
           )}
           <Route

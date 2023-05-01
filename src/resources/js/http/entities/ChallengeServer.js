@@ -14,19 +14,23 @@ export class ChallengeServer extends Entity {
     return await this.handlePost(`${BASE_URL}/u/challenge_servers/show/${id}`);
   }
 
-  async store(name, title) {
+  async store(name, title, free, real) {
     return await this.handlePost(`${BASE_URL}/a/challenge_servers/store`, {
       name,
       title,
+      free,
+      real,
     });
   }
 
-  async update(id, name, title) {
+  async update(id, name, title, free, real) {
     return await this.handlePost(
       `${BASE_URL}/a/challenge_servers/update/${id}`,
       {
         name,
         title,
+        free,
+        real,
       }
     );
   }

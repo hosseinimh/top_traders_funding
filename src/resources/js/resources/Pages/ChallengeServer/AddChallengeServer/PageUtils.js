@@ -25,7 +25,12 @@ export class PageUtils extends BasePageUtils {
   }
 
   async onSubmit(data) {
-    const promise = this.entity.store(data.name, data.title);
+    const promise = this.entity.store(
+      data.name,
+      data.title,
+      data.free ? 1 : 0,
+      data.real ? 1 : 0
+    );
     super.onModifySubmit(promise);
   }
 }

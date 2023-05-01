@@ -23,23 +23,31 @@ class ChallengeServerService
         return Model::orderBy('id', 'ASC')->get();
     }
 
-    public function store(string $name, string $title): mixed
+    public function store(string $name, string $title, int $free, int $real): mixed
     {
         $this->throwIfTitleNotUnique($title);
+        $free = $free === 1 ? $free : 0;
+        $real = $real === 1 ? $real : 0;
         $data = [
             'name' => $name,
             'title' => $title,
+            'free' => $free,
+            'real' => $real,
         ];
         $model = Model::create($data);
         return $model ?? null;
     }
 
-    public function update(Model $model, string $name, string $title): bool
+    public function update(Model $model, string $name, string $title, int $free, int $real): bool
     {
         $this->throwIfTitleNotUnique($title, $model);
+        $free = $free === 1 ? $free : 0;
+        $real = $real === 1 ? $real : 0;
         $data = [
             'name' => $name,
             'title' => $title,
+            'free' => $free,
+            'real' => $real,
         ];
         return $model->update($data);
     }

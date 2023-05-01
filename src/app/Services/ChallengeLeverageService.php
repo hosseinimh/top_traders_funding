@@ -23,21 +23,29 @@ class ChallengeLeverageService
         return Model::orderBy('id', 'ASC')->get();
     }
 
-    public function store(int $value): mixed
+    public function store(int $value, int $free, int $real): mixed
     {
         $this->throwIfValueNotUnique($value);
+        $free = $free === 1 ? $free : 0;
+        $real = $real === 1 ? $real : 0;
         $data = [
             'value' => $value,
+            'free' => $free,
+            'real' => $real,
         ];
         $model = Model::create($data);
         return $model ?? null;
     }
 
-    public function update(Model $model, int $value): bool
+    public function update(Model $model, int $value, int $free, int $real): bool
     {
         $this->throwIfValueNotUnique($value, $model);
+        $free = $free === 1 ? $free : 0;
+        $real = $real === 1 ? $real : 0;
         $data = [
             'value' => $value,
+            'free' => $free,
+            'real' => $real,
         ];
         return $model->update($data);
     }

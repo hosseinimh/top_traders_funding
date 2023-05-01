@@ -19,11 +19,11 @@ class ChallengeLeverageController extends Controller
 
     public function store(StoreChallengeLeverageRequest $request): HttpJsonResponse
     {
-        return $this->onStore($this->service->store($request->value));
+        return $this->onStore($this->service->store($request->value, $request->free, $request->real));
     }
 
     public function update(Model $model, UpdateChallengeLeverageRequest $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->update($model, $request->value));
+        return $this->onUpdate($this->service->update($model, $request->value, $request->free, $request->real));
     }
 }

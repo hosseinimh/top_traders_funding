@@ -34,6 +34,7 @@ import ChallengeRules from "./ChallengeRule/ChallengeRules";
 import AddChallengePlatform from "./ChallengePlatform/AddChallengePlatform";
 import EditChallengePlatform from "./ChallengePlatform/EditChallengePlatform";
 import ChallengePlatforms from "./ChallengePlatform/ChallengePlatforms";
+import TakeFreeChallenge from "./Challenge/TakeChallenge/TakeFreeChallenge";
 
 export {
   Dashboard,
@@ -72,4 +73,5 @@ export {
   AddChallengePlatform,
   EditChallengePlatform,
   ChallengePlatforms,
+  TakeFreeChallenge,
 };

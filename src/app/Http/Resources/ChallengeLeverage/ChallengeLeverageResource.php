@@ -11,6 +11,8 @@ class ChallengeLeverageResource extends JsonResource
         return [
             'id' => intval($this->id),
             'value' => intval($this->value),
+            'free' => intval($this->free),
+            'real' => intval($this->real),
         ];
     }
 }

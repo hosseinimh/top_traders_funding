@@ -13,6 +13,8 @@ class ChallengeServerResource extends JsonResource
             'id' => intval($this->id),
             'name' => $this->name,
             'title' => Helper::localeNumbers($this->title),
+            'free' => intval($this->free),
+            'real' => intval($this->real),
         ];
     }
 }

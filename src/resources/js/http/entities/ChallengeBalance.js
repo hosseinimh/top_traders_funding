@@ -14,17 +14,21 @@ export class ChallengeBalance extends Entity {
     return await this.handlePost(`${BASE_URL}/u/challenge_balances/show/${id}`);
   }
 
-  async store(value) {
+  async store(value, free, real) {
     return await this.handlePost(`${BASE_URL}/a/challenge_balances/store`, {
       value,
+      free,
+      real,
     });
   }
 
-  async update(id, value) {
+  async update(id, value, free, real) {
     return await this.handlePost(
       `${BASE_URL}/a/challenge_balances/update/${id}`,
       {
         value,
+        free,
+        real,
       }
     );
   }

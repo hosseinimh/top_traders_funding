@@ -16,17 +16,21 @@ export class ChallengeLeverage extends Entity {
     );
   }
 
-  async store(value) {
+  async store(value, free, real) {
     return await this.handlePost(`${BASE_URL}/a/challenge_leverages/store`, {
       value,
+      free,
+      real,
     });
   }
 
-  async update(id, value) {
+  async update(id, value, free, real) {
     return await this.handlePost(
       `${BASE_URL}/a/challenge_leverages/update/${id}`,
       {
         value,
+        free,
+        real,
       }
     );
   }
