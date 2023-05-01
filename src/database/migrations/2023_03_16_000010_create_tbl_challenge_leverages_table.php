@@ -15,7 +15,7 @@ class CreateTblChallengeLeveragesTable extends Migration
     {
         Schema::create('tbl_challenge_leverages', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
+            $table->unsignedInteger('value');
             $table->timestamps();
             $table->softDeletes();
         });

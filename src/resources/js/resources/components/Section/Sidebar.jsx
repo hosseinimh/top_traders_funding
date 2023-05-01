@@ -169,6 +169,7 @@ function Sidebar() {
                     "ChallengeBalances",
                     "ChallengeLeverages",
                     "ChallengeServers",
+                    "ChallengeRules",
                   ].includes(pageState?.page)
                     ? "mm-active"
                     : ""
@@ -190,6 +191,7 @@ function Sidebar() {
                       "ChallengeBalances",
                       "ChallengeLeverages",
                       "ChallengeServers",
+                      "ChallengeRules",
                     ].includes(pageState?.page)
                       ? { display: "block" }
                       : {}
@@ -211,6 +213,12 @@ function Sidebar() {
                     strings.challengeServers,
                     "pe-7s-id",
                     "ChallengeServers"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_rules`,
+                    strings.challengeRules,
+                    "pe-7s-id",
+                    "ChallengeRules"
                   )}
                 </ul>
               </li>

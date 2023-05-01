@@ -29,6 +29,8 @@ import ChallengeBalances from "./ChallengeBalance/ChallengeBalances";
 import AddChallengeLeverage from "./ChallengeLeverage/AddChallengeLeverage";
 import EditChallengeLeverage from "./ChallengeLeverage/EditChallengeLeverage";
 import ChallengeLeverages from "./ChallengeLeverage/ChallengeLeverages";
+import EditChallengeRule from "./ChallengeRule/EditChallengeRule";
+import ChallengeRules from "./ChallengeRule/ChallengeRules";
 
 export {
   Dashboard,
@@ -62,4 +64,6 @@ export {
   AddChallengeLeverage,
   EditChallengeLeverage,
   ChallengeLeverages,
+  EditChallengeRule,
+  ChallengeRules,
 };

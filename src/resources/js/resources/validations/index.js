@@ -17,6 +17,7 @@ import addChallengeBalanceSchema from "./ChallengeBalance/AddChallengeBalanceSch
 import editChallengeBalanceSchema from "./ChallengeBalance/EditChallengeBalanceSchema";
 import addChallengeLeverageSchema from "./ChallengeLeverage/AddChallengeLeverageSchema";
 import editChallengeLeverageSchema from "./ChallengeLeverage/EditChallengeLeverageSchema";
+import editChallengeRuleSchema from "./ChallengeRule/EditChallengeRuleSchema";
 
 export {
   loginUserSchema,
@@ -38,4 +39,5 @@ export {
   editChallengeBalanceSchema,
   addChallengeLeverageSchema,
   editChallengeLeverageSchema,
+  editChallengeRuleSchema,
 };

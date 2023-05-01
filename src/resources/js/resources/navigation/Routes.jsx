@@ -98,6 +98,14 @@ function AuthRoute() {
                 path={`${BASE_PATH}/challenge_servers`}
                 element={<Pages.ChallengeServers />}
               />
+              <Route
+                path={`${BASE_PATH}/challenge_rules/edit`}
+                element={<Pages.EditChallengeRule />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenge_rules`}
+                element={<Pages.ChallengeRules />}
+              />
             </>
           )}
           {lsUser?.role === USER_ROLES.USER && (

@@ -15,7 +15,7 @@ class CreateTblChallengeBalancesTable extends Migration
     {
         Schema::create('tbl_challenge_balances', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
+            $table->unsignedInteger('value');
             $table->timestamps();
             $table->softDeletes();
         });

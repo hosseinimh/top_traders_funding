@@ -7,6 +7,7 @@ import { Ticket } from "./Ticket";
 import { ChallengeServer } from "./ChallengeServer";
 import { ChallengeBalance } from "./ChallengeBalance";
 import { ChallengeLeverage } from "./ChallengeLeverage";
+import { ChallengeRule } from "./ChallengeRule";
 
 export {
   Error,
@@ -18,4 +19,5 @@ export {
   ChallengeServer,
   ChallengeBalance,
   ChallengeLeverage,
+  ChallengeRule,
 };

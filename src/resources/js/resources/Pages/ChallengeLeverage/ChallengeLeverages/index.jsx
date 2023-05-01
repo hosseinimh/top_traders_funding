@@ -10,7 +10,7 @@ const ChallengeLeverages = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const columnsCount = 2;
-  const { addChallengeLeveragePage: strings, general } = useLocale();
+  const { challengeLeveragesPage: strings, general } = useLocale();
   const isPersion = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils();
 
