@@ -23,6 +23,16 @@ class ChallengeServerService
         return Model::orderBy('id', 'ASC')->get();
     }
 
+    public function getAllFree(): mixed
+    {
+        return Model::where('free', 1)->orderBy('id', 'ASC')->get();
+    }
+
+    public function getAllReal(): mixed
+    {
+        return Model::where('real', 1)->orderBy('id', 'ASC')->get();
+    }
+
     public function store(string $name, string $title, int $free, int $real): mixed
     {
         $this->throwIfTitleNotUnique($title);

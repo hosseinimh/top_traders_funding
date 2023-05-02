@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'googleId' => intval($this->google_id),
             'role' => intval($this->role),
             'isActive' => intval($this->is_active),
+            'freeChallengeRegistered' => intval($this->free_challenge_id) > 0 ? 1 : 0,
         ];
     }
 }

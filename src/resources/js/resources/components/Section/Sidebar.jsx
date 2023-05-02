@@ -138,11 +138,26 @@ function Sidebar() {
               "Dashboard"
             )}
             {userState?.user?.role === USER_ROLES.USER &&
+              !userState?.user?.freeChallengeRegistered &&
               renderMenuItem(
                 `${BASE_PATH}/challenges/take/free`,
                 strings.takeFreeChallenge,
                 "pe-7s-rocket",
                 "TakeFreeChallenge"
+              )}
+            {userState?.user?.role === USER_ROLES.USER &&
+              renderMenuItem(
+                `${BASE_PATH}/challenges`,
+                strings.challenges,
+                "pe-7s-rocket",
+                "Challenges"
+              )}
+            {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+              renderMenuItem(
+                `${BASE_PATH}/challenges`,
+                strings.challengesAdmin,
+                "pe-7s-rocket",
+                "Challenges"
               )}
             <li className="app-sidebar__heading">
               {strings.servicesContainer}

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Administrator\AppRuleController;
 use App\Http\Controllers\Administrator\CampaignController;
 use App\Http\Controllers\Administrator\ChallengeBalanceController;
+use App\Http\Controllers\Administrator\ChallengeController;
 use App\Http\Controllers\Administrator\ChallengeLeverageController;
 use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
@@ -56,4 +57,7 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
 
     Route::post('challenge_platforms/store', [ChallengePlatformController::class, 'store']);
     Route::post('challenge_platforms/update/{model}', [ChallengePlatformController::class, 'update']);
+
+    Route::post('challenges', [ChallengeController::class, 'index']);
+    Route::post('challenges/change_status/{model}', [ChallengeController::class, 'changeStatus']);
 });

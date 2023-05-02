@@ -6,6 +6,7 @@ use App\Constants\Theme;
 use App\Http\Controllers\Administrator\AppRuleController;
 use App\Http\Controllers\Administrator\CampaignController;
 use App\Http\Controllers\Administrator\ChallengeBalanceController;
+use App\Http\Controllers\Administrator\ChallengeController;
 use App\Http\Controllers\Administrator\ChallengeLeverageController;
 use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Administrator\UserController;
 use App\Http\Controllers\User\AppRuleController as UserAppRuleController;
 use App\Http\Controllers\User\CampaignController as UserCampaignController;
 use App\Http\Controllers\User\ChallengeBalanceController as UserChallengeBalanceController;
+use App\Http\Controllers\User\ChallengeController as UserChallengeController;
 use App\Http\Controllers\User\ChallengeLeverageController as UserChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController as UserChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController as UserChallengeRuleController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\User\TicketController as UserTicketController;
 use App\Http\Controllers\User\UserController as UserUserController;
 use App\Http\Resources\AppRule\AppRuleResource;
 use App\Http\Resources\Campaign\CampaignResource;
+use App\Http\Resources\Challenge\ChallengeResource;
 use App\Http\Resources\ChallengeBalance\ChallengeBalanceResource;
 use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
 use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
@@ -43,6 +46,7 @@ use App\Services\ChallengeLeverageService;
 use App\Services\ChallengePlatformService;
 use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
+use App\Services\ChallengeService;
 use App\Services\ErrorService;
 use App\Services\SendMail;
 use App\Services\TicketService;
@@ -155,6 +159,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserChallengePlatformController::class, function ($app) {
             return new UserChallengePlatformController(new JsonResponse(ChallengePlatformResource::class), $app->make(ChallengePlatformService::class));
+        });
+
+        $this->app->bind(ChallengeController::class, function ($app) {
+            return new ChallengeController(new JsonResponse(ChallengeResource::class), $app->make(ChallengeService::class));
+        });
+
+        $this->app->bind(UserChallengeController::class, function ($app) {
+            return new UserChallengeController(new JsonResponse(ChallengeResource::class), $app->make(ChallengeService::class));
         });
     }
 }

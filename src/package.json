@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^2.9.11",
-        "chart.js": "^4.2.1",
+        "chart.js": "^4.3.0",
         "create-hmac": "^1.1.7",
         "crypto": "^1.0.1",
         "crypto-browserify": "^3.12.0",

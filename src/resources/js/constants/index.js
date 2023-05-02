@@ -8,6 +8,7 @@ import { USER_ROLES } from "./userRoles";
 import { TICKET_TYPES } from "./ticketTypes";
 import { TICKET_STATUSES } from "./ticketStatuses";
 import { CHALLENGE_LEVELS } from "./challengeLevels";
+import { CHALLENGE_STATUSES } from "./challengeStatuses";
 import {
   BASE_PATH,
   ASSETS_PATH,
@@ -34,4 +35,5 @@ export {
   TICKET_TYPES,
   TICKET_STATUSES,
   CHALLENGE_LEVELS,
+  CHALLENGE_STATUSES,
 };

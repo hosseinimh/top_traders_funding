@@ -9,6 +9,7 @@ import { ChallengeBalance } from "./ChallengeBalance";
 import { ChallengeLeverage } from "./ChallengeLeverage";
 import { ChallengeRule } from "./ChallengeRule";
 import { ChallengePlatform } from "./ChallengePlatform";
+import { Challenge } from "./Challenge";
 
 export {
   Error,
@@ -22,4 +23,5 @@ export {
   ChallengeLeverage,
   ChallengeRule,
   ChallengePlatform,
+  Challenge,
 };

@@ -80,7 +80,9 @@ export const footer = {
 export const sidebar = {
   dashboard: "داشبورد",
   takeFreeChallenge: "شرکت در چالش رایگان",
-  takePaidChallenge: "شرکت در چالش جدید",
+  takeFreeChallenge: "شرکت در چالش رایگان",
+  challenges: "چالش‌های من",
+  challengesAdmin: "چالش‌ها",
   users: "کاربران",
   mainContainer: "امکانات",
   appRules: "قوانین",
@@ -493,4 +495,88 @@ export const editChallengePlatformPage = {
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
   submitted: "ویرایش پلتفرم با موفقیت انجام گردید.",
+};
+
+export const takeChallenge = {
+  balance: "بالانس اکانت",
+  server: "انتخاب سرور",
+  platform: "پلتفرم",
+  leverage: "اهرم",
+  level1: "مرحله اول",
+  level2: "مرحله دوم",
+  realAccount: "حساب Real",
+  freeAccount: "حساب رایگان ",
+  duration: "مدت زمان",
+  dailySl: "حد ضرر روزانه",
+  totalSl: "حد ضرر کلی",
+  target: "تارگت سود",
+  tradeDays: "حداقل روزهای ترید",
+  noLimit: "نامحدود",
+  rulesTitle: "قوانین و مقررات",
+  rulesContent:
+    "Due to the time-consuming nature of this document, some entrepreneurs may consider alternatives to a written agreement. Why not settle for an oral agreement instead? The trouble with an oral agreement, however, is in its name. The document isn’t in writing. You may struggle to recall the date of when a certain decision was made. However, a written agreement allows you to go back and review that specific moment in full detail. It’s also a helpful document for other owners of the business to look at and review if they have any questions. A written agreement may take a bit of time to write out and complete, but it is well worth the investment to ensure smooth operations.",
+  register: "ثبت‌نام",
+};
+
+export const takeFreeChallengePage = {
+  _title: "شرکت در چالش رایگان",
+  _subTitle: "لطفا اطلاعات زیر را تکمیل نمایید.",
+  submitted:
+    "ثبت‌نام در چالش با موفقیت انجام گردید. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد گردید.",
+};
+
+export const takeRealChallengePage = {
+  _title: "شرکت در چالش جدید",
+  _subTitle: "لطفا اطلاعات زیر را تکمیل نمایید.",
+  submitted:
+    "ثبت‌نام در چالش با موفقیت انجام گردید. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد گردید.",
+};
+
+export const challengesPage = {
+  _title: "چالش‌های من",
+  _subTitle: "فهرست چالش‌هایی که در آن شرکت کرده‌اید.",
+  accountNo: "حساب",
+  status: "وضعیت",
+  equity: "موجودی",
+  server: "سرور",
+  level: "چالش",
+  analyze: "آنالیز",
+  account: "صورتحساب",
+};
+
+export const challengesAdminPage = {
+  _title: "چالش‌ها",
+  _subTitle: "فهرست چالش‌ها",
+  accountNo: "حساب",
+  status: "وضعیت",
+  equity: "موجودی",
+  server: "سرور",
+  level: "چالش",
+  verified: "تایید چالش",
+  analyze: "آنالیز",
+  account: "صورتحساب",
+};
+
+export const analyzeChallengePage = {
+  _title: "گزارش حساب",
+  _subTitle: "جزئیات حساب در یک نگاه",
+  accountNo: "شماره حساب",
+  platform: "پلتفرم",
+  accountType: "نوع اکانت",
+  equity: "اکوئیتی",
+  accountDetails: "آمار جزئیات معاملات",
+  accountDetailsItem1: "تعداد معاملات",
+  accountDetailsItem2: "معاملات موفق",
+  accountDetailsItem3: "معاملات ناموفق",
+  accountDetailsItem4: "میانگین زمان معاملات (دقیقه)",
+  accountDetailsItem5: "برآیند پیپ معامله شده",
+  accountDetailsItem6: "حجم معامله شده (لات)",
+  accountDetailsItem7: "میانگین سود $",
+  accountDetailsItem8: "میانگین سود (پیپ)",
+  accountDetailsItem9: "میانگین ضرر $",
+  accountDetailsItem10: "میانگین ضرر (پیپ)",
+  accountDetailsItem11: "بهترین معامله $",
+  accountDetailsItem12: "بهترین معامله (پیپ)",
+  accountDetailsItem13: "بدترین معامله $",
+  accountDetailsItem14: "بدترین معامله (پیپ)",
 };

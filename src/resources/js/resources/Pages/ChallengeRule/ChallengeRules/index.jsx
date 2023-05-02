@@ -11,7 +11,7 @@ const ChallengeRules = () => {
   const pageState = useSelector((state) => state.pageReducer);
   const columnsCount = 5;
   const { challengeRulesPage: strings, general } = useLocale();
-  const isPersion = general.locale === "فارسی" ? true : false;
+  const isPersian = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils();
 
   const renderHeader = () => (
@@ -44,7 +44,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.duration1 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.duration1)
                   )
@@ -53,7 +53,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.duration2 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.duration2)
                   )
@@ -64,7 +64,7 @@ const ChallengeRules = () => {
                 ? "-"
                 : pageState.props.item.durationReal === 0
                 ? strings.noLimit
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.durationReal)
                   )
@@ -73,7 +73,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.durationFree === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.durationFree)
                   )
@@ -85,7 +85,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.dailySl1 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.dailySl1)
                   )
@@ -97,7 +97,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.dailySl2 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.dailySl2)
                   )
@@ -109,7 +109,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.dailySlReal === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.dailySlReal)
                   )
@@ -121,7 +121,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.dailySlFree === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.dailySlFree)
                   )
@@ -136,7 +136,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.totalSl1 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.totalSl1)
                   )
@@ -148,7 +148,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.totalSl2 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.totalSl2)
                   )
@@ -160,7 +160,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.totalSlReal === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.totalSlReal)
                   )
@@ -172,7 +172,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.totalSlFree === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.totalSlFree)
                   )
@@ -187,7 +187,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.target1 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.target1)
                   )
@@ -199,7 +199,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.target2 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.target2)
                   )
@@ -211,7 +211,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.targetReal === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.targetReal)
                   )
@@ -223,7 +223,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.targetFree === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.targetFree)
                   )
@@ -238,7 +238,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.tradeDays1 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.tradeDays1)
                   )
@@ -247,7 +247,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.tradeDays2 === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.tradeDays2)
                   )
@@ -256,7 +256,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.tradeDaysReal === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.tradeDaysReal)
                   )
@@ -265,7 +265,7 @@ const ChallengeRules = () => {
             <td>
               {pageState.props.item.tradeDaysFree === 0
                 ? "-"
-                : isPersion
+                : isPersian
                 ? utils.en2faDigits(
                     utils.addCommas(pageState.props.item.tradeDaysFree)
                   )

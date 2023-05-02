@@ -11,7 +11,7 @@ const ChallengeLeverages = () => {
   const pageState = useSelector((state) => state.pageReducer);
   const columnsCount = 2;
   const { challengeLeveragesPage: strings, general } = useLocale();
-  const isPersion = general.locale === "فارسی" ? true : false;
+  const isPersian = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils();
 
   const renderHeader = () => (
@@ -28,10 +28,10 @@ const ChallengeLeverages = () => {
       <React.Fragment key={item.id}>
         <tr>
           <td scope="row">
-            {isPersion ? utils.en2faDigits(index + 1) : index + 1}
+            {isPersian ? utils.en2faDigits(index + 1) : index + 1}
           </td>
           <td>
-            {isPersion
+            {isPersian
               ? utils.en2faDigits(utils.addCommas(item.value))
               : utils.addCommas(item.value)}
           </td>

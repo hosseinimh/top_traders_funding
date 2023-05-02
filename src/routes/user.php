@@ -4,6 +4,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\AppRuleController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\ChallengeBalanceController;
+use App\Http\Controllers\User\ChallengeController;
 use App\Http\Controllers\User\ChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
@@ -35,10 +36,13 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
     Route::post('tickets/store_thread/{model}', [TicketController::class, 'storeThread']);
     Route::post('tickets/seen/{model}', [TicketController::class, 'seen']);
     Route::post('tickets/change_status/{model}', [TicketController::class, 'changeStatus']);
+
+    Route::post('challenges', [ChallengeController::class, 'index']);
 });
 
 // 'user' | 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
+    Route::post('users/auth', [UserController::class, 'showAuth']);
     Route::post('users/show', [UserController::class, 'showFromUser']);
 
     Route::post('app_rules', [AppRuleController::class, 'index']);
@@ -60,4 +64,7 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
 
     Route::post('challenge_platforms', [ChallengePlatformController::class, 'index']);
     Route::post('challenge_platforms/show/{model}', [ChallengePlatformController::class, 'show']);
+
+    Route::post('challenges/take', [ChallengeController::class, 'take']);
+    Route::post('challenges/store/{balance}/{server}/{platform}/{leverage}', [ChallengeController::class, 'store']);
 });

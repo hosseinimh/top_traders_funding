@@ -156,6 +156,7 @@ export class BasePageUtils {
   }
 
   handleModifyResultAndNavigateIfOK() {
+    console.log(this.strings.submitted);
     this.dispatch(
       setMessageAction(
         this.strings.submitted,

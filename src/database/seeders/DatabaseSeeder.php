@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            ChallengeServerSeeder::class,
             ChallengeBalanceSeeder::class,
             ChallengeLeverageSeeder::class,
             ChallengeRuleSeeder::class,

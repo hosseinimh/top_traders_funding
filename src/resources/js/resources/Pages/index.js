@@ -35,6 +35,9 @@ import AddChallengePlatform from "./ChallengePlatform/AddChallengePlatform";
 import EditChallengePlatform from "./ChallengePlatform/EditChallengePlatform";
 import ChallengePlatforms from "./ChallengePlatform/ChallengePlatforms";
 import TakeFreeChallenge from "./Challenge/TakeChallenge/TakeFreeChallenge";
+import Challenges from "./Challenge/Challenges";
+import ChallengesAdmin from "./Challenge/ChallengesAdmin";
+import AnalyzeChallenge from "./Challenge/AnalyzeChallenge";
 
 export {
   Dashboard,
@@ -74,4 +77,7 @@ export {
   EditChallengePlatform,
   ChallengePlatforms,
   TakeFreeChallenge,
+  Challenges,
+  ChallengesAdmin,
+  AnalyzeChallenge,
 };

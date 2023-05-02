@@ -26,6 +26,11 @@ class UserController extends Controller
         return $this->onItem($this->service->get(auth()->user()->id));
     }
 
+    public function showAuth(): HttpJsonResponse
+    {
+        return $this->onItem($this->service->get(auth()->user()->id));
+    }
+
     public function update(UpdateUserRequest $request): HttpJsonResponse
     {
         return $this->onUpdate($this->service->update(auth()->user(), $request->name, $request->family, auth()->user()->email, Role::USER, 1));
@@ -52,7 +57,7 @@ class UserController extends Controller
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
 
-        return $this->onItem(auth()->user());
+        return $this->onItem($this->service->get(auth()->user()->id));
     }
 
     public function logout(): HttpJsonResponse

@@ -118,6 +118,10 @@ function AuthRoute() {
                 path={`${BASE_PATH}/challenge_platforms`}
                 element={<Pages.ChallengePlatforms />}
               />
+              <Route
+                path={`${BASE_PATH}/challenges`}
+                element={<Pages.ChallengesAdmin />}
+              />
             </>
           )}
           {lsUser?.role === USER_ROLES.USER && (
@@ -129,6 +133,10 @@ function AuthRoute() {
               <Route
                 path={`${BASE_PATH}/challenges/take/free`}
                 element={<Pages.TakeFreeChallenge />}
+              />
+              <Route
+                path={`${BASE_PATH}/challenges`}
+                element={<Pages.Challenges />}
               />
             </>
           )}
@@ -143,6 +151,10 @@ function AuthRoute() {
           <Route
             path={`${BASE_PATH}/tickets/threads/:ticketId`}
             element={<Pages.TicketThreads />}
+          />
+          <Route
+            path={`${BASE_PATH}/challenges/analyze`}
+            element={<Pages.AnalyzeChallenge />}
           />
           <Route
             path={`${BASE_PATH}/users/edit`}

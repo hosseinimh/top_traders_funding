@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\ChallengeLevel;
 use App\Constants\ErrorCode;
 use App\Constants\Locale;
 use App\Constants\Role;
@@ -17,7 +18,9 @@ class UserService
 {
     public function get(int $id): mixed
     {
-        return Model::where('id', $id)->first();
+        return Model::leftJoin('tbl_challenges', function ($join) {
+            $join->on('tbl_users.id', '=', 'tbl_challenges.user_id')->where('role', Role::USER)->where('level', ChallengeLevel::FREE);
+        })->where('tbl_users.id', $id)->select('tbl_users.*', 'tbl_challenges.id AS free_challenge_id')->first();
     }
 
     public function getByEmail(string $email): mixed
