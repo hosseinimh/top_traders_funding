@@ -181,9 +181,9 @@ function AuthRoute() {
             element={<Pages.Login role={USER_ROLES.ADMINISTRATOR} />}
           />
           <Route
-            path={`${BASE_PATH}/users/forget`}
+            path={`${BASE_PATH}/users/forgot`}
             exact={true}
-            element={<Pages.ForgetPassword />}
+            element={<Pages.ForgotPassword />}
           />
           <Route
             path={`${BASE_PATH}/users/signup`}

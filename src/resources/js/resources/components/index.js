@@ -29,7 +29,7 @@ import LabelColumn from "./Label/LabelColumn";
 
 // Layout
 import FormPageLayout from "./Layout/FormPageLayout";
-import ForgetPageLayout from "./Layout/ForgetPageLayout";
+import ForgotPageLayout from "./Layout/ForgotPageLayout";
 import LoginPageLayout from "./Layout/LoginPageLayout";
 import SignupPageLayout from "./Layout/SignupPageLayout";
 import PageLayout from "./Layout/PageLayout";
@@ -84,7 +84,7 @@ export {
   InputSwitchCheckboxColumn,
   LabelColumn,
   FormPageLayout,
-  ForgetPageLayout,
+  ForgotPageLayout,
   LoginPageLayout,
   SignupPageLayout,
   PageLayout,

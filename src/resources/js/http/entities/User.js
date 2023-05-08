@@ -78,15 +78,15 @@ export class User extends Entity {
     });
   }
 
-  async setLocale(locale) {
-    return await this.handlePost(`${BASE_URL}/u/users/set_locale`, {
-      _locale: locale,
-    });
-  }
-
   async forgotPassword(email) {
     return await this.handlePost(`${BASE_URL}/u/users/forgot_password`, {
       email,
+    });
+  }
+
+  async setLocale(locale) {
+    return await this.handlePost(`${BASE_URL}/u/users/set_locale`, {
+      _locale: locale,
     });
   }
 

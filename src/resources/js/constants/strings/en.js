@@ -115,18 +115,19 @@ export const loginUserPage = {
   usernamePlaceholder: "Username",
   password: "کلمه عبور",
   passwordPlaceholder: "کلمه عبور",
-  forget: "فراموشی کلمه عبور",
+  forgot: "فراموشی کلمه عبور",
   signup: "ثبت نام",
   login: "ورود به داشبورد مدیریت",
   loginSM: "ورود",
 };
 
-export const forgetPasswordPage = {
+export const forgotPasswordPage = {
   _title: "فراموشی کلمه عبور",
   description: "لطفا پست الکترونیک خود را وارد نمائید.",
   email: "پست الکترونیک",
   emailPlaceholder: "پست الکترونیک",
   login: "ورود به داشبورد مدیریت",
+  submitted: "کلمه عبور جدید به پست الکترونیکی شما ارسال شد.",
 };
 
 export const signupPage = {

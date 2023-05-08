@@ -27,6 +27,23 @@ class Helper
         }
     }
 
+    public function randomString(int $length = 4): string
+    {
+        try {
+            $characters = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randstring = '';
+
+            for ($i = 0; $i < $length; $i++) {
+                $randstring[$i] = $characters[rand(0, strlen($characters) - 1)];
+            }
+
+            return $randstring;
+        } catch (\Exception) {
+        }
+
+        return '1234';
+    }
+
     public function randomNumbersString(int $length = 4): string
     {
         try {

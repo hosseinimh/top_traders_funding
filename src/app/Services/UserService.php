@@ -80,14 +80,12 @@ class UserService
         return DB::statement("UPDATE `tbl_users` SET `password`='$password' WHERE `id`=$user->id");
     }
 
-    public function forgotPassword(string $email): mixed
+    public function forgotPassword(Model $user, string $email): mixed
     {
-        $user = $this->getByEmail($email);
-        if ($user) {
-            $code = Helper::randomNumbersString(10);
-            if ($this->changePassword($user, $code)) {
-                Mailer::SendUserForgotPasswordMail($email, $user->username, $code);
-            }
+        $code = Helper::randomString(10);
+        if ($this->changePassword($user, $code)) {
+            Mailer::SendUserForgotPasswordMail($email, $user->username, $code);
+            return true;
         }
         return false;
     }

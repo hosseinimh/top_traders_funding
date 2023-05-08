@@ -1,6 +1,6 @@
 import Dashboard from "./Dashboard";
 import Login from "./User/Login";
-import ForgetPassword from "./User/ForgetPassword";
+import ForgotPassword from "./User/ForgotPassword";
 import Signup from "./User/Signup";
 import AddUser from "./User/AddUser";
 import EditCurrentUser from "./User/EditUser/EditCurrentUser";
@@ -42,7 +42,7 @@ import AnalyzeChallenge from "./Challenge/AnalyzeChallenge";
 export {
   Dashboard,
   Login,
-  ForgetPassword,
+  ForgotPassword,
   Signup,
   AddUser,
   EditCurrentUser,

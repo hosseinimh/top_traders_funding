@@ -39,7 +39,11 @@ class UserController extends Controller
 
     public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->forgotPassword($request->email));
+        $user = $this->service->getByEmail($request->email);
+        if (!$user) {
+            return $this->onError(['_error' => __('user.email_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
+        }
+        return $this->onUpdate($this->service->forgotPassword($user, $request->email));
     }
 
     public function setLocale(Request $request): HttpJsonResponse

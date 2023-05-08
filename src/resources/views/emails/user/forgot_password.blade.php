@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div style="display: flex; justify-content: flex-end; min-width: 50%; padding : 1rem;">
-                    <img src="https://toptradersfunding.com/assets/images/welcome.png" style="max-width: 80%;" />
+                    <img src="https://toptradersfunding.com/assets/images/forgot_password.jpg" style="max-width: 80%;" />
                 </div>
             </div>
         </div>

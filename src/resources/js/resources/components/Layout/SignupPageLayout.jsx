@@ -2,9 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import BasePageLayout from "./BasePageLayout";
-import { BASE_PATH, LOCALES } from "../../../constants";
+import { BASE_PATH } from "../../../constants";
 import { Link } from "react-router-dom";
-import utils from "../../../utils/Utils";
 import AlertState from "../Alert/AlertState";
 
 const SignupPageLayout = ({ children, pageUtils }) => {

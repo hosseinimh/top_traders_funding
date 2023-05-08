@@ -4,7 +4,8 @@ namespace App\Exceptions;
 
 use App\Constants\ErrorCode;
 use App\Constants\Theme;
-use App\Jobs\HandleErrorJob;
+use App\Models\Error;
+use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -14,11 +15,9 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    protected $levels = [
-    ];
+    protected $levels = [];
 
-    protected $dontReport = [
-    ];
+    protected $dontReport = [];
 
     protected $dontFlash = [
         'current_password',
@@ -54,7 +53,7 @@ class Handler extends ExceptionHandler
             return redirect(Theme::LOGIN_URL);
         }
 
-        HandleErrorJob::dispatch($exception);
+        $this->storeError($exception);
 
         if ($request->expectsJson()) {
             if ($exception->getCode() === ErrorCode::CUSTOM_ERROR) {
@@ -65,5 +64,24 @@ class Handler extends ExceptionHandler
         }
 
         return redirect(Theme::BASE_URL);
+    }
+
+    private function storeError($e)
+    {
+        try {
+            $message = 'url: ' . url()->current();
+            $message .= "
+";
+            $message .= "
+" . is_string($e) ? $e : $e->__toString();
+
+            foreach (getallheaders() as $name => $value) {
+                $message .= "
+$name: $value";
+            }
+
+            Error::create(['message' => $message]);
+        } catch (Exception) {
+        }
     }
 }

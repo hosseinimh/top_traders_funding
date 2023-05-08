@@ -1,5 +1,5 @@
 import loginUserSchema from "./User/LoginUserSchema";
-import forgetPasswordSchema from "./User/ForgetPasswordSchema";
+import forgotPasswordSchema from "./User/ForgotPasswordSchema";
 import signupSchema from "./User/SignupSchema";
 import searchUserSchema from "./User/SearchUserSchema";
 import addUserSchema from "./User/AddUserSchema";
@@ -23,7 +23,7 @@ import editChallengePlatformSchema from "./ChallengePlatform/EditChallengePlatfo
 
 export {
   loginUserSchema,
-  forgetPasswordSchema,
+  forgotPasswordSchema,
   signupSchema,
   searchUserSchema,
   addUserSchema,
