@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ForgotPasswordRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
+use App\Http\Requests\User\SignupUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
@@ -19,11 +20,6 @@ class UserController extends Controller
     public function __construct(JsonResponse $response, public UserService $service)
     {
         parent::__construct($response);
-    }
-
-    public function showFromUser(): HttpJsonResponse
-    {
-        return $this->onItem($this->service->get(auth()->user()->id));
     }
 
     public function showAuth(): HttpJsonResponse
@@ -41,22 +37,21 @@ class UserController extends Controller
         return $this->onUpdate($this->service->changePassword(auth()->user(), $request->new_password));
     }
 
+    public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse
+    {
+        return $this->onUpdate($this->service->forgotPassword($request->email));
+    }
+
     public function setLocale(Request $request): HttpJsonResponse
     {
         return $this->onUpdate($this->service->setLocale(auth()->user(), $request->_locale));
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request): HttpJsonResponse
-    {
-        return $this->onBoolean($this->service->forgotPassword('hosseinimh@gmail.com'));
-    }
-
     public function login(LoginRequest $request): HttpJsonResponse
     {
-        if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::USER, 'is_active' => 1])) {
+        if (!$this->handleLogin($request->username, $request->password)) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
-
         return $this->onItem($this->service->get(auth()->user()->id));
     }
 
@@ -65,5 +60,25 @@ class UserController extends Controller
         auth()->logout();
 
         return $this->onOk();
+    }
+
+    public function signup(SignupUserRequest $request): HttpJsonResponse
+    {
+        if ($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, Role::USER, 1)) {
+            if (!$this->handleLogin($request->username, $request->password)) {
+                return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
+            }
+            return $this->onItem($this->service->get(auth()->user()->id));
+        }
+        return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
+    }
+
+    private function handleLogin(string $username, string $password): bool
+    {
+        if (!auth()->attempt(['username' => $username, 'password' => $password, 'role' => Role::USER, 'is_active' => 1])) {
+            return false;
+        }
+
+        return true;
     }
 }

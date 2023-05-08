@@ -15,5 +15,6 @@ class ChallengeServerSeeder extends Seeder
     public function run()
     {
         ChallengeServer::factory()->create(['name' => 'Alpari', 'title' => 'Alpari']);
+        ChallengeServer::factory()->create(['name' => 'RoboForex', 'title' => 'RoboForex']);
     }
 }

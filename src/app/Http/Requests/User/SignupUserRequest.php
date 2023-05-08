@@ -21,8 +21,8 @@ class SignupUserRequest extends FormRequest
     {
         return [
             'username' => 'required|min:6|max:50|unique:tbl_users',
-            'email' => 'required|min:5|max:50|unique:tbl_users',
             'password' => 'required|min:6|max:50|confirmed',
+            'email' => 'required|min:5|max:50|unique:tbl_users',
             'name' => 'required|min:2|max:50',
             'family' => 'required|min:2|max:50',
         ];
@@ -35,14 +35,14 @@ class SignupUserRequest extends FormRequest
             'username.min' => __('user.username_min'),
             'username.max' => __('user.username_max'),
             'username.unique' => __('user.username_unique'),
-            'email.required' => __('user.email_required'),
-            'email.min' => __('user.email_min'),
-            'email.max' => __('user.email_max'),
-            'email.unique' => __('user.email_unique'),
             'password.required' => __('user.password_required'),
             'password.min' => __('user.password_min'),
             'password.max' => __('user.password_max'),
             'password.confirmed' => __('user.password_confirmed'),
+            'email.required' => __('user.email_required'),
+            'email.min' => __('user.email_min'),
+            'email.max' => __('user.email_max'),
+            'email.unique' => __('user.email_unique'),
             'name.required' => __('user.name_required'),
             'name.min' => __('user.name_min'),
             'name.max' => __('user.name_max'),

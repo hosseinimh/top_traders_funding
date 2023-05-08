@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // not logged users
 Route::middleware(['cors'])->group(function () {
     Route::post('users/login', [UserController::class, 'login']);
+
     Route::post('errors/store', [ErrorController::class, 'store']);
 });
 

@@ -8,7 +8,6 @@ use App\Constants\Locale;
 use App\Constants\Role;
 use App\Constants\Status;
 use App\Facades\Helper;
-use App\Facades\SendMail;
 use App\Models\User as Model;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +50,10 @@ class UserService
         ];
         $model = Model::create($data);
 
+        if ($model) {
+            Mailer::SendUserSignupMail($email, $username, $password);
+        }
+
         return $model ?? null;
     }
 
@@ -77,6 +80,18 @@ class UserService
         return DB::statement("UPDATE `tbl_users` SET `password`='$password' WHERE `id`=$user->id");
     }
 
+    public function forgotPassword(string $email): mixed
+    {
+        $user = $this->getByEmail($email);
+        if ($user) {
+            $code = Helper::randomNumbersString(10);
+            if ($this->changePassword($user, $code)) {
+                Mailer::SendUserForgotPasswordMail($email, $user->username, $code);
+            }
+        }
+        return false;
+    }
+
     public function setLocale(Model|null $model, string $locale): bool
     {
         $locales = [Locale::EN, Locale::FA];
@@ -88,12 +103,6 @@ class UserService
             'locale' => $locale
         ];
         return $model->update($data);
-    }
-
-    public function forgotPassword(string $email): mixed
-    {
-        $code = Helper::randomNumbersString(6);
-        SendMail::ForgotPassword($email, $code);
     }
 
     public function count(string|null $username, string|null $name, string|null $email): int

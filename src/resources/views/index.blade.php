@@ -16,6 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{$THEME::BASE_URL}}/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{$THEME::BASE_URL}}/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{$THEME::BASE_URL}}/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="{{$THEME::BASE_URL}}/favicon.ico">
     <link rel="manifest" href="{{$THEME::BASE_URL}}/site.webmanifest">
     <title>{{ __('general._title') }}</title>
     @php

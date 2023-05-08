@@ -15,46 +15,30 @@ export const CLEAR_LOGIN_REQUEST_ACTION = "CLEAR_LOGIN_REQUEST_ACTION";
 
 export const fetchLoginAction =
   (username, password, role) => async (dispatch) => {
-    dispatch({ type: FETCH_LOGIN_REQUEST_ACTION });
+    const url =
+      role === USER_ROLES.ADMINISTRATOR
+        ? `${BASE_URL}/a/users/login`
+        : `${BASE_URL}/u/users/login`;
+    const promise = post(url, {
+      username,
+      password,
+      role,
+    });
+    await handleLogin(dispatch, promise);
+  };
 
-    try {
-      const url =
-        role === USER_ROLES.ADMINISTRATOR
-          ? `${BASE_URL}/a/users/login`
-          : `${BASE_URL}/u/users/login`;
-      const response = await post(url, {
-        username,
-        password,
-        role,
-      });
-      if (!utils.isJsonString(response.data)) {
-        dispatch({
-          type: FETCH_LOGIN_FAILURE_ACTION,
-          payload: strings.notValidJson,
-        });
-
-        return;
-      }
-
-      if (response.data._result === "1") {
-        utils.setLSVariable("user", JSON.stringify(response.data.item));
-        window.location.reload();
-
-        return;
-      } else {
-        handleError(response.data, dispatch);
-        dispatch({
-          type: FETCH_LOGIN_FAILURE_ACTION,
-          payload: response.data._error,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: FETCH_LOGIN_FAILURE_ACTION,
-        payload: error.message,
-      });
-    }
+export const fetchSignupAction =
+  (username, password, confirmPassword, name, family, email) =>
+  async (dispatch) => {
+    const promise = post(`${BASE_URL}/u/users/signup`, {
+      username,
+      password,
+      password_confirmation: confirmPassword,
+      name,
+      family,
+      email,
+    });
+    await handleLogin(dispatch, promise);
   };
 
 export const fetchAuthAction = () => async (dispatch) => {
@@ -94,4 +78,39 @@ export const clearLogoutAction = () => async (dispatch) => {
   dispatch({
     type: CLEAR_LOGIN_REQUEST_ACTION,
   });
+};
+
+const handleLogin = async (dispatch, promise) => {
+  dispatch({ type: FETCH_LOGIN_REQUEST_ACTION });
+
+  try {
+    const response = await promise;
+    if (!utils.isJsonString(response.data)) {
+      dispatch({
+        type: FETCH_LOGIN_FAILURE_ACTION,
+        payload: strings.notValidJson,
+      });
+
+      return;
+    }
+
+    if (response.data._result === "1") {
+      utils.setLSVariable("user", JSON.stringify(response.data.item));
+      window.location.reload();
+
+      return;
+    } else {
+      handleError(response.data, dispatch);
+      dispatch({
+        type: FETCH_LOGIN_FAILURE_ACTION,
+        payload: response.data._error,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_LOGIN_FAILURE_ACTION,
+      payload: error.message,
+    });
+  }
 };

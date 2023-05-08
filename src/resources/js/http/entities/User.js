@@ -3,108 +3,94 @@ import utils from "../../utils/Utils";
 import Entity from "./Entity";
 
 export class User extends Entity {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    async getPaginate(username, nameFamily, email, _pn = 1, _pi = PAGE_ITEMS) {
-        return await this.handlePost(`${BASE_URL}/a/users`, {
-            username: username,
-            name: nameFamily,
-            email: email,
-            _pn,
-            _pi,
-        });
-    }
+  async getPaginate(username, nameFamily, email, _pn = 1, _pi = PAGE_ITEMS) {
+    return await this.handlePost(`${BASE_URL}/a/users`, {
+      username: username,
+      name: nameFamily,
+      email: email,
+      _pn,
+      _pi,
+    });
+  }
 
-    async get(id) {
-        return await this.handlePost(`${BASE_URL}/a/users/show/${id}`);
-    }
+  async get(id) {
+    return await this.handlePost(`${BASE_URL}/a/users/show/${id}`);
+  }
 
-    async getFromUser() {
-        return await this.handlePost(`${BASE_URL}/u/users/show`);
-    }
+  async getFromUser() {
+    return await this.handlePost(`${BASE_URL}/u/users/auth`);
+  }
 
-    async store(
-        username,
-        password,
-        confirmPassword,
-        name,
-        family,
-        email,
-        role,
-        isActive
-    ) {
-        return await this.handlePost(`${BASE_URL}/a/users/store`, {
-            username,
-            password,
-            password_confirmation: confirmPassword,
-            name,
-            family,
-            email,
-            role,
-            is_active: isActive,
-        });
-    }
+  async store(
+    username,
+    password,
+    confirmPassword,
+    name,
+    family,
+    email,
+    role,
+    isActive
+  ) {
+    return await this.handlePost(`${BASE_URL}/a/users/store`, {
+      username,
+      password,
+      password_confirmation: confirmPassword,
+      name,
+      family,
+      email,
+      role,
+      is_active: isActive,
+    });
+  }
 
-    async update(id, name, family, email, role, isActive) {
-        return await this.handlePost(`${BASE_URL}/a/users/update/${id}`, {
-            name,
-            family,
-            email,
-            role,
-            is_active: isActive,
-        });
-    }
+  async update(id, name, family, email, role, isActive) {
+    return await this.handlePost(`${BASE_URL}/a/users/update/${id}`, {
+      name,
+      family,
+      email,
+      role,
+      is_active: isActive,
+    });
+  }
 
-    async updateFromUser(name, family) {
-        return await this.handlePost(`${BASE_URL}/u/users/update`, {
-            name,
-            family,
-        });
-    }
+  async updateFromUser(name, family) {
+    return await this.handlePost(`${BASE_URL}/u/users/update`, {
+      name,
+      family,
+    });
+  }
 
-    async changePassword(id, newPassword, confirmPassword) {
-        return await this.handlePost(
-            `${BASE_URL}/a/users/change_password/${id}`,
-            {
-                new_password: newPassword,
-                new_password_confirmation: confirmPassword,
-            }
-        );
-    }
+  async changePassword(id, newPassword, confirmPassword) {
+    return await this.handlePost(`${BASE_URL}/a/users/change_password/${id}`, {
+      new_password: newPassword,
+      new_password_confirmation: confirmPassword,
+    });
+  }
 
-    async changePasswordFromUser(newPassword, confirmPassword) {
-        return await this.handlePost(`${BASE_URL}/u/users/change_password`, {
-            new_password: newPassword,
-            new_password_confirmation: confirmPassword,
-        });
-    }
+  async changePasswordFromUser(newPassword, confirmPassword) {
+    return await this.handlePost(`${BASE_URL}/u/users/change_password`, {
+      new_password: newPassword,
+      new_password_confirmation: confirmPassword,
+    });
+  }
 
-    async setLocale(locale) {
-        return await this.handlePost(`${BASE_URL}/u/users/set_locale`, {
-            _locale: locale,
-        });
-    }
+  async setLocale(locale) {
+    return await this.handlePost(`${BASE_URL}/u/users/set_locale`, {
+      _locale: locale,
+    });
+  }
 
-    async forgotPassword(email) {
-        return await this.handlePost(`${BASE_URL}/u/users/forgot_password`, {
-            email,
-        });
-    }
+  async forgotPassword(email) {
+    return await this.handlePost(`${BASE_URL}/u/users/forgot_password`, {
+      email,
+    });
+  }
 
-    async signup(username, password, confirmPassword, name, family, email) {
-        return await this.handlePost(`${BASE_URL}/u/users/signup`, {
-            username,
-            password,
-            password_confirmation: confirmPassword,
-            name,
-            family,
-            email,
-        });
-    }
-
-    logOut() {
-        utils.clearLS();
-    }
+  logOut() {
+    utils.clearLS();
+  }
 }

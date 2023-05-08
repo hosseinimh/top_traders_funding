@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Constants\ErrorCode;
 use App\Constants\Role;
-use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\IndexUsersRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
-use App\Http\Requests\User\SignupUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User as Model;
@@ -49,17 +47,11 @@ class UserController extends Controller
         return $this->onUpdate($this->service->changePassword($model, $request->new_password));
     }
 
-    public function signUp(SignupUserRequest $request): HttpJsonResponse
-    {
-        return $this->onStore($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, Role::USER, Status::ACTIVE));
-    }
-
     public function login(LoginRequest $request): HttpJsonResponse
     {
         if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::ADMINISTRATOR, 'is_active' => 1])) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
-
         return $this->onItem(auth()->user());
     }
 }

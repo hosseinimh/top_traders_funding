@@ -5,9 +5,9 @@ namespace App\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \App\Packages\Helper deleteAll(string $dir)
- * @method static \App\Packages\Helper localeNumbers(int|float $number)
- * @method static \App\Packages\Helper randomNumbersString(int $length = 4)
+ * @method static void deleteAll(string $dir)
+ * @method static string localeNumbers(int|float $number)
+ * @method static string randomNumbersString(int $length = 4)
  */
 class Helper extends Facade
 {
