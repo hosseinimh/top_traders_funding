@@ -18,8 +18,10 @@ export class BasePageUtils {
     this.strings = strings;
     this.useForm = useForm;
     this.initialPageProps = {};
+    this.modals = [];
     this.callbackUrl = BASE_PATH;
     this.messageField = null;
+    this.layoutState = useSelector((state) => state.layoutReducer);
     this.pageState = useSelector((state) => state.pageReducer);
     this.userState = useSelector((state) => state.userReducer);
     this.dispatch = this.pageState.dispatch;
@@ -32,6 +34,26 @@ export class BasePageUtils {
 
   onLoad() {
     this.dispatch(setPagePropsAction(this.initialPageProps));
+  }
+
+  loadModals(modals) {
+    this.modals = [];
+    modals?.forEach(({ name, useForm }) => {
+      const element = document.getElementById(name);
+      if (element) {
+        const modal = new coreui.Modal(element);
+        element.addEventListener("hidden.coreui.modal", () => {
+          this.dispatch(
+            setPagePropsAction({
+              item: null,
+              action: null,
+            })
+          );
+          useForm?.reset();
+        });
+        this.modals.push({ modal, useForm });
+      }
+    });
   }
 
   async fillForm(promise) {

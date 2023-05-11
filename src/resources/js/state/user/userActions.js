@@ -1,8 +1,9 @@
 import { post } from "../../http";
 import { handleError } from "../globalActions";
 import utils from "../../utils/Utils";
-import { BASE_URL, USER_ROLES } from "../../constants";
+import { BASE_URL } from "../../constants";
 import { useLSLocale } from "../../hooks";
+import { setNotificationsAction } from "../layout/layoutActions";
 
 const { utils: strings } = useLSLocale();
 
@@ -13,19 +14,13 @@ export const FETCH_AUTH_ACTION = "FETCH_AUTH_ACTION";
 export const FETCH_LOGOUT_REQUEST_ACTION = "FETCH_LOGOUT_REQUEST_ACTION";
 export const CLEAR_LOGIN_REQUEST_ACTION = "CLEAR_LOGIN_REQUEST_ACTION";
 
-export const fetchLoginAction =
-  (username, password, role) => async (dispatch) => {
-    const url =
-      role === USER_ROLES.ADMINISTRATOR
-        ? `${BASE_URL}/a/users/login`
-        : `${BASE_URL}/u/users/login`;
-    const promise = post(url, {
-      username,
-      password,
-      role,
-    });
-    await handleLogin(dispatch, promise);
-  };
+export const fetchLoginAction = (username, password) => async (dispatch) => {
+  const promise = post(`${BASE_URL}/u/users/login`, {
+    username,
+    password,
+  });
+  await handleLogin(dispatch, promise);
+};
 
 export const fetchSignupAction =
   (username, password, confirmPassword, name, family, email) =>
@@ -95,6 +90,13 @@ const handleLogin = async (dispatch, promise) => {
     }
 
     if (response.data._result === "1") {
+      if (response.data?.waitingChallengesCount > 0) {
+        dispatch(
+          setNotificationsAction({
+            waitingChallengesCount: response.data.waitingChallengesCount,
+          })
+        );
+      }
       utils.setLSVariable("user", JSON.stringify(response.data.item));
       window.location.reload();
 

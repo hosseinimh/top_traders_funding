@@ -13,16 +13,11 @@ const Dashboard = () => {
   const { dashboardPage: strings } = useLocale();
   const pageUtils = new PageUtils();
 
-  const renderReview = () =>
-    userState?.user?.role === USER_ROLES.ADMINISTRATOR
-      ? renderAdminReview()
-      : renderUserReview();
-
   const renderUserReview = () => {
     return (
       <Card containerStyle="bg-success">
         <div>
-          <div className="fs-4 fw-semibold">چالش‌های برگزارشده</div>
+          <div className="fs-4 fw-semibold">{strings.challenges}</div>
           <div className="my-2">
             <Span>{utils.en2faDigits(236)}</Span>
           </div>
@@ -46,7 +41,11 @@ const Dashboard = () => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row">{renderReview()}</div>
+      <div className="row">
+        {userState?.user?.role === USER_ROLES.ADMINISTRATOR
+          ? renderAdminReview()
+          : renderUserReview()}
+      </div>
     </BlankPage>
   );
 };

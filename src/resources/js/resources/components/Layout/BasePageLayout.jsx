@@ -130,32 +130,8 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     window.addEventListener("resize", () => {
       onPageLayoutChanged();
     });
-    loadModals();
     utils.initLocale();
   }, []);
-
-  const loadModals = () => {
-    let modalObjs = [];
-    modals?.map((modal) => {
-      const modalElement = document.getElementById(modal.id);
-      const m = modalElement ? new coreui.Modal(modalElement) : null;
-      const form = modal?.useForm;
-      modalElement?.addEventListener("hidden.coreui.modal", () => {
-        dispatch(
-          setPagePropsAction({
-            item: null,
-            action: null,
-          })
-        );
-        dispatch(clearMessageAction());
-        form?.reset();
-      });
-      modalObjs = [{ modal: m, form }, ...modalObjs];
-    });
-    // if (funcs?.loadModals instanceof Function) {
-    //     funcs.loadModals(modalObjs);
-    // }
-  };
 
   const onPageLayoutChanged = () => {
     dispatch(

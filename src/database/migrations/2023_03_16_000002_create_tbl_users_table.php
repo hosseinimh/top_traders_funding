@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('family')->nullable();
             $table->string('email')->unique();
             $table->string('google_id')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('avatar_original')->nullable();
             $table->string('locale')->default(Locale::FA);
             $table->unsignedTinyInteger('role')->default(Role::USER);
             $table->unsignedTinyInteger('is_active')->default(0);

@@ -34,7 +34,7 @@ class UserService
         })->where('email', 'LIKE', '%' . $email . '%')->orderBy('name', 'ASC')->orderBy('id', 'ASC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
-    public function store(string $username, string $password, string $name, string $family, string $email, int $role, int $isActive): mixed
+    public function store(string $username, string $password, string $name, string $family, string $email, string|null $googleId, string|null $avatar, string|null $avatarOriginal, int $role, int $isActive): mixed
     {
         $this->throwIfEmailNotUnique($email);
         $role = ($role >= Role::USER && $role <= Role::ADMINISTRATOR) ? $role : Role::USER;
@@ -45,6 +45,9 @@ class UserService
             'name' => $name,
             'family' => $family,
             'email' => $email,
+            'google_id' => $googleId,
+            'avatar' => $avatar,
+            'avatar_original' => $avatarOriginal,
             'role' => $role,
             'is_active' => $isActive,
         ];

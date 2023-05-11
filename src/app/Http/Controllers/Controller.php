@@ -46,9 +46,9 @@ class Controller extends BaseController
         return $this->response->storeResponse($model);
     }
 
-    public function onUpdate(bool $result = true): HttpJsonResponse
+    public function onUpdate(bool $result = true, array $data = null): HttpJsonResponse
     {
-        return $this->response->updateResponse($result);
+        return $this->response->updateResponse($result, $data);
     }
 
     public function onDelete(bool $result = true): HttpJsonResponse

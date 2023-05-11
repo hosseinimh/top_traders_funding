@@ -6,9 +6,10 @@ import {
   setPagePropsAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH } from "../../../../constants";
+import { BASE_PATH, CHALLENGE_STATUSES } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { useLocale } from "../../../../hooks";
+import { setNotificationsAction } from "../../../../state/layout/layoutActions";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -16,6 +17,7 @@ export class PageUtils extends BasePageUtils {
     const { challengesAdminPage: strings } = useLocale();
     super("Challenges", strings, form);
     this.entity = new Entity();
+    this.loadModals([{ name: "verifyModal" }]);
     this.initialPageProps = {
       pageNumber: 1,
       itemsCount: 0,
@@ -31,11 +33,38 @@ export class PageUtils extends BasePageUtils {
     this.fillForm();
   }
 
-  onVerified(item) {
+  editAction({ id }) {
+    if (utils.isId(id)) {
+      this.navigate(`${BASE_PATH}/challenges/edit/${id}`);
+    }
+  }
+
+  verifyAction({ id }) {
+    if (utils.isId(id)) {
+      this.modals[0].modal.show();
+    }
+  }
+
+  async verifiedAction({ id }) {
+    if (utils.isId(id)) {
+      this.modals[0].modal.hide();
+      await this.changeStatus(id, CHALLENGE_STATUSES.WAITING_TRADE);
+    }
+  }
+
+  onVerify(item) {
+    this.dispatch(
+      setPagePropsAction({
+        action: "VERIFY",
+        item,
+      })
+    );
+  }
+
+  onVerified() {
     this.dispatch(
       setPagePropsAction({
         action: "VERIFIED",
-        item,
       })
     );
   }
@@ -60,8 +89,12 @@ export class PageUtils extends BasePageUtils {
 
   onAction(props) {
     switch (props.action) {
+      case "VERIFY":
+        this.verifyAction(props.item);
+
+        break;
       case "VERIFIED":
-        this.verifiedAction(props.item);
+        this.verifiedAction(this.pageState?.props?.item);
 
         break;
       case "ANALYZE":
@@ -73,23 +106,29 @@ export class PageUtils extends BasePageUtils {
     super.onAction(props);
   }
 
-  async verifiedAction({ id }) {
-    if (utils.isId(id)) {
-      await this.entity.changeStatus(id);
-      await this.fillForm();
-    }
-  }
-
   analyzeAction({ id }) {
     if (utils.isId(id)) {
       this.navigate(`${BASE_PATH}/challenges/${id}`);
     }
   }
 
-  async fillForm(data = null) {
+  async fillForm() {
     const promise = this.entity.getPaginate(
       this.pageState.props?.pageNumber ?? 1
     );
-    super.fillForm(promise);
+    await super.fillForm(promise);
+  }
+
+  async changeStatus(id, challengeStatus) {
+    const result = await this.entity.changeStatus(id, challengeStatus);
+    if (result) {
+      this.dispatch(
+        setNotificationsAction({
+          ...this.layoutState?.notifications,
+          waitingChallengesCount: result?.waitingChallengesCount,
+        })
+      );
+    }
+    await this.fillForm();
   }
 }

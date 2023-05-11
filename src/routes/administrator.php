@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 // not logged users
 Route::middleware(['cors'])->group(function () {
-    Route::post('users/login', [UserController::class, 'login']);
-
     Route::post('errors/store', [ErrorController::class, 'store']);
 });
 
@@ -60,5 +58,7 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
     Route::post('challenge_platforms/update/{model}', [ChallengePlatformController::class, 'update']);
 
     Route::post('challenges', [ChallengeController::class, 'index']);
+    Route::post('challenges/show/{model}', [ChallengeController::class, 'show']);
+    Route::post('challenges/update/{model}', [ChallengeController::class, 'update']);
     Route::post('challenges/change_status/{model}', [ChallengeController::class, 'changeStatus']);
 });

@@ -13,6 +13,10 @@ export class Challenge extends Entity {
     });
   }
 
+  async get(id) {
+    return await this.handlePost(`${BASE_URL}/a/challenges/show/${id}`);
+  }
+
   async getPaginateFromUser(_pn = 1, _pi = PAGE_ITEMS) {
     return await this.handlePost(`${BASE_URL}/u/challenges`, {
       _pn,
@@ -35,9 +39,20 @@ export class Challenge extends Entity {
     );
   }
 
-  async changeStatus(id) {
+  async update(id, accountNo, password, investorPassword) {
+    return await this.handlePost(`${BASE_URL}/a/challenges/update/${id}`, {
+      account_no: accountNo,
+      password,
+      investor_password: investorPassword,
+    });
+  }
+
+  async changeStatus(id, challengeStatus) {
     return await this.handlePost(
-      `${BASE_URL}/a/challenges/change_status/${id}`
+      `${BASE_URL}/a/challenges/change_status/${id}`,
+      {
+        challenge_status: challengeStatus,
+      }
     );
   }
 }

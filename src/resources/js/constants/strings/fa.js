@@ -106,6 +106,7 @@ export const dashboardPage = {
   _title: "داشبورد",
   _subTitle: "سامانه در یک نگاه",
   users: "کاربران",
+  challenges: "چالش‌های برگزارشده",
 };
 
 export const loginUserPage = {
@@ -119,6 +120,7 @@ export const loginUserPage = {
   signup: "ثبت نام",
   login: "ورود به داشبورد مدیریت",
   loginSM: "ورود",
+  loginByGoogle: "ورود با Google",
 };
 
 export const forgotPasswordPage = {
@@ -553,9 +555,23 @@ export const challengesAdminPage = {
   equity: "موجودی",
   server: "سرور",
   level: "چالش",
-  verified: "تایید چالش",
+  verify: "تایید چالش",
   analyze: "آنالیز",
   account: "صورتحساب",
+  verifyModalHeader: "تایید چالش",
+  verifyModalBody: "آیا مطمئن به تایید چالش می‌باشید؟",
+};
+
+export const editChallengePage = {
+  _title: "مشخصات چالش",
+  _subTitle: "نمایش مشخصات چالش",
+  accountNo: "حساب",
+  password: "کلمه عبور",
+  investorPassword: "کلمه عبور سرمایه‌گذار",
+  status: "وضعیت",
+  equity: "موجودی",
+  server: "سرور",
+  level: "چالش",
 };
 
 export const analyzeChallengePage = {

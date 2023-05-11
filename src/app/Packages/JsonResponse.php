@@ -50,10 +50,10 @@ class JsonResponse
         return $this->errorResponse(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
     }
 
-    public function updateResponse(bool $result = true): HttpJsonResponse
+    public function updateResponse(bool $result = true, array $data = null): HttpJsonResponse
     {
         if ($result) {
-            return $this->okResponse();
+            return $this->okResponse($data);
         }
 
         return $this->errorResponse(['_error' => __('general.update_error'), '_errorCode' => ErrorCode::UPDATE_ERROR]);

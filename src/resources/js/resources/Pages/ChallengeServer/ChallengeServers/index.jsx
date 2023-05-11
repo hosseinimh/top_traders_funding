@@ -35,7 +35,7 @@ const ChallengeServers = () => {
           <td colSpan={columnsCount}>
             <button
               type="button"
-              className="btn btn-warning mb-2 px-4 ml-2"
+              className="btn btn-warning mb-2 px-4 mxdir-2"
               onClick={() => pageUtils.onEdit(item)}
               title={general.edit}
               disabled={layoutState?.loading}

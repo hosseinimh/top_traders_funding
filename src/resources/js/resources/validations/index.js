@@ -20,6 +20,7 @@ import editChallengeLeverageSchema from "./ChallengeLeverage/EditChallengeLevera
 import editChallengeRuleSchema from "./ChallengeRule/EditChallengeRuleSchema";
 import addChallengePlatformSchema from "./ChallengePlatform/AddChallengePlatformSchema";
 import editChallengePlatformSchema from "./ChallengePlatform/EditChallengePlatformSchema";
+import editChallengeSchema from "./Challenge/EditChallengeSchema";
 
 export {
   loginUserSchema,
@@ -44,4 +45,5 @@ export {
   editChallengeRuleSchema,
   addChallengePlatformSchema,
   editChallengePlatformSchema,
+  editChallengeSchema,
 };

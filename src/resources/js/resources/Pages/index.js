@@ -37,6 +37,7 @@ import ChallengePlatforms from "./ChallengePlatform/ChallengePlatforms";
 import TakeFreeChallenge from "./Challenge/TakeChallenge/TakeFreeChallenge";
 import Challenges from "./Challenge/Challenges";
 import ChallengesAdmin from "./Challenge/ChallengesAdmin";
+import EditChallenge from "./Challenge/EditChallenge";
 import AnalyzeChallenge from "./Challenge/AnalyzeChallenge";
 
 export {
@@ -79,5 +80,6 @@ export {
   TakeFreeChallenge,
   Challenges,
   ChallengesAdmin,
+  EditChallenge,
   AnalyzeChallenge,
 };

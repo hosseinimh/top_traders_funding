@@ -122,6 +122,10 @@ function AuthRoute() {
                 path={`${BASE_PATH}/challenges`}
                 element={<Pages.ChallengesAdmin />}
               />
+              <Route
+                path={`${BASE_PATH}/challenges/edit/:challengeId`}
+                element={<Pages.EditChallenge />}
+              />
             </>
           )}
           {lsUser?.role === USER_ROLES.USER && (
@@ -173,12 +177,7 @@ function AuthRoute() {
           <Route
             path={`${BASE_PATH}/users/login`}
             exact={true}
-            element={<Pages.Login role={USER_ROLES.USER} />}
-          />
-          <Route
-            path={`${BASE_PATH}/users/login_admin`}
-            exact={true}
-            element={<Pages.Login role={USER_ROLES.ADMINISTRATOR} />}
+            element={<Pages.Login />}
           />
           <Route
             path={`${BASE_PATH}/users/forgot`}

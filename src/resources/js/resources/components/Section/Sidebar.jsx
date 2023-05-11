@@ -9,12 +9,15 @@ import { BASE_PATH, USER_ROLES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import { CustomLink } from "../";
 import { useLocale } from "../../../hooks";
+import utils from "../../../utils/Utils";
 
 function Sidebar() {
   const dispatch = useDispatch();
   const { sidebar: strings, general } = useLocale();
+  const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const userState = useSelector((state) => state.userReducer);
+  const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
     const container = document.querySelector(".scrollbar-sidebar");
@@ -59,7 +62,7 @@ function Sidebar() {
     dispatch(fetchLogoutAction());
   };
 
-  const renderMenuItem = (url, string, icon, page) => (
+  const renderMenuItem = (url, string, icon, page, badge = 0) => (
     <li>
       <Link
         to={url}
@@ -68,6 +71,11 @@ function Sidebar() {
       >
         <i className={`metismenu-icon ${icon}`}></i>
         {string}
+        {badge > 0 && (
+          <span className="badge badge-pill badge-success mx-2">
+            {isPersian ? utils.en2faDigits(badge) : badge}
+          </span>
+        )}
       </Link>
     </li>
   );
@@ -157,7 +165,8 @@ function Sidebar() {
                 `${BASE_PATH}/challenges`,
                 strings.challengesAdmin,
                 "pe-7s-rocket",
-                "Challenges"
+                "Challenges",
+                layoutState?.notifications?.waitingChallengesCount
               )}
             <li className="app-sidebar__heading">
               {strings.servicesContainer}

@@ -34,7 +34,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request): HttpJsonResponse
     {
-        return $this->onStore($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, $request->role, $request->is_active));
+        return $this->onStore($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, null, null, null, $request->role, $request->is_active));
     }
 
     public function update(Model $model, UpdateUserRequest $request): HttpJsonResponse
@@ -45,13 +45,5 @@ class UserController extends Controller
     public function changePassword(Model $model, ChangePasswordRequest $request): HttpJsonResponse
     {
         return $this->onUpdate($this->service->changePassword($model, $request->new_password));
-    }
-
-    public function login(LoginRequest $request): HttpJsonResponse
-    {
-        if (!auth()->attempt(['username' => $request->username, 'password' => $request->password, 'role' => Role::ADMINISTRATOR, 'is_active' => 1])) {
-            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-        }
-        return $this->onItem(auth()->user());
     }
 }

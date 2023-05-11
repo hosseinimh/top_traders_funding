@@ -5537,7 +5537,7 @@ a.close.disabled {
 }
 .modal-header .close {
   padding: 1rem;
-  margin: -1rem -1rem -1rem auto;
+  margin: -1rem;
 }
 .modal-title {
   margin-bottom: 0;
@@ -9153,10 +9153,11 @@ button,
     text-indent: -100rem;
   }
   30% {
-     text-indent: -0.2rem;
-  } 100% {
+    text-indent: -0.2rem;
+  }
+  100% {
     text-indent: 0;
- }
+  }
 }
 .app-header__menu,
 .app-header__mobile-menu {
@@ -9372,14 +9373,14 @@ button,
   background: rgba(255, 255, 255, 0.2);
 }
 .header-btn-lg::before {
-    position: absolute;
-    right: -1px;
-    top: 50%;
-    background: #dee2e6;
-    width: 1px;
-    height: 30px;
-    margin-top: -15px;
-    content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  background: #dee2e6;
+  width: 1px;
+  height: 30px;
+  margin-top: -15px;
+  content: "";
 }
 .app-header.header-text-light .header-btn-lg .hamburger-inner,
 .app-header.header-text-light
@@ -29870,21 +29871,21 @@ span.multiselect-native-select select {
   white-space: pre-line;
 }
 .flag {
-    height: 16px;
-    width: 16px;
-    background-size: 16px 16px
+  height: 16px;
+  width: 16px;
+  background-size: 16px 16px;
 }
 
 .flag.medium {
-    height: 24px;
-    width: 24px;
-    background-size: 24px 24px
+  height: 24px;
+  width: 24px;
+  background-size: 24px 24px;
 }
 
 .flag.large {
-    height: 32px;
-    width: 32px;
-    background-size: 32px 32px;
+  height: 32px;
+  width: 32px;
+  background-size: 32px 32px;
 }
 .IR {
   background: url(../images/IR.svg) no-repeat;

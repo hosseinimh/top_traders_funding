@@ -52,7 +52,7 @@ const LoginPageLayout = ({ children, pageUtils }) => {
                         {pageUtils.strings.signup}
                       </Link>
                     </div>
-                    <div className="mx-3">
+                    <div className="mx-3 d-flex flex-column">
                       <button
                         className="btn btn-primary btn-lg"
                         onClick={pageUtils.useForm.handleSubmit(
@@ -66,6 +66,14 @@ const LoginPageLayout = ({ children, pageUtils }) => {
                           pageUtils.strings.login}
                         {layoutState?.width < 395 && pageUtils.strings.loginSM}
                       </button>
+                      <a
+                        href={`${BASE_PATH}/users/login_google`}
+                        className="btn btn-danger btn-lg mt-2"
+                        title={pageUtils.strings.loginByGoogle}
+                        disabled={layoutState?.loading}
+                      >
+                        {pageUtils.strings.loginByGoogle}
+                      </a>
                     </div>
                   </div>
                 </div>

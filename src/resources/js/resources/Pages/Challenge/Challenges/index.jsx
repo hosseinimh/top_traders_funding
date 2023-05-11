@@ -59,7 +59,7 @@ const Challenges = () => {
             <td colSpan={columnsCount}>
               <button
                 type="button"
-                className="btn btn-success mb-2 px-4 ml-2"
+                className="btn btn-success mb-2 px-4 mxdir-2"
                 onClick={() => pageUtils.onAnalyze(item)}
                 title={strings.analyze}
                 disabled={layoutState?.loading}
@@ -68,7 +68,7 @@ const Challenges = () => {
               </button>
               <button
                 type="button"
-                className="btn btn-secondary mb-2 px-4 ml-2"
+                className="btn btn-secondary mb-2 px-4 mxdir-2"
                 onClick={() => pageUtils.onAccount(item)}
                 title={strings.account}
                 disabled={layoutState?.loading}

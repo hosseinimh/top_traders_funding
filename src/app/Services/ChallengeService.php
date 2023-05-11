@@ -7,6 +7,14 @@ use App\Models\Challenge as Model;
 
 class ChallengeService
 {
+    public function get(int $id): mixed
+    {
+        return Model::query()->join('tbl_challenge_balances', 'tbl_challenges.balance_id', '=', 'tbl_challenge_balances.id')
+            ->join('tbl_challenge_servers', 'tbl_challenges.server_id', '=', 'tbl_challenge_servers.id')
+            ->join('tbl_challenge_platforms', 'tbl_challenges.platform_id', '=', 'tbl_challenge_platforms.id')
+            ->join('tbl_challenge_leverages', 'tbl_challenges.leverage_id', '=', 'tbl_challenge_leverages.id')->where('tbl_challenges.id', $id)->select('tbl_challenges.*', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage',)->first();
+    }
+
     public function getPaginate(int|null $userId, int $status, int $page, int $pageItems): mixed
     {
         $query = Model::query()->join('tbl_challenge_balances', 'tbl_challenges.balance_id', '=', 'tbl_challenge_balances.id')
@@ -39,20 +47,28 @@ class ChallengeService
         return $model ?? null;
     }
 
-    public function changeStatus(Model $model): bool
+    public function update(Model $model, int $accountNo, string $password, string $investorPassword): bool
     {
         $data = [
-            'status' => ChallengeStatus::WAITING_TRADE,
-            'account_no' => 2367896,
+            'account_no' => $accountNo,
+            'password' => $password,
+            'investor_password' => $investorPassword,
         ];
 
+        return $model->update($data);
+    }
+
+    public function changeStatus(Model $model, int $challengeStatus): bool
+    {
+        $data = [
+            'status' => $challengeStatus,
+        ];
         return $model->update($data);
     }
 
     public function count(int|null $userId, int $status): int
     {
         $query = Model::query();
-
         if ($userId) {
             $query = $query->where('user_id', $userId);
         }

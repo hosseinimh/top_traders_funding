@@ -64,7 +64,7 @@ const AnalyzeChallenge = () => {
 
   const renderAccountDetailsRow = (item1, value1, item2, value2) => (
     <div className="d-flex justify-content-between">
-      <div className="d-flex justify-content-between w-50 border-light border-end ml-2">
+      <div className="d-flex justify-content-between w-50 border-light border-end mxdir-2">
         <span className="text-secondary">{item1}:</span>
         <Span>{value1}</Span>
       </div>

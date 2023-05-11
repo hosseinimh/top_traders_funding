@@ -26,8 +26,8 @@ class ChallengeResource extends JsonResource
             'status' => intval($this->status),
             'statusText' => $this->getStatusText(intval($this->status)),
             'accountNo' => intval($this->account_no),
-            'password' => $this->password,
-            'investorPassword' => $this->investor_password,
+            'password' => $this->password ?? '',
+            'investorPassword' => $this->investor_password ?? '',
             'equity' => intval($this->equity),
         ];
     }

@@ -5531,7 +5531,7 @@ a.close.disabled {
 }
 .modal-header .close {
   padding: 1rem;
-  margin: -1rem -1rem -1rem auto;
+  margin: -1rem;
 }
 .modal-title {
   margin-bottom: 0;

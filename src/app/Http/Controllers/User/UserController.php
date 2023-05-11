@@ -13,7 +13,9 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -53,36 +55,47 @@ class UserController extends Controller
 
     public function login(LoginRequest $request): HttpJsonResponse
     {
-        if (!$this->handleLogin($request->username, $request->password)) {
-            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-        }
-        return $this->onItem($this->service->get(auth()->user()->id));
+        return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => 1]);
     }
 
     public function logout(): HttpJsonResponse
     {
         auth()->logout();
-
         return $this->onOk();
     }
 
     public function signup(SignupUserRequest $request): HttpJsonResponse
     {
-        if ($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, Role::USER, 1)) {
-            if (!$this->handleLogin($request->username, $request->password)) {
-                return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-            }
-            return $this->onItem($this->service->get(auth()->user()->id));
+        if ($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, null, null, null, Role::USER, 1)) {
+            return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => 1]);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
     }
 
-    private function handleLogin(string $username, string $password): bool
+    public function loginByGoogle(): RedirectResponse
     {
-        if (!auth()->attempt(['username' => $username, 'password' => $password, 'role' => Role::USER, 'is_active' => 1])) {
-            return false;
-        }
+        return Socialite::driver('google')->redirect();
+    }
 
-        return true;
+    public function loginByGoogleCallback(): HttpJsonResponse
+    {
+        if (!$googleUser = Socialite::driver('google')->user()) {
+            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
+        }
+        $user = $this->service->getByEmail($googleUser->email);
+        if ($user) {
+            return $this->handleLogin(['email' => $googleUser->email, 'is_active' => 1]);
+        } else if ($user = $this->service->store($googleUser->email, '', $googleUser->name, '', $googleUser->email, $googleUser->id, $googleUser->avatar, $googleUser->avatar_original, Role::USER, 1)) {
+            return $this->handleLogin(['email' => $googleUser->email, 'is_active' => 1]);
+        }
+        return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
+    }
+
+    private function handleLogin(array $data): HttpJsonResponse
+    {
+        if (!auth()->attempt($data)) {
+            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
+        }
+        return $this->onItem($this->service->get(auth()->user()->id));
     }
 }
