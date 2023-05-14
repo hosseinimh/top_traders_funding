@@ -23,6 +23,8 @@ class UpdateChallengeeRequest extends FormRequest
             'account_no' => 'required|numeric',
             'password' => 'required|min:5|max:50',
             'investor_password' => 'required|min:5|max:50',
+            'meta_api_token' => 'required|min:5|max:100',
+            'meta_api_account_id' => 'required|min:5|max:50',
         ];
     }
 
@@ -37,6 +39,12 @@ class UpdateChallengeeRequest extends FormRequest
             'investor_password.required' => __('challenge.investor_password_required'),
             'investor_password.min' => __('challenge.investor_password_min'),
             'investor_password.max' => __('challenge.investor_password_max'),
+            'meta_api_token.required' => __('challenge.meta_api_token_required'),
+            'meta_api_token.min' => __('challenge.meta_api_token_min'),
+            'meta_api_token.max' => __('challenge.meta_api_token_max'),
+            'meta_api_account_id.required' => __('challenge.meta_api_account_id_required'),
+            'meta_api_account_id.min' => __('challenge.meta_api_account_id_min'),
+            'meta_api_account_id.max' => __('challenge.meta_api_account_id_max'),
         ];
     }
 }

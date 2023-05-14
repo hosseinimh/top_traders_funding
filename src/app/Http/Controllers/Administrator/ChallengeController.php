@@ -31,7 +31,7 @@ class ChallengeController extends Controller
 
     public function update(Model $model, UpdateChallengeeRequest $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->update($model, $request->account_no, $request->password, $request->investor_password));
+        return $this->onUpdate($this->service->update($model, $request->account_no, $request->password, $request->investor_password, $request->meta_api_token, $request->meta_api_account_id));
     }
 
     public function changeStatus(Model $model, ChangeStatusChallengeRequest $request): HttpJsonResponse

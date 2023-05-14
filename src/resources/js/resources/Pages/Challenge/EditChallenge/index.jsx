@@ -11,6 +11,8 @@ const EditChallenge = () => {
       <InputTextColumn field="accountNo" textAlign="left" type="number" />
       <InputTextColumn field="password" textAlign="left" />
       <InputTextColumn field="investorPassword" textAlign="left" />
+      <InputTextColumn field="metaApiToken" textAlign="left" />
+      <InputTextColumn field="metaApiAccountId" textAlign="left" />
     </FormPage>
   );
 };

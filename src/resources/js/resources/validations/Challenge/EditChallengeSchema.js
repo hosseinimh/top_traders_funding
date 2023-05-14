@@ -14,6 +14,13 @@ const editChallengeSchema = yup.object().shape({
     5,
     50
   ),
+  metaApiToken: stringValidator(yup.string(), strings.metaApiToken, 5, 100),
+  metaApiAccountId: stringValidator(
+    yup.string(),
+    strings.metaApiAccountId,
+    5,
+    50
+  ),
 });
 
 export default editChallengeSchema;

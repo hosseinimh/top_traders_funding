@@ -13,12 +13,13 @@ class ChallengeResource extends JsonResource
         return [
             'id' => intval($this->id),
             'userId' => intval($this->user_id),
+            'username' => $this->username,
             'balanceId' => intval($this->balance_id),
             'balance' => intval($this->balance),
             'serverId' => intval($this->server_id),
             'server' => $this->server,
             'platformId' => intval($this->platform_id),
-            'platform' => intval($this->platform),
+            'platform' => $this->platform,
             'leverageId' => intval($this->leverage_id),
             'leverage' => intval($this->leverage),
             'level' => intval($this->level),
@@ -28,6 +29,8 @@ class ChallengeResource extends JsonResource
             'accountNo' => intval($this->account_no),
             'password' => $this->password ?? '',
             'investorPassword' => $this->investor_password ?? '',
+            'metaApiToken' => $this->meta_api_token ?? '',
+            'metaApiAccountId' => $this->meta_api_account_id ?? '',
             'equity' => intval($this->equity),
         ];
     }

@@ -4,72 +4,67 @@ import { Challenge as Entity } from "../../../../http/entities";
 import {
   setPageIconAction,
   setPagePropsAction,
+  setPageTitleAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH } from "../../../../constants";
-import utils from "../../../../utils/Utils";
+import { BASE_PATH, USER_ROLES } from "../../../../constants";
+import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { useLocale } from "../../../../hooks";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
     const form = useForm();
-    const { challengesPage: strings } = useLocale();
-    super("Challenges", strings, form);
+    const { analyzeChallengePage: strings } = useLocale();
+    super("AnalyzeChallenge", strings, form);
     this.entity = new Entity();
     this.initialPageProps = {
-      pageNumber: 1,
-      itemsCount: 0,
       item: null,
-      items: null,
-      action: null,
+      challengeRule: null,
     };
+    this.callbackUrl = `${BASE_PATH}/challenges`;
   }
 
   onLoad() {
+    this.validateIfNotValidateParams();
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-users"));
-    this.fillForm();
+    this.dispatch(setPageIconAction("pe-7s-id"));
+    this.fillForm(this.pageState.params);
   }
 
-  onAnalyze(item) {
-    this.dispatch(
-      setPagePropsAction({
-        action: "ANALYZE",
-        item,
-      })
-    );
+  validateIfNotValidateParams() {
+    this.navigateIfNotValidId(this.pageState.params.challengeId);
   }
 
-  onAccount(item) {
-    this.dispatch(
-      setPagePropsAction({
-        action: "ACCOUNT",
-        item,
-      })
-    );
-  }
-
-  onAction(props) {
-    switch (props.action) {
-      case "ANALYZE":
-        this.analyzeAction(props.item);
-
-        break;
-    }
-
-    super.onAction(props);
-  }
-
-  analyzeAction({ id }) {
-    if (utils.isId(id)) {
-      this.navigate(`${BASE_PATH}/challenges/${id}`);
+  async fillForm(data) {
+    try {
+      this.dispatch(setLoadingAction(true));
+      const result = await this.fetchItem(data.challengeId);
+      this.navigateIfItemNotFound(result);
+      this.handleFetchResult(result);
+    } catch {
+    } finally {
+      this.dispatch(setLoadingAction(false));
     }
   }
 
-  async fillForm(data = null) {
-    const promise = this.entity.getPaginateFromUser(
-      this.pageState.props?.pageNumber ?? 1
+  async fetchItem(id) {
+    return this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
+      ? await this.entity.get(id)
+      : await this.entity.getFromUser(id);
+  }
+
+  handleFetchResult(result) {
+    this.dispatch(
+      setPageTitleAction(
+        `${this.strings._title} [ ${result.item.levelText} ]`,
+        this.strings._subTitle
+      )
     );
-    super.fillForm(promise);
+    this.dispatch(
+      setPagePropsAction({
+        item: result.item,
+        challengeRule: result.challengeRule,
+      })
+    );
   }
 }

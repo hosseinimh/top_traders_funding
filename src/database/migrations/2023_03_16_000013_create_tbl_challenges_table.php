@@ -27,6 +27,8 @@ class CreateTblChallengesTable extends Migration
             $table->unsignedBigInteger('account_no')->nullable();
             $table->string('password')->nullable();
             $table->string('investor_password')->nullable();
+            $table->string('meta_api_token')->nullable();
+            $table->string('meta_api_account_id')->nullable();
             $table->unsignedBigInteger('equity');
             $table->timestamps();
             $table->softDeletes();

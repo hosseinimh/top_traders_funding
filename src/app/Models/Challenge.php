@@ -23,6 +23,8 @@ class Challenge extends Model
         'account_no',
         'password',
         'investor_password',
+        'meta_api_token',
+        'meta_api_account_id',
         'equity',
     ];
 }

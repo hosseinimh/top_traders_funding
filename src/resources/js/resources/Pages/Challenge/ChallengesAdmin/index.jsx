@@ -16,7 +16,7 @@ import { CHALLENGE_STATUSES } from "../../../../constants";
 const Challenges = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 6;
+  const columnsCount = 7;
   const { challengesAdminPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
 
@@ -65,6 +65,9 @@ const Challenges = () => {
         #
       </th>
       <th scope="col" style={{ width: "150px" }}>
+        {strings.user}
+      </th>
+      <th scope="col" style={{ width: "150px" }}>
         {strings.accountNo}
       </th>
       <th scope="col" style={{ width: "150px" }}>
@@ -89,6 +92,7 @@ const Challenges = () => {
               (pageState?.props?.pageNumber - 1) * 10 + index + 1
             )}
           </td>
+          <td>{item.username}</td>
           <td>{item.accountNo === 0 ? "-" : item.accountNo}</td>
           <td>{item.statusText}</td>
           <td>

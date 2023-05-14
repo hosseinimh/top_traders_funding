@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Constants\ChallengeLevel;
+use App\Constants\ErrorCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Challenge\IndexChallengesRequest;
 use App\Http\Requests\Challenge\StoreChallengeRequest;
+use App\Http\Resources\Challenge\ChallengeResource;
 use App\Http\Resources\ChallengeBalance\ChallengeBalanceResource;
 use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
 use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
@@ -22,6 +24,8 @@ use App\Services\ChallengePlatformService;
 use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
+use App\Models\Challenge as Model;
+use App\Models\ChallengeRule;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 
 class ChallengeController extends Controller
@@ -34,6 +38,16 @@ class ChallengeController extends Controller
     public function index(IndexChallengesRequest $request): HttpJsonResponse
     {
         return $this->onItems($this->service->getPaginate(auth()->user()->id, 0, $request->_pn, $request->_pi), $this->service->count(auth()->user()->id, 0));
+    }
+
+    public function show(Model $model): HttpJsonResponse
+    {
+        $challenge = $this->service->get($model->id);
+        if ($challenge && $challenge->user_id === auth()->user()->id) {
+            $challengeRuleService = new ChallengeRuleService();
+            return $this->onItems(['item' => new ChallengeResource($this->service->get($model->id)), 'challengeRule' => new ChallengeRuleResource($challengeRuleService->get())]);
+        }
+        return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
     }
 
     public function take(IndexChallengesRequest $request): HttpJsonResponse

@@ -7217,6 +7217,9 @@ button.bg-alternate:focus {
 .px-5 {
   padding-left: 3rem !important;
 }
+.mxdir-0 {
+  margin-left: 0 !important;
+}
 .mxdir-1 {
   margin-left: 0.25rem !important;
 }
@@ -7234,6 +7237,9 @@ button.bg-alternate:focus {
 }
 .mxdir-auto {
   margin-left: auto !important;
+}
+.pxdir-0 {
+  padding-left: 0 !important;
 }
 .pxdir-1 {
   padding-left: 0.25rem !important;
@@ -29892,4 +29898,8 @@ span.multiselect-native-select select {
 }
 .US {
   background: url(../images/US.svg) no-repeat;
+}
+
+.apexcharts-tooltip-title {
+  text-align: initial;
 }

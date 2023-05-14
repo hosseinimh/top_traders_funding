@@ -55,6 +55,8 @@ export class PageUtils extends BasePageUtils {
     this.useForm.setValue("accountNo", result.item.accountNo);
     this.useForm.setValue("password", result.item.password);
     this.useForm.setValue("investorPassword", result.item.investorPassword);
+    this.useForm.setValue("metaApiToken", result.item.metaApiToken);
+    this.useForm.setValue("metaApiAccountId", result.item.metaApiAccountId);
     this.dispatch(setPagePropsAction({ challengeId: result.item.id }));
     this.dispatch(
       setPageTitleAction(
@@ -69,7 +71,9 @@ export class PageUtils extends BasePageUtils {
       this.pageState.params.challengeId,
       data.accountNo,
       data.password,
-      data.investorPassword
+      data.investorPassword,
+      data.metaApiToken,
+      data.metaApiAccountId
     );
     super.onModifySubmit(promise);
   }

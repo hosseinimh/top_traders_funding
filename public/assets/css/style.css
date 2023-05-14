@@ -7211,6 +7211,9 @@ button.bg-alternate:focus {
 .px-5 {
   padding-left: 3rem !important;
 }
+.mxdir-0 {
+  margin-right: 0!important;
+}
 .mxdir-1 {
   margin-right: 0.25rem !important;
 }
@@ -7228,6 +7231,9 @@ button.bg-alternate:focus {
 }
 .mxdir-auto {
   margin-right: auto !important;
+}
+.pxdir-0 {
+  padding-right: 0 !important;
 }
 .pxdir-1 {
   padding-right: 0.25rem !important;

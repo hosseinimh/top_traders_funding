@@ -17,6 +17,10 @@ export class Challenge extends Entity {
     return await this.handlePost(`${BASE_URL}/a/challenges/show/${id}`);
   }
 
+  async getFromUser(id) {
+    return await this.handlePost(`${BASE_URL}/u/challenges/show/${id}`);
+  }
+
   async getPaginateFromUser(_pn = 1, _pi = PAGE_ITEMS) {
     return await this.handlePost(`${BASE_URL}/u/challenges`, {
       _pn,
@@ -39,11 +43,20 @@ export class Challenge extends Entity {
     );
   }
 
-  async update(id, accountNo, password, investorPassword) {
+  async update(
+    id,
+    accountNo,
+    password,
+    investorPassword,
+    metaApiToken,
+    metaApiAccountId
+  ) {
     return await this.handlePost(`${BASE_URL}/a/challenges/update/${id}`, {
       account_no: accountNo,
       password,
       investor_password: investorPassword,
+      meta_api_token: metaApiToken,
+      meta_api_account_id: metaApiAccountId,
     });
   }
 

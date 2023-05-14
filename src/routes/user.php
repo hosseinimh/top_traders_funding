@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
     Route::post('tickets/change_status/{model}', [TicketController::class, 'changeStatus']);
 
     Route::post('challenges', [ChallengeController::class, 'index']);
+    Route::post('challenges/show/{model}', [ChallengeController::class, 'show']);
 });
 
 // 'user' | 'administrator' type users

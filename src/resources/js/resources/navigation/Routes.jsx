@@ -157,7 +157,7 @@ function AuthRoute() {
             element={<Pages.TicketThreads />}
           />
           <Route
-            path={`${BASE_PATH}/challenges/analyze`}
+            path={`${BASE_PATH}/challenges/analyze/:challengeId`}
             element={<Pages.AnalyzeChallenge />}
           />
           <Route

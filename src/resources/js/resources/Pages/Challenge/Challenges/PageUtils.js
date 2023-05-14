@@ -62,7 +62,7 @@ export class PageUtils extends BasePageUtils {
 
   analyzeAction({ id }) {
     if (utils.isId(id)) {
-      this.navigate(`${BASE_PATH}/challenges/analyze`);
+      this.navigate(`${BASE_PATH}/challenges/analyze/${id}`);
     }
   }
 
