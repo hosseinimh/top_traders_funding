@@ -2,55 +2,60 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
-import { PageLayout, TableCard } from "../";
+import { PageLayout, Table } from "../";
 import { useLocale } from "../../../hooks";
 
 const ListPage = ({
-    pageUtils,
-    children,
-    table,
-    hasAdd = true,
-    backUrl = null,
+  pageUtils,
+  children,
+  table,
+  hasAdd = true,
+  backUrl = null,
+  renderTopList = null,
 }) => {
-    const navigate = useNavigate();
-    const { general } = useLocale();
-    const layoutState = useSelector((state) => state.layoutReducer);
+  const navigate = useNavigate();
+  const { general } = useLocale();
+  const layoutState = useSelector((state) => state.layoutReducer);
 
-    return (
-        <PageLayout pageUtils={pageUtils}>
-            {children}
-            {(hasAdd || backUrl) && (
-                <div className="row mb-2">
-                    <div className="col-sm-12">
-                        {hasAdd && (
-                            <button
-                                className="btn btn-success px-4"
-                                type="button"
-                                title={pageUtils.strings.add}
-                                onClick={pageUtils.onAdd}
-                                disabled={layoutState?.loading}
-                            >
-                                {pageUtils.strings.add}
-                            </button>
-                        )}
-                        {backUrl && (
-                            <button
-                                className="btn btn-secondary mr-2 px-4"
-                                type="button"
-                                title={general.back}
-                                onClick={() => navigate(backUrl)}
-                                disabled={layoutState?.loading}
-                            >
-                                {general.back}
-                            </button>
-                        )}
-                    </div>
-                </div>
+  return (
+    <PageLayout pageUtils={pageUtils}>
+      <div className="section fix-mr15">
+        {renderTopList && renderTopList()}
+        <div className="block">
+          <div className="table-header">
+            {hasAdd && (
+              <button
+                className="btn btn-blue mx-10"
+                type="button"
+                title={pageUtils.strings.add}
+                onClick={pageUtils.onAdd}
+                disabled={layoutState?.loading}
+              >
+                {pageUtils.strings.add}
+              </button>
             )}
-
-            <TableCard table={table} />
-        </PageLayout>
-    );
+            {backUrl && (
+              <button
+                className="btn btn-border mx-10"
+                type="button"
+                title={general.back}
+                onClick={() => navigate(backUrl)}
+                disabled={layoutState?.loading}
+              >
+                {general.back}
+              </button>
+            )}
+            {children}
+          </div>
+          <Table
+            renderHeader={table.renderHeader}
+            renderItems={table.renderItems}
+            renderFooter={table?.renderFooter}
+          />
+        </div>
+      </div>
+    </PageLayout>
+  );
 };
 
 export default ListPage;

@@ -29,7 +29,7 @@ const Campaigns = () => {
     const children = pageState?.props?.items?.map((item, index) => (
       <React.Fragment key={item.id}>
         <tr>
-          <td scope="row">{utils.en2faDigits(index + 1)}</td>
+          <td>{utils.en2faDigits(index + 1)}</td>
           <td>{item.title}</td>
           <td>{item.isActive === 1 ? strings.active : strings.notActive}</td>
         </tr>

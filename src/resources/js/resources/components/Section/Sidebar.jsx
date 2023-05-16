@@ -5,7 +5,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { slideUp, slideDown } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
-import { BASE_PATH, USER_ROLES } from "../../../constants";
+import { BASE_PATH, IMAGES_PATH, USER_ROLES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import { CustomLink } from "../";
 import { useLocale } from "../../../hooks";
@@ -20,8 +20,6 @@ function Sidebar() {
   const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
-    const container = document.querySelector(".scrollbar-sidebar");
-    new PerfectScrollbar(container);
     initSidebarMenus();
   }, []);
 
@@ -63,19 +61,10 @@ function Sidebar() {
   };
 
   const renderMenuItem = (url, string, icon, page, badge = 0) => (
-    <li>
-      <Link
-        to={url}
-        aria-expanded="false"
-        className={`mb-1 ${pageState?.page === page ? "mm-active" : ""}`}
-      >
-        <i className={`metismenu-icon ${icon}`}></i>
-        {string}
-        {badge > 0 && (
-          <span className="badge badge-pill badge-success mx-2">
-            {isPersian ? utils.en2faDigits(badge) : badge}
-          </span>
-        )}
+    <li className={`${pageState?.page === page ? "active" : ""}`}>
+      <Link to={url}>
+        <i className={icon}></i>
+        <span>{string}</span>
       </Link>
     </li>
   );
@@ -94,232 +83,143 @@ function Sidebar() {
   );
 
   return (
-    <div className="app-sidebar sidebar-text-light sidebar-shadow bg-royal">
-      <div className="app-header__logo">
-        <div className="logo-src">
-          <span>{general.brandLogo}</span>
+    <div className={`sidebar ${layoutState?.sidebarCollapsed ? "active" : ""}`}>
+      <div className="sidebar-hd d-flex align-start just-between">
+        <div className="logo">
+          <img
+            className="logo-larg dark-logo"
+            src={`${IMAGES_PATH}/logo-large.svg`}
+            alt=""
+          />
+          <img
+            className="logo-larg light-logo"
+            src={`${IMAGES_PATH}/logo-large-light.sv`}
+            alt=""
+          />
+          <img className="logo-sm" src={`${IMAGES_PATH}/logo-sm.svg`} alt="" />
         </div>
-        <div className="header__pane ml-auto">
-          <div>
-            <button
-              type="button"
-              className="hamburger close-sidebar-btn hamburger--elastic"
-            >
-              <span className="hamburger-box">
-                <span className="hamburger-inner"></span>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="app-header__mobile-menu">
-        <div>
-          <button
-            type="button"
-            className="hamburger hamburger--elastic mobile-toggle-nav"
-          >
-            <span className="hamburger-box">
-              <span className="hamburger-inner"></span>
-            </span>
-          </button>
+        <div className="closemenu">
+          <i className="icon-arrow-right"></i>
         </div>
       </div>
-      <div className="app-header__menu">
-        <span>
-          <button
-            type="button"
-            className="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
-          >
-            <span className="btn-icon-wrapper">
-              <i className="fa fa-ellipsis-v fa-w-6"></i>
-            </span>
-          </button>
-        </span>
-      </div>
-      <div className="scrollbar-sidebar ps ps--active-y">
-        <div className="app-sidebar__inner">
-          <ul className="vertical-nav-menu metismenu mt-4">
-            {renderMenuItem(
-              `${BASE_PATH}`,
-              strings.dashboard,
-              "pe-7s-rocket",
-              "Dashboard"
+      <div className="menu scrollhide">
+        <div className="menu-title">{strings.mainMenu}</div>
+        <ul>
+          {renderMenuItem(
+            `${BASE_PATH}`,
+            strings.dashboard,
+            "icon-category4",
+            "Dashboard"
+          )}
+          {userState?.user?.role === USER_ROLES.USER &&
+            !userState?.user?.freeChallengeRegistered &&
+            renderMenuItem(
+              `${BASE_PATH}/challenges/take/free`,
+              strings.takeFreeChallenge,
+              "icon-money-send",
+              "TakeFreeChallenge"
             )}
-            {userState?.user?.role === USER_ROLES.USER &&
-              !userState?.user?.freeChallengeRegistered &&
-              renderMenuItem(
-                `${BASE_PATH}/challenges/take/free`,
-                strings.takeFreeChallenge,
-                "pe-7s-rocket",
-                "TakeFreeChallenge"
-              )}
-            {userState?.user?.role === USER_ROLES.USER &&
-              renderMenuItem(
-                `${BASE_PATH}/challenges`,
-                strings.challenges,
-                "pe-7s-rocket",
-                "Challenges"
-              )}
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-              renderMenuItem(
-                `${BASE_PATH}/challenges`,
-                strings.challengesAdmin,
-                "pe-7s-rocket",
-                "Challenges",
-                layoutState?.notifications?.waitingChallengesCount
-              )}
-            <li className="app-sidebar__heading">
-              {strings.servicesContainer}
-            </li>
-            {userState?.user?.role === USER_ROLES.USER &&
-              renderMenuItem(
-                `${BASE_PATH}/tickets`,
-                strings.tickets,
-                "pe-7s-id",
-                "Tickets"
-              )}
-            {renderMenuItem(
-              userState?.user?.role === USER_ROLES.ADMINISTRATOR
-                ? `${BASE_PATH}/app_rules/admin`
-                : `${BASE_PATH}/app_rules`,
-              strings.appRules,
-              "pe-7s-id",
-              "AppRules"
+          {userState?.user?.role === USER_ROLES.USER &&
+            renderMenuItem(
+              `${BASE_PATH}/challenges`,
+              strings.challenges,
+              "icon-strongbox-24",
+              "Challenges"
             )}
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-              renderMenuItem(
-                `${BASE_PATH}/campaigns`,
-                strings.campaigns,
-                "pe-7s-id",
-                "Campaigns"
-              )}
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
-              <li
-                className={`${
-                  [
-                    "ChallengeBalances",
-                    "ChallengeLeverages",
-                    "ChallengeServers",
-                    "ChallengeRules",
-                    "ChallengePlatforms",
-                  ].includes(pageState?.page)
-                    ? "mm-active"
-                    : ""
-                }`}
-              >
-                <a
-                  href="#"
-                  aria-expanded="false"
-                  className="menu-container mb-1"
-                >
-                  <i className="metismenu-icon pe-7s-config"></i>
-                  {strings.challengesManagement}
-                  <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                </a>
-                <ul
-                  className="mm-collapse"
-                  style={
-                    [
-                      "ChallengeBalances",
-                      "ChallengeLeverages",
-                      "ChallengeServers",
-                      "ChallengeRules",
-                      "ChallengePlatforms",
-                    ].includes(pageState?.page)
-                      ? { display: "block" }
-                      : {}
-                  }
-                >
-                  {renderSubMenuItem(
-                    `${BASE_PATH}/challenge_balances`,
-                    strings.challengeBalances,
-                    "ChallengeBalances"
-                  )}
-                  {renderMenuItem(
-                    `${BASE_PATH}/challenge_leverages`,
-                    strings.challengeLeverages,
-                    "pe-7s-id",
-                    "ChallengeLeverages"
-                  )}
-                  {renderMenuItem(
-                    `${BASE_PATH}/challenge_servers`,
-                    strings.challengeServers,
-                    "pe-7s-id",
-                    "ChallengeServers"
-                  )}
-                  {renderMenuItem(
-                    `${BASE_PATH}/challenge_rules`,
-                    strings.challengeRules,
-                    "pe-7s-id",
-                    "ChallengeRules"
-                  )}
-                  {renderMenuItem(
-                    `${BASE_PATH}/challenge_platforms`,
-                    strings.challengePlatforms,
-                    "pe-7s-id",
-                    "ChallengePlatforms"
-                  )}
-                </ul>
-              </li>
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/challenges`,
+              strings.challengesAdmin,
+              "icon-strongbox-24",
+              "Challenges",
+              layoutState?.notifications?.waitingChallengesCount
             )}
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
-              <li
-                className={`${
-                  ["Users"].includes(pageState?.page) ? "mm-active" : ""
-                }`}
-              >
-                <a
-                  href="#"
-                  aria-expanded="false"
-                  className="menu-container mb-1"
-                >
-                  <i className="metismenu-icon pe-7s-config"></i>
-                  {strings.systemManagement}
-                  <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                </a>
-                <ul
-                  className="mm-collapse"
-                  style={
-                    ["Users"].includes(pageState?.page)
-                      ? { display: "block" }
-                      : {}
-                  }
-                >
-                  {renderSubMenuItem(
-                    `${BASE_PATH}/users`,
-                    strings.users,
-                    "Users"
-                  )}
-                </ul>
-              </li>
+          <div className="menu-title">{strings.quickAccess}</div>
+          {userState?.user?.role === USER_ROLES.USER &&
+            renderMenuItem(
+              `${BASE_PATH}/tickets`,
+              strings.tickets,
+              "icon-support",
+              "Tickets"
             )}
-            <li className="app-sidebar__heading">{strings.userContainer}</li>
-            {renderMenuItem(
-              `${BASE_PATH}/users/edit`,
-              strings.editProfile,
-              "pe-7s-id",
-              "EditProfile"
+          {renderMenuItem(
+            userState?.user?.role === USER_ROLES.ADMINISTRATOR
+              ? `${BASE_PATH}/app_rules/admin`
+              : `${BASE_PATH}/app_rules`,
+            strings.appRules,
+            "icon-receipt",
+            "AppRules"
+          )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/campaigns`,
+              strings.campaigns,
+              "icon-receipt",
+              "Campaigns"
             )}
-            {renderMenuItem(
-              `${BASE_PATH}/users/change_password`,
-              strings.changePassword,
-              "pe-7s-pen",
-              "ChangePasswordProfile"
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderSubMenuItem(
+              `${BASE_PATH}/challenge_balances`,
+              strings.challengeBalances,
+              "icon-receipt",
+              "ChallengeBalances"
             )}
-            <li>
-              <CustomLink aria-expanded="false" onClick={onLogout}>
-                <i className="metismenu-icon pe-7s-door-lock"></i>
-                {strings.logout}
-              </CustomLink>
-            </li>
-          </ul>
-        </div>
-        <div
-          className="app-sidebar-bg opacity-06"
-          style={{
-            backgroundImage: 'url("/assets/images/menu-bg1.jpg")',
-          }}
-        ></div>
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/challenge_leverages`,
+              strings.challengeLeverages,
+              "icon-receipt",
+              "ChallengeLeverages"
+            )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/challenge_servers`,
+              strings.challengeServers,
+              "icon-receipt",
+              "ChallengeServers"
+            )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/challenge_rules`,
+              strings.challengeRules,
+              "icon-receipt",
+              "ChallengeRules"
+            )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/challenge_platforms`,
+              strings.challengePlatforms,
+              "icon-receipt",
+              "ChallengePlatforms"
+            )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/users`,
+              strings.users,
+              "icon-personalcard",
+              "Users"
+            )}
+          <li>
+            <CustomLink onClick={onLogout} className="red">
+              <i className="icon-logout"></i>
+              <span>{strings.logout}</span>
+            </CustomLink>
+          </li>
+        </ul>
+        <div className="menu-title">{strings.telSupport}</div>
+        <ul>
+          <li>
+            <a href="tel:02191306781">
+              <i className="icon-call"></i>
+              <span className="tel">{strings.tel}</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span>{strings.supportHours}</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

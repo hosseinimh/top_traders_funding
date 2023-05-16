@@ -80,30 +80,21 @@ const InputTextColumn = ({
   };
 
   return (
-    <div className={`form-group ${columnClassName}`}>
-      {showLabel && (
-        <label className="form-label" htmlFor={field}>
-          {label}
-        </label>
-      )}
-      {icon && form && (
-        <div className="input-group has-validation mb-2">
-          <span className="input-group-text">{icon}</span>
+    <div className="input-text input-bg input-border">
+      {form && (
+        <>
           <Controller
             render={({ field }) => renderInput(field)}
             name={field}
             control={form?.control}
             defaultValue={defaultValue}
           />
-        </div>
-      )}
-      {!icon && form && (
-        <Controller
-          render={({ field }) => renderInput(field)}
-          name={field}
-          control={form?.control}
-          defaultValue={defaultValue}
-        />
+          {icon && (
+            <div className="icon">
+              <i className="icon-mobile"></i>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

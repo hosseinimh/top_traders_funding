@@ -7,6 +7,7 @@ import {
   USER_ROLES,
   ASSETS_PATH,
   LOCALES,
+  IMAGES_PATH,
 } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
@@ -14,6 +15,7 @@ import CustomLink from "../Link/CustomLink";
 import {
   setLocaleAction,
   setLoadingAction,
+  toggleSidebarAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User } from "../../../http/entities";
@@ -24,6 +26,10 @@ const Header = () => {
   const { header: strings, general } = useLocale();
   const userState = useSelector((state) => state.userReducer);
   const authUser = utils.getLSUser();
+
+  const toggleSidebar = () => {
+    dispatch(toggleSidebarAction());
+  };
 
   const setLocale = (locale) => handleSetLocale(locale);
 
@@ -307,57 +313,45 @@ const Header = () => {
   };
 
   return (
-    <div className="app-header header-shadow">
-      <div className="app-header__logo">
-        <div className="logo-src">
-          <span>{general.brandLogo}</span>
-        </div>
-
-        <div className="header__pane mxdir-auto">
-          <div>
-            {userState?.user && (
-              <button
-                type="button"
-                className="hamburger close-sidebar-btn hamburger--elastic sidebar-btn-lg"
-              >
-                <span className="hamburger-box">
-                  <span className="hamburger-inner"></span>
-                </span>
-              </button>
-            )}
+    <div className="navbar d-flex align-center">
+      <div className="menu-toggle" onClick={toggleSidebar}>
+        <i className="icon-category4"></i>
+      </div>
+      <div className="userinfo sub">
+        <div className="d-flex align-center">
+          <div className="img">
+            <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />
+          </div>
+          <div className="info">
+            <div className="name">{`${authUser?.name ?? ""} ${
+              authUser?.family ?? ""
+            }`}</div>
+            <div className="userid">{`${authUser?.username ?? ""}`}</div>
           </div>
         </div>
-      </div>
-      <div className="app-header__mobile-menu">
-        <div>
-          {userState?.user && (
-            <button
-              type="button"
-              className="hamburger hamburger--elastic mobile-toggle-nav sidebar-btn-sm"
-            >
-              <span className="hamburger-box">
-                <span className="hamburger-inner"></span>
-              </span>
-            </button>
-          )}
-        </div>
-      </div>
-      <div className="app-header__menu">
-        <span>
-          <button
-            type="button"
-            className="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav mobile-dropdown"
-          >
-            <span className="btn-icon-wrapper">
-              <i className="fa fa-ellipsis-v fa-w-6"></i>
-            </span>
-          </button>
-        </span>
-      </div>
-      <div className="app-header__content">
-        <div className="app-header-left">
-          <div className="header-dots">{renderLocalesDropdown()}</div>
-          {userState?.user && renderUserLgDropdown()}
+        <div className="submenu">
+          <ul>
+            <li>
+              <a href="https://kifpool.me/member_v2/profile">
+                <i className="icon-personalcard"></i> پروفایل کاربری
+              </a>
+            </li>
+            <li>
+              <a href="https://kifpool.me/member_v2/earn-money">
+                <i className="icon-money-add4"></i> کسب درآمد
+              </a>
+            </li>
+            <li>
+              <a href="https://kifpool.me/member_v2/verify/cards">
+                <i className="icon-cards"></i> افزودن حساب بانکی
+              </a>
+            </li>
+            <li>
+              <a href="https://kifpool.me/member_v2/logout" className="red">
+                <i className="icon-logout"></i> خروج از حساب
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

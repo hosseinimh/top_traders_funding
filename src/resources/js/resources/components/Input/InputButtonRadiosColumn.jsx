@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import utils from "../../../utils/Utils";
 
 const InputButtonRadiosColumn = ({
   items,
@@ -80,9 +81,7 @@ const InputButtonRadiosColumn = ({
         }}
       />
       <label
-        className={`m-0 btn ${
-          item.checked ? "btn-warning font-weight-bolder" : "bg-dark text-white"
-        }`}
+        className={`m-0 btn ${item.checked ? "btn-blue" : ""}`}
         htmlFor={`${name}_input_field_${item.id}`}
       >
         {item.label}
@@ -92,8 +91,10 @@ const InputButtonRadiosColumn = ({
 
   return (
     <>
-      <label className="form-label">{label}</label>
-      <div className="mb-4 d-flex">
+      <div className="block-title">
+        <h3>{label}</h3>
+      </div>
+      <div className="mt-10 mb-20 d-flex">
         {radioItems?.length > 0 && renderdItems()}
       </div>
       <input type="hidden" name={name} {...form?.register(field)} />

@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { IMAGES_PATH } from "../../../constants";
 import { useLocale } from "../../../hooks";
 
 const TableItems = ({ children, columnsCount }) => {
@@ -13,11 +12,10 @@ const TableItems = ({ children, columnsCount }) => {
   } else if (layoutState?.loading) {
     return (
       <tr>
-        <td colSpan={columnsCount} className="img-loading-wrapper">
-          <img
-            src={`${IMAGES_PATH}/loading.gif`}
-            className="img-loading mx-2"
-          />
+        <td
+          colSpan={columnsCount}
+          style={{ textAlign: "center", padding: "20px 0" }}
+        >
           {general.loading}
         </td>
       </tr>
@@ -26,7 +24,12 @@ const TableItems = ({ children, columnsCount }) => {
 
   return (
     <tr>
-      <td colSpan={columnsCount}>{general.noDataFound}</td>
+      <td
+        colSpan={columnsCount}
+        style={{ textAlign: "center", padding: "20px 0" }}
+      >
+        {general.noDataFound}
+      </td>
     </tr>
   );
 };

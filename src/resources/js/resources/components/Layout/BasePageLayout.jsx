@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import persianDate from "persian-date";
 
 import {
   BASE_PATH,
@@ -30,16 +31,19 @@ import {
 import { clearLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import { Footer, Header, Sidebar, TopLoadingBar } from "../../components";
+import { useLocale } from "../../../hooks";
 
 const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const [pageLoaded, setPageLoaded] = useState(false);
+  const { general } = useLocale();
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const messageState = useSelector((state) => state.messageReducer);
   const userState = useSelector((state) => state.userReducer);
+  const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
     if (userState?.error) {
@@ -312,47 +316,37 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     return [elementName, poupName];
   };
 
+  const renderToday = () => {
+    if (isPersian) {
+      const date = new persianDate();
+      return `${date.daysInMonth()} ${date.format("MMMM")} ${date.year()}`;
+    }
+  };
+
   return (
-    <div
-      className={`app-container app-theme-white body-tabs-shadow${
-        userState.isAuthenticated ? " fixed-header fixed-sidebar" : ""
-      }`}
-      style={{
-        minHeight: userState.isAuthenticated ? "100vh" : "calc(100vh - 60px) ",
-      }}
-      onClick={(e) => onAppContainerClick(e)}
-    >
-      <TopLoadingBar />
-      <Header />
+    <div className="dashboard d-flex">
       {userState.isAuthenticated && (
-        <div className="app-main">
+        <>
           <Sidebar />
-          <div className="app-main__outer">
-            <div className="app-main__inner">
-              <div className="app-page-title">
-                <div className="page-title-wrapper">
-                  <div className="page-title-heading">
-                    {pageState?.icon && (
-                      <div className="page-title-icon">
-                        <i
-                          className={`${pageState.icon} icon-gradient bg-premium-dark`}
-                        ></i>
-                      </div>
-                    )}
-                    <div>
-                      {pageState?.title}
-                      <div className="page-title-subheading">
-                        {pageState?.subTitle}
-                      </div>
-                    </div>
-                  </div>
+          <div className="main">
+            <div className="center">
+              <Header />
+              <div className="statusbar">
+                <div className="todaydate d-flex align-center">
+                  <div className="online-state"></div>
+                  <div id="pdate">{renderToday()}</div>
                 </div>
               </div>
-              {children}
+              <div className="dashboard-content">
+                <div className="content-title">
+                  <h2>{pageState?.title}</h2>
+                  <div className="speedbar">{pageState?.subTitle}</div>
+                </div>
+                {children}
+              </div>
             </div>
-            <Footer />
           </div>
-        </div>
+        </>
       )}
       {!userState.isAuthenticated && { ...children }}
     </div>

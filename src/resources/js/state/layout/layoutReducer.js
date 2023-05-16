@@ -7,6 +7,7 @@ const initialState = {
   height: 0,
   locale: utils.initLocale(),
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
+  sidebarCollapsed: false,
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {
@@ -31,6 +32,11 @@ const layoutReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         notifications: payload,
+      };
+    case actions.TOGGLE_SIDEBAR_ACTION:
+      return {
+        ...state,
+        sidebarCollapsed: !state.sidebarCollapsed,
       };
     default:
       return state;

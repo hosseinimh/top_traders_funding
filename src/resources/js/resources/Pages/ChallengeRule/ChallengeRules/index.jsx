@@ -40,7 +40,7 @@ const ChallengeRules = () => {
       children = [
         <React.Fragment key={1}>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.duration}</td>
+            <td>{strings.duration}</td>
             <td>
               {pageState.props.item.duration1 === 0
                 ? "-"
@@ -81,7 +81,7 @@ const ChallengeRules = () => {
             </td>
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.dailySl}</td>
+            <td>{strings.dailySl}</td>
             <td>
               {pageState.props.item.dailySl1 === 0
                 ? "-"
@@ -132,7 +132,7 @@ const ChallengeRules = () => {
             </td>
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.totalSl}</td>
+            <td>{strings.totalSl}</td>
             <td>
               {pageState.props.item.totalSl1 === 0
                 ? "-"
@@ -183,7 +183,7 @@ const ChallengeRules = () => {
             </td>
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.target}</td>
+            <td>{strings.target}</td>
             <td>
               {pageState.props.item.target1 === 0
                 ? "-"
@@ -234,7 +234,7 @@ const ChallengeRules = () => {
             </td>
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.tradeDays}</td>
+            <td>{strings.tradeDays}</td>
             <td>
               {pageState.props.item.tradeDays1 === 0
                 ? "-"
@@ -284,19 +284,15 @@ const ChallengeRules = () => {
       hasAdd={false}
       table={{ renderHeader, renderItems }}
     >
-      <div className="row mb-2">
-        <div className="col-sm-12">
-          <button
-            className="btn btn-warning px-4"
-            type="button"
-            title={strings.edit}
-            onClick={() => pageUtils.onEdit({ item: null })}
-            disabled={layoutState?.loading}
-          >
-            {strings.edit}
-          </button>
-        </div>
-      </div>
+      <button
+        className="btn btn-blue mx-10"
+        type="button"
+        title={strings.edit}
+        onClick={() => pageUtils.onEdit({ item: null })}
+        disabled={layoutState?.loading}
+      >
+        {strings.edit}
+      </button>
     </ListPage>
   );
 };

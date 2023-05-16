@@ -6,9 +6,13 @@ import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";
+// import { MetaApi } from "../../../../utils/MetaApi";
 
 const AnalyzeChallenge = () => {
   const [item, setItem] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [profits, setProfits] = useState([]);
+  const [todayProfit, setTodayProfit] = useState(0);
   const [mainChartOptions, setMainChartOptions] = useState(null);
   const [dailyLossChartOptions, setDailyLossChartOptions] = useState(null);
   const [totalLossChartOptions, setTotalLossChartOptions] = useState(null);
@@ -18,8 +22,9 @@ const AnalyzeChallenge = () => {
   const { analyzeChallengePage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
   const isPersian = general.locale === "فارسی" ? true : false;
-
-  useEffect(() => {
+  const metaApi = new MetaApi();
+  return <></>;
+  /* useEffect(() => {
     if (pageUtils?.pageState?.props?.item) {
       setItem(pageUtils?.pageState?.props?.item);
     }
@@ -27,11 +32,68 @@ const AnalyzeChallenge = () => {
 
   useEffect(() => {
     if (item) {
-      setMainChart();
-      setDailyLossChart();
-      setTotalLossChart();
+      connectMetaApi();
     }
   }, [item]);
+
+  useEffect(() => {
+    if (account) {
+      getProfits();
+      setTimeout(() => {
+        fetchAccount();
+      }, 10000);
+    }
+  }, [account]);
+
+  useEffect(() => {
+    if (profits?.length > 0) {
+      setMainChart();
+      setTotalLossChart();
+    }
+  }, [profits]);
+
+  useEffect(() => {
+    setDailyLossChart();
+  }, [todayProfit]);
+
+  const getProfits = () => {
+    const { deals } = account;
+    const dealItems = deals.filter(
+      (deal) =>
+        deal.type === "DEAL_TYPE_BALANCE" ||
+        deal?.entryType === "DEAL_ENTRY_OUT"
+    );
+    const today = new Date();
+    let totalProfit = 0;
+    let todayTotalProfit = 0;
+    const profitItems = [];
+    dealItems?.forEach((dealItem) => {
+      totalProfit += dealItem.profit.toFixed(2);
+      profitItems.push(totalProfit);
+      const date = new Date(dealItem.brokerTime);
+      if (
+        dealItem?.entryType === "DEAL_ENTRY_OUT" &&
+        date.getFullYear() === today.getFullYear() &&
+        date.getMonth() === today.getMonth() &&
+        date.getDate() === today.getDate()
+      ) {
+        todayTotalProfit += dealItem.profit.toFixed(2);
+      }
+    });
+    setProfits(profitItems);
+    setTodayProfit(todayTotalProfit);
+  };
+
+  const connectMetaApi = async () => {
+    await metaApi.connect(item.metaApiToken, item.metaApiAccountId);
+    const result = await metaApi.sync();
+    setAccount(result);
+  };
+
+  const fetchAccount = async () => {
+    const result = await metaApi.sync();
+    setAccount(result);
+  };
 
   const setMainChart = () => {
     setMainChartOptions({
@@ -64,19 +126,15 @@ const AnalyzeChallenge = () => {
         },
       },
     });
+    let data = [];
+    let index = 1;
+    profits.forEach((profit) => {
+      data.push([index++, profit]);
+    });
     setMainSeries([
       {
         name: "P&L",
-        data: [
-          [1, 340],
-          [3, 430],
-          [5, 310],
-          [10, 630],
-          [13, 330],
-          [15, 430],
-          [18, 330],
-          [20, 920],
-        ],
+        data: data,
       },
     ]);
   };
@@ -115,7 +173,7 @@ const AnalyzeChallenge = () => {
       },
       labels: [strings.stable],
     });
-    setDailyLossSeries([70]);
+    setDailyLossSeries([todayProfit]);
   };
 
   const setTotalLossChart = () => {
@@ -152,7 +210,13 @@ const AnalyzeChallenge = () => {
       },
       labels: [strings.stable],
     });
-    setTotalLossSeries([35]);
+    let loss = 0;
+    profits.forEach((profit) => {
+      if (profit < 0) {
+        loss += profit;
+      }
+    });
+    setTotalLossSeries([loss]);
   };
 
   const renderAccountInfoItem = (item, value) => (
@@ -474,7 +538,7 @@ const AnalyzeChallenge = () => {
         <div className="col col-md-5 col-12">{renderParameters()}</div>
       </div>
     </BlankPage>
-  );
+  );*/
 };
 
 export default AnalyzeChallenge;

@@ -39,7 +39,7 @@ const Challenges = () => {
     const children = pageState?.props?.items?.map((item, index) => (
       <React.Fragment key={item.id}>
         <tr>
-          <td scope="row">
+          <td>
             {utils.en2faDigits(
               (pageState?.props?.pageNumber - 1) * 10 + index + 1
             )}

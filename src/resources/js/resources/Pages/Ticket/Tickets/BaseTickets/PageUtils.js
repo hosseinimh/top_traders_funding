@@ -59,12 +59,14 @@ export class PageUtils extends BasePageUtils {
   onFetchResultOK(result) {
     try {
       this.navigateIfAdministrator(result);
-      this.dispatch(
-        setPageTitleAction(
-          `${this.strings._title} [ ${result.user.name} ${result.user.family} - ${result.user.username} ]`,
-          this.strings._subTitle
-        )
-      );
+      if (this.userState?.user?.role === USER_ROLES.ADMINISTRATOR) {
+        this.dispatch(
+          setPageTitleAction(
+            `${this.strings._title} [ ${result.user.name} ${result.user.family} - ${result.user.username} ]`,
+            this.strings._subTitle
+          )
+        );
+      }
       super.handleFetchResultIfOK(this.propsIfOK(result));
     } catch {}
   }

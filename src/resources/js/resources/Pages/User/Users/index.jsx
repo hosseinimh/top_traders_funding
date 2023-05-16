@@ -22,11 +22,19 @@ const Users = () => {
   const pageUtils = new PageUtils();
 
   const renderSearch = () => (
-    <div className="row">
-      <InputTextColumn field="username" textAlign="left" />
-      <InputTextColumn field="nameFamily" />
-      <InputTextColumn field="email" textAlign="left" />
-    </div>
+    <SearchBox
+      pageUtils={pageUtils}
+      onSubmit={pageUtils.onSubmit}
+      onReset={pageUtils.onReset}
+    >
+      <div>
+        <div className="list-input">
+          <InputTextColumn field="username" textAlign="left" />
+          <InputTextColumn field="nameFamily" />
+          <InputTextColumn field="email" textAlign="left" />
+        </div>
+      </div>
+    </SearchBox>
   );
 
   const renderHeader = () => (
@@ -53,8 +61,8 @@ const Users = () => {
   const renderItems = () => {
     const children = pageState?.props?.items?.map((item, index) => (
       <React.Fragment key={item.id}>
-        <tr>
-          <td scope="row">
+        <tr className={index % 2 === 0 ? "even" : "odd"}>
+          <td>
             {utils.en2faDigits(
               (pageState?.props?.pageNumber - 1) * 10 + index + 1
             )}
@@ -69,11 +77,11 @@ const Users = () => {
           </td>
           <td>{item.isActive === 1 ? strings.active : strings.notActive}</td>
         </tr>
-        <tr>
+        <tr className={`${index % 2 === 0 ? "even" : "odd"} actions`}>
           <td colSpan={columnsCount}>
             <button
               type="button"
-              className="btn btn-warning mb-2 px-4 mxdir-2"
+              className="btn btn-blue mx-5 mb-20"
               onClick={() => pageUtils.onEdit(item)}
               title={general.edit}
               disabled={layoutState?.loading}
@@ -82,7 +90,7 @@ const Users = () => {
             </button>
             <button
               type="button"
-              className="btn btn-secondary mb-2 px-4 mxdir-2"
+              className="btn btn-blue mx-5 mb-20"
               onClick={() => pageUtils.onChangePassword(item)}
               title={strings.changePassword}
               disabled={layoutState?.loading}
@@ -91,7 +99,7 @@ const Users = () => {
             </button>
             <button
               type="button"
-              className="btn btn-success mb-2 px-4 mxdir-2"
+              className="btn btn-blue mx-5 mb-20"
               onClick={() => pageUtils.onTickets(item)}
               title={strings.tickets}
               disabled={layoutState?.loading}
@@ -115,15 +123,8 @@ const Users = () => {
       pageUtils={pageUtils}
       table={{ renderHeader, renderItems, renderFooter }}
       hasAdd={userState?.user?.role === USER_ROLES.ADMINISTRATOR ? true : false}
-    >
-      <SearchBox
-        pageUtils={pageUtils}
-        onSubmit={pageUtils.onSubmit}
-        onReset={pageUtils.onReset}
-      >
-        {renderSearch()}
-      </SearchBox>
-    </ListPage>
+      renderTopList={renderSearch}
+    ></ListPage>
   );
 };
 

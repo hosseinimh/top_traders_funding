@@ -54,7 +54,7 @@ const BaseTakeChallenge = ({ level }) => {
       children = [
         <React.Fragment key={1}>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.duration}</td>
+            <td>{strings.duration}</td>
             {level !== CHALLENGE_LEVELS.FREE && (
               <>
                 <td>
@@ -101,7 +101,7 @@ const BaseTakeChallenge = ({ level }) => {
             )}
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.dailySl}</td>
+            <td>{strings.dailySl}</td>
             {level !== CHALLENGE_LEVELS.FREE && (
               <>
                 <td>
@@ -158,7 +158,7 @@ const BaseTakeChallenge = ({ level }) => {
             )}
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.totalSl}</td>
+            <td>{strings.totalSl}</td>
             {level !== CHALLENGE_LEVELS.FREE && (
               <>
                 <td>
@@ -215,7 +215,7 @@ const BaseTakeChallenge = ({ level }) => {
             )}
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.target}</td>
+            <td>{strings.target}</td>
             {level !== CHALLENGE_LEVELS.FREE && (
               <>
                 <td>
@@ -272,7 +272,7 @@ const BaseTakeChallenge = ({ level }) => {
             )}
           </tr>
           <tr style={{ textAlign: "center" }}>
-            <td scope="row">{strings.tradeDays}</td>
+            <td>{strings.tradeDays}</td>
             {level !== CHALLENGE_LEVELS.FREE && (
               <>
                 <td>
@@ -324,55 +324,34 @@ const BaseTakeChallenge = ({ level }) => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row">
-        <div className="col-12">
+      <div className="section fix-mr15">
+        <div className="block pd-20">
           <InputButtonRadiosColumn
             name={"balance"}
             strings={strings}
             items={pageState?.props?.balances}
           />
-        </div>
-        <div className="col-12">
+          <div className="pd-t-10 border-top"></div>
           <InputButtonRadiosColumn
             name={"server"}
             strings={strings}
             separate={true}
             items={pageState?.props?.servers}
           />
-        </div>
-        <div className="col-12">
+          <div className="pd-t-10 border-top"></div>
           <InputButtonRadiosColumn
             name={"platform"}
             strings={strings}
             separate={true}
             items={pageState?.props?.platforms}
           />
+          <div className="pd-t-10 border-top"></div>
           <InputButtonRadiosColumn
             name={"leverage"}
             strings={strings}
             items={pageState?.props?.leverages}
           />
-        </div>
-        <div className="col-12 border-top pt-4">
           <TableCard table={{ renderHeader, renderItems }} />
-        </div>
-        <div className="col-12 border-top pt-4">
-          <div
-            className="bg-dark text-white text-justify p-3 pt-4"
-            style={{ borderRadius: "5px" }}
-          >
-            <h5 className="text-center mb-4">{strings.rulesTitle}</h5>
-            {strings.rulesContent}
-          </div>
-        </div>
-        <div className="col-12 py-4 text-center">
-          <button
-            type="button"
-            className="btn btn-success px-4"
-            onClick={pageUtils?.useForm.handleSubmit(pageUtils.onSubmit)}
-          >
-            {strings.register}
-          </button>
         </div>
       </div>
     </BlankPage>

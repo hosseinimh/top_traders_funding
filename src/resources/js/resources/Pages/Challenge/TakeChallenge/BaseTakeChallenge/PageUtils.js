@@ -66,8 +66,8 @@ export class PageUtils extends BasePageUtils {
         id: balance.id,
         value: balance.id,
         label: this.initialPageProps.isPersian
-          ? utils.en2faDigits(balance.value)
-          : balance.value,
+          ? utils.en2faDigits(utils.addCommas(balance.value))
+          : utils.addCommas(balance.value),
         checked: false,
       }))
     );
@@ -103,8 +103,8 @@ export class PageUtils extends BasePageUtils {
         id: leverage.id,
         value: leverage.id,
         label: this.initialPageProps.isPersian
-          ? utils.en2faDigits(leverage.value)
-          : leverage.value,
+          ? utils.en2faDigits(utils.addCommas(leverage.value))
+          : utils.addCommas(leverage.value),
         checked: false,
       }))
     );

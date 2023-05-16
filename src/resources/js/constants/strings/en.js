@@ -27,7 +27,7 @@ export const general = {
   down: "پایین",
   file: "فایل ضمیمه",
   itemNotFound: "آیتم یافت نشد.",
-  noDataFound: "اطلاعاتی یافت نشد.",
+  noDataFound: "داده‌ای برای نمایش وجود ندارد.",
   noPermission: "شما مجوز ورود به این بخش را ندارید.",
   loading: "لطفا منتظر بمانید ...",
   networkError: "خطا در دریافت اطلاعات از سرور",
@@ -78,13 +78,14 @@ export const footer = {
 };
 
 export const sidebar = {
+  mainMenu: "منوی اصلی",
   dashboard: "داشبورد",
   takeFreeChallenge: "شرکت در چالش رایگان",
-  takeFreeChallenge: "شرکت در چالش رایگان",
+  takePaidChallenge: "شرکت در چالش جدید",
   challenges: "چالش‌های من",
   challengesAdmin: "چالش‌ها",
   users: "کاربران",
-  mainContainer: "امکانات",
+  quickAccess: "دسترسی سریع",
   appRules: "قوانین",
   campaigns: "کمپین‌ها",
   challengeBalances: "بالانس اکانت‌ها",
@@ -92,14 +93,15 @@ export const sidebar = {
   challengeServers: "سرورها",
   challengeRules: "قوانین",
   challengePlatforms: "پلتفرم‌ها",
-  servicesContainer: "خدمات",
   tickets: "تیکت‌های پشتیبانی",
   challengesManagement: "مدیریت چالش‌ها",
   systemManagement: "مدیریت سیستم",
-  userContainer: "مدیریت کاربری",
   editProfile: "ویرایش پروفایل",
   changePassword: "تغییر کلمه عبور",
-  logout: "خروج",
+  logout: "خروج از حساب کاربری",
+  telSupport: "تلفن پشتیبانی",
+  tel: "تلفن پشتیبانی",
+  supportHours: "تلفن پشتیبانی",
 };
 
 export const dashboardPage = {
@@ -110,8 +112,9 @@ export const dashboardPage = {
 };
 
 export const loginUserPage = {
-  welcome: "Welcome!",
-  description: "لطفا نام کاربری و کلمه عبور خود را وارد نمائید.",
+  _title: "ورود به حساب کاربری",
+  _subTitle:
+    "جهت استفاده از امکانات Top Traders Funding وارد حساب کاربری خود شوید.",
   username: "Username",
   usernamePlaceholder: "Username",
   password: "کلمه عبور",
@@ -315,7 +318,7 @@ export const ticketThreadsPage = {
 
 export const ticketsPage = {
   _title: "تیکت‌ها",
-  _subTitle: "فهرست تیکت‌های پشتیبانی کاربر",
+  _subTitle: "فهرست تیکت‌های پشتیبانی",
   add: "ثبت تیکت",
   user: "کاربر",
   type: "نوع",

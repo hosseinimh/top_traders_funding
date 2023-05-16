@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { MetaApiConnection } from "../../../utils/MetaApiConnection";
 
 import { USER_ROLES } from "../../../constants";
 import { BlankPage, Card, Span } from "../../components";
 import { PageUtils } from "./PageUtils";
 import utils from "../../../utils/Utils";
 import { useLocale } from "../../../hooks";
-import { MetaApi } from "../../../utils/MetaApi";
 
 const Dashboard = () => {
   const pageState = useSelector((state) => state.pageReducer);
@@ -15,17 +15,17 @@ const Dashboard = () => {
   const pageUtils = new PageUtils();
 
   useEffect(() => {
-    rr();
+    //rr();
   }, []);
 
   const rr = async () => {
-    const metaApi = new MetaApi();
-    await metaApi.connect(
-      "2zyifZwLcfqyCburdKAkaoyNbGMdhDbXsKyHLj6pJTk8HPPL3x2PdTdXXSYHwFAm",
-      "f57e5db2-1b9e-43f5-aa42-d52d910a00d9"
-    );
-    const result = await metaApi.sync2();
-    console.log(result);
+    const metaApi = new MetaApiConnection();
+    const token =
+      "SeXvxfbQHLxMoRR9MRFndfyRT9tD9QcNiQnxpMtgwY14VeSVNUR4FtSgmZr3VrEy";
+    const accountId = "fd8f34a6-258f-4e27-8e56-274a328388fb";
+    await metaApi.testMetaApiSynchronization(token, accountId);
+    // const result = await metaApi.testMetaApiSynchronization(token, accountId);
+    // console.log(result);
   };
 
   const renderUserReview = () => {
@@ -56,11 +56,7 @@ const Dashboard = () => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row">
-        {userState?.user?.role === USER_ROLES.ADMINISTRATOR
-          ? renderAdminReview()
-          : renderUserReview()}
-      </div>
+      <div className="row"></div>
     </BlankPage>
   );
 };

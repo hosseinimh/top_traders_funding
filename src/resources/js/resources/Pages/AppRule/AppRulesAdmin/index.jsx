@@ -29,7 +29,7 @@ const AppRulesAdmin = () => {
     const children = pageState?.props?.items?.map((item, index) => (
       <React.Fragment key={item.id}>
         <tr>
-          <td scope="row">{utils.en2faDigits(index + 1)}</td>
+          <td>{utils.en2faDigits(index + 1)}</td>
           <td>{item.title}</td>
           <td className={"display-linebreak"}>{item.body}</td>
         </tr>

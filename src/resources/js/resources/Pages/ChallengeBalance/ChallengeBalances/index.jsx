@@ -9,7 +9,7 @@ import { useLocale } from "../../../../hooks";
 const ChallengeBalances = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 2;
+  const columnsCount = 3;
   const { addChallengeBalancePage: strings, general } = useLocale();
   const isPersian = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils();
@@ -20,36 +20,33 @@ const ChallengeBalances = () => {
         #
       </th>
       <th scope="col">{strings.value}</th>
+      <th scope="col" style={{ width: "150px" }}>
+        {general.actions}
+      </th>
     </tr>
   );
 
   const renderItems = () => {
     const children = pageState?.props?.items?.map((item, index) => (
-      <React.Fragment key={item.id}>
-        <tr>
-          <td scope="row">
-            {isPersian ? utils.en2faDigits(index + 1) : index + 1}
-          </td>
-          <td>
-            {isPersian
-              ? utils.en2faDigits(utils.addCommas(item.value))
-              : utils.addCommas(item.value)}
-          </td>
-        </tr>
-        <tr>
-          <td colSpan={columnsCount}>
-            <button
-              type="button"
-              className="btn btn-warning mb-2 px-4 mxdir-2"
-              onClick={() => pageUtils.onEdit(item)}
-              title={general.edit}
-              disabled={layoutState?.loading}
-            >
-              {general.edit}
-            </button>
-          </td>
-        </tr>
-      </React.Fragment>
+      <tr key={item.id}>
+        <td>{isPersian ? utils.en2faDigits(index + 1) : index + 1}</td>
+        <td>
+          {isPersian
+            ? utils.en2faDigits(utils.addCommas(item.value))
+            : utils.addCommas(item.value)}
+        </td>
+        <td>
+          <button
+            type="button"
+            className="btn btn-blue mx-10"
+            onClick={() => pageUtils.onEdit(item)}
+            title={general.edit}
+            disabled={layoutState?.loading}
+          >
+            {general.edit}
+          </button>
+        </td>
+      </tr>
     ));
 
     return <TableItems columnsCount={columnsCount} children={children} />;

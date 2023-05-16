@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Constants\ChallengeStatus;
 use App\Models\Challenge as Model;
 
 class ChallengeService
@@ -24,14 +23,12 @@ class ChallengeService
             ->join('tbl_challenge_servers', 'tbl_challenges.server_id', '=', 'tbl_challenge_servers.id')
             ->join('tbl_challenge_platforms', 'tbl_challenges.platform_id', '=', 'tbl_challenge_platforms.id')
             ->join('tbl_challenge_leverages', 'tbl_challenges.leverage_id', '=', 'tbl_challenge_leverages.id');
-
         if ($userId) {
             $query = $query->where('user_id', $userId);
         }
         if ($status !== 0) {
             $query = $query->where('status', $status);
         }
-
         return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage',)->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
@@ -59,7 +56,6 @@ class ChallengeService
             'meta_api_token' => $metaApiToken,
             'meta_api_account_id' => $metaApiAccountId,
         ];
-
         return $model->update($data);
     }
 
@@ -80,7 +76,6 @@ class ChallengeService
         if ($status !== 0) {
             $query = $query->where('status', $status);
         }
-
         return $query->count();
     }
 }
