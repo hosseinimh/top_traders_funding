@@ -14,15 +14,17 @@ import ColumnRow from "./Grid/ColumnRow";
 
 // Input
 import InputButtonRadiosColumn from "./Input/InputButtonRadiosColumn";
-import InputTextColumn from "./Input/InputTextColumn";
-import InputTextAreaColumn from "./Input/InputTextAreaColumn";
+import InputCheckboxColumn from "./Input/InputCheckboxColumn";
+import InputCheckboxContainer from "./Input/InputCheckboxContainer";
 import InputFileColumn from "./Input/InputFileColumn";
 import InputHiddenElement from "./Input/InputHiddenElement";
-import InputSelectColumn from "./Input/InputSelectColumn";
-import InputReactSelectColumn from "./Input/InputReactSelectColumn";
 import InputRadioColumn from "./Input/InputRadioColumn";
-import InputCheckboxColumn from "./Input/InputCheckboxColumn";
+import InputReactSelectColumn from "./Input/InputReactSelectColumn";
+import InputRow from "./Input/InputRow";
+import InputSelectColumn from "./Input/InputSelectColumn";
 import InputSwitchCheckboxColumn from "./Input/InputSwitchCheckboxColumn";
+import InputTextAreaColumn from "./Input/InputTextAreaColumn";
+import InputTextColumn from "./Input/InputTextColumn";
 
 // Label
 import LabelColumn from "./Label/LabelColumn";
@@ -73,15 +75,17 @@ export {
   ColumnRow,
   FallbackError,
   InputButtonRadiosColumn,
-  InputTextColumn,
-  InputTextAreaColumn,
+  InputCheckboxColumn,
+  InputCheckboxContainer,
   InputFileColumn,
   InputHiddenElement,
-  InputSelectColumn,
-  InputReactSelectColumn,
   InputRadioColumn,
-  InputCheckboxColumn,
+  InputReactSelectColumn,
+  InputRow,
+  InputSelectColumn,
   InputSwitchCheckboxColumn,
+  InputTextAreaColumn,
+  InputTextColumn,
   LabelColumn,
   FormPageLayout,
   ForgotPageLayout,

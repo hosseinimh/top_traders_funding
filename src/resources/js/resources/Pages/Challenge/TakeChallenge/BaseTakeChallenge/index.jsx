@@ -113,7 +113,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.dailySl1)}
                   {pageState.props.rules.dailySl1 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -125,7 +125,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.dailySl2)}
                   {pageState.props.rules.dailySl2 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -137,7 +137,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.dailySlReal)}
                   {pageState.props.rules.dailySlReal !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
               </>
@@ -152,7 +152,7 @@ const BaseTakeChallenge = ({ level }) => {
                     )
                   : utils.addCommas(pageState.props.rules.dailySlFree)}
                 {pageState.props.rules.dailySlFree !== 0 && (
-                  <span className="mxdir-1">%</span>
+                  <span className="mxdir-5">%</span>
                 )}
               </td>
             )}
@@ -170,7 +170,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.totalSl1)}
                   {pageState.props.rules.totalSl1 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -182,7 +182,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.totalSl2)}
                   {pageState.props.rules.totalSl2 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -194,7 +194,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.totalSlReal)}
                   {pageState.props.rules.totalSlReal !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
               </>
@@ -209,7 +209,7 @@ const BaseTakeChallenge = ({ level }) => {
                     )
                   : utils.addCommas(pageState.props.rules.totalSlFree)}
                 {pageState.props.rules.totalSlFree !== 0 && (
-                  <span className="mxdir-1">%</span>
+                  <span className="mxdir-5">%</span>
                 )}
               </td>
             )}
@@ -227,7 +227,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.target1)}
                   {pageState.props.rules.target1 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -239,7 +239,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.target2)}
                   {pageState.props.rules.target2 !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
                 <td>
@@ -251,7 +251,7 @@ const BaseTakeChallenge = ({ level }) => {
                       )
                     : utils.addCommas(pageState.props.rules.targetReal)}
                   {pageState.props.rules.targetReal !== 0 && (
-                    <span className="mxdir-1">%</span>
+                    <span className="mxdir-5">%</span>
                   )}
                 </td>
               </>
@@ -266,7 +266,7 @@ const BaseTakeChallenge = ({ level }) => {
                     )
                   : utils.addCommas(pageState.props.rules.targetFree)}
                 {pageState.props.rules.targetFree !== 0 && (
-                  <span className="mxdir-1">%</span>
+                  <span className="mxdir-5">%</span>
                 )}
               </td>
             )}

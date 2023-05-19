@@ -8,18 +8,12 @@ const Login = () => {
 
   return (
     <LoginPageLayout pageUtils={pageUtils}>
-      <InputTextColumn
-        field="username"
-        showLabel={false}
-        textAlign="left"
-        columnClassName="col-12"
-      />
+      <InputTextColumn field="username" showLabel={false} textAlign="left" />
       <InputTextColumn
         field="password"
         type="password"
         showLabel={false}
         textAlign="left"
-        columnClassName="col-12"
       />
     </LoginPageLayout>
   );

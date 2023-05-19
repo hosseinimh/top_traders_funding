@@ -76,12 +76,14 @@ export class PageUtils extends BasePageUtils {
   }
 
   handleFetchResult(result) {
-    this.dispatch(
-      setPageTitleAction(
-        `${this.strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
-        this.strings._subTitle
-      )
-    );
+    if (this.userState?.user?.role === USER_ROLES.ADMINISTRATOR) {
+      this.dispatch(
+        setPageTitleAction(
+          `${this.strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
+          this.strings._subTitle
+        )
+      );
+    }
   }
 
   async onSubmit(data) {

@@ -56,7 +56,7 @@ const Dashboard = () => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row"></div>
+      <div></div>
     </BlankPage>
   );
 };

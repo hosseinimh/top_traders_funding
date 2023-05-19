@@ -30,22 +30,15 @@ const InputCheckboxColumn = ({ field, useForm, strings, checked }) => {
   }, [form]);
 
   return (
-    <div className="form-check">
+    <>
       <input
         {...form?.register(field)}
-        className="form-check-input"
         id={field}
         type="checkbox"
         disabled={layoutState?.loading}
       />
-      <label
-        className="form-check-label"
-        style={{ marginTop: "2px" }}
-        htmlFor={field}
-      >
-        {label}
-      </label>
-    </div>
+      <label htmlFor={field}>{label}</label>
+    </>
   );
 };
 

@@ -39,32 +39,17 @@ export class PageUtils extends BasePageUtils {
     }
   }
 
-  verifyAction({ id }) {
-    if (utils.isId(id)) {
-      this.modals[0].modal.show();
-    }
-  }
-
   async verifiedAction({ id }) {
     if (utils.isId(id)) {
-      this.modals[0].modal.hide();
       await this.changeStatus(id, CHALLENGE_STATUSES.WAITING_TRADE);
     }
   }
 
-  onVerify(item) {
-    this.dispatch(
-      setPagePropsAction({
-        action: "VERIFY",
-        item,
-      })
-    );
-  }
-
-  onVerified() {
+  onVerified(item) {
     this.dispatch(
       setPagePropsAction({
         action: "VERIFIED",
+        item,
       })
     );
   }
@@ -89,12 +74,8 @@ export class PageUtils extends BasePageUtils {
 
   onAction(props) {
     switch (props.action) {
-      case "VERIFY":
-        this.verifyAction(props.item);
-
-        break;
       case "VERIFIED":
-        this.verifiedAction(this.pageState?.props?.item);
+        this.verifiedAction(props.item);
 
         break;
       case "ANALYZE":

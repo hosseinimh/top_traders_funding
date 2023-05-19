@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import InputRow from "./InputRow";
 
 const InputFileColumn = ({
   field,
   accept = ".jpg, .jpeg, .png, .pdf, .doc, .docx",
   onChangeFile,
   useForm,
-  columnClassName = "col-md-3 col-12 pb-2",
   strings,
+  fullRow = true,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -31,29 +32,26 @@ const InputFileColumn = ({
     }
   }, [pageState]);
 
-  return (
-    <div className={columnClassName}>
-      <label className="form-label" htmlFor={field}>
-        {label}
-      </label>
+  const renderItem = () => (
+    <label className="input-file">
       <input
+        type="file"
+        className="file-input"
         {...form?.register(`${field}`)}
-        className={
-          messageState?.messageField === field
-            ? "form-control-file is-invalid"
-            : "form-control-file"
-        }
         id={field}
         disabled={layoutState?.loading}
-        type="file"
         accept={accept}
         onChange={(e) => onChangeFile(e)}
       />
-      {messageState?.messageField === field && (
-        <div className="invalid-feedback">{messageState?.message}</div>
-      )}
-    </div>
+      <div className="filenameinput overhide">{label}</div>
+      <i className="icon-import"></i>
+    </label>
   );
+
+  if (fullRow) {
+    return <InputRow>{renderItem()}</InputRow>;
+  }
+  return renderItem();
 };
 
 export default InputFileColumn;

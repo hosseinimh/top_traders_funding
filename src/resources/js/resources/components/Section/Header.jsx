@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { slideUp, slideDown } from "es6-slide-up-down";
+import { easeOutQuint } from "es6-easings";
 
 import {
   BASE_PATH,
@@ -25,6 +27,8 @@ const Header = () => {
   const navigate = useNavigate();
   const { header: strings, general } = useLocale();
   const userState = useSelector((state) => state.userReducer);
+  const [userCollapsed, setUserCollapsed] = useState(false);
+  const [lightTheme, setLightTheme] = useState(false);
   const authUser = utils.getLSUser();
 
   const toggleSidebar = () => {
@@ -312,47 +316,68 @@ const Header = () => {
     );
   };
 
+  const toggleUserMenu = () => {
+    const element = document.querySelector("#user-menu").lastChild;
+    if (userCollapsed) {
+      slideUp(element);
+    } else {
+      slideDown(element, {
+        duration: 400,
+        easing: easeOutQuint,
+      });
+    }
+    setUserCollapsed(!userCollapsed);
+  };
+
+  const toggleTheme = () => {
+    if (lightTheme) {
+      document.body.classList.remove("light");
+    } else {
+      document.body.classList.add("light");
+    }
+    setLightTheme(!lightTheme);
+  };
+
   return (
     <div className="navbar d-flex align-center">
       <div className="menu-toggle" onClick={toggleSidebar}>
         <i className="icon-category4"></i>
       </div>
-      <div className="userinfo sub">
-        <div className="d-flex align-center">
-          <div className="img">
-            <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />
+      <div className="userinfo sub" id="user-menu">
+        <CustomLink onClick={toggleUserMenu}>
+          <div className="d-flex align-center">
+            <div className="img">
+              <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />
+            </div>
+            <div className="info">
+              <div className="name">{`${authUser?.name ?? ""} ${
+                authUser?.family ?? ""
+              }`}</div>
+              <div className="userid">{`${authUser?.username ?? ""}`}</div>
+            </div>
           </div>
-          <div className="info">
-            <div className="name">{`${authUser?.name ?? ""} ${
-              authUser?.family ?? ""
-            }`}</div>
-            <div className="userid">{`${authUser?.username ?? ""}`}</div>
-          </div>
-        </div>
+        </CustomLink>
         <div className="submenu">
           <ul>
             <li>
-              <a href="https://kifpool.me/member_v2/profile">
-                <i className="icon-personalcard"></i> پروفایل کاربری
-              </a>
+              <Link to={`${BASE_PATH}/users/edit`}>
+                <i className="icon-personalcard"></i> {strings.profile}
+              </Link>
             </li>
             <li>
-              <a href="https://kifpool.me/member_v2/earn-money">
-                <i className="icon-money-add4"></i> کسب درآمد
-              </a>
-            </li>
-            <li>
-              <a href="https://kifpool.me/member_v2/verify/cards">
-                <i className="icon-cards"></i> افزودن حساب بانکی
-              </a>
-            </li>
-            <li>
-              <a href="https://kifpool.me/member_v2/logout" className="red">
-                <i className="icon-logout"></i> خروج از حساب
-              </a>
+              <CustomLink onClick={onLogout} className="red">
+                <i className="icon-logout"></i> {strings.logout}
+              </CustomLink>
             </li>
           </ul>
         </div>
+      </div>
+      <div className="navbar-actions">
+        <CustomLink onClick={toggleTheme}>
+          <div className="item dark-toggle">
+            <i className="icon-sun-1"></i>
+          </div>
+        </CustomLink>
       </div>
     </div>
   );

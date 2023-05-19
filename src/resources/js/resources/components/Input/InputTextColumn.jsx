@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
+import InputRow from "./InputRow";
 
 const InputTextColumn = ({
   field,
@@ -8,12 +9,12 @@ const InputTextColumn = ({
   useForm,
   strings = null,
   icon = null,
-  columnClassName = "col-md-3 col-12 pb-2",
   inputStyle = {},
   defaultValue = "",
-  showLabel = true,
+  showLabel = false,
   textAlign = "",
   readonly = false,
+  fullRow = true,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -62,42 +63,49 @@ const InputTextColumn = ({
         <input
           id={field.name}
           {...field}
-          className={
-            messageState?.messageField === field.name
-              ? "form-control is-invalid"
-              : "form-control"
-          }
           placeholder={placeholder}
           disabled={layoutState?.loading || readonly}
           type={type}
           style={{ ...style }}
         />
         {messageState?.messageField === field.name && (
-          <div className="invalid-feedback">{messageState?.message}</div>
+          <span className="error">{messageState?.message}</span>
         )}
       </>
     );
   };
 
-  return (
-    <div className="input-text input-bg input-border">
-      {form && (
-        <>
-          <Controller
-            render={({ field }) => renderInput(field)}
-            name={field}
-            control={form?.control}
-            defaultValue={defaultValue}
-          />
-          {icon && (
-            <div className="icon">
-              <i className="icon-mobile"></i>
-            </div>
-          )}
-        </>
-      )}
+  const renderItem = () => (
+    <div>
+      {showLabel && <div className="input-info">{label}</div>}
+      <div
+        className={`input-text input-bg input-border ${
+          messageState?.messageField === field ? "error mb-40" : "mb-30"
+        }`}
+      >
+        {form && (
+          <>
+            <Controller
+              render={({ field }) => renderInput(field)}
+              name={field}
+              control={form?.control}
+              defaultValue={defaultValue}
+            />
+            {icon && (
+              <div className="icon">
+                <i className="icon-mobile"></i>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
+
+  if (fullRow) {
+    return <InputRow>{renderItem()}</InputRow>;
+  }
+  return renderItem();
 };
 
 export default InputTextColumn;

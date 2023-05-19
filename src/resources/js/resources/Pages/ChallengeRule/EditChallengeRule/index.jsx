@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputTextColumn, FormPage } from "../../../components";
+import { InputTextColumn, FormPage, InputRow } from "../../../components";
 import { PageUtils } from "./PageUtils";
 
 const EditChallengeRule = () => {
@@ -8,26 +8,156 @@ const EditChallengeRule = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="duration1" textAlign="left" type="number" />
-      <InputTextColumn field="duration2" textAlign="left" type="number" />
-      <InputTextColumn field="durationReal" textAlign="left" type="number" />
-      <InputTextColumn field="durationFree" textAlign="left" type="number" />
-      <InputTextColumn field="dailySl1" textAlign="left" type="number" />
-      <InputTextColumn field="dailySl2" textAlign="left" type="number" />
-      <InputTextColumn field="dailySlReal" textAlign="left" type="number" />
-      <InputTextColumn field="dailySlFree" textAlign="left" type="number" />
-      <InputTextColumn field="totalSl1" textAlign="left" type="number" />
-      <InputTextColumn field="totalSl2" textAlign="left" type="number" />
-      <InputTextColumn field="totalSlReal" textAlign="left" type="number" />
-      <InputTextColumn field="totalSlFree" textAlign="left" type="number" />
-      <InputTextColumn field="target1" textAlign="left" type="number" />
-      <InputTextColumn field="target2" textAlign="left" type="number" />
-      <InputTextColumn field="targetReal" textAlign="left" type="number" />
-      <InputTextColumn field="targetFree" textAlign="left" type="number" />
-      <InputTextColumn field="tradeDays1" textAlign="left" type="number" />
-      <InputTextColumn field="tradeDays2" textAlign="left" type="number" />
-      <InputTextColumn field="tradeDaysReal" textAlign="left" type="number" />
-      <InputTextColumn field="tradeDaysFree" textAlign="left" type="number" />
+      <InputRow>
+        <InputTextColumn
+          field="duration1"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="duration2"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="durationReal"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="durationFree"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+      </InputRow>
+      <InputRow>
+        <InputTextColumn
+          field="dailySl1"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="dailySl2"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="dailySlReal"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="dailySlFree"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+      </InputRow>
+      <InputRow>
+        <InputTextColumn
+          field="totalSl1"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="totalSl2"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="totalSlReal"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="totalSlFree"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+      </InputRow>
+      <InputRow>
+        <InputTextColumn
+          field="target1"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="target2"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="targetReal"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="targetFree"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+      </InputRow>
+      <InputRow>
+        <InputTextColumn
+          field="tradeDays1"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="tradeDays2"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="tradeDaysReal"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="tradeDaysFree"
+          textAlign="left"
+          type="number"
+          showLabel
+          fullRow={false}
+        />
+      </InputRow>
     </FormPage>
   );
 };

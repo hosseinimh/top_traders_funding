@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import InputRow from "./InputRow";
 
 const InputTextAreaColumn = ({
   field,
   useForm,
-  columnClassName = "col-md-3 col-12 pb-2",
   strings,
+  showLabel,
+  fullRow = true,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -40,27 +42,40 @@ const InputTextAreaColumn = ({
     }
   }, [pageState]);
 
-  return (
-    <div className={columnClassName}>
-      <label className="form-label" htmlFor={field}>
-        {label}
-      </label>
-      <textarea
-        {...form?.register(field)}
-        className={
-          messageState?.messageField === field
-            ? "form-control is-invalid"
-            : "form-control"
-        }
-        id={field}
-        placeholder={placeholder}
-        disabled={layoutState?.loading}
-      />
-      {messageState?.messageField === field && (
-        <div className="invalid-feedback">{messageState?.message}</div>
-      )}
+  const renderItem = () => (
+    <div>
+      {showLabel && <div className="input-info">{label}</div>}
+      <div
+        className={`input-text input-bg input-border ${
+          messageState?.messageField === field ? "error mb-40" : "mb-30"
+        }`}
+        style={{
+          minHeight: "100px",
+        }}
+      >
+        <textarea
+          {...form?.register(field)}
+          id={field}
+          className="textarea"
+          style={{
+            minHeight: "100px",
+            paddingTop: "15px",
+            paddingBottom: "15px",
+          }}
+          placeholder={placeholder}
+          disabled={layoutState?.loading}
+        />
+        {messageState?.messageField === field && (
+          <span className="error">{messageState?.message}</span>
+        )}
+      </div>
     </div>
   );
+
+  if (fullRow) {
+    return <InputRow>{renderItem()}</InputRow>;
+  }
+  return renderItem();
 };
 
 export default InputTextAreaColumn;

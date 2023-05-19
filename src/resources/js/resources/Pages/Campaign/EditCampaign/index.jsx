@@ -1,26 +1,26 @@
 import React from "react";
 
 import {
-    InputTextColumn,
-    FormPage,
-    InputCheckboxColumn,
+  InputTextColumn,
+  FormPage,
+  InputCheckboxColumn,
+  InputCheckboxContainer,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 
 const EditCampaign = () => {
-    const { editCampaignPage: strings } = useLocale();
-    const pageUtils = new PageUtils();
+  const { editCampaignPage: strings } = useLocale();
+  const pageUtils = new PageUtils();
 
-    return (
-        <FormPage pageUtils={pageUtils}>
-            <InputTextColumn field="title" columnClassName="col-12" />
-            <div className="col-md-3 col-sm-12 pb-4">
-                <label className="form-label">{strings.status}</label>
-                <InputCheckboxColumn field="isActive" checked={true} />
-            </div>
-        </FormPage>
-    );
+  return (
+    <FormPage pageUtils={pageUtils}>
+      <InputTextColumn field="title" showLabel />
+      <InputCheckboxContainer>
+        <InputCheckboxColumn field="isActive" checked={true} />
+      </InputCheckboxContainer>
+    </FormPage>
+  );
 };
 
 export default EditCampaign;

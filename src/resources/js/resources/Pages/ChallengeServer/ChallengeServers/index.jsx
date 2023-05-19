@@ -9,7 +9,7 @@ import { useLocale } from "../../../../hooks";
 const ChallengeServers = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 3;
+  const columnsCount = 4;
   const { addChallengeServerPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
 
@@ -20,31 +20,30 @@ const ChallengeServers = () => {
       </th>
       <th scope="col">{strings.name}</th>
       <th scope="col">{strings.title}</th>
+      <th scope="col" style={{ width: "150px" }}>
+        {general.actions}
+      </th>
     </tr>
   );
 
   const renderItems = () => {
     const children = pageState?.props?.items?.map((item, index) => (
-      <React.Fragment key={item.id}>
-        <tr>
-          <td>{utils.en2faDigits(index + 1)}</td>
-          <td>{item.name}</td>
-          <td>{item.title}</td>
-        </tr>
-        <tr>
-          <td colSpan={columnsCount}>
-            <button
-              type="button"
-              className="btn btn-warning mb-2 px-4 mxdir-2"
-              onClick={() => pageUtils.onEdit(item)}
-              title={general.edit}
-              disabled={layoutState?.loading}
-            >
-              {general.edit}
-            </button>
-          </td>
-        </tr>
-      </React.Fragment>
+      <tr key={item.id}>
+        <td>{utils.en2faDigits(index + 1)}</td>
+        <td>{item.name}</td>
+        <td>{item.title}</td>
+        <td colSpan={columnsCount}>
+          <button
+            type="button"
+            className="btn btn-blue mxdir-5"
+            onClick={() => pageUtils.onEdit(item)}
+            title={general.edit}
+            disabled={layoutState?.loading}
+          >
+            {general.edit}
+          </button>
+        </td>
+      </tr>
     ));
 
     return <TableItems columnsCount={columnsCount} children={children} />;

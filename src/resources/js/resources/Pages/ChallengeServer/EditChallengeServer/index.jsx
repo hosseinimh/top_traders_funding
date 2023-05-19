@@ -4,6 +4,7 @@ import {
   InputTextColumn,
   FormPage,
   InputCheckboxColumn,
+  InputCheckboxContainer,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
 
@@ -12,14 +13,14 @@ const EditChallengeServer = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="name" textAlign="left" columnClassName="col-12" />
-      <InputTextColumn field="title" columnClassName="col-12" />
-      <div className="col-12 pb-4">
+      <InputTextColumn field="name" textAlign="left" />
+      <InputTextColumn field="title" />
+      <InputCheckboxContainer>
         <InputCheckboxColumn field="free" checked={true} />
-      </div>
-      <div className="col-12 pb-4">
+      </InputCheckboxContainer>
+      <InputCheckboxContainer>
         <InputCheckboxColumn field="real" checked={true} />
-      </div>
+      </InputCheckboxContainer>
     </FormPage>
   );
 };

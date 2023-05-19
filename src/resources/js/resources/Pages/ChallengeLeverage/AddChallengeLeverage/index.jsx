@@ -4,6 +4,7 @@ import {
   InputTextColumn,
   FormPage,
   InputCheckboxColumn,
+  InputCheckboxContainer,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
 
@@ -12,18 +13,13 @@ const AddChallengeLeverage = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn
-        field="value"
-        textAlign="left"
-        columnClassName="col-12"
-        type="number"
-      />
-      <div className="col-12 pb-4">
+      <InputTextColumn field="value" textAlign="left" type="number" />
+      <InputCheckboxContainer>
         <InputCheckboxColumn field="free" checked={true} />
-      </div>
-      <div className="col-12 pb-4">
+      </InputCheckboxContainer>
+      <InputCheckboxContainer>
         <InputCheckboxColumn field="real" checked={true} />
-      </div>
+      </InputCheckboxContainer>
     </FormPage>
   );
 };

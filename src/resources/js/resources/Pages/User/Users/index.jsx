@@ -27,12 +27,10 @@ const Users = () => {
       onSubmit={pageUtils.onSubmit}
       onReset={pageUtils.onReset}
     >
-      <div>
-        <div className="list-input">
-          <InputTextColumn field="username" textAlign="left" />
-          <InputTextColumn field="nameFamily" />
-          <InputTextColumn field="email" textAlign="left" />
-        </div>
+      <div className="list-input">
+        <InputTextColumn field="username" textAlign="left" />
+        <InputTextColumn field="nameFamily" />
+        <InputTextColumn field="email" textAlign="left" />
       </div>
     </SearchBox>
   );

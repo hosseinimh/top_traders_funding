@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { slideUp, slideDown } from "es6-slide-up-down";
+import { easeOutQuint } from "es6-easings";
+
+import InputRow from "./InputRow";
+import CustomLink from "../Link/CustomLink";
 
 const InputSelectColumn = ({
   field,
@@ -9,17 +14,13 @@ const InputSelectColumn = ({
   valueItem = "value",
   useForm,
   strings,
-  handleChange,
-  selectStyle = {},
-  size = 1,
-  columnClassName = "col-md-3 col-12 pb-2",
   noSelect = false,
-  multiple = false,
   selectedValue = null,
+  fullRow = true,
 }) => {
-  const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const messageState = useSelector((state) => state.messageReducer);
+  const [collapsed, setCollapsed] = useState(false);
   const [label, setLabel] = useState(
     strings && field in strings ? strings[field] : ""
   );
@@ -41,7 +42,7 @@ const InputSelectColumn = ({
 
   useEffect(() => {
     if (form && selectedValue) {
-      form?.setValue(field, selectedValue);
+      selectOption(selectedValue);
     }
   }, [form]);
 
@@ -57,56 +58,76 @@ const InputSelectColumn = ({
     }
   }, [form?.formState]);
 
-  const renderSelect = (field) => (
-    <>
-      <select
-        id={field.name}
-        style={{ ...selectStyle }}
-        multiple={multiple}
-        size={size}
-        {...field}
-        className={
-          messageState?.messageField === field.name
-            ? "form-control is-invalid"
-            : "form-control"
-        }
-        aria-label={`select ${field.name}`}
-        disabled={layoutState?.loading}
-        onChange={(e) => {
-          form.setValue(field.name, e.target.value);
+  const toggleList = () => {
+    const element = document.querySelector(`#select-box-${field}`).lastChild;
+    if (collapsed) {
+      slideUp(element);
+    } else {
+      slideDown(element, {
+        duration: 400,
+        easing: easeOutQuint,
+      });
+    }
+    setCollapsed(!collapsed);
+  };
 
-          if (handleChange) {
-            handleChange(e);
-          }
-        }}
-      >
-        {noSelect && <option value="">-------</option>}
-        {items?.map((item, index) => (
-          <option value={item[keyItem]} key={index}>
-            {item[valueItem]}
-          </option>
-        ))}
-      </select>
-      {messageState?.messageField === field.name && (
-        <div className="invalid-feedback">{messageState?.message}</div>
-      )}
-    </>
-  );
+  const selectOption = (value) => {
+    [...document.querySelectorAll(`.select-option-${field}`)].map((option) => {
+      if (option.getAttribute("data-select") === `${value}`) {
+        option.classList.add("active");
+        document.querySelector(`.select-input-${field}`).value =
+          option.innerText;
+        form.setValue(field, value);
+      } else {
+        option.classList.remove("active");
+      }
+    });
+    const element = document.querySelector(`#select-box-${field}`).lastChild;
+    slideUp(element);
+    setCollapsed(false);
+  };
 
-  return (
-    <div className={columnClassName}>
-      <label className="form-label" htmlFor={field}>
-        {label}
-      </label>
-      {form && (
-        <Controller
-          render={({ field }) => renderSelect(field)}
+  const renderItem = () => (
+    <div className="select-box" id={`select-box-${field}`}>
+      <div className="select" onClick={toggleList}>
+        <input type="text" className="selectval" name={field} hidden />
+        <input
+          type="text"
+          className={`select-input select-input-${field}`}
+          placeholder={label}
+          autoComplete="off"
+          readOnly
           name={field}
-          control={form?.control}
         />
-      )}
+        {messageState?.messageField === field.name && (
+          <span className="error">{messageState?.message}</span>
+        )}
+        <div className="icon">
+          <i className="icon-arrow-down-1"></i>
+        </div>
+      </div>
+      <div className="select-list scrollhide">
+        {items?.map((item, index) => (
+          <div
+            key={item[keyItem]}
+            onClick={(e) => selectOption(item[keyItem])}
+            data-select={item[keyItem]}
+            className={`select-option select-option-${field}`}
+          >
+            {item[valueItem]}
+          </div>
+        ))}
+      </div>
     </div>
   );
+
+  if (form) {
+    if (fullRow) {
+      return <InputRow>{renderItem()}</InputRow>;
+    }
+    return renderItem();
+  }
+  return <></>;
 };
 
 export default InputSelectColumn;

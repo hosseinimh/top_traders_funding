@@ -62,7 +62,8 @@ form,
 hr,
 blockquote,
 fieldset,
-input {
+input,
+textarea {
   margin: 0;
   padding: 0;
   border: none;
@@ -118,7 +119,8 @@ button {
   border: none;
   cursor: pointer;
 }
-input {
+input,
+textarea {
   background: 0 0;
   color: #fff;
 }
@@ -429,7 +431,7 @@ a.btn {
   cursor: not-allowed;
 }
 .btns .btn {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 @media (max-width: 400px) {
   .btns .btn {
@@ -438,9 +440,11 @@ a.btn {
   }
 }
 .list-input {
-  margin: 0 -10px;
   display: flex;
   flex-wrap: wrap;
+}
+.list-input > div {
+  flex-grow: 1;
 }
 .list-input > .btn {
   margin: 10px 10px 20px;
@@ -457,8 +461,9 @@ body.light .input-border.error {
 body.light .input-border.valid {
   box-shadow: 0 0 0 1px #239f40, 0 0 15px rgba(35, 159, 64, 0.37);
 }
-.input-text {
-  margin: 10px 10px 20px;
+.input-text,
+.input-checkbox {
+  padding: 0 15px;
   flex-grow: 1;
   height: 48px;
   display: flex;
@@ -467,7 +472,12 @@ body.light .input-border.valid {
   position: relative;
   flex-basis: 200px;
 }
-.input-text input {
+.input-checkbox {
+  margin: 10px 10px 0;
+  padding: 0 0 0 15px;
+}
+.input-text input,
+.input-text textarea {
   padding: 0 15px;
   height: 100%;
   width: 0;
@@ -478,7 +488,8 @@ body.light .input-border.valid {
   cursor: pointer;
 }
 .input-text input[type="text"],
-.input-text input[type="password"] {
+.input-text input[type="password"],
+textarea {
   border-radius: 10px;
 }
 .input-text input:disabled {
@@ -541,7 +552,7 @@ input[type="radio"] ~ span.error {
   position: relative;
   width: 100%;
   border-radius: 10px;
-  margin: 10px;
+  resize: none;
 }
 .fanum {
   margin-bottom: 10px;
@@ -590,6 +601,11 @@ input[type="radio"] ~ span.error {
 .field-title {
   color: #fff;
   padding-right: 5px;
+}
+.field-checkbox {
+  color: #fff;
+  padding-right: 5px;
+  padding-left: 15px;
 }
 .modal .field-title {
   color: #444;
@@ -778,6 +794,7 @@ body.light .menu ul li a:hover img {
   padding: 5px 0 !important;
   display: none;
   margin-top: 10px;
+  margin-right: 10px;
 }
 @media (max-width: 1024px) {
   .sidebar {
@@ -1827,7 +1844,7 @@ table .bookmark.active:before {
   flex-basis: 200px;
   flex-grow: 1;
   cursor: pointer;
-  margin: 10px 10px 20px;
+  margin: 10px 0 20px;
   box-shadow: 0 0 0 1px #21262e;
   border-radius: 10px;
   height: 48px;
@@ -4719,7 +4736,6 @@ a.page-link:hover {
   display: none;
   border-radius: 10px;
   background: #121720;
-  padding: 10px 0;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 .navbar .submenu ul {
@@ -5678,6 +5694,12 @@ body.light .filter-th {
 .mb-20 {
   margin-bottom: 20px;
 }
+.mb-30 {
+  margin-bottom: 30px;
+}
+.mb-40 {
+  margin-bottom: 40px;
+}
 .mx-5 {
   margin-right: 5px;
   margin-left: 5px;
@@ -5688,6 +5710,15 @@ body.light .filter-th {
 }
 .mx-20 {
   margin-right: 20px;
+  margin-left: 20px;
+}
+.mxdir-5 {
+  margin-left: 5px;
+}
+.mxdir-10 {
+  margin-left: 10px;
+}
+.mxdir-20 {
   margin-left: 20px;
 }
 .m-td-5 {
@@ -15764,4 +15795,348 @@ tr.even .dtfc-fixed-left {
 }
 body.light tr.even .dtfc-fixed-left {
   background: #f9f9f9;
+}
+body.light,
+body.light .sidebar,
+body.light .sub-box,
+body.light .dark-toggle,
+body.light .select-coin-list,
+body.light .select-list,
+body.light .pric-cards .item,
+body.light .most-demanded .item,
+body.light .submenu {
+  background: #fff;
+}
+body.light,
+body.light .last-coin-title,
+body.light .main-wallet .info .hd span,
+body.light .chart-info .item > span,
+body.light .content-title h2,
+body.light .main-coin-info .item .title,
+body.light .main-coin-info .item .pric,
+body.light .main-coin-name strong,
+body.light .btn-border,
+body.light .userinfo .info,
+body.light .notifi-item h3,
+body.light .support-item,
+body.light .sub-box .hd .title,
+body.light .menu ul li a,
+body.light .navbar-actions .item,
+body.light .profitable-slider .profit-item .infobox,
+body.light .main-user-status-list .item strong,
+body.light .coin-select .info .name,
+body.light .block-title h3,
+body.light input[type="text"],
+body.light textarea,
+body.light #walletTable td.balace strong,
+body.light .arz-balace strong,
+body.light .arz-info .info strong,
+body.light .notifi-item .icon,
+body.light .support-item .icon,
+body.light input,
+body.light .uploadimg b,
+body.light .uploadbox-text h3,
+body.light .calcbtn,
+body.light .calcbtn:hover,
+body.light .calcbtn:active,
+body.light .calcbtn:focus,
+body.light .calcbtn:active:focus,
+body.light .trade-center .balance-info .info span,
+body.light .referral-links .hd h3,
+body.light .ticket-title h2,
+body.light .ticket-item .user-info .name,
+body.light .card-item .card-num,
+body.light .notice-box h3,
+body.light .fild-title,
+body.light .form-option,
+body.light .vpric-item,
+body.light .user-databox .item .title,
+body.light .user-databox .user-info .info .name,
+body.light .checked-list .checked-item,
+body.light .shownum-trl,
+body.light .airplane-info .info b,
+body.light .airbuy-info .title,
+body.light .most-demanded .item .info .name,
+body.light .arz-info .info .name,
+body.light .pric-cards .item .list-item .pric,
+body.light .submenu ul li a,
+body.light .btn-lang,
+body.light .text-info .title,
+body.light .main-user-status .title {
+  color: #444;
+}
+body.light .main-coin-info .item .date,
+body.light .main-user-status-list .item span,
+body.light .arz-balace span,
+body.light #walletTable td.balace span,
+body.light .uploadimg span,
+body.light .referral-links .item > div,
+body.light .referral-info .item > div,
+body.light .referral-percent .hd .item div,
+body.light .ticket-item .user-info span,
+body.light .sliderbtns .swiper-button-disabled,
+body.light .airpay-info .item span,
+body.light .most-demanded .item .info .symbol,
+body.light .most-demanded .item .most-ft span {
+  color: #999;
+}
+body.light .menu ul li a:hover,
+body.light .menu ul li.active a,
+body.light .select-coin-item .coin-select:hover .info .name {
+  color: #fff !important;
+}
+body.light .dashboard-content,
+body.light .navbar {
+  background: #fafafa;
+}
+body.light .notifi-item .icon,
+body.light .support-item .icon,
+body.light .step-num .icon,
+body.light .sortitem.active,
+body.light .exchnage-info,
+body.light .slider,
+body.light .extab-item::before,
+body.light #output,
+body.light .tab-btn::before,
+body.light .ticket-item,
+body.light .form-option,
+body.light .vpric-item,
+body.light .checked-list .checked-item,
+body.light .timeslider .item,
+body.light .sliderbtns .swiper-button-disabled,
+body.light .ticket-info .catlist .catitem,
+body.light .ticket-info .infos a,
+body.light .airpay-info .item,
+body.light .coin-buy-item,
+body.light .imgprev,
+body.light .btn-lang {
+  background: #f0f0f0;
+}
+body.light .block {
+  background: #fff;
+}
+body.light .step-num.active .icon {
+  background: #0042a0;
+}
+body.light .block,
+body.light .last-coin-title,
+body.light .profitable-slider .profit-item,
+body.light .select-coin-status-hd,
+body.light .main-user-status,
+body.light .notifi-item,
+body.light .support-item,
+body.light .menu ul,
+body.light table.dataTable thead th,
+body.light table.dataTable thead td,
+body.light .trade-center,
+body.light .trade-center .balance-info,
+body.light .trade-center #candleChart,
+body.light #output,
+body.light .outputbox,
+body.light .referral-info .item:nth-of-type(2),
+body.light .referral-percent .hd .item:first-child,
+body.light .referral-percent > .hd,
+body.light .referral-links .hd,
+body.light .block-tabs,
+body.light .border-top,
+body.light .user-databox,
+body.light .traveler-form,
+body.light .airplane-info,
+body.light .airplane-info .img,
+body.light .pric-cards .item,
+body.light .pric-cards .item .list,
+body.light .notifi-text,
+body.light .most-demanded .item,
+body.light .most-demanded .item .most-ft,
+body.light .table-header,
+body.light .walletsinle-balance .arz-balace {
+  border-color: #eee;
+}
+body.light .btn-border,
+body.light .select-box,
+body.light .input-border,
+body.light .btn-bardasht,
+body.light .btn-variz,
+body.light .btn-kharid,
+body.light .sortitem.active,
+body.light .dataTables_wrapper .dataTables_filter input,
+body.light .calcbtn,
+body.light .card-item,
+body.light .togglebox,
+body.light .select-search .searchinput,
+body.light .airname .img {
+  box-shadow: 0 0 0 1px #ddd;
+}
+body.light .notice-box {
+  box-shadow: 0 0 0 1px #eee;
+}
+body.light .input-text .icon,
+body.light .input-file,
+body.light .uploadimg,
+body.light .steps:before,
+body.light .airline .line-icon::before,
+body.light input[type="radio"],
+body.light input[type="checkbox"] {
+  border-color: #ddd;
+}
+body.light .checked-item input[type="radio"],
+body.light .checked-item input[type="checkbox"] {
+  border-color: transparent;
+}
+body.light .main-coin-name::after,
+body.light .coin-status-list .item::after {
+  background: linear-gradient(
+    0deg,
+    rgba(49, 54, 64, 0) 0%,
+    #eee 49.01%,
+    rgba(49, 54, 64, 0) 100%
+  );
+}
+body.light .block-tabs .btn .img img {
+  filter: brightness(0);
+}
+body.light .notifi-item:hover,
+body.light .notifi-item.active,
+body.light .support-item:hover,
+body.light #walletTable tr:hover {
+  background: #f9f9f9;
+  box-shadow: none;
+}
+body.light table.dataTable tbody tr.even {
+  background: #f9f9f9;
+}
+body.light .dark-logo {
+  display: none;
+}
+body.light .light-logo {
+  display: block;
+}
+body.light .select-list {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1), 0 0 0 1px #eee;
+}
+body.light .select-option {
+  color: #444;
+}
+body.light .select-option:hover,
+body.light .select-option.active {
+  background: #f0f0f0;
+}
+body.light .btn-bardasht:hover,
+body.light:hover .btn-variz:hover,
+body.light .btn-kharid:hover {
+  box-shadow: unset;
+}
+body.light .trade-center-table:before,
+body.light #arzTable_wrapper::before {
+  background: linear-gradient(0deg, #fff 10%, transparent 100%);
+}
+body.light .notice-box ul li::before {
+  box-shadow: 0 0 0 3px #eee;
+}
+body.light .togglebox {
+  background: #dfdfdf;
+}
+body.light .timeslider::before {
+  background-color: #fff;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}
+body.light .timeslider:after {
+  background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+}
+body.light .checked-list .checked-item.active {
+  background: #0042a0;
+}
+@media (max-width: 1161px) {
+  body.light .trade-main {
+    border-bottom: 1px solid #eee;
+  }
+  body.light .trade-center {
+    border-left: 1px solid #eee;
+  }
+  body.light .tradebox > .trade-sidebar .trade-side-item:last-child,
+  body.light
+    .sidebar.active
+    ~ .main
+    .trade-main
+    .trade-sidebar
+    .trade-side-item:last-child {
+    border-right: 1px solid #eee;
+  }
+}
+@media (max-width: 1119px) {
+  body.light .trade-center {
+    border-bottom: 1px solid #eee;
+  }
+  body.light .trade-main .trade-sidebar .trade-side-item:last-child {
+    border-right: 1px solid #eee;
+  }
+}
+@media (max-width: 1024px) {
+  body.light .trade-main {
+    border-left: 1px solid #eee;
+  }
+  body.light .trade-main .trade-sidebar .trade-side-item:last-child,
+  body.light
+    .sidebar.active
+    ~ .main
+    .trade-main
+    .trade-sidebar
+    .trade-side-item:last-child {
+    border-right: 1px solid #eee;
+  }
+  body.light .trade-center .balance-info {
+    border-top: 1px solid #eee;
+  }
+}
+@media (max-width: 901px) {
+  body.light .trade-center {
+    border-right: 1px solid #eee;
+  }
+  body.light .trade-main,
+  body.light .sidebar.active ~ .main .trade-main {
+    border-bottom: 1px solid #eee;
+  }
+  body.light .tradebox > .trade-sidebar .trade-side-item:last-child,
+  body.light
+    .sidebar.active
+    ~ .main
+    .tradebox
+    > .trade-sidebar
+    .trade-side-item:last-child {
+    border-right: 1px solid #eee;
+  }
+}
+@media (max-width: 861px) {
+  body.light .trade-center .balance-info {
+    border-top: 1px solid #eee;
+  }
+  body.light .trade-main .trade-sidebar .trade-side-item:last-child,
+  body.light
+    .sidebar.active
+    ~ .main
+    .trade-main
+    .trade-sidebar
+    .trade-side-item:last-child {
+    border-right: 1px solid #eee;
+  }
+}
+@media (max-width: 621px) {
+  body.light .trade-main .trade-sidebar .trade-side-item:last-child,
+  body.light
+    .sidebar.active
+    ~ .main
+    .trade-main
+    .trade-sidebar
+    .trade-side-item:last-child {
+    border-top: 1px solid #eee;
+  }
+}
+@media (max-width: 620px) {
+  body.light .referral-info .item {
+    background: #f0f0f0;
+  }
+}
+body.light .sub-box,
+body.light .navbar .submenu {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }

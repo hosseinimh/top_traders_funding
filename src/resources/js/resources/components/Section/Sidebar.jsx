@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
@@ -17,11 +17,25 @@ function Sidebar() {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const userState = useSelector((state) => state.userReducer);
+  const [challengesCollapsed, setChallengesCollapsed] = useState(false);
   const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
     initSidebarMenus();
   }, []);
+
+  const toggleChallenges = () => {
+    const element = document.querySelector("#challenges-management").lastChild;
+    if (challengesCollapsed) {
+      slideUp(element);
+    } else {
+      slideDown(element, {
+        duration: 1000,
+        easing: easeOutQuint,
+      });
+    }
+    setChallengesCollapsed(!challengesCollapsed);
+  };
 
   const initSidebarMenus = () => {
     const links = [...document.querySelectorAll(".menu-container")];
@@ -70,14 +84,9 @@ function Sidebar() {
   );
 
   const renderSubMenuItem = (url, string, page) => (
-    <li>
-      <Link
-        to={url}
-        aria-expanded="false"
-        className={`mb-1 ${pageState?.page === page ? "mm-active" : ""}`}
-      >
-        <i className="metismenu-icon"></i>
-        {string}
+    <li className={`${pageState?.page === page ? "active" : ""}`}>
+      <Link to={url}>
+        <span>{string}</span>
       </Link>
     </li>
   );
@@ -157,41 +166,52 @@ function Sidebar() {
               "icon-receipt",
               "Campaigns"
             )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderSubMenuItem(
-              `${BASE_PATH}/challenge_balances`,
-              strings.challengeBalances,
-              "icon-receipt",
-              "ChallengeBalances"
-            )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/challenge_leverages`,
-              strings.challengeLeverages,
-              "icon-receipt",
-              "ChallengeLeverages"
-            )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/challenge_servers`,
-              strings.challengeServers,
-              "icon-receipt",
-              "ChallengeServers"
-            )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/challenge_rules`,
-              strings.challengeRules,
-              "icon-receipt",
-              "ChallengeRules"
-            )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/challenge_platforms`,
-              strings.challengePlatforms,
-              "icon-receipt",
-              "ChallengePlatforms"
-            )}
+          <li className="sub" id="challenges-management">
+            <CustomLink onClick={toggleChallenges}>
+              <i className="icon-strongbox-24"></i>
+              <span>
+                {strings.challengesManagement}{" "}
+                <i className="icon-arrow-down-14"></i>
+              </span>
+            </CustomLink>
+            <ul className="subMenu" style={{ display: "none" }}>
+              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                renderMenuItem(
+                  `${BASE_PATH}/challenge_balances`,
+                  strings.challengeBalances,
+                  "icon-receipt",
+                  "ChallengeBalances"
+                )}
+              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                renderMenuItem(
+                  `${BASE_PATH}/challenge_leverages`,
+                  strings.challengeLeverages,
+                  "icon-receipt",
+                  "ChallengeLeverages"
+                )}
+              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                renderMenuItem(
+                  `${BASE_PATH}/challenge_servers`,
+                  strings.challengeServers,
+                  "icon-receipt",
+                  "ChallengeServers"
+                )}
+              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                renderMenuItem(
+                  `${BASE_PATH}/challenge_rules`,
+                  strings.challengeRules,
+                  "icon-receipt",
+                  "ChallengeRules"
+                )}
+              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                renderMenuItem(
+                  `${BASE_PATH}/challenge_platforms`,
+                  strings.challengePlatforms,
+                  "icon-receipt",
+                  "ChallengePlatforms"
+                )}
+            </ul>
+          </li>
           {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
             renderMenuItem(
               `${BASE_PATH}/users`,
