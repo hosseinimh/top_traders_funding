@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { slideUp, slideDown } from "es6-slide-up-down";
+import { slideDown, slideUp } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
 import {
@@ -18,6 +18,8 @@ import {
   setLocaleAction,
   setLoadingAction,
   toggleSidebarAction,
+  setDropDownElementAction,
+  setDropDownWidgetAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User } from "../../../http/entities";
@@ -26,8 +28,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { header: strings, general } = useLocale();
+  const layoutState = useSelector((state) => state.layoutReducer);
   const userState = useSelector((state) => state.userReducer);
-  const [userCollapsed, setUserCollapsed] = useState(false);
   const [lightTheme, setLightTheme] = useState(false);
   const authUser = utils.getLSUser();
 
@@ -316,17 +318,17 @@ const Header = () => {
     );
   };
 
-  const toggleUserMenu = () => {
-    const element = document.querySelector("#user-menu").lastChild;
-    if (userCollapsed) {
-      slideUp(element);
-    } else {
-      slideDown(element, {
-        duration: 400,
-        easing: easeOutQuint,
-      });
+  const showUserMenu = (e) => {
+    e.stopPropagation();
+    if (layoutState?.dropDownElement) {
+      slideUp(layoutState.dropDownElement);
     }
-    setUserCollapsed(!userCollapsed);
+    const element = document.querySelector("#user-menu").lastChild;
+    dispatch(setDropDownElementAction(element));
+    slideDown(element, {
+      duration: 400,
+      easing: easeOutQuint,
+    });
   };
 
   const toggleTheme = () => {
@@ -343,8 +345,8 @@ const Header = () => {
       <div className="menu-toggle" onClick={toggleSidebar}>
         <i className="icon-category4"></i>
       </div>
-      <div className="userinfo sub" id="user-menu">
-        <CustomLink onClick={toggleUserMenu}>
+      <div className="userinfo sub dropDown-link" id="user-menu">
+        <CustomLink onClick={(e) => showUserMenu(e)}>
           <div className="d-flex align-center">
             <div className="img">
               <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />
@@ -357,7 +359,7 @@ const Header = () => {
             </div>
           </div>
         </CustomLink>
-        <div className="submenu">
+        <div className="submenu dropDown-list">
           <ul>
             <li>
               <Link to={`${BASE_PATH}/users/edit`}>

@@ -1,5 +1,4 @@
 import serverConfig from "../../../server-config.json";
-import { HEADER_BUTTONS } from "./headerButtons";
 import { MESSAGE_TYPES } from "./messageTypes";
 import { MESSAGE_CODES } from "./messageCodes";
 import { UPLOADED_FILE } from "./UploadedFile";
@@ -26,7 +25,6 @@ export {
   IMAGES_PATH,
   STORAGE_PATH,
   PAGE_ITEMS,
-  HEADER_BUTTONS,
   MESSAGE_TYPES,
   MESSAGE_CODES,
   UPLOADED_FILE,

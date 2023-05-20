@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 
 import { ListPage, TableFooter, TableItems } from "../../../../components";
 import utils from "../../../../../utils/Utils";
-import { BASE_PATH, USER_ROLES } from "../../../../../constants";
+import {
+  BASE_PATH,
+  TICKET_STATUSES,
+  USER_ROLES,
+} from "../../../../../constants";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 
@@ -39,14 +43,20 @@ const Tickets = ({ userId }) => {
           )}
         </td>
         <td>
-          <Link to={`${BASE_PATH}/tickets/threads/${item.id}`} className="link">
+          <Link
+            to={`${BASE_PATH}/tickets/threads/${item.id}`}
+            className="orange"
+          >
             {item.typeText}
           </Link>
-          <p className="pt-2">
-            <span className="badge bg-success text-white">
-              {item.statusText}
-            </span>
-          </p>
+          <div className="dot">
+            <span
+              className={`${
+                item.status === TICKET_STATUSES.OPEN ? "bg-green" : "bg-orange"
+              }`}
+            ></span>
+            <span>{item.statusText}</span>
+          </div>
         </td>
         <td>
           <p>

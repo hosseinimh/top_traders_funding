@@ -258,8 +258,9 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  background-color: transparent !important;
-  -webkit-box-shadow: 0 0 0 50px #fff inset;
+  -webkit-box-shadow: 0 0 0 30px #0b0e12 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  border-radius: 0 !important;
 }
 ::-webkit-input-placeholder {
   color: #8f959e;
@@ -310,6 +311,24 @@ textarea {
 }
 .yellow {
   color: #ffe03a !important;
+}
+.bg-green {
+  background-color: #00a66a !important;
+}
+.bg-red {
+  background-color: #d55252 !important;
+}
+.bg-orange {
+  background-color: #e8a700 !important;
+}
+.bg-blue {
+  background-color: #45d6f0 !important;
+}
+.bg-purple {
+  background-color: #b580ff !important;
+}
+.bg-yellow {
+  background-color: #ffe03a !important;
 }
 img {
   display: block;
@@ -670,7 +689,7 @@ input[type="radio"] ~ span.error {
 .sidebar.active .logo-sm {
   display: block;
 }
-.sidebar.active .logo-larg {
+.sidebar.active .logo-large {
   display: none;
 }
 .light-logo {
@@ -815,13 +834,13 @@ body.light .menu ul li a:hover img {
   .sidebar.active .logo-sm {
     display: none;
   }
-  .sidebar.active .logo-larg.dark-logo {
+  .sidebar.active .logo-large.dark-logo {
     display: block;
   }
-  body.light .sidebar.active .logo-larg.dark-logo {
+  body.light .sidebar.active .logo-large.dark-logo {
     display: none;
   }
-  body.light .sidebar.active .logo-larg.light-logo {
+  body.light .sidebar.active .logo-large.light-logo {
     display: block;
   }
   .sidebar.active .menu .menu-title {
@@ -1237,6 +1256,17 @@ body.light .menu ul li a:hover img {
   color: #fff;
 }
 .chart-info .item .chartvalue span {
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  border-radius: 100px;
+  margin-left: 5px;
+}
+.dot {
+  display: flex;
+  align-items: center;
+}
+.dot span:first-child {
   height: 10px;
   width: 10px;
   display: inline-block;

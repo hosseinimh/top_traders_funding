@@ -5,6 +5,7 @@ export const SET_SIZE_ACTION = "SET_SIZE_ACTION";
 export const SET_LOCALE_ACTION = "SET_LOCALE_ACTION";
 export const SET_NOTIFICATIONS_ACTION = "SET_NOTIFICATIONS_ACTION";
 export const TOGGLE_SIDEBAR_ACTION = "TOGGLE_SIDEBAR_ACTION";
+export const SET_DROP_DOWN_ELEMENT_ACTION = "SET_DROP_DOWN_ELEMENT_ACTION";
 
 export const setLoadingAction = (loading) => async (dispatch) => {
   dispatch({
@@ -39,5 +40,12 @@ export const setNotificationsAction = (notifications) => async (dispatch) => {
 export const toggleSidebarAction = () => async (dispatch) => {
   dispatch({
     type: TOGGLE_SIDEBAR_ACTION,
+  });
+};
+
+export const setDropDownElementAction = (element) => async (dispatch) => {
+  dispatch({
+    type: SET_DROP_DOWN_ELEMENT_ACTION,
+    payload: element,
   });
 };

@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import {
   BlankPage,
-  ColumnRow,
   FormCard,
   InputFileColumn,
   InputTextAreaColumn,
@@ -31,101 +30,100 @@ const TicketThreads = () => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row mb-2">
-        <div className="col-12 mb-4">
-          {pageState?.props?.item?.status === TICKET_STATUSES.OPEN && (
-            <button
-              className="btn btn-warning mxdir-2 px-4"
-              type="button"
-              title={strings.closeTicket}
-              disabled={layoutState?.loading}
-            >
-              {strings.closeTicket}
-            </button>
-          )}
+      <div className="btns d-flex mt-30">
+        {pageState?.props?.item?.status === TICKET_STATUSES.OPEN && (
           <button
-            className="btn btn-secondary px-4"
+            className="btn btn-blue mxdir-5"
             type="button"
-            title={general.back}
-            onClick={pageUtils.onCancel}
+            title={strings.closeTicket}
             disabled={layoutState?.loading}
           >
-            {general.back}
+            {strings.closeTicket}
           </button>
+        )}
+        <button
+          className="btn btn-border mxdir-5"
+          type="button"
+          title={general.back}
+          onClick={pageUtils.onCancel}
+          disabled={layoutState?.loading}
+        >
+          {general.back}
+        </button>
+      </div>
+      {pageState?.props?.item && (
+        <div className="dot pd-td-20">
+          <span
+            className={`${
+              pageState.props.item.status === TICKET_STATUSES.OPEN
+                ? "bg-green"
+                : "bg-orange"
+            }`}
+          ></span>
+          <span>{pageState.props.item.statusText}</span>
         </div>
-      </div>
-      <p>
-        <span className="badge bg-success text-white">
-          {pageState?.props?.item?.statusText}
-        </span>
-      </p>
-      <div className="card mb-4">
-        {pageState?.props?.threads?.map((item) => (
-          <div
-            key={item.id}
-            className="card-body"
-            style={{
-              border: "1px solid rgba(0, 0, 21, 0.125)",
-              backgroundColor: item.adminCreated === 0 ? "" : "#e5eaef",
-            }}
-          >
-            <div className="row">
-              <div className="col-12">
-                <p
-                  style={{
-                    marginBottom: "0",
-                    fontSize: "0.8rem",
-                    textAlign:
-                      item?.adminCreated === 0 ? userDirection : adminDirection,
-                  }}
-                >
-                  {`${item?.creatorName} ${item?.creatorFamily} - ${
-                    item?.adminCreated ? general.administrator : general.user
-                  }`}
-                </p>
-                <p
-                  className="mb-4"
-                  style={{
-                    fontSize: "0.8rem",
-                    textAlign:
-                      item?.adminCreated === 0 ? userDirection : adminDirection,
-                  }}
-                >
-                  {item?.faCreatedAt}
-                </p>
-                <p
-                  style={{
-                    whiteSpace: "pre-line",
-                    textAlign: item?.adminCreated === 0 ? "right" : "left",
-                  }}
-                >
-                  {item?.content}
-                </p>
-              </div>
-              {item?.file && (
-                <div className="col-12 mt-4 mb-2">
-                  <a
-                    href={`${STORAGE_PATH}/ticket_threads/${item.file}`}
-                    target={"_blank"}
-                  >
-                    <BsPaperclip />
-                    <span>{general.file}</span>
-                  </a>
-                </div>
-              )}
-            </div>
+      )}
+      {pageState?.props?.threads?.map((item) => (
+        <div
+          key={item.id}
+          className="block pd-30 pd-d-10"
+          style={{
+            backgroundColor:
+              item.adminCreated === 0 ? "" : "rgba(20,26,32,0.2)",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                marginBottom: "0",
+                fontSize: "0.8rem",
+                textAlign:
+                  item?.adminCreated === 0 ? userDirection : adminDirection,
+              }}
+            >
+              {`${item?.creatorName} ${item?.creatorFamily} - ${
+                item?.adminCreated ? general.administrator : general.user
+              }`}
+            </p>
+            <p
+              className="mb-20"
+              style={{
+                fontSize: "0.8rem",
+                textAlign:
+                  item?.adminCreated === 0 ? userDirection : adminDirection,
+              }}
+            >
+              {item?.faCreatedAt}
+            </p>
+            <p
+              style={{
+                whiteSpace: "pre-line",
+                textAlign:
+                  item?.adminCreated === 0 ? userDirection : adminDirection,
+              }}
+            >
+              {item?.content}
+            </p>
           </div>
-        ))}
-      </div>
+          {item?.file && (
+            <div className="mt-20">
+              <a
+                href={`${STORAGE_PATH}/ticket_threads/${item.file}`}
+                target={"_blank"}
+              >
+                <BsPaperclip className="orange" />
+                <span className="orange">{general.file}</span>
+              </a>
+            </div>
+          )}
+        </div>
+      ))}
       {pageState?.props?.item?.status === TICKET_STATUSES.OPEN && (
         <FormCard pageUtils={pageUtils}>
-          <h5 className="mb-4">{strings.sendTicket}</h5>
-          <ColumnRow columns={3}>
-            <InputTextAreaColumn
-              field="content"
-              columnClassName="col-12 col-md-8 pb-2"
-            />
-          </ColumnRow>
+          <div className="block-title mb-30">
+            <h3>{strings.sendTicket}</h3>
+          </div>
+          <InputTextAreaColumn field="content" />
           <InputFileColumn field="file" onChangeFile={(e) => onChangeFile(e)} />
         </FormCard>
       )}

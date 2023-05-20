@@ -8,6 +8,7 @@ const initialState = {
   locale: utils.initLocale(),
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
+  dropDownElement: null,
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {
@@ -37,6 +38,11 @@ const layoutReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         sidebarCollapsed: !state.sidebarCollapsed,
+      };
+    case actions.SET_DROP_DOWN_ELEMENT_ACTION:
+      return {
+        ...state,
+        dropDownElement: payload,
       };
     default:
       return state;

@@ -96,12 +96,12 @@ function Sidebar() {
       <div className="sidebar-hd d-flex align-start just-between">
         <div className="logo">
           <img
-            className="logo-larg dark-logo"
+            className="logo-large dark-logo"
             src={`${IMAGES_PATH}/logo-large.svg`}
             alt=""
           />
           <img
-            className="logo-larg light-logo"
+            className="logo-large light-logo"
             src={`${IMAGES_PATH}/logo-large-light.sv`}
             alt=""
           />
@@ -159,66 +159,75 @@ function Sidebar() {
             "icon-receipt",
             "AppRules"
           )}
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/campaigns`,
-              strings.campaigns,
-              "icon-receipt",
-              "Campaigns"
-            )}
-          <li className="sub" id="challenges-management">
-            <CustomLink onClick={toggleChallenges}>
-              <i className="icon-strongbox-24"></i>
-              <span>
-                {strings.challengesManagement}{" "}
-                <i className="icon-arrow-down-14"></i>
-              </span>
-            </CustomLink>
-            <ul className="subMenu" style={{ display: "none" }}>
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                renderMenuItem(
-                  `${BASE_PATH}/challenge_balances`,
-                  strings.challengeBalances,
-                  "icon-receipt",
-                  "ChallengeBalances"
-                )}
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                renderMenuItem(
-                  `${BASE_PATH}/challenge_leverages`,
-                  strings.challengeLeverages,
-                  "icon-receipt",
-                  "ChallengeLeverages"
-                )}
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                renderMenuItem(
-                  `${BASE_PATH}/challenge_servers`,
-                  strings.challengeServers,
-                  "icon-receipt",
-                  "ChallengeServers"
-                )}
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                renderMenuItem(
-                  `${BASE_PATH}/challenge_rules`,
-                  strings.challengeRules,
-                  "icon-receipt",
-                  "ChallengeRules"
-                )}
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                renderMenuItem(
-                  `${BASE_PATH}/challenge_platforms`,
-                  strings.challengePlatforms,
-                  "icon-receipt",
-                  "ChallengePlatforms"
-                )}
-            </ul>
-          </li>
-          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-            renderMenuItem(
-              `${BASE_PATH}/users`,
-              strings.users,
-              "icon-personalcard",
-              "Users"
-            )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+            <>
+              {renderMenuItem(
+                `${BASE_PATH}/campaigns`,
+                strings.campaigns,
+                "icon-receipt",
+                "Campaigns"
+              )}
+              <li className="sub" id="challenges-management">
+                <CustomLink onClick={toggleChallenges}>
+                  <i className="icon-strongbox-24"></i>
+                  <span>
+                    {strings.challengesManagement}{" "}
+                    <i className="icon-arrow-down-14"></i>
+                  </span>
+                </CustomLink>
+                <ul className="subMenu" style={{ display: "none" }}>
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_balances`,
+                    strings.challengeBalances,
+                    "icon-receipt",
+                    "ChallengeBalances"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_leverages`,
+                    strings.challengeLeverages,
+                    "icon-receipt",
+                    "ChallengeLeverages"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_servers`,
+                    strings.challengeServers,
+                    "icon-receipt",
+                    "ChallengeServers"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_rules`,
+                    strings.challengeRules,
+                    "icon-receipt",
+                    "ChallengeRules"
+                  )}
+                  {renderMenuItem(
+                    `${BASE_PATH}/challenge_platforms`,
+                    strings.challengePlatforms,
+                    "icon-receipt",
+                    "ChallengePlatforms"
+                  )}
+                </ul>
+              </li>
+              {renderMenuItem(
+                `${BASE_PATH}/users`,
+                strings.users,
+                "icon-personalcard",
+                "Users"
+              )}
+            </>
+          )}
+          {renderMenuItem(
+            `${BASE_PATH}/users/edit`,
+            strings.editProfile,
+            "icon-user-edit4",
+            "EditProfile"
+          )}
+          {renderMenuItem(
+            `${BASE_PATH}/users/change_password`,
+            strings.changePassword,
+            "icon-key-square4",
+            "ChangePasswordProfile"
+          )}
           <li>
             <CustomLink onClick={onLogout} className="red">
               <i className="icon-logout"></i>

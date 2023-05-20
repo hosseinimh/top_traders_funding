@@ -30,6 +30,7 @@ export const general = {
   noDataFound: "داده‌ای برای نمایش وجود ندارد.",
   noPermission: "شما مجوز ورود به این بخش را ندارید.",
   loading: "لطفا منتظر بمانید ...",
+  submitLoading: "لطفا صبر کنید ...",
   networkError: "خطا در دریافت اطلاعات از سرور",
   fallbackError: "خطایی در نمایش صفحه مورد نظر رخ داد.",
   fallbackReturnHome: "بازگشت به داشبورد مدیریت",
@@ -71,10 +72,61 @@ export const header = {
 };
 
 export const footer = {
-  copyright: "Copyright © Top Traders Funding",
-  developedBy: "طراحی و توسعه",
-  developer: "محمود حسینی",
-  developerUrl: "http://hosseinimh.com",
+  text: "Copyright © Top Traders Funding",
+  version: "داشبورد Top Traders Funding - نسخه: 1.0.0",
+};
+
+export const notAuthPages = {
+  _title: "حساب اینترنتی مطمئن برای نگهداری دارایی شما",
+  _subTitle:
+    "با سامانه کیف پول من خرید و فروش و دارایی های دیجیتال خود را به آسانی مدیریت کنید.",
+};
+
+export const loginUserPage = {
+  _title: "ورود به حساب کاربری",
+  _subTitle:
+    "جهت استفاده از امکانات Top Traders Funding وارد حساب کاربری خود شوید.",
+  username: "نام کاربری",
+  usernamePlaceholder: "نام کاربری",
+  password: "کلمه عبور",
+  passwordPlaceholder: "کلمه عبور",
+  forgot: "کلمه عبور خود را فراموش کرده‌اید؟",
+  recoverPassword: "بازیابی کلمه عبور",
+  notSignedup: "حساب کاربری ندارید؟",
+  signup: "ثبت‌نام کنید",
+  submit: "ورود به داشبورد مدیریت",
+  loginByGoogle: "ورود با Google",
+};
+
+export const forgotPasswordPage = {
+  _title: "بازیابی کلمه عبور",
+  _subTitle: "جهت بازیابی کلمه عبور، لطفا پست الکترونیک خود را وارد نمایید.",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
+  submit: "بازیابی کلمه عبور",
+  login: "ورود به داشبورد مدیریت",
+  submitted: "کلمه عبور جدید به پست الکترونیک شما ارسال شد.",
+};
+
+export const signupPage = {
+  _title: "ثبت نام",
+  _subTitle:
+    "برای افتتاح حساب در Top Traders Funding، لطفا مشخصات خود را وارد نمایید.",
+  username: "نام کاربری",
+  usernamePlaceholder: "نام کاربری",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
+  password: "کلمه عبور",
+  passwordPlaceholder: "کلمه عبور",
+  confirmPassword: "تکرار کلمه عبور",
+  confirmPasswordPlaceholder: "تکرار کلمه عبور",
+  name: "نام",
+  namePlaceholder: "نام",
+  family: "نام خانوادگی",
+  familyPlaceholder: "نام خانوادگی",
+  submit: "ثبت‌نام",
+  haveAccount: "حساب کاربری دارید؟",
+  login: "ورود به داشبورد مدیریت",
 };
 
 export const sidebar = {
@@ -109,54 +161,6 @@ export const dashboardPage = {
   _subTitle: "سامانه در یک نگاه",
   users: "کاربران",
   challenges: "چالش‌های برگزارشده",
-};
-
-export const loginUserPage = {
-  _title: "ورود به حساب کاربری",
-  _subTitle:
-    "جهت استفاده از امکانات Top Traders Funding وارد حساب کاربری خود شوید.",
-  username: "Username",
-  usernamePlaceholder: "Username",
-  password: "کلمه عبور",
-  passwordPlaceholder: "کلمه عبور",
-  forgot: "فراموشی کلمه عبور",
-  signup: "ثبت نام",
-  login: "ورود به داشبورد مدیریت",
-  loginSM: "ورود",
-  loginByGoogle: "ورود با Google",
-};
-
-export const forgotPasswordPage = {
-  _title: "فراموشی کلمه عبور",
-  description: "لطفا پست الکترونیک خود را وارد نمائید.",
-  email: "پست الکترونیک",
-  emailPlaceholder: "پست الکترونیک",
-  login: "ورود به داشبورد مدیریت",
-  submitted: "کلمه عبور جدید به پست الکترونیکی شما ارسال شد.",
-};
-
-export const signupPage = {
-  _title: "ثبت نام",
-  welcome: "خوش آمدید!",
-  description1: "تنها",
-  description2: "چند ثانیه",
-  description3: "زمان می‌برد تا حساب شما ساخته شود.",
-  username: "نام کاربری",
-  usernamePlaceholder: "نام کاربری",
-  email: "پست الکترونیک",
-  emailPlaceholder: "پست الکترونیک",
-  password: "کلمه عبور",
-  passwordPlaceholder: "کلمه عبور",
-  confirmPassword: "تکرار کلمه عبور",
-  confirmPasswordPlaceholder: "تکرار کلمه عبور",
-  name: "نام",
-  namePlaceholder: "نام",
-  family: "نام خانوادگی",
-  familyPlaceholder: "نام خانوادگی",
-  signup: "ثبت نام",
-  haveAccount: "قبلا عضو شده‌اید؟",
-  login: "ورود به داشبورد مدیریت",
-  loginSM: "ورود",
 };
 
 export const usersPage = {
@@ -203,6 +207,23 @@ export const addUserPage = {
 export const editUserPage = {
   _title: "ویرایش کاربر",
   _subTitle: "مشخصات کاربر تعریف شده را ویرایش نمایید.",
+  name: "نام",
+  namePlaceholder: "نام",
+  family: "نام خانوادگی",
+  familyPlaceholder: "نام خانوادگی",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
+  status: "وضعیت",
+  isActive: "فعال",
+  type: "نوع کاربری",
+  administrator: "مدیر",
+  user: "کاربر",
+  submitted: "ویرایش کاربر با موفقیت انجام گردید.",
+};
+
+export const editProfilePage = {
+  _title: "ویرایش پروفایل",
+  _subTitle: "مشخصات پروفایل تعریف شده را ویرایش نمایید.",
   name: "نام",
   namePlaceholder: "نام",
   family: "نام خانوادگی",

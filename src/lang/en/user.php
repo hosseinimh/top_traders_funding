@@ -4,7 +4,7 @@ require_once __DIR__ . '/Helper/MessageHelper.php';
 
 return [
     'user_not_found' => 'نام کاربری یا کلمه عبور اشتباه است.',
-    'email_not_found' => 'کاربری با این پست الکترونیکی یافت نشد.',
+    'email_not_found' => 'کاربری با این پست الکترونیک یافت نشد.',
     'username_required' => $requiredMessage('نام کاربری'),
     'username_min' => $minStringMessage('نام کاربری', 6),
     'username_max' => $maxStringMessage('نام کاربری', 50),

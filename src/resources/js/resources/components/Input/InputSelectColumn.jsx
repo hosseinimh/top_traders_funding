@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Controller } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { slideUp, slideDown } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
 import InputRow from "./InputRow";
-import CustomLink from "../Link/CustomLink";
+import { setDropDownElementAction } from "../../../state/layout/layoutActions";
 
 const InputSelectColumn = ({
   field,
@@ -18,9 +17,10 @@ const InputSelectColumn = ({
   selectedValue = null,
   fullRow = true,
 }) => {
+  const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const messageState = useSelector((state) => state.messageReducer);
-  const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
   const [label, setLabel] = useState(
     strings && field in strings ? strings[field] : ""
   );
@@ -42,7 +42,7 @@ const InputSelectColumn = ({
 
   useEffect(() => {
     if (form && selectedValue) {
-      selectOption(selectedValue);
+      selectOption(null, selectedValue);
     }
   }, [form]);
 
@@ -58,20 +58,21 @@ const InputSelectColumn = ({
     }
   }, [form?.formState]);
 
-  const toggleList = () => {
-    const element = document.querySelector(`#select-box-${field}`).lastChild;
-    if (collapsed) {
-      slideUp(element);
-    } else {
-      slideDown(element, {
-        duration: 400,
-        easing: easeOutQuint,
-      });
+  const showList = (e) => {
+    e.stopPropagation();
+    if (layoutState?.dropDownElement) {
+      slideUp(layoutState.dropDownElement);
     }
-    setCollapsed(!collapsed);
+    const element = document.querySelector(`#select-box-${field}`).lastChild;
+    dispatch(setDropDownElementAction(element));
+    slideDown(element, {
+      duration: 400,
+      easing: easeOutQuint,
+    });
   };
 
-  const selectOption = (value) => {
+  const selectOption = (e, value) => {
+    e && e.stopPropagation();
     [...document.querySelectorAll(`.select-option-${field}`)].map((option) => {
       if (option.getAttribute("data-select") === `${value}`) {
         option.classList.add("active");
@@ -83,13 +84,13 @@ const InputSelectColumn = ({
       }
     });
     const element = document.querySelector(`#select-box-${field}`).lastChild;
+    dispatch(setDropDownElementAction(null));
     slideUp(element);
-    setCollapsed(false);
   };
 
   const renderItem = () => (
     <div className="select-box" id={`select-box-${field}`}>
-      <div className="select" onClick={toggleList}>
+      <div className="select" onClick={(e) => showList(e)}>
         <input type="text" className="selectval" name={field} hidden />
         <input
           type="text"
@@ -106,11 +107,11 @@ const InputSelectColumn = ({
           <i className="icon-arrow-down-1"></i>
         </div>
       </div>
-      <div className="select-list scrollhide">
+      <div className="select-list scrollhide dropDown-list">
         {items?.map((item, index) => (
           <div
             key={item[keyItem]}
-            onClick={(e) => selectOption(item[keyItem])}
+            onClick={(e) => selectOption(e, item[keyItem])}
             data-select={item[keyItem]}
             className={`select-option select-option-${field}`}
           >
