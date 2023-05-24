@@ -1,22 +1,38 @@
-**Website:** toptradersfunding.com
+**Website:** [toptradersfunding.com]()
 
-**Phase 1:** User panel design - login - login with Google - forgot password - registration - user management - authentication request - authentication confirmation
+---
 
-**Phase 2:** Participating in the challenge - managing challenges - user account report - ticket registration - ticket management
+**Phase 1:**
 
-Phase 3: Participating in the campaign - managing campaigns - rating users - the possibility of getting referrals
+User panel design - login - login with Google - forgot password - registration - user management - authentication request - authentication confirmation
 
-Phase 4: Landing page design - fix possible problems
+**Phase 2:**
+
+Participating in the challenge - managing challenges - user account report - ticket registration - ticket management
+
+**Phase 3:**
+
+Participating in the campaign - managing campaigns - rating users - the possibility of getting referrals
+
+**Phase 4:**
+
+Landing page design - fix possible problems
+
+---
 
 **Landing page:**
 
 • Includes three static pages: 1. Home page 2. Contact us 3. About us
+
+---
 
 **User Panel:**
 
 • Three types of user groups: 1. Administrator 2. Manager 3. User
 
 • Ranking users on challenges in general and each campaign separately
+
+---
 
 **Admininstrator tools:**
 
@@ -25,6 +41,8 @@ Phase 4: Landing page design - fix possible problems
 • Definition of rules
 
 • Campaign definition
+
+---
 
 **Administrator / Manager tools:**
 
@@ -35,6 +53,8 @@ Phase 4: Landing page design - fix possible problems
 • Reply to the user's ticket
 
 • Opening user accounts in forex brokers (Alpari, RoboForex, …) and digital currency (Bybit)
+
+---
 
 **User features:**
 
@@ -48,12 +68,16 @@ Phase 4: Landing page design - fix possible problems
 
 • Authentication request
 
+---
+
 **Programming languages:**
 
 • Laravel
 
 • React.js
 
+---
+
 **Database seeding:**
 
-php artisan code:init
+`php artisan code:init`
