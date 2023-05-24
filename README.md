@@ -47,3 +47,13 @@ Phase 4: Landing page design - fix possible problems
 • Account analysis including real-time display of total and daily earnings, equity in the form of graphs, transaction details statistics
 
 • Authentication request
+
+**Programming languages:**
+
+• Laravel
+
+• React.js
+
+**Database seeding:**
+
+php artisan code:init
