@@ -66,7 +66,7 @@ const TicketThreads = () => {
       {pageState?.props?.threads?.map((item) => (
         <div
           key={item.id}
-          className="block pd-30 pd-d-10"
+          className="block pd-20 pd-d-10"
           style={{
             backgroundColor:
               item.adminCreated === 0 ? "" : "rgba(20,26,32,0.2)",

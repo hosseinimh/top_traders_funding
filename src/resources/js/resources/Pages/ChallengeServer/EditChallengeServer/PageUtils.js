@@ -17,7 +17,7 @@ export class PageUtils extends BasePageUtils {
     const form = useForm({
       resolver: yupResolver(schema),
     });
-    const { sditServerPage: strings } = useLocale();
+    const { editChallengeServerPage: strings } = useLocale();
     super("ChallengeServers", strings, form);
     this.entity = new Entity();
     this.callbackUrl = `${BASE_PATH}/challenge_servers`;

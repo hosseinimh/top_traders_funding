@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { MetaApiConnection } from "../../../utils/MetaApiConnection";
 
-import { USER_ROLES } from "../../../constants";
 import { BlankPage, Card, Span } from "../../components";
 import { PageUtils } from "./PageUtils";
 import utils from "../../../utils/Utils";
@@ -13,20 +11,6 @@ const Dashboard = () => {
   const userState = useSelector((state) => state.userReducer);
   const { dashboardPage: strings } = useLocale();
   const pageUtils = new PageUtils();
-
-  useEffect(() => {
-    //rr();
-  }, []);
-
-  const rr = async () => {
-    const metaApi = new MetaApiConnection();
-    const token =
-      "SeXvxfbQHLxMoRR9MRFndfyRT9tD9QcNiQnxpMtgwY14VeSVNUR4FtSgmZr3VrEy";
-    const accountId = "fd8f34a6-258f-4e27-8e56-274a328388fb";
-    await metaApi.testMetaApiSynchronization(token, accountId);
-    // const result = await metaApi.testMetaApiSynchronization(token, accountId);
-    // console.log(result);
-  };
 
   const renderUserReview = () => {
     return (
@@ -54,11 +38,7 @@ const Dashboard = () => {
     );
   };
 
-  return (
-    <BlankPage pageUtils={pageUtils}>
-      <div></div>
-    </BlankPage>
-  );
+  return <BlankPage pageUtils={pageUtils}></BlankPage>;
 };
 
 export default Dashboard;

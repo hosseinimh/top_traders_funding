@@ -6,7 +6,6 @@ import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";
-// import { MetaApi } from "../../../../utils/MetaApi";
 
 const AnalyzeChallenge = () => {
   const [item, setItem] = useState(null);
@@ -22,9 +21,8 @@ const AnalyzeChallenge = () => {
   const { analyzeChallengePage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
   const isPersian = general.locale === "فارسی" ? true : false;
-  const metaApi = new MetaApi();
-  return <></>;
-  /* useEffect(() => {
+
+  useEffect(() => {
     if (pageUtils?.pageState?.props?.item) {
       setItem(pageUtils?.pageState?.props?.item);
     }
@@ -32,7 +30,7 @@ const AnalyzeChallenge = () => {
 
   useEffect(() => {
     if (item) {
-      connectMetaApi();
+      // connectMetaApi();
     }
   }, [item]);
 
@@ -91,8 +89,8 @@ const AnalyzeChallenge = () => {
   };
 
   const fetchAccount = async () => {
-    const result = await metaApi.sync();
-    setAccount(result);
+    // const result = await metaApi.sync();
+    // setAccount(result);
   };
 
   const setMainChart = () => {
@@ -538,7 +536,7 @@ const AnalyzeChallenge = () => {
         <div className="col col-md-5 col-12">{renderParameters()}</div>
       </div>
     </BlankPage>
-  );*/
+  );
 };
 
 export default AnalyzeChallenge;

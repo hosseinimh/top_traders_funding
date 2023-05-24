@@ -9,6 +9,7 @@ const initialState = {
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
   dropDownElement: null,
+  shownModal: null,
 };
 
 const layoutReducer = (state = initialState, { type, payload }) => {
@@ -43,6 +44,11 @@ const layoutReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         dropDownElement: payload,
+      };
+    case actions.SET_SHOWN_MODAL_ACTION:
+      return {
+        ...state,
+        shownModal: payload,
       };
     default:
       return state;

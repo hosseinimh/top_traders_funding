@@ -6,10 +6,19 @@ import {
   setPagePropsAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH, CHALLENGE_STATUSES } from "../../../../constants";
+import {
+  BASE_PATH,
+  CHALLENGE_STATUSES,
+  MESSAGE_CODES,
+  MESSAGE_TYPES,
+} from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { useLocale } from "../../../../hooks";
-import { setNotificationsAction } from "../../../../state/layout/layoutActions";
+import {
+  setNotificationsAction,
+  setShownModalAction,
+} from "../../../../state/layout/layoutActions";
+import { setMessageAction } from "../../../../state/message/messageActions";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -17,12 +26,14 @@ export class PageUtils extends BasePageUtils {
     const { challengesAdminPage: strings } = useLocale();
     super("Challenges", strings, form);
     this.entity = new Entity();
-    this.loadModals([{ name: "verifyModal" }]);
     this.initialPageProps = {
       pageNumber: 1,
       itemsCount: 0,
       item: null,
       items: null,
+      field: null,
+      showModal: false,
+      modal: null,
       action: null,
     };
   }
@@ -33,24 +44,19 @@ export class PageUtils extends BasePageUtils {
     this.fillForm();
   }
 
-  editAction({ id }) {
-    if (utils.isId(id)) {
-      this.navigate(`${BASE_PATH}/challenges/edit/${id}`);
-    }
-  }
-
-  async verifiedAction({ id }) {
-    if (utils.isId(id)) {
-      await this.changeStatus(id, CHALLENGE_STATUSES.WAITING_TRADE);
-    }
-  }
-
   onVerified(item) {
     this.dispatch(
       setPagePropsAction({
         action: "VERIFIED",
         item,
       })
+    );
+    this.dispatch(
+      setMessageAction(
+        this.strings.submitted,
+        MESSAGE_TYPES.SUCCESS,
+        MESSAGE_CODES.OK
+      )
     );
   }
 
@@ -72,6 +78,38 @@ export class PageUtils extends BasePageUtils {
     );
   }
 
+  onCopy(field) {
+    this.dispatch(
+      setPagePropsAction({
+        action: "COPY",
+        field,
+      })
+    );
+  }
+
+  onShowAccountModal(modal, item) {
+    this.dispatch(
+      setPagePropsAction({
+        showModal: true,
+        modal,
+        item,
+      })
+    );
+    this.dispatch(setShownModalAction("accountModal"));
+  }
+
+  onCloseModal() {
+    if (!this.dispatch) {
+      return;
+    }
+    this.dispatch(
+      setPagePropsAction({
+        showModal: false,
+        modal: null,
+      })
+    );
+  }
+
   onAction(props) {
     switch (props.action) {
       case "VERIFIED":
@@ -82,15 +120,41 @@ export class PageUtils extends BasePageUtils {
         this.analyzeAction(props.item);
 
         break;
+      case "COPY":
+        this.copyAction(props.field);
+
+        break;
     }
 
     super.onAction(props);
+  }
+
+  editAction({ id }) {
+    if (utils.isId(id)) {
+      this.navigate(`${BASE_PATH}/challenges/edit/${id}`);
+    }
+  }
+
+  async verifiedAction({ id }) {
+    if (utils.isId(id)) {
+      await this.changeStatus(id, CHALLENGE_STATUSES.WAITING_TRADE);
+    }
   }
 
   analyzeAction({ id }) {
     if (utils.isId(id)) {
       this.navigate(`${BASE_PATH}/challenges/${id}`);
     }
+  }
+
+  copyAction(field) {
+    var element = document.querySelector(`#${field}`);
+    if (!element) {
+      return;
+    }
+    element.select();
+    element.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(element.value);
   }
 
   async fillForm() {

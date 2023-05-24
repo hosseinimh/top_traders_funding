@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import {
+  InputRow,
   InputTextColumn,
   ListPage,
   SearchBox,
@@ -27,11 +28,11 @@ const Users = () => {
       onSubmit={pageUtils.onSubmit}
       onReset={pageUtils.onReset}
     >
-      <div className="list-input">
-        <InputTextColumn field="username" textAlign="left" />
-        <InputTextColumn field="nameFamily" />
-        <InputTextColumn field="email" textAlign="left" />
-      </div>
+      <InputRow>
+        <InputTextColumn field="username" textAlign="left" fullRow={false} />
+        <InputTextColumn field="nameFamily" fullRow={false} />
+        <InputTextColumn field="email" textAlign="left" fullRow={false} />
+      </InputRow>
     </SearchBox>
   );
 

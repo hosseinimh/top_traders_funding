@@ -13,8 +13,8 @@ const EditChallengeServer = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="name" textAlign="left" />
-      <InputTextColumn field="title" />
+      <InputTextColumn field="name" textAlign="left" showLabel />
+      <InputTextColumn field="title" showLabel />
       <InputCheckboxContainer>
         <InputCheckboxColumn field="free" checked={true} />
       </InputCheckboxContainer>

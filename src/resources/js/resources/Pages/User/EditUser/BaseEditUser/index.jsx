@@ -7,6 +7,7 @@ import {
   FormPage,
   InputCheckboxColumn,
   InputCheckboxContainer,
+  InputRadioContainer,
 } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { USER_ROLES } from "../../../../../constants";
@@ -34,11 +35,14 @@ const BaseEditUser = ({ userId }) => {
           <InputCheckboxContainer>
             <InputCheckboxColumn field="isActive" checked={true} />
           </InputCheckboxContainer>
-          <div>
-            <label className="form-label">{strings.type}</label>
-            <InputRadioColumn field="administrator" name="type" />
+          <InputRadioContainer label={strings.type}>
+            <InputRadioColumn
+              field="administrator"
+              name="type"
+              checked={true}
+            />
             <InputRadioColumn field="user" name="type" />
-          </div>
+          </InputRadioContainer>
         </>
       )}
     </FormPage>

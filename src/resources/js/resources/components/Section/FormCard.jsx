@@ -15,7 +15,7 @@ const FormCard = ({
   const layoutState = useSelector((state) => state.layoutReducer);
 
   return (
-    <div className="block pd-30 pd-d-10">
+    <div className="block pd-20 pd-d-10">
       {children}
       <div className="btns d-flex mt-30">
         {hasSubmit && (

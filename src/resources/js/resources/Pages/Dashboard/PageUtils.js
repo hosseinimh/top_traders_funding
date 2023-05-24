@@ -1,6 +1,6 @@
 import { USER_ROLES } from "../../../constants";
 import { useLocale } from "../../../hooks";
-import { Dashboard as Entity } from "../../../http/entities";
+import { Dashboard as Entity, MetaApi } from "../../../http/entities";
 import {
   setLoadingAction,
   setNotificationsAction,

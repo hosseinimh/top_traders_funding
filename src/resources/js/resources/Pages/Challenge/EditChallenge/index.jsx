@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputTextColumn, FormPage } from "../../../components";
+import { InputTextColumn, FormPage, InputRow } from "../../../components";
 import { PageUtils } from "./PageUtils";
 
 const EditChallenge = () => {
@@ -8,11 +8,29 @@ const EditChallenge = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="accountNo" textAlign="left" type="number" />
-      <InputTextColumn field="password" textAlign="left" />
-      <InputTextColumn field="investorPassword" textAlign="left" />
-      <InputTextColumn field="metaApiToken" textAlign="left" />
-      <InputTextColumn field="metaApiAccountId" textAlign="left" />
+      <InputRow>
+        <InputTextColumn
+          field="accountNo"
+          textAlign="left"
+          type="number"
+          fullRow={false}
+          showLabel
+        />
+        <InputTextColumn
+          field="password"
+          textAlign="left"
+          fullRow={false}
+          showLabel
+        />
+        <InputTextColumn
+          field="investorPassword"
+          textAlign="left"
+          fullRow={false}
+          showLabel
+        />
+      </InputRow>
+      <InputTextColumn field="metaApiToken" textAlign="left" showLabel />
+      <InputTextColumn field="metaApiAccountId" textAlign="left" showLabel />
     </FormPage>
   );
 };

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { ListPage, Modal, TableFooter, TableItems } from "../../../components";
+import {
+  InputTextColumn,
+  ListPage,
+  Modal,
+  TableFooter,
+  TableItems,
+} from "../../../components";
 import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
@@ -13,6 +19,45 @@ const Challenges = () => {
   const columnsCount = 7;
   const { challengesAdminPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
+
+  useEffect(() => {
+    if (!layoutState?.shownModal) {
+      pageUtils?.onCloseModal();
+    }
+  }, [layoutState?.shownModal]);
+
+  const renderModal = () => (
+    <Modal
+      id="accountModal"
+      title={strings.account}
+      show={pageState?.props?.showModal}
+    >
+      <InputTextColumn
+        field="accountNo"
+        readonly={true}
+        showLabel
+        icon="icon-size4 icon-clickable"
+        iconClick={() => pageUtils?.onCopy("accountNo")}
+        value={pageState?.props?.item?.accountNo}
+      />
+      <InputTextColumn
+        field="server"
+        readonly={true}
+        showLabel
+        icon="icon-size4"
+        iconClick={() => pageUtils?.onCopy("server")}
+        value={pageState?.props?.item?.server}
+      />
+      <InputTextColumn
+        field="token"
+        readonly={true}
+        showLabel
+        icon="icon-size4"
+        iconClick={() => pageUtils?.onCopy("token")}
+        value={pageState?.props?.item?.token}
+      />
+    </Modal>
+  );
 
   const renderHeader = () => (
     <tr>
@@ -82,6 +127,21 @@ const Challenges = () => {
                 </button>
               </>
             )}
+            {item.status === CHALLENGE_STATUSES.WAITING_TRADE && (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-blue mxdir-5"
+                  disabled={layoutState?.loading}
+                  onClick={() =>
+                    pageUtils?.onShowAccountModal("accountModal", item)
+                  }
+                  title={strings.account}
+                >
+                  {strings.account}
+                </button>
+              </>
+            )}
           </td>
         </tr>
       </React.Fragment>
@@ -100,7 +160,9 @@ const Challenges = () => {
         pageUtils={pageUtils}
         table={{ renderHeader, renderItems, renderFooter }}
         hasAdd={false}
-      ></ListPage>
+      >
+        {pageState?.props?.showModal && renderModal()}
+      </ListPage>
     </>
   );
 };

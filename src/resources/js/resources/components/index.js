@@ -13,15 +13,12 @@ import InputCheckboxContainer from "./Input/InputCheckboxContainer";
 import InputFileColumn from "./Input/InputFileColumn";
 import InputHiddenElement from "./Input/InputHiddenElement";
 import InputRadioColumn from "./Input/InputRadioColumn";
-import InputReactSelectColumn from "./Input/InputReactSelectColumn";
+import InputRadioContainer from "./Input/InputRadioContainer";
 import InputRow from "./Input/InputRow";
 import InputSelectColumn from "./Input/InputSelectColumn";
 import InputSwitchCheckboxColumn from "./Input/InputSwitchCheckboxColumn";
 import InputTextAreaColumn from "./Input/InputTextAreaColumn";
 import InputTextColumn from "./Input/InputTextColumn";
-
-// Label
-import LabelColumn from "./Label/LabelColumn";
 
 // Layout
 import FormPageLayout from "./Layout/FormPageLayout";
@@ -70,13 +67,12 @@ export {
   InputFileColumn,
   InputHiddenElement,
   InputRadioColumn,
-  InputReactSelectColumn,
+  InputRadioContainer,
   InputRow,
   InputSelectColumn,
   InputSwitchCheckboxColumn,
   InputTextAreaColumn,
   InputTextColumn,
-  LabelColumn,
   FormPageLayout,
   NotAuthPageLayout,
   PageLayout,

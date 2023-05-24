@@ -13,7 +13,7 @@ const SearchBox = ({ children, pageUtils, onSubmit, onReset }) => {
       <div>{children}</div>
       <div className="btns d-flex mt-10">
         <button
-          className="btn btn-blue mx-10"
+          className="btn btn-blue mxdir-5"
           type="button"
           disabled={layoutState?.loading}
           title={general.search}
@@ -22,7 +22,7 @@ const SearchBox = ({ children, pageUtils, onSubmit, onReset }) => {
           {general.search}
         </button>
         <button
-          className="btn btn-border mx-10"
+          className="btn btn-border mxdir-5"
           type="button"
           disabled={layoutState?.loading}
           title={general.reset}

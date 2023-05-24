@@ -8,6 +8,9 @@ const InputTextAreaColumn = ({
   strings,
   showLabel,
   fullRow = true,
+  readonly = false,
+  value = null,
+  inputStyle = null,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -42,6 +45,12 @@ const InputTextAreaColumn = ({
     }
   }, [pageState]);
 
+  useEffect(() => {
+    if (form && value) {
+      form?.setValue(field, value);
+    }
+  }, [form]);
+
   const renderItem = () => (
     <div>
       {showLabel && <div className="input-info">{label}</div>}
@@ -61,9 +70,11 @@ const InputTextAreaColumn = ({
             minHeight: "100px",
             paddingTop: "15px",
             paddingBottom: "15px",
+            ...inputStyle,
           }}
           placeholder={placeholder}
           disabled={layoutState?.loading}
+          readOnly={readonly}
         />
         {messageState?.messageField === field && (
           <span className="error">{messageState?.message}</span>

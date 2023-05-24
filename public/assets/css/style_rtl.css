@@ -262,6 +262,22 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #fff !important;
   border-radius: 0 !important;
 }
+input.autofill:-webkit-autofill,
+input.autofill:-webkit-autofill:hover,
+input.autofill:-webkit-autofill:focus,
+input.autofill:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #141a22 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  border-radius: 0 !important;
+}
+body.light input.autofill:-webkit-autofill,
+body.light input.autofill:-webkit-autofill:hover,
+body.light input.autofill:-webkit-autofill:focus,
+body.light input.autofill:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+  -webkit-text-fill-color: #444 !important;
+  border-radius: 0 !important;
+}
 ::-webkit-input-placeholder {
   color: #8f959e;
   font-size: 0.9em;
@@ -337,7 +353,8 @@ table {
   width: 100%;
   padding: 10px;
 }
-th {
+thead th,
+tbody th {
   border-bottom: 1px solid #21262e;
 }
 tbody {
@@ -482,7 +499,7 @@ body.light .input-border.valid {
 }
 .input-text,
 .input-checkbox {
-  padding: 0 15px;
+  margin: 10px 10px 20px;
   flex-grow: 1;
   height: 48px;
   display: flex;
@@ -512,7 +529,6 @@ textarea {
   border-radius: 10px;
 }
 .input-text input:disabled {
-  cursor: not-allowed;
   opacity: 0.3;
 }
 .input-text .icon {
@@ -534,6 +550,7 @@ textarea {
   width: 100%;
 }
 .input-info {
+  margin: 0 10px;
   width: 100%;
   text-align: right;
   color: #8f959e;
@@ -618,6 +635,7 @@ input[type="radio"] ~ span.error {
   margin-right: 20px;
 }
 .field-title {
+  margin: 0 10px;
   color: #fff;
   padding-right: 5px;
 }
@@ -629,8 +647,11 @@ input[type="radio"] ~ span.error {
 .modal .field-title {
   color: #444;
 }
-.showpass {
+.icon-clickable {
   cursor: pointer;
+}
+.icon-clickable:hover {
+  color: #fff;
 }
 .icon-eye3.show:before {
   content: "\efbc";
@@ -814,6 +835,7 @@ body.light .menu ul li a:hover img {
   display: none;
   margin-top: 10px;
   margin-right: 10px;
+  margin-right: 15px;
 }
 @media (max-width: 1024px) {
   .sidebar {
@@ -3288,18 +3310,19 @@ tr.sell .prsum {
   right: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 12;
   display: none;
   align-items: center;
   justify-content: safe center;
   padding: 20px;
+  transition: display 1s;
 }
 .modal {
   flex-basis: 200px;
   flex-grow: 1;
   max-width: 380px;
-  background: #fff;
+  background: #141a22;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -3312,6 +3335,10 @@ tr.sell .prsum {
   color: #444;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
+}
+.modal-close:hover {
+  color: #fff;
+  cursor: pointer;
 }
 .modal-list .item {
   display: flex;
@@ -3393,7 +3420,7 @@ tr.sell .prsum {
   padding: 10px 20px;
   position: relative;
   margin-bottom: -10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #21262e;
 }
 .modal-hd .time {
   color: #999;
@@ -5867,7 +5894,6 @@ body.light .filter-th {
   font-style: normal;
   font-weight: normal;
   speak: never;
-
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -5877,6 +5903,7 @@ body.light .filter-th {
   text-transform: none;
   line-height: 1em;
   margin-left: 0.2em;
+  transition: all 0.4s;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

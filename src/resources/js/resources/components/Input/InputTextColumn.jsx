@@ -6,15 +6,18 @@ import InputRow from "./InputRow";
 const InputTextColumn = ({
   field,
   type = "text",
+  value = null,
   useForm,
   strings = null,
   icon = null,
+  iconClick = null,
   inputStyle = {},
   defaultValue = "",
   showLabel = false,
   textAlign = "",
   readonly = false,
   fullRow = true,
+  inputClassName = "",
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -49,6 +52,12 @@ const InputTextColumn = ({
     }
   }, [pageState]);
 
+  useEffect(() => {
+    if (form && value) {
+      form?.setValue(field, value);
+    }
+  }, [form]);
+
   const renderInput = (field) => {
     let style;
     if (textAlign === "left") {
@@ -66,6 +75,7 @@ const InputTextColumn = ({
           placeholder={placeholder}
           disabled={layoutState?.loading || readonly}
           type={type}
+          className={inputClassName}
           style={{ ...style }}
         />
         {messageState?.messageField === field.name && (
@@ -93,7 +103,7 @@ const InputTextColumn = ({
             />
             {icon && (
               <div className="icon">
-                <i className="icon-mobile"></i>
+                <i className={icon} onClick={iconClick}></i>
               </div>
             )}
           </>

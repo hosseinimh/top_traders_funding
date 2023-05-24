@@ -50,7 +50,7 @@ const AppRulesUser = () => {
               onClick={(e) => toggleItem(e.target, item)}
             >
               <div className="faq-title">
-                <i className="icon-receipt"></i>
+                <i className="icon-courthouse4"></i>
                 {item.title}
               </div>
               <i className="icon-arrow-left-2"></i>

@@ -223,7 +223,7 @@ export const editUserPage = {
 
 export const editProfilePage = {
   _title: "ویرایش پروفایل",
-  _subTitle: "مشخصات پروفایل تعریف شده را ویرایش نمایید.",
+  _subTitle: "مشخصات پروفایل خود را ویرایش نمایید.",
   name: "نام",
   namePlaceholder: "نام",
   family: "نام خانوادگی",
@@ -584,8 +584,7 @@ export const challengesAdminPage = {
   verify: "تایید چالش",
   analyze: "آنالیز",
   account: "صورتحساب",
-  verifyModalHeader: "تایید چالش",
-  verifyModalBody: "آیا مطمئن به تایید چالش می‌باشید؟",
+  submitted: "تایید چالش با موفقیت انجام گردید.",
 };
 
 export const editChallengePage = {

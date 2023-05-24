@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import {
   BlankPage,
   InputButtonRadiosColumn,
+  InputRow,
+  InputTextAreaColumn,
   TableCard,
   TableItems,
 } from "../../../../components";
@@ -352,6 +354,22 @@ const BaseTakeChallenge = ({ level }) => {
             items={pageState?.props?.leverages}
           />
           <TableCard table={{ renderHeader, renderItems }} />
+          <h3 className="mt-20 mb-10">{strings.rulesTitle}</h3>
+          <InputTextAreaColumn
+            field="rules"
+            value={strings.rulesContent}
+            readonly={true}
+            inputStyle={{ textAlign: "justify" }}
+          />
+          <InputRow containerStyle={{ justifyContent: "center" }}>
+            <button
+              type="button"
+              className="btn btn-blue"
+              onClick={pageUtils?.useForm?.handleSubmit(pageUtils.onSubmit)}
+            >
+              {strings.register}
+            </button>
+          </InputRow>
         </div>
       </div>
     </BlankPage>

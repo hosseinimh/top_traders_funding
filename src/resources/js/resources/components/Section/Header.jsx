@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { slideDown, slideUp } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
 import {
   BASE_PATH,
-  USER_ROLES,
   ASSETS_PATH,
   LOCALES,
   IMAGES_PATH,
@@ -19,17 +18,14 @@ import {
   setLoadingAction,
   toggleSidebarAction,
   setDropDownElementAction,
-  setDropDownWidgetAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User } from "../../../http/entities";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { header: strings, general } = useLocale();
   const layoutState = useSelector((state) => state.layoutReducer);
-  const userState = useSelector((state) => state.userReducer);
   const [lightTheme, setLightTheme] = useState(false);
   const authUser = utils.getLSUser();
 
@@ -51,34 +47,8 @@ const Header = () => {
     window.location.reload();
   };
 
-  const userTitle = () => {
-    return authUser?.role === USER_ROLES.ADMINISTRATOR
-      ? general.administrator
-      : "";
-  };
-
-  const widgetUserTitle = () => {
-    let title =
-      authUser?.role === USER_ROLES.ADMINISTRATOR ? general.administrator : "";
-
-    return (
-      <>
-        <p className="mb-0">{title}</p>
-        <p>{authUser?.username}</p>
-      </>
-    );
-  };
-
   const onLogout = () => {
     dispatch(fetchLogoutAction());
-  };
-
-  const onEditUser = () => {
-    navigate(`${BASE_PATH}/users/edit`);
-  };
-
-  const onChanePassword = () => {
-    navigate(`${BASE_PATH}/users/change_password`);
   };
 
   const renderLocalesDropdown = () => {
@@ -154,176 +124,16 @@ const Header = () => {
     );
   };
 
-  const renderUserLgDropdown = () => {
-    return (
-      <div className="header-btn-lg">
-        <div className="widget-content p-0">
-          <div className="widget-content-wrapper">
-            <div className="widget-content-left">
-              <div className="btn-group">
-                <a
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  className="p-0 btn user-dropdown"
-                >
-                  <img
-                    width="42"
-                    className="rounded-circle"
-                    src={`${ASSETS_PATH}/images/user.png`}
-                    alt={`${authUser?.name ?? ""} ${authUser?.family ?? ""}`}
-                  />
-                  <i className="fa fa-angle-down mxdir-2 opacity-8"></i>
-                </a>
-                <div
-                  tabIndex="-1"
-                  role="menu"
-                  aria-hidden="true"
-                  className="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-left user-popup"
-                >
-                  <div className="dropdown-menu-header">
-                    <div className="dropdown-menu-header-inner bg-info">
-                      <div
-                        className="menu-header-image opacity-2"
-                        style={{
-                          backgroundImage: `url("${ASSETS_PATH}/images/menu-bg2.jpg")`,
-                        }}
-                      ></div>
-                      <div className="menu-header-content">
-                        <div className="widget-content p-0">
-                          <div className="widget-content-wrapper">
-                            <div className="widget-content-left mx-2 mxdir-3 mb-3">
-                              <img
-                                width="42"
-                                className="rounded-circle"
-                                src={`${ASSETS_PATH}/images/user.png`}
-                                alt=""
-                              />
-                            </div>
-                            <div className="widget-content-right">
-                              <div className="widget-heading">
-                                {`${authUser?.name ?? ""} ${
-                                  authUser?.family ?? ""
-                                }`}
-                              </div>
-                              <div className="widget-subheading opacity-6">
-                                {widgetUserTitle()}
-                              </div>
-                            </div>
-                            <div className="widget-content-left mx-2">
-                              <button
-                                className="btn-pill btn-shadow btn-shine btn btn-focus mb-3"
-                                onMouseUp={onLogout}
-                              >
-                                {strings.logout}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="scroll-area-xs" style={{ height: "100px" }}>
-                    <div className="scrollbar-container ps">
-                      <ul className="nav flex-column">
-                        <li className="nav-item-header nav-item">
-                          {strings.tools}
-                        </li>
-                        <li className="nav-item">
-                          <CustomLink
-                            className="nav-link mxdir-2"
-                            onClick={onEditUser}
-                          >
-                            {strings.editProfile}
-                          </CustomLink>
-                        </li>
-                        <li className="nav-item">
-                          <CustomLink
-                            className="nav-link mxdir-2"
-                            onClick={onChanePassword}
-                          >
-                            {strings.changePassword}
-                          </CustomLink>
-                        </li>
-                      </ul>
-                      <div
-                        className="ps__rail-x"
-                        style={{
-                          left: "0px",
-                          bottom: "0px",
-                        }}
-                      >
-                        <div
-                          className="ps__thumb-x"
-                          tabIndex="0"
-                          style={{
-                            left: "0px",
-                            width: "0px",
-                          }}
-                        ></div>
-                      </div>
-                      <div
-                        className="ps__rail-y"
-                        style={{
-                          top: "0px",
-                          right: "0px",
-                        }}
-                      >
-                        <div
-                          className="ps__thumb-y"
-                          tabIndex="0"
-                          style={{
-                            top: "0px",
-                            height: "0px",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                  {userState?.user?.role === USER_ROLES.USER && (
-                    <>
-                      <ul className="nav flex-column">
-                        <li className="nav-item-divider mb-0 nav-item"></li>
-                      </ul>
-                      <div className="grid-menu grid-menu-2col">
-                        <div className="no-gutters row">
-                          <div className="col-sm-6">
-                            <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
-                              <i className="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>{" "}
-                              {strings.messageInbox}
-                            </button>
-                          </div>
-                          <div className="col-sm-6">
-                            <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
-                              <i className="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>
-                              <b>{strings.supportTickets}</b>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="widget-content-left mxdir-3 header-user-info">
-              <div className="widget-heading">
-                {`${authUser?.name ?? ""} ${authUser?.family ?? ""}`}
-              </div>
-              <div className="widget-subheading">{userTitle()}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const showUserMenu = (e) => {
+  const toggleUserMenu = (e) => {
     e.stopPropagation();
+    const element = document.querySelector("#user-menu").lastChild;
     if (layoutState?.dropDownElement) {
       slideUp(layoutState.dropDownElement);
+      if (layoutState?.dropDownElement === element) {
+        dispatch(setDropDownElementAction(null));
+        return;
+      }
     }
-    const element = document.querySelector("#user-menu").lastChild;
     dispatch(setDropDownElementAction(element));
     slideDown(element, {
       duration: 400,
@@ -332,13 +142,16 @@ const Header = () => {
   };
 
   const toggleTheme = () => {
-    if (lightTheme) {
-      document.body.classList.remove("light");
-    } else {
-      document.body.classList.add("light");
-    }
     setLightTheme(!lightTheme);
   };
+
+  useEffect(() => {
+    if (lightTheme) {
+      document.body.classList.add("light");
+    } else {
+      document.body.classList.remove("light");
+    }
+  }, [lightTheme]);
 
   return (
     <div className="navbar d-flex align-center">
@@ -346,7 +159,7 @@ const Header = () => {
         <i className="icon-category4"></i>
       </div>
       <div className="userinfo sub dropDown-link" id="user-menu">
-        <CustomLink onClick={(e) => showUserMenu(e)}>
+        <CustomLink onClick={(e) => toggleUserMenu(e)}>
           <div className="d-flex align-center">
             <div className="img">
               <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />

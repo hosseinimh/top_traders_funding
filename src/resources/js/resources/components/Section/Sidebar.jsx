@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import PerfectScrollbar from "perfect-scrollbar";
 import { slideUp, slideDown } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
@@ -9,31 +8,54 @@ import { BASE_PATH, IMAGES_PATH, USER_ROLES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import { CustomLink } from "../";
 import { useLocale } from "../../../hooks";
-import utils from "../../../utils/Utils";
+import { toggleSidebarAction } from "../../../state/layout/layoutActions";
 
 function Sidebar() {
   const dispatch = useDispatch();
-  const { sidebar: strings, general } = useLocale();
+  const { sidebar: strings } = useLocale();
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const userState = useSelector((state) => state.userReducer);
   const [challengesCollapsed, setChallengesCollapsed] = useState(false);
-  const isPersian = general.locale === "فارسی" ? true : false;
+
+  const toggleSidebar = () => {
+    dispatch(toggleSidebarAction());
+  };
+
+  useEffect(() => {
+    if (userState?.user?.role === USER_ROLES.USER) {
+      return;
+    }
+    const element = document.querySelector("#challenges-management").lastChild;
+    if (challengesCollapsed) {
+      slideDown(element, {
+        duration: 1000,
+        easing: easeOutQuint,
+      });
+    } else {
+      slideUp(element);
+    }
+  }, [challengesCollapsed]);
+
+  useEffect(() => {
+    if (
+      [
+        "ChallengeBalances",
+        "ChallengeLeverages",
+        "ChallengeServers",
+        "ChallengeRuls",
+        "ChallengePlatforms",
+      ].includes(pageState?.page)
+    ) {
+      setChallengesCollapsed(true);
+    }
+  }, [pageState]);
 
   useEffect(() => {
     initSidebarMenus();
   }, []);
 
   const toggleChallenges = () => {
-    const element = document.querySelector("#challenges-management").lastChild;
-    if (challengesCollapsed) {
-      slideUp(element);
-    } else {
-      slideDown(element, {
-        duration: 1000,
-        easing: easeOutQuint,
-      });
-    }
     setChallengesCollapsed(!challengesCollapsed);
   };
 
@@ -74,22 +96,32 @@ function Sidebar() {
     dispatch(fetchLogoutAction());
   };
 
-  const renderMenuItem = (url, string, icon, page, badge = 0) => (
-    <li className={`${pageState?.page === page ? "active" : ""}`}>
-      <Link to={url}>
-        <i className={icon}></i>
-        <span>{string}</span>
-      </Link>
-    </li>
-  );
-
-  const renderSubMenuItem = (url, string, page) => (
-    <li className={`${pageState?.page === page ? "active" : ""}`}>
-      <Link to={url}>
-        <span>{string}</span>
-      </Link>
-    </li>
-  );
+  const renderMenuItem = (url, string, icon, page, badge = 0) => {
+    const active = Array.isArray(page)
+      ? page.filter((p) => p === pageState?.page)?.length > 0
+      : pageState?.page === page;
+    return (
+      <li className={`${active ? "active" : ""}`}>
+        <Link to={url}>
+          <i className={icon}></i>
+          <span>{string}</span>
+          {badge > 0 && (
+            <div
+              className="dot"
+              style={{
+                display: "inline",
+                position: "relative",
+                right: "-40px",
+                top: "2px",
+              }}
+            >
+              <span className="bg-green"></span>
+            </div>
+          )}
+        </Link>
+      </li>
+    );
+  };
 
   return (
     <div className={`sidebar ${layoutState?.sidebarCollapsed ? "active" : ""}`}>
@@ -107,7 +139,7 @@ function Sidebar() {
           />
           <img className="logo-sm" src={`${IMAGES_PATH}/logo-sm.svg`} alt="" />
         </div>
-        <div className="closemenu">
+        <div className="closemenu" onClick={toggleSidebar}>
           <i className="icon-arrow-right"></i>
         </div>
       </div>
@@ -125,22 +157,22 @@ function Sidebar() {
             renderMenuItem(
               `${BASE_PATH}/challenges/take/free`,
               strings.takeFreeChallenge,
-              "icon-money-send",
+              "icon-money-recive4",
               "TakeFreeChallenge"
             )}
           {userState?.user?.role === USER_ROLES.USER &&
             renderMenuItem(
               `${BASE_PATH}/challenges`,
               strings.challenges,
-              "icon-strongbox-24",
+              "icon-medal-star4",
               "Challenges"
             )}
           {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
             renderMenuItem(
               `${BASE_PATH}/challenges`,
               strings.challengesAdmin,
-              "icon-strongbox-24",
-              "Challenges",
+              "icon-medal-star4",
+              ["Challenges", "EditChallenge"],
               layoutState?.notifications?.waitingChallengesCount
             )}
           <div className="menu-title">{strings.quickAccess}</div>
@@ -156,7 +188,7 @@ function Sidebar() {
               ? `${BASE_PATH}/app_rules/admin`
               : `${BASE_PATH}/app_rules`,
             strings.appRules,
-            "icon-receipt",
+            "icon-courthouse4",
             "AppRules"
           )}
           {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
@@ -164,46 +196,49 @@ function Sidebar() {
               {renderMenuItem(
                 `${BASE_PATH}/campaigns`,
                 strings.campaigns,
-                "icon-receipt",
+                "icon-chart-14",
                 "Campaigns"
               )}
               <li className="sub" id="challenges-management">
                 <CustomLink onClick={toggleChallenges}>
-                  <i className="icon-strongbox-24"></i>
+                  <i className="icon-medal-star4"></i>
                   <span>
                     {strings.challengesManagement}{" "}
                     <i className="icon-arrow-down-14"></i>
                   </span>
                 </CustomLink>
-                <ul className="subMenu" style={{ display: "none" }}>
+                <ul
+                  className="submenu"
+                  style={{ display: "none", border: "none" }}
+                >
                   {renderMenuItem(
                     `${BASE_PATH}/challenge_balances`,
                     strings.challengeBalances,
-                    "icon-receipt",
+                    "icon-dollar-square4",
                     "ChallengeBalances"
                   )}
                   {renderMenuItem(
                     `${BASE_PATH}/challenge_leverages`,
                     strings.challengeLeverages,
-                    "icon-receipt",
+                    "icon-data4",
                     "ChallengeLeverages"
                   )}
                   {renderMenuItem(
                     `${BASE_PATH}/challenge_servers`,
                     strings.challengeServers,
-                    "icon-receipt",
+                    "icon-monitor4",
                     "ChallengeServers"
                   )}
                   {renderMenuItem(
                     `${BASE_PATH}/challenge_rules`,
                     strings.challengeRules,
-                    "icon-receipt",
+                    "icon-courthouse4",
                     "ChallengeRules"
                   )}
                   {renderMenuItem(
                     `${BASE_PATH}/challenge_platforms`,
                     strings.challengePlatforms,
-                    "icon-receipt",
+                    "icon-monitor-mobbile4",
                     "ChallengePlatforms"
                   )}
                 </ul>
@@ -216,6 +251,7 @@ function Sidebar() {
               )}
             </>
           )}
+          <ul></ul>
           {renderMenuItem(
             `${BASE_PATH}/users/edit`,
             strings.editProfile,
@@ -225,7 +261,7 @@ function Sidebar() {
           {renderMenuItem(
             `${BASE_PATH}/users/change_password`,
             strings.changePassword,
-            "icon-key-square4",
+            "icon-key4",
             "ChangePasswordProfile"
           )}
           <li>

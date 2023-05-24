@@ -13,7 +13,7 @@ const EditChallengePlatform = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="value" textAlign="left" />
+      <InputTextColumn field="value" textAlign="left" showLabel />
       <InputCheckboxContainer>
         <InputCheckboxColumn field="free" checked={true} />
       </InputCheckboxContainer>

@@ -8,7 +8,9 @@ import { BASE_PATH, MESSAGE_CODES, MESSAGE_TYPES } from "../../../constants";
 import {
   setDropDownElementAction,
   setLoadingAction,
+  setShownModalAction,
   setSizeAction,
+  toggleSidebarAction,
 } from "../../../state/layout/layoutActions";
 import {
   clearMessageAction,
@@ -29,7 +31,7 @@ import utils from "../../../utils/Utils";
 import { Footer, Header, Sidebar } from "../../components";
 import { useLocale } from "../../../hooks";
 
-const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
+const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
@@ -126,6 +128,8 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     dispatch(setNavigateAction(navigate));
     dispatch(setDispatchAction(dispatch));
     dispatch(setPageUtilsAction(pageUtils));
+    dispatch(setDropDownElementAction(null));
+    dispatch(setShownModalAction(null));
     onPageLayoutChanged();
     window.addEventListener("resize", () => {
       onPageLayoutChanged();
@@ -151,6 +155,12 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
   };
 
   const onAppContainerClick = (e) => {
+    onToggleDropDowns(e);
+    onToggleSidebar(e);
+    onToggleModal(e);
+  };
+
+  const onToggleDropDowns = (e) => {
     let element = e.target;
     let clickedOnDropDown = false;
     while (element.parentNode) {
@@ -163,6 +173,49 @@ const BasePageLayout = ({ pageUtils, children, authPage = true, modals }) => {
     if (!clickedOnDropDown) {
       layoutState?.dropDownElement && slideUp(layoutState.dropDownElement);
       dispatch(setDropDownElementAction(null));
+    }
+  };
+
+  const onToggleSidebar = (e) => {
+    let sidebar = document.querySelector(".sidebar");
+    if (
+      document.body.clientWidth > 1024 ||
+      !sidebar.classList.contains("active")
+    ) {
+      return;
+    }
+    let element = e.target;
+    let clickedSidebar = false;
+    while (element.parentNode) {
+      if (element.classList.contains("sidebar")) {
+        clickedSidebar = true;
+        break;
+      }
+      element = element.parentNode;
+    }
+    if (!clickedSidebar) {
+      dispatch(toggleSidebarAction());
+    }
+  };
+
+  const onToggleModal = (e) => {
+    let element = e.target;
+    let clickedOnModal = false;
+    while (element.parentNode) {
+      if (element.classList.contains("modal")) {
+        clickedOnModal = true;
+        break;
+      }
+      element = element.parentNode;
+    }
+    if (!clickedOnModal) {
+      if (layoutState?.shownModal) {
+        const element = document.querySelector(`#${layoutState.shownModal}`);
+        if (element) {
+          element.style.display = "none";
+        }
+      }
+      dispatch(setShownModalAction(null));
     }
   };
 

@@ -5,5 +5,5 @@
 
   "*relativePublicPath": "./../public_html",
   "*baseUrl": "https://toptradersfunding.com",
-  "*environment": "local"
+  "*environment": "production"
 }

@@ -13,7 +13,7 @@ const EditChallengeLeverage = () => {
 
   return (
     <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="value" textAlign="left" type="number" />
+      <InputTextColumn field="value" textAlign="left" type="number" showLabel />
       <InputCheckboxContainer>
         <InputCheckboxColumn field="free" checked={true} />
       </InputCheckboxContainer>
