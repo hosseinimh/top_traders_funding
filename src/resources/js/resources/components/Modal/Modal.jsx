@@ -1,30 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setShownModalAction } from "../../../state/layout/layoutActions";
 
-const Modal = ({ id, title, children, show = false }) => {
+const Modal = ({ id, title, children }) => {
+  const layoutState = useSelector((state) => state.layoutReducer);
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(show);
 
   useEffect(() => {
-    if (showModal) {
-      dispatch(setShownModalAction(id));
+    if (layoutState?.shownModal === id) {
+      showModal();
     } else {
-      dispatch(setShownModalAction(null));
+      hideModal();
     }
-  }, [showModal]);
+  }, [layoutState?.shownModal]);
+
+  const showModal = () => {
+    const element = document.querySelector(`#${id}`);
+    element.style.display = "flex";
+    dispatch(setShownModalAction(id));
+    setTimeout(() => {
+      element.lastChild.style.opacity = 1;
+      element.lastChild.style.transform = "scale(1)";
+    }, 1);
+  };
 
   const hideModal = () => {
-    setShowModal(false);
+    const element = document.querySelector(`#${id}`);
+    element.lastChild.style.opacity = 0;
+    element.lastChild.style.transform = "scale(0.8)";
+    setTimeout(() => {
+      element.style.display = "none";
+      dispatch(setShownModalAction(null));
+    }, 200);
   };
 
   return (
-    <div
-      className="modalbox"
-      id={id}
-      style={{ display: showModal ? "flex" : "none" }}
-    >
+    <div className="modalbox" id={id}>
       <div className="modal">
         <div className="modal-hd">
           <span>

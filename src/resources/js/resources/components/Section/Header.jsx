@@ -158,7 +158,7 @@ const Header = () => {
       <div className="menu-toggle" onClick={toggleSidebar}>
         <i className="icon-category4"></i>
       </div>
-      <div className="userinfo sub dropDown-link" id="user-menu">
+      <div className="userinfo sub dropdown-link" id="user-menu">
         <CustomLink onClick={(e) => toggleUserMenu(e)}>
           <div className="d-flex align-center">
             <div className="img">
@@ -172,7 +172,7 @@ const Header = () => {
             </div>
           </div>
         </CustomLink>
-        <div className="submenu dropDown-list">
+        <div className="submenu dropdown-list">
           <ul>
             <li>
               <Link to={`${BASE_PATH}/users/edit`}>

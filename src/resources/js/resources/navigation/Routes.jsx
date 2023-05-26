@@ -119,10 +119,6 @@ function AuthRoute() {
                 element={<Pages.ChallengePlatforms />}
               />
               <Route
-                path={`${BASE_PATH}/challenges`}
-                element={<Pages.ChallengesAdmin />}
-              />
-              <Route
                 path={`${BASE_PATH}/challenges/edit/:challengeId`}
                 element={<Pages.EditChallenge />}
               />
@@ -138,10 +134,6 @@ function AuthRoute() {
                 path={`${BASE_PATH}/challenges/take/free`}
                 element={<Pages.TakeFreeChallenge />}
               />
-              <Route
-                path={`${BASE_PATH}/challenges`}
-                element={<Pages.Challenges />}
-              />
             </>
           )}
           <Route
@@ -155,6 +147,10 @@ function AuthRoute() {
           <Route
             path={`${BASE_PATH}/tickets/threads/:ticketId`}
             element={<Pages.TicketThreads />}
+          />
+          <Route
+            path={`${BASE_PATH}/challenges`}
+            element={<Pages.Challenges />}
           />
           <Route
             path={`${BASE_PATH}/challenges/analyze/:challengeId`}

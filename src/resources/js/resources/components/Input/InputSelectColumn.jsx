@@ -107,7 +107,7 @@ const InputSelectColumn = ({
           <i className="icon-arrow-down-1"></i>
         </div>
       </div>
-      <div className="select-list scrollhide dropDown-list">
+      <div className="select-list scrollhide dropdown-list">
         {items?.map((item, index) => (
           <div
             key={item[keyItem]}

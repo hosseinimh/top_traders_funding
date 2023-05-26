@@ -6,9 +6,21 @@ import {
   setPagePropsAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH } from "../../../../constants";
+import {
+  BASE_PATH,
+  CHALLENGE_STATUSES,
+  MESSAGE_CODES,
+  MESSAGE_TYPES,
+  USER_ROLES,
+} from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { useLocale } from "../../../../hooks";
+import {
+  setLoadingAction,
+  setNotificationsAction,
+  setShownModalAction,
+} from "../../../../state/layout/layoutActions";
+import { setMessageAction } from "../../../../state/message/messageActions";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -21,6 +33,8 @@ export class PageUtils extends BasePageUtils {
       itemsCount: 0,
       item: null,
       items: null,
+      field: null,
+      modal: null,
       action: null,
     };
   }
@@ -49,15 +63,45 @@ export class PageUtils extends BasePageUtils {
     );
   }
 
+  onCopy(field) {
+    this.dispatch(
+      setPagePropsAction({
+        action: "COPY",
+        field,
+      })
+    );
+  }
+
+  onShowModal(e, modal, item) {
+    e.stopPropagation();
+    this.dispatch(
+      setPagePropsAction({
+        modal,
+        item,
+      })
+    );
+    this.dispatch(setShownModalAction(modal));
+  }
+
   onAction(props) {
     switch (props.action) {
       case "ANALYZE":
         this.analyzeAction(props.item);
 
         break;
+      case "COPY":
+        this.copyAction(props.field);
+
+        break;
     }
 
     super.onAction(props);
+  }
+
+  editAction({ id }) {
+    if (utils.isId(id)) {
+      this.navigate(`${BASE_PATH}/challenges/edit/${id}`);
+    }
   }
 
   analyzeAction({ id }) {
@@ -66,10 +110,44 @@ export class PageUtils extends BasePageUtils {
     }
   }
 
-  async fillForm(data = null) {
-    const promise = this.entity.getPaginateFromUser(
-      this.pageState.props?.pageNumber ?? 1
-    );
-    super.fillForm(promise);
+  copyAction(field) {
+    var element = document.querySelector(`#${field}`);
+    if (!element) {
+      return;
+    }
+    element.select();
+    element.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(element.value);
+  }
+
+  async fillForm() {
+    const promise =
+      this?.userState?.user?.role === USER_ROLES.ADMINISTRATOR
+        ? this.entity.getPaginate(this.pageState.props?.pageNumber ?? 1)
+        : this.entity.getPaginateFromUser(
+            this.pageState.props?.pageNumber ?? 1
+          );
+    await super.fillForm(promise);
+  }
+
+  async changeStatus(id, challengeStatus) {
+    this.dispatch(setLoadingAction(true));
+    const result = await this.entity.changeStatus(id, challengeStatus);
+    if (result) {
+      this.dispatch(
+        setNotificationsAction({
+          ...this.layoutState?.notifications,
+          waitingChallengesCount: result?.waitingChallengesCount,
+        })
+      );
+      this.dispatch(
+        setMessageAction(
+          this.strings.submitted,
+          MESSAGE_TYPES.SUCCESS,
+          MESSAGE_CODES.OK
+        )
+      );
+    }
+    await this.fillForm();
   }
 }

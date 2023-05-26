@@ -225,8 +225,8 @@ const AnalyzeChallenge = () => {
   );
 
   const renderAccountInfo = () => (
-    <div className="card-body" style={{ marginBottom: "1.25rem" }}>
-      <div className="d-flex justify-content-between flex-wrap">
+    <div className="section fix-mr15">
+      <div className="block pd-20">
         {renderAccountInfoItem(
           strings.accountNo,
           isPersian ? utils.en2faDigits(item?.accountNo) : item?.accountNo
@@ -420,120 +420,92 @@ const AnalyzeChallenge = () => {
 
   return (
     <BlankPage pageUtils={pageUtils}>
-      <div className="row mb-4">
-        <div className="col col-12">
-          <div className="card mb-2">{renderAccountInfo()}</div>
-        </div>
-        <div className="col col-md-7 col-12 pxdir-0">
-          <div className="card my-2">
-            <div className="card-body" style={{ paddingBottom: "1.25rem" }}>
-              <h5 className="pb-2">{strings.chart}</h5>
-              <div
-                style={{
-                  minHeight: "450px",
-                  direction: "ltr",
-                }}
-              >
-                {mainChartOptions && mainSeries && (
-                  <Chart
-                    options={mainChartOptions}
-                    series={mainSeries}
-                    width="100%"
-                    height={450}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col col-md-5 col-12">
-          <div className="card my-2 bg-sunny-morning">
-            <div className="card-body py-4 text-center">
-              <h5>{strings.balanceStartDay}</h5>
-              <h6>{`${utils.addCommas(1000)}$`}</h6>
-            </div>
-          </div>
-          <div className="card my-2">
-            <div className="card-body py-4">
-              <h5 className="pb-2">{item?.levelText}</h5>
-              <div className="d-flex align-items-center">
-                <div className="pxdir-4">
-                  <h6>{strings.totalProfit}</h6>
-                  <div className="text-center" style={{ direction: "ltr" }}>
-                    <span>{isPersian ? utils.en2faDigits(0) : 0}</span>
-                    <span> / </span>
-                    <span>{isPersian ? utils.en2faDigits(800) : 800} </span>
+      <div className="section fix-mr15">
+        <div className="block">
+          <div>
+            <div className="section-hd d-flex-wrap">
+              <div className="section-items d-flex scrollhide align-center just-between grow-1">
+                <div className="item pd-10">
+                  <span className="orange" id="sell-price-chart">
+                    0 ~
+                  </span>
+                  <div className="title">
+                    <i className="icon-arrow-down"></i> قیمت فروش
                   </div>
                 </div>
-                <div style={{ flex: "1" }}>
-                  <div className="progress" style={{ direction: "ltr" }}>
-                    <div
-                      className="progress-bar progress-bar-striped bg-success"
-                      role="progressbar"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      style={{ width: "25%" }}
-                    ></div>
+                <div className="item pd-10">
+                  <span className="orange" id="sell-price-chart">
+                    0 ~
+                  </span>
+                  <div className="title">
+                    <i className="icon-arrow-down"></i> قیمت فروش
+                  </div>
+                </div>
+                <div className="item pd-10">
+                  <span className="orange" id="sell-price-chart">
+                    0 ~
+                  </span>
+                  <div className="title">
+                    <i className="icon-arrow-down"></i> قیمت فروش
+                  </div>
+                </div>
+                <div className="item pd-10">
+                  <span className="orange" id="sell-price-chart">
+                    0 ~
+                  </span>
+                  <div className="title">
+                    <i className="icon-arrow-down"></i> قیمت فروش
                   </div>
                 </div>
               </div>
-              {renderRules()}
-              <div className="d-flex">
-                <div
-                  className="card my-2 bg-light mxdir-1"
-                  style={{ boxShadow: "none", flex: "1" }}
-                >
-                  <div className="card-body py-2 px-1">
-                    <h6 className="text-center">{strings.maxDailyLoss}</h6>
-                    {dailyLossChartOptions && dailyLossSeries && (
-                      <Chart
-                        options={dailyLossChartOptions}
-                        series={dailyLossSeries}
-                        width="100%"
-                        height={155}
-                        type="radialBar"
-                      />
-                    )}
-                    <div className="text-center" style={{ direction: "ltr" }}>
-                      <span>{isPersian ? utils.en2faDigits(0) : 0}</span>
-                      <span> / </span>
-                      <span>{isPersian ? utils.en2faDigits(800) : 800} </span>
-                    </div>
+            </div>
+            <div className="d-flex-wrap align-center">
+              <div className="chart-box"></div>
+              <div className="main-user-status grow-1 pd-20">
+                <div className="title">وضعیت حساب کاربری شما</div>
+                <div className="status-active orange">
+                  <i className="icon-award"></i>
+                  احراز هویت انجام نشده است
+                </div>
+                <div className="main-user-status-list fix-mr10">
+                  <div className="item">
+                    <span>مجموع واریزی های تومانی</span>
+                    <strong>0</strong>
+                  </div>
+                  <div className="item">
+                    <span>مجموع برداشت های تومانی</span>
+                    <strong>0</strong>
+                  </div>
+                  <div className="item">
+                    <span>مجموع سفارشات تکمیل شده</span>
+                    <strong>0</strong>
+                  </div>
+                  <div className="item">
+                    <span>مجموع واریز و برداشت ارزی</span>
+                    <strong>0</strong>
+                  </div>
+                  <div className="item">
+                    <span>کارمزد معاملات کوین ها</span>
+                    <strong>1</strong>
+                  </div>
+                  <div className="item">
+                    <span>کارمزد معاملات توکن ها</span>
+                    <strong>3</strong>
                   </div>
                 </div>
-                <div
-                  className={`card my-2 bg-light ${
-                    isPersian ? "mr-1" : "ml-1"
-                  }`}
-                  style={{ boxShadow: "none", flex: "1" }}
-                >
-                  <div className="card-body py-2 px-1">
-                    <h6 className="text-center">{strings.maxTotalLoss}</h6>
-                    {totalLossChartOptions && totalLossSeries && (
-                      <Chart
-                        options={totalLossChartOptions}
-                        series={totalLossSeries}
-                        width="100%"
-                        height={155}
-                        type="radialBar"
-                      />
-                    )}
-                    <div className="text-center" style={{ direction: "ltr" }}>
-                      <span>{isPersian ? utils.en2faDigits(0) : 0}</span>
-                      <span> / </span>
-                      <span>{isPersian ? utils.en2faDigits(800) : 800} </span>
-                    </div>
-                  </div>
+                <div className="d-flex just-end">
+                  <a
+                    href="https://kifpool.me/member_v2/verify/cards"
+                    className="orange upgrade"
+                  >
+                    ثبت کارت بانکی جدید{" "}
+                    <i className="icon-arrow-square-left"></i>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col col-md-7 col-12 pxdir-0">
-          {renderAccountDetails()}
-        </div>
-        <div className="col col-md-5 col-12">{renderParameters()}</div>
       </div>
     </BlankPage>
   );

@@ -164,7 +164,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
     let element = e.target;
     let clickedOnDropDown = false;
     while (element.parentNode) {
-      if (element.classList.contains("dropDwn-list")) {
+      if (element.classList.contains("dropdown-list")) {
         clickedOnDropDown = true;
         break;
       }
@@ -209,12 +209,6 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
       element = element.parentNode;
     }
     if (!clickedOnModal) {
-      if (layoutState?.shownModal) {
-        const element = document.querySelector(`#${layoutState.shownModal}`);
-        if (element) {
-          element.style.display = "none";
-        }
-      }
       dispatch(setShownModalAction(null));
     }
   };

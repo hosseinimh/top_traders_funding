@@ -560,31 +560,28 @@ export const takeRealChallengePage = {
     "ثبت‌نام در چالش با موفقیت انجام گردید. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد گردید.",
 };
 
-export const challengesPage = {
-  _title: "چالش‌های من",
-  _subTitle: "فهرست چالش‌هایی که در آن شرکت کرده‌اید.",
-  accountNo: "حساب",
-  status: "وضعیت",
-  equity: "موجودی",
-  server: "سرور",
-  level: "چالش",
-  analyze: "آنالیز",
-  account: "صورتحساب",
+export const challengeStatuses = {
+  waitingVerification: "در انتظار تایید",
+  waitingTrade: "منتظر اولین ترید",
+  trading: "در حال ترید",
+  endChallenge: "پایان چالش",
 };
 
-export const challengesAdminPage = {
+export const challengesPage = {
   _title: "چالش‌ها",
+  _titleUser: "چالش‌های من",
   _subTitle: "فهرست چالش‌ها",
+  _subTitleUser: "فهرست چالش‌هایی که در آن شرکت کرده‌اید.",
   user: "کاربر",
   accountNo: "حساب",
   status: "وضعیت",
   equity: "موجودی",
   server: "سرور",
   level: "چالش",
-  verify: "تایید چالش",
   analyze: "آنالیز",
-  account: "صورتحساب",
-  submitted: "تایید چالش با موفقیت انجام گردید.",
+  account: "صورت‌حساب",
+  changeStatus: "تغییر وضعیت",
+  submitted: "وضعیت چالش با موفقیت تغییر یافت.",
 };
 
 export const editChallengePage = {

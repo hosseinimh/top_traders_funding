@@ -10,7 +10,13 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
   const pageState = useSelector((state) => state.pageReducer);
 
   if (layoutState?.loading) {
-    return;
+    return (
+      <tr>
+        <td colSpan={columnsCount}>
+          <div style={{ minHeight: "65px" }}></div>
+        </td>
+      </tr>
+    );
   }
 
   let pagesCount = Math.ceil(pageState?.props?.itemsCount / 10);
@@ -38,7 +44,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
 
   return (
     <tr>
-      <th colSpan={columnsCount}>
+      <td colSpan={columnsCount}>
         <nav className="pagination" aria-label="...">
           <ul className="pagination">
             <li className={`page-item ${prevStatus}`}>
@@ -56,6 +62,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
                 className="page-link"
                 aria-disabled="true"
                 onClick={() =>
+                  pageState?.props?.pageNumber > 1 &&
                   pageUtils.setPage(pageState?.props?.pageNumber - 1)
                 }
               >
@@ -78,6 +85,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
               <a
                 className="page-link"
                 onClick={() =>
+                  pageState?.props?.pageNumber < pages.length &&
                   pageUtils.setPage(pageState?.props?.pageNumber + 1)
                 }
               >
@@ -97,7 +105,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
             {utils.en2faDigits(pageState?.props?.itemsCount)} {general.records}
           </span>
         </nav>
-      </th>
+      </td>
     </tr>
   );
 };

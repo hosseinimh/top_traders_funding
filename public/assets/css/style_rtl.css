@@ -466,6 +466,17 @@ a.btn {
   opacity: 0.3;
   cursor: not-allowed;
 }
+.btn-dropdown {
+  padding-left: 0;
+}
+.btn-dropdown .icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+.btn-dropdown .icon i {
+  font-size: 18px;
+}
 .btns .btn {
   margin-left: 10px;
 }
@@ -1469,22 +1480,10 @@ body.light .menu ul li a:hover img {
 .percent.green i {
   transform: rotate(180deg);
 }
-.select-coin-status-hd {
+.section-hd {
   padding: 10px;
   border-bottom: 1px solid #21262e;
   width: 100%;
-}
-.select-coins {
-  position: relative;
-  max-width: 220px;
-  padding: 10px;
-  flex-basis: 220px;
-  flex-grow: 1;
-}
-@media (max-width: 827px) {
-  .select-coins {
-    max-width: unset !important;
-  }
 }
 .coin-select .img {
   height: 40px;
@@ -1506,17 +1505,31 @@ body.light .menu ul li a:hover img {
 .select-coin-active {
   cursor: pointer;
 }
-.select-coin-list {
+.btn-dropdown-menu {
   position: absolute;
-  z-index: 2;
-  background: #161a25;
-  border-radius: 10px;
-  width: calc(100% - 20px);
-  top: 100%;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  top: 50px;
+  right: 0;
+  width: 100%;
+  min-width: 240px;
   display: none;
-  padding: 10px;
-  max-height: 50vh;
+  border-radius: 10px;
+  background: #0f151c;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  border: 1px solid #21262e;
+}
+.btn-dropdown-menu ul {
+  list-style: none;
+}
+.btn-dropdown-menu ul li a {
+  color: #fff;
+  padding: 2px 20px;
+  display: block;
+  line-height: 30px;
+  text-align: right;
+}
+.btn-dropdown-menu ul li a:hover {
+  opacity: 0.3;
 }
 .select-coin-item {
   padding: 10px;
@@ -1535,15 +1548,15 @@ body.light .menu ul li a:hover img {
 .select-coin-item:last-child {
   margin-bottom: 0;
 }
-.coin-status-list {
+.section-items {
   white-space: nowrap;
 }
-.coin-status-list .item {
+.section-items .item {
   position: relative;
   flex-grow: 1;
   text-align: center;
 }
-.coin-status-list .item:after {
+.section-items .item:after {
   content: "";
   height: 100%;
   width: 1px;
@@ -1557,10 +1570,13 @@ body.light .menu ul li a:hover img {
   right: 0;
   top: 0;
 }
-.coin-status-list .item span {
+.section-items .item:first-child:after {
+  background: none;
+}
+.section-items .item span {
   font-size: 1.2em;
 }
-.coin-status-list .item .title i {
+.section-items .item .title i {
   font-size: 16px;
 }
 .main-user-status {
@@ -1626,12 +1642,12 @@ body.light .menu ul li a:hover img {
 .upgrade i {
   margin-right: 5px;
 }
-.candlechart-box {
+.chart-box {
   flex-basis: 600px;
   flex-grow: 4;
   padding: 0 20px 20px;
 }
-.candlechart-box .btn {
+.chart-box .btn {
   float: left;
 }
 #candleChart {
@@ -2297,7 +2313,7 @@ table .bookmark.active:before {
   flex-grow: 5;
   overflow: hidden;
 }
-.trade-main .select-coin-status-hd {
+.trade-main .section-hd {
   padding: 0;
   border-right: 1px solid #21262e;
 }
@@ -2414,7 +2430,7 @@ table .bookmark.active:before {
     order: -1;
     border-right: none;
   }
-  .trade-main .select-coin-status-hd {
+  .trade-main .section-hd {
     border-right: none;
   }
 }
@@ -3316,7 +3332,7 @@ tr.sell .prsum {
   align-items: center;
   justify-content: safe center;
   padding: 20px;
-  transition: display 1s;
+  transition: all 0.3s;
 }
 .modal {
   flex-basis: 200px;
@@ -3326,8 +3342,9 @@ tr.sell .prsum {
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  opacity: 0;
   transform: scale(0.8);
-  transition: all 0.5s;
+  transition: all 0.3s;
   align-self: safe center;
 }
 .modal-main {
@@ -15857,7 +15874,7 @@ body.light,
 body.light .sidebar,
 body.light .sub-box,
 body.light .dark-toggle,
-body.light .select-coin-list,
+body.light .btn-dropdown-menu,
 body.light .select-list,
 body.light .pric-cards .item,
 body.light .most-demanded .item,
@@ -15978,7 +15995,7 @@ body.light .step-num.active .icon {
 body.light .block,
 body.light .last-coin-title,
 body.light .profitable-slider .profit-item,
-body.light .select-coin-status-hd,
+body.light .section-hd,
 body.light .main-user-status,
 body.light .notifi-item,
 body.light .support-item,
@@ -16041,7 +16058,7 @@ body.light .checked-item input[type="checkbox"] {
   border-color: transparent;
 }
 body.light .main-coin-name::after,
-body.light .coin-status-list .item::after {
+body.light .section-items .item::after {
   background: linear-gradient(
     0deg,
     rgba(49, 54, 64, 0) 0%,
