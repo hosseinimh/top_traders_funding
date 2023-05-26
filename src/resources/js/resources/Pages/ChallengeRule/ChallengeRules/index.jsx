@@ -285,7 +285,7 @@ const ChallengeRules = () => {
       table={{ renderHeader, renderItems }}
     >
       <button
-        className="btn btn-blue mxdir-5"
+        className="btn btn-primary mxdir-5"
         type="button"
         title={strings.edit}
         onClick={() => pageUtils.onEdit({ item: null })}

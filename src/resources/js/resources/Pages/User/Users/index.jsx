@@ -80,7 +80,7 @@ const Users = () => {
           <td colSpan={columnsCount}>
             <button
               type="button"
-              className="btn btn-blue mx-5 mb-20"
+              className="btn btn-primary mx-5 mb-20"
               onClick={() => pageUtils.onEdit(item)}
               title={general.edit}
               disabled={layoutState?.loading}
@@ -89,7 +89,7 @@ const Users = () => {
             </button>
             <button
               type="button"
-              className="btn btn-blue mx-5 mb-20"
+              className="btn btn-primary mx-5 mb-20"
               onClick={() => pageUtils.onChangePassword(item)}
               title={strings.changePassword}
               disabled={layoutState?.loading}
@@ -98,7 +98,7 @@ const Users = () => {
             </button>
             <button
               type="button"
-              className="btn btn-blue mx-5 mb-20"
+              className="btn btn-primary mx-5 mb-20"
               onClick={() => pageUtils.onTickets(item)}
               title={strings.tickets}
               disabled={layoutState?.loading}

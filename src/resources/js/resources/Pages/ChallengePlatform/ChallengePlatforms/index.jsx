@@ -34,7 +34,7 @@ const ChallengePlatforms = () => {
         <td>
           <button
             type="button"
-            className="btn btn-blue mxdir-5"
+            className="btn btn-primary mxdir-5"
             onClick={() => pageUtils.onEdit(item)}
             title={general.edit}
             disabled={layoutState?.loading}

@@ -115,7 +115,7 @@ function Sidebar() {
                 top: "2px",
               }}
             >
-              <span className="bg-green"></span>
+              <span className="bg-success"></span>
             </div>
           )}
         </Link>
@@ -265,7 +265,7 @@ function Sidebar() {
             "ChangePasswordProfile"
           )}
           <li>
-            <CustomLink onClick={onLogout} className="red">
+            <CustomLink onClick={onLogout} className="danger">
               <i className="icon-logout"></i>
               <span>{strings.logout}</span>
             </CustomLink>

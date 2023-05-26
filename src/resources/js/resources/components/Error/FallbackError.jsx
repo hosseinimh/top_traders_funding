@@ -16,10 +16,10 @@ const FallbackError = () => {
             </div>
             <div className="section fix-mr15">
               <div className="block pd-15" style={{ textAlign: "center" }}>
-                <div className="alert mb-20 alert-red">
+                <div className="alert mb-20 alert-danger">
                   {general.fallbackError}
                 </div>
-                <a className="btn btn-blue" href={BASE_PATH}>
+                <a className="btn btn-primary" href={BASE_PATH}>
                   {general.fallbackReturnHome}
                 </a>
               </div>

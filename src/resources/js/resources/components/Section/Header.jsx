@@ -180,7 +180,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <CustomLink onClick={onLogout} className="red">
+              <CustomLink onClick={onLogout} className="danger">
                 <i className="icon-logout"></i> {strings.logout}
               </CustomLink>
             </li>

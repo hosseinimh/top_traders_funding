@@ -7,7 +7,11 @@ import {
   setPageTitleAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import { BASE_PATH, USER_ROLES } from "../../../../constants";
+import {
+  BASE_PATH,
+  CHALLENGE_STATUSES,
+  USER_ROLES,
+} from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { useLocale } from "../../../../hooks";
 
@@ -48,9 +52,15 @@ export class PageUtils extends BasePageUtils {
   }
 
   async fetchItem(id) {
-    return this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-      ? await this.entity.get(id)
-      : await this.entity.getFromUser(id);
+    const result =
+      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
+        ? await this.entity.get(id)
+        : await this.entity.getFromUser(id);
+
+    if (result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION) {
+      return null;
+    }
+    return result;
   }
 
   handleFetchResult(result) {

@@ -237,7 +237,7 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
               <div className="dashboard-content">
                 <div className="content-title">
                   <h2>{pageState?.title}</h2>
-                  <div className="speedbar">{pageState?.subTitle}</div>
+                  <div className="subtitle">{pageState?.subTitle}</div>
                 </div>
                 {children}
               </div>

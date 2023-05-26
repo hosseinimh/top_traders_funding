@@ -364,7 +364,7 @@ const BaseTakeChallenge = ({ level }) => {
           <InputRow containerStyle={{ justifyContent: "center" }}>
             <button
               type="button"
-              className="btn btn-blue"
+              className="btn btn-primary"
               onClick={pageUtils?.useForm?.handleSubmit(pageUtils.onSubmit)}
             >
               {strings.register}

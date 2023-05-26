@@ -147,7 +147,7 @@ const Challenges = () => {
                   <>
                     <button
                       type="button"
-                      className="btn btn-blue mxdir-5"
+                      className="btn btn-primary mxdir-5"
                       onClick={() => pageUtils.onEdit(item)}
                       title={general.edit}
                       disabled={layoutState?.loading}
@@ -160,7 +160,7 @@ const Challenges = () => {
                 <>
                   <button
                     type="button"
-                    className="btn btn-green mxdir-5"
+                    className="btn btn-success mxdir-5"
                     disabled={layoutState?.loading}
                     onClick={() => pageUtils?.onAnalyze(item)}
                     title={strings.analyze}
@@ -169,7 +169,7 @@ const Challenges = () => {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-blue mxdir-5"
+                    className="btn btn-primary mxdir-5"
                     disabled={layoutState?.loading}
                     onClick={(e) =>
                       pageUtils?.onShowModal(e, "accountModal", item)
@@ -184,7 +184,7 @@ const Challenges = () => {
                 <button
                   id="change-status"
                   type="button"
-                  className="btn btn-blue btn-dropdown mxdir-5"
+                  className="btn btn-primary btn-dropdown mxdir-5"
                   onClick={(e) => toggleChallengeStatus(e)}
                 >
                   <div className="d-flex">

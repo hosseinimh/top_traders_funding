@@ -81,7 +81,7 @@ const InputButtonRadiosColumn = ({
         }}
       />
       <label
-        className={`m-0 btn ${item.checked ? "btn-blue" : ""}`}
+        className={`m-0 btn ${item.checked ? "btn-primary" : ""}`}
         htmlFor={`${name}_input_field_${item.id}`}
       >
         {item.label}

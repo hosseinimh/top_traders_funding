@@ -21,7 +21,7 @@ const ForgotPassword = () => {
         textAlign="left"
       />
       <button
-        className="btn btn-blue"
+        className="btn btn-primary"
         onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
         type="button"
         title={strings.submit}

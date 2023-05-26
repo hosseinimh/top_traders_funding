@@ -13,7 +13,7 @@ const SearchBox = ({ children, pageUtils, onSubmit, onReset }) => {
       <div>{children}</div>
       <div className="btns d-flex mt-10">
         <button
-          className="btn btn-blue mxdir-5"
+          className="btn btn-primary mxdir-5"
           type="button"
           disabled={layoutState?.loading}
           title={general.search}

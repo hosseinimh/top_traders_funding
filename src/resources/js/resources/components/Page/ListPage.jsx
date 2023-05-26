@@ -25,7 +25,7 @@ const ListPage = ({
           <div className="table-header">
             {hasAdd && (
               <button
-                className="btn btn-blue mxdir-5"
+                className="btn btn-primary mxdir-5"
                 type="button"
                 title={pageUtils.strings.add}
                 onClick={pageUtils.onAdd}

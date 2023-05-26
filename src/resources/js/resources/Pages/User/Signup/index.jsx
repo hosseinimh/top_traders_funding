@@ -39,7 +39,7 @@ const Signup = () => {
         <InputTextColumn field="family" fullRow={false} />
       </InputRow>
       <button
-        className="btn btn-blue mt-30 px-30"
+        className="btn btn-primary mt-30 px-30"
         onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
         type="button"
         title={strings.submit}

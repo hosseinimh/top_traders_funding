@@ -20,7 +20,7 @@ const FormCard = ({
       <div className="btns d-flex mt-30">
         {hasSubmit && (
           <button
-            className="btn btn-blue"
+            className="btn btn-primary"
             type="button"
             title={
               pageUtils?.strings && "submit" in pageUtils.strings

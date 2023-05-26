@@ -33,7 +33,7 @@ const TicketThreads = () => {
       <div className="btns d-flex mt-30">
         {pageState?.props?.item?.status === TICKET_STATUSES.OPEN && (
           <button
-            className="btn btn-blue mxdir-5"
+            className="btn btn-primary mxdir-5"
             type="button"
             title={strings.closeTicket}
             disabled={layoutState?.loading}

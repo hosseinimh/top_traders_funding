@@ -461,13 +461,13 @@ const AnalyzeChallenge = () => {
             </div>
             <div className="d-flex-wrap align-center">
               <div className="chart-box"></div>
-              <div className="main-user-status grow-1 pd-20">
+              <div className="section-side grow-1 pd-20">
                 <div className="title">وضعیت حساب کاربری شما</div>
                 <div className="status-active orange">
                   <i className="icon-award"></i>
                   احراز هویت انجام نشده است
                 </div>
-                <div className="main-user-status-list fix-mr10">
+                <div className="section-side-list fix-mr10">
                   <div className="item">
                     <span>مجموع واریزی های تومانی</span>
                     <strong>0</strong>
@@ -496,7 +496,7 @@ const AnalyzeChallenge = () => {
                 <div className="d-flex just-end">
                   <a
                     href="https://kifpool.me/member_v2/verify/cards"
-                    className="orange upgrade"
+                    className="dark-warning"
                   >
                     ثبت کارت بانکی جدید{" "}
                     <i className="icon-arrow-square-left"></i>
