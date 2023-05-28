@@ -1,100 +1,101 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Chart from "react-apexcharts";
 
 import { BlankPage, Span } from "../../../components";
-import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";
 
 const AnalyzeChallenge = () => {
+  const pageState = useSelector((state) => state.pageReducer);
   const [item, setItem] = useState(null);
-  const [account, setAccount] = useState(null);
-  const [profits, setProfits] = useState([]);
-  const [todayProfit, setTodayProfit] = useState(0);
+  const [accountData, setAccountData] = useState(null);
+  const [profits, setProfits] = useState(null);
+  const [totalProfit, setTotalProfit] = useState(0);
+  const [dailyLoss, setDailyLoss] = useState(0);
+  const [totalLoss, setTotalLoss] = useState(0);
   const [mainChartOptions, setMainChartOptions] = useState(null);
-  const [dailyLossChartOptions, setDailyLossChartOptions] = useState(null);
-  const [totalLossChartOptions, setTotalLossChartOptions] = useState(null);
   const [mainSeries, setMainSeries] = useState(null);
+  const [dailyLossChartOptions, setDailyLossChartOptions] = useState(null);
   const [dailyLossSeries, setDailyLossSeries] = useState(null);
+  const [totalLossChartOptions, setTotalLossChartOptions] = useState(null);
   const [totalLossSeries, setTotalLossSeries] = useState(null);
-  const { analyzeChallengePage: strings, general } = useLocale();
+  const { analyzeChallengePage: strings } = useLocale();
   const pageUtils = new PageUtils();
-  const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
-    if (pageUtils?.pageState?.props?.item) {
-      setItem(pageUtils?.pageState?.props?.item);
+    if (pageState?.props?.item) {
+      setItem(pageState?.props?.item);
     }
-  }, [pageUtils?.pageState?.props?.item]);
+  }, [pageState?.props?.item]);
 
   useEffect(() => {
-    if (item) {
-      // connectMetaApi();
+    if (pageState?.props?.accountData) {
+      setAccountData(pageState?.props?.accountData);
     }
-  }, [item]);
+  }, [pageState?.props?.accountData]);
 
   useEffect(() => {
-    if (account) {
+    if (accountData) {
       getProfits();
-      setTimeout(() => {
-        fetchAccount();
+      setTimeout(async () => {
+        await pageUtils?.fetchData();
       }, 10000);
     }
-  }, [account]);
+  }, [accountData]);
 
   useEffect(() => {
-    if (profits?.length > 0) {
+    if (profits) {
       setMainChart();
+      setDailyLossChart();
       setTotalLossChart();
     }
   }, [profits]);
 
-  useEffect(() => {
-    setDailyLossChart();
-  }, [todayProfit]);
-
   const getProfits = () => {
-    const { deals } = account;
+    const deals = accountData?.deals?.deals;
     const dealItems = deals.filter(
       (deal) =>
         deal.type === "DEAL_TYPE_BALANCE" ||
         deal?.entryType === "DEAL_ENTRY_OUT"
     );
     const today = new Date();
-    let totalProfit = 0;
-    let todayTotalProfit = 0;
-    const profitItems = [];
+    let balance = 0;
+    let totalProfitSum = 0;
+    let dailyLossSum = 0;
+    let totalLossSum = 0;
+    let profitItems = [];
     dealItems?.forEach((dealItem) => {
-      totalProfit += dealItem.profit.toFixed(2);
-      profitItems.push(totalProfit);
-      const date = new Date(dealItem.brokerTime);
-      if (
-        dealItem?.entryType === "DEAL_ENTRY_OUT" &&
-        date.getFullYear() === today.getFullYear() &&
-        date.getMonth() === today.getMonth() &&
-        date.getDate() === today.getDate()
-      ) {
-        todayTotalProfit += dealItem.profit.toFixed(2);
+      balance += dealItem.profit;
+      profitItems.push(balance);
+      if (dealItem.type !== "DEAL_TYPE_BALANCE") {
+        totalProfitSum += dealItem.profit > 0 ? dealItem.profit : 0;
+        totalLossSum += dealItem.profit < 0 ? dealItem.profit : 0;
+        const date = new Date(dealItem.brokerTime);
+        if (
+          dealItem?.entryType === "DEAL_ENTRY_OUT" &&
+          date.getFullYear() === today.getFullYear() &&
+          date.getMonth() === today.getMonth() &&
+          date.getDate() === today.getDate()
+        ) {
+          dailyLossSum += dealItem.profit < 0 ? dealItem.profit : 0;
+        }
       }
     });
     setProfits(profitItems);
-    setTodayProfit(todayTotalProfit);
-  };
-
-  const connectMetaApi = async () => {
-    await metaApi.connect(item.metaApiToken, item.metaApiAccountId);
-    const result = await metaApi.sync();
-    setAccount(result);
-  };
-
-  const fetchAccount = async () => {
-    // const result = await metaApi.sync();
-    // setAccount(result);
+    setTotalProfit(totalProfitSum);
+    setDailyLoss(dailyLossSum);
+    setTotalLoss(totalLossSum);
   };
 
   const setMainChart = () => {
     setMainChartOptions({
+      chart: {
+        toolbar: {
+          show: false,
+        },
+      },
       colors: ["#298957"],
       stroke: {
         curve: "smooth",
@@ -105,22 +106,56 @@ const AnalyzeChallenge = () => {
           formatter: function (value) {
             return value.toFixed(0);
           },
+          style: {
+            colors: getComputedStyle(document.documentElement).getPropertyValue(
+              "--placeholder"
+            ),
+          },
+        },
+        axisBorder: {
+          show: true,
+          color: getComputedStyle(document.documentElement).getPropertyValue(
+            "--placeholder"
+          ),
+          height: 1,
+          width: "100%",
+          offsetX: 0,
+          offsetY: 0,
         },
       },
       yaxis: {
         min: 0,
         max: Math.max(item.balance * 1.2, item.equity * 1.2),
+        labels: {
+          formatter: (value) => value.toFixed(0),
+          style: {
+            colors: [
+              getComputedStyle(document.documentElement).getPropertyValue(
+                "--placeholder"
+              ),
+            ],
+          },
+        },
+        tickAmount: 4,
       },
       tooltip: {
         x: {
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
+          formatter: (value) => value.toFixed(0),
         },
         y: {
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
+          formatter: (value) => value.toFixed(2),
+        },
+      },
+      grid: {
+        show: true,
+        borderColor: getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--border"),
+        padding: {
+          top: 0,
+          right: 50,
+          bottom: 0,
+          left: 50,
         },
       },
     });
@@ -139,7 +174,11 @@ const AnalyzeChallenge = () => {
 
   const setDailyLossChart = () => {
     setDailyLossChartOptions({
-      colors: ["#298957"],
+      colors: [
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--dark-warning"
+        ),
+      ],
       plotOptions: {
         radialBar: {
           hollow: {
@@ -147,7 +186,9 @@ const AnalyzeChallenge = () => {
             size: "70%",
           },
           track: {
-            background: "#9c9b9b",
+            background: getComputedStyle(
+              document.documentElement
+            ).getPropertyValue("--placeholder"),
             startAngle: 0,
             endAngle: 360,
           },
@@ -156,9 +197,13 @@ const AnalyzeChallenge = () => {
             name: {
               offsetY: 0,
               show: true,
-              color: "#298957",
+              color: getComputedStyle(
+                document.documentElement
+              ).getPropertyValue("--success"),
               fontSize: "0.9rem",
-              fontFamily: "vazir",
+              fontFamily: getComputedStyle(
+                document.documentElement
+              ).getPropertyValue("--font"),
             },
             value: {
               show: false,
@@ -171,12 +216,16 @@ const AnalyzeChallenge = () => {
       },
       labels: [strings.stable],
     });
-    setDailyLossSeries([todayProfit]);
+    setDailyLossSeries([dailyLoss]);
   };
 
   const setTotalLossChart = () => {
     setTotalLossChartOptions({
-      colors: ["#298957"],
+      colors: [
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--dark-warning"
+        ),
+      ],
       plotOptions: {
         radialBar: {
           hollow: {
@@ -184,7 +233,9 @@ const AnalyzeChallenge = () => {
             size: "70%",
           },
           track: {
-            background: "#9c9b9b",
+            background: getComputedStyle(
+              document.documentElement
+            ).getPropertyValue("--placeholder"),
             startAngle: 0,
             endAngle: 360,
           },
@@ -193,9 +244,13 @@ const AnalyzeChallenge = () => {
             name: {
               offsetY: 0,
               show: true,
-              color: "#298957",
+              color: getComputedStyle(
+                document.documentElement
+              ).getPropertyValue("--success"),
               fontSize: "0.9rem",
-              fontFamily: "vazir",
+              fontFamily: getComputedStyle(
+                document.documentElement
+              ).getPropertyValue("--font"),
             },
             value: {
               show: false,
@@ -208,214 +263,301 @@ const AnalyzeChallenge = () => {
       },
       labels: [strings.stable],
     });
-    let loss = 0;
-    profits.forEach((profit) => {
-      if (profit < 0) {
-        loss += profit;
-      }
-    });
-    setTotalLossSeries([loss]);
+    setTotalLossSeries([totalLoss]);
   };
 
-  const renderAccountInfoItem = (item, value) => (
-    <div className="my-1" style={{ textAlign: "center", flex: "1" }}>
-      <span className="mxdir-1">{item}:</span>
-      <Span className="font-weight-bolder">{value}</Span>
+  const renderAccountInfo = () => (
+    <div className="section-hd d-flex-wrap">
+      <div className="section-items d-flex scrollhide align-center just-between grow-1">
+        <div className="item pd-10">
+          <span>{item?.accountNo}</span>
+          <div className="title">{strings.accountNo}</div>
+        </div>
+        <div className="item pd-10">
+          <span>{item?.platform}</span>
+          <div className="title">{strings.platform}</div>
+        </div>
+        <div className="item pd-10">
+          <span>{item?.statusText}</span>
+          <div className="title">{strings.status}</div>
+        </div>
+        <div className="item pd-10">
+          <span>{item?.balance}</span>
+          <div className="title">{strings.accountType}</div>
+        </div>
+      </div>
     </div>
   );
 
-  const renderAccountInfo = () => (
-    <div className="section fix-mr15">
-      <div className="block pd-20">
-        {renderAccountInfoItem(
-          strings.accountNo,
-          isPersian ? utils.en2faDigits(item?.accountNo) : item?.accountNo
-        )}
-        {renderAccountInfoItem(
-          strings.platform,
-          isPersian
-            ? utils.en2faDigits((item?.platform ?? "").toUpperCase())
-            : (item?.platform ?? "").toUpperCase()
-        )}
-        {renderAccountInfoItem(strings.status, item?.statusText)}
-        {renderAccountInfoItem(
-          strings.accountType,
-          isPersian
-            ? utils.en2faDigits(`$${utils.addCommas(item?.balance)}`)
-            : `${utils.addCommas(item?.balance)}$`
-        )}
+  const renderMainChart = () => {
+    if (mainChartOptions && mainSeries) {
+      return (
+        <Chart
+          options={mainChartOptions}
+          series={mainSeries}
+          width="100%"
+          height={450}
+        />
+      );
+    }
+    return <></>;
+  };
+
+  const renderProfit = () => (
+    <div className="d-flex align-center">
+      <div className="pd-dir-10">
+        <h4 className="white">{strings.totalProfit}</h4>
+        <div className="text-center white" style={{ direction: "ltr" }}>
+          <span
+            className={`${
+              totalProfit < 0
+                ? "danger"
+                : totalProfit === 0
+                ? "white"
+                : "success"
+            }`}
+          >
+            {totalProfit.toFixed(2)}
+          </span>
+          <span> / </span>
+          <span>{800} </span>
+        </div>
+      </div>
+      <div className="progress grow-1" style={{ direction: "ltr" }}>
+        <div
+          className="progress-bar bg-success"
+          style={{
+            width: `${
+              totalProfit < 0 ? "0px" : `${(totalProfit / 800).toFixed(0)}px`
+            }`,
+          }}
+        ></div>
       </div>
     </div>
   );
 
   const renderRules = () => (
-    <div className="card my-2 bg-light" style={{ boxShadow: "none" }}>
-      <div className="card-body py-2 px-1">
-        <div className="d-flex justify-content-between px-1">
-          {(() => {
-            const challengeRule = pageUtils?.pageState?.props?.challengeRule;
-            if (item && challengeRule) {
-              let title = "";
-              let body = "";
-              switch (item.level) {
-                case CHALLENGE_LEVELS.LEVEL1:
-                  title = strings.tradeDaysTitle.replace(
-                    ":field",
-                    challengeRule.tradeDays1
-                  );
-                  body = strings.tradeDaysBody.replace(
-                    ":field",
-                    challengeRule.tradeDays1
-                  );
-                  break;
-                case CHALLENGE_LEVELS.LEVEL2:
-                  title = strings.tradeDaysTitle.replace(
-                    ":field",
-                    challengeRule.tradeDays2
-                  );
-                  body = strings.tradeDaysBody.replace(
-                    ":field",
-                    challengeRule.tradeDays2
-                  );
-                  break;
-                case CHALLENGE_LEVELS.REAL:
-                  title = strings.tradeDaysTitle.replace(
-                    ":field",
-                    challengeRule.tradeDaysReal
-                  );
-                  body = strings.tradeDaysBody.replace(
-                    ":field",
-                    challengeRule.tradeDaysReal
-                  );
-                  break;
-                case CHALLENGE_LEVELS.FREE:
-                  title = strings.tradeDaysTitle.replace(
-                    ":field",
-                    challengeRule.tradeDaysFree
-                  );
-                  body = strings.tradeDaysBody.replace(
-                    ":field",
-                    challengeRule.tradeDaysFree
-                  );
-                  break;
-                default:
-                  return <></>;
-              }
-              return (
-                <div>
-                  <h6>{title}</h6>
-                  <span style={{ fontSize: "0.75rem" }}>{body}</span>
-                </div>
-              );
+    <div className="bg-dark pd-10 mt-20" style={{ borderRadius: "0.625rem" }}>
+      <div className="d-flex just-between align-center pxdir-10">
+        {(() => {
+          const challengeRule = pageUtils?.pageState?.props?.challengeRule;
+          if (item && challengeRule) {
+            let title = "";
+            let body = "";
+            switch (item.level) {
+              case CHALLENGE_LEVELS.LEVEL1:
+                title = strings.tradeDaysTitle.replace(
+                  ":field",
+                  challengeRule.tradeDays1
+                );
+                body = strings.tradeDaysBody.replace(
+                  ":field",
+                  challengeRule.tradeDays1
+                );
+                break;
+              case CHALLENGE_LEVELS.LEVEL2:
+                title = strings.tradeDaysTitle.replace(
+                  ":field",
+                  challengeRule.tradeDays2
+                );
+                body = strings.tradeDaysBody.replace(
+                  ":field",
+                  challengeRule.tradeDays2
+                );
+                break;
+              case CHALLENGE_LEVELS.REAL:
+                title = strings.tradeDaysTitle.replace(
+                  ":field",
+                  challengeRule.tradeDaysReal
+                );
+                body = strings.tradeDaysBody.replace(
+                  ":field",
+                  challengeRule.tradeDaysReal
+                );
+                break;
+              case CHALLENGE_LEVELS.FREE:
+                title = strings.tradeDaysTitle.replace(
+                  ":field",
+                  challengeRule.tradeDaysFree
+                );
+                body = strings.tradeDaysBody.replace(
+                  ":field",
+                  challengeRule.tradeDaysFree
+                );
+                break;
+              default:
+                return <></>;
             }
-            return <></>;
-          })()}
-          <i
-            className="metismenu-icon pe-7s-date"
-            style={{ fontSize: "3rem" }}
-          ></i>
-        </div>
+            return (
+              <div className="pd-td-10">
+                <h4 className="pd-d-10 white">{title}</h4>
+                <span style={{ fontSize: "0.75rem" }}>{body}</span>
+              </div>
+            );
+          }
+          return <></>;
+        })()}
+        <i className="icon-calendar-1" style={{ fontSize: "3rem" }}></i>
       </div>
     </div>
   );
 
-  const renderAccountDetailsRow = (item1, value1, item2, value2) => (
-    <div className="d-flex justify-content-between">
-      <div className="d-flex justify-content-between w-50 border-light border-end mxdir-3">
-        <span className="text-secondary">{item1}:</span>
-        <Span>{value1}</Span>
-      </div>
-      <div className="d-flex justify-content-between w-50">
-        <span className="text-secondary">{item2}:</span>
-        <Span>-</Span>
-      </div>
-    </div>
-  );
+  const renderDailyLossChart = () => {
+    if (dailyLossChartOptions && dailyLossSeries) {
+      return (
+        <div
+          className="bg-dark grow-1 pd-10 d-flex-column align-center"
+          style={{ borderRadius: "0.625rem" }}
+        >
+          <h4 className="white pd-d-10">{strings.maxDailyLoss}</h4>
+          <Chart
+            type="radialBar"
+            options={dailyLossChartOptions}
+            series={dailyLossSeries}
+            width={100}
+            height={155}
+          />
+          <div className="text-center" style={{ direction: "ltr" }}>
+            <span className={`${dailyLoss < 0 ? "danger" : "white"}`}>
+              {dailyLoss.toFixed(2)}
+            </span>
+            <span className="white"> / </span>
+            <span className="white">{800}</span>
+          </div>
+        </div>
+      );
+    }
+    return <></>;
+  };
+
+  const renderTotalLossChart = () => {
+    if (totalLossChartOptions && totalLossSeries) {
+      return (
+        <div
+          className="bg-dark grow-1 pd-10 d-flex-column align-center"
+          style={{ borderRadius: "0.625rem" }}
+        >
+          <h4 className="white pd-d-10">{strings.maxTotalLoss}</h4>
+          <Chart
+            type="radialBar"
+            options={totalLossChartOptions}
+            series={totalLossSeries}
+            width={100}
+            height={155}
+          />
+          <div className="text-center" style={{ direction: "ltr" }}>
+            <span className={`${totalLoss < 0 ? "danger" : "white"}`}>
+              {totalLoss.toFixed(2)}
+            </span>
+            <span className="white"> / </span>
+            <span className="white">{800}</span>
+          </div>
+        </div>
+      );
+    }
+    return <></>;
+  };
 
   const renderAccountDetails = () => (
-    <div className="card my-2" style={{ minHeight: "21.8rem" }}>
-      <div className="card-title mt-4 mx-4">
-        <h5>{strings.accountDetails}</h5>
+    <>
+      <h3 className="field-title pd-d-20">{strings.accountDetails}</h3>
+      <div className="d-flex-wrap align-top just-around">
+        <div className="grow-1 pd-lr-10">
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem1}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem3}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem5}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem7}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem9}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem11}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem13}</div>
+            <span>-</span>
+          </div>
+        </div>
+        <div className="grow-1 side pd-lr-10">
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem2}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem4}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem6}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem8}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem10}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem12}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.accountDetailsItem14}</div>
+            <span>-</span>
+          </div>
+        </div>
       </div>
-      <div className="card-body">
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem1,
-          utils.en2faDigits(1),
-          strings.accountDetailsItem2,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem3,
-          "-",
-          strings.accountDetailsItem4,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem5,
-          "-",
-          strings.accountDetailsItem6,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem7,
-          "-",
-          strings.accountDetailsItem8,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem9,
-          "-",
-          strings.accountDetailsItem10,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem11,
-          "-",
-          strings.accountDetailsItem12,
-          "-"
-        )}
-        {renderAccountDetailsRow(
-          strings.accountDetailsItem13,
-          "-",
-          strings.accountDetailsItem14,
-          "-"
-        )}
-      </div>
-    </div>
+    </>
   );
 
   const renderParameters = () => (
-    <div className="card my-2" style={{ minHeight: "21.8rem" }}>
-      <div className="card-title mt-4 mx-4">
-        <h5>{strings.parameteresTitle}</h5>
+    <>
+      <h3 className="field-title pd-d-20">{strings.parameteresTitle}</h3>
+      <div className="d-flex-wrap align-top just-around">
+        <div className="grow-1 pd-lr-10">
+          <div className="item-horizontal">
+            <div>{strings.profitFactor}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.sharpeRatio}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.sortinoRatio}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.zScore}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.expectedProfit}</div>
+            <span>-</span>
+          </div>
+          <div className="item-horizontal">
+            <div>{strings.expectedPipProfit}</div>
+            <span>-</span>
+          </div>
+        </div>
       </div>
-      <div className="card-body">
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.profitFactor}</span>
-          <Span>-</Span>
-        </div>
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.sharpeRatio}</span>
-          <Span>-</Span>
-        </div>
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.sortinoRatio}</span>
-          <Span>-</Span>
-        </div>
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.zScore}</span>
-          <Span>-</Span>
-        </div>
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.expectedProfit}</span>
-          <Span>-</Span>
-        </div>
-        <div className="d-flex justify-content-between mxdir-1">
-          <span className="text-secondary">{strings.expectedPipProfit}</span>
-          <Span>-</Span>
-        </div>
-      </div>
-    </div>
+    </>
   );
 
   return (
@@ -423,86 +565,38 @@ const AnalyzeChallenge = () => {
       <div className="section fix-mr15">
         <div className="block">
           <div>
-            <div className="section-hd d-flex-wrap">
-              <div className="section-items d-flex scrollhide align-center just-between grow-1">
-                <div className="item pd-10">
-                  <span className="orange" id="sell-price-chart">
-                    0 ~
-                  </span>
-                  <div className="title">
-                    <i className="icon-arrow-down"></i> قیمت فروش
-                  </div>
-                </div>
-                <div className="item pd-10">
-                  <span className="orange" id="sell-price-chart">
-                    0 ~
-                  </span>
-                  <div className="title">
-                    <i className="icon-arrow-down"></i> قیمت فروش
-                  </div>
-                </div>
-                <div className="item pd-10">
-                  <span className="orange" id="sell-price-chart">
-                    0 ~
-                  </span>
-                  <div className="title">
-                    <i className="icon-arrow-down"></i> قیمت فروش
-                  </div>
-                </div>
-                <div className="item pd-10">
-                  <span className="orange" id="sell-price-chart">
-                    0 ~
-                  </span>
-                  <div className="title">
-                    <i className="icon-arrow-down"></i> قیمت فروش
-                  </div>
+            {renderAccountInfo()}
+            <div className="d-flex-wrap align-top">
+              <div className="section-main">{renderMainChart()}</div>
+              <div className="section-side grow-1 pd-20">
+                <h3 className="white pd-d-20">{item?.levelText}</h3>
+                {renderProfit()}
+                {renderRules()}
+                <div
+                  className="d-flex just-between align-top mt-20"
+                  style={{ gap: "1rem" }}
+                >
+                  {renderDailyLossChart()}
+                  {renderTotalLossChart()}
                 </div>
               </div>
             </div>
-            <div className="d-flex-wrap align-center">
-              <div className="chart-box"></div>
-              <div className="section-side grow-1 pd-20">
-                <div className="title">وضعیت حساب کاربری شما</div>
-                <div className="status-active orange">
-                  <i className="icon-award"></i>
-                  احراز هویت انجام نشده است
-                </div>
-                <div className="section-side-list fix-mr10">
-                  <div className="item">
-                    <span>مجموع واریزی های تومانی</span>
-                    <strong>0</strong>
-                  </div>
-                  <div className="item">
-                    <span>مجموع برداشت های تومانی</span>
-                    <strong>0</strong>
-                  </div>
-                  <div className="item">
-                    <span>مجموع سفارشات تکمیل شده</span>
-                    <strong>0</strong>
-                  </div>
-                  <div className="item">
-                    <span>مجموع واریز و برداشت ارزی</span>
-                    <strong>0</strong>
-                  </div>
-                  <div className="item">
-                    <span>کارمزد معاملات کوین ها</span>
-                    <strong>1</strong>
-                  </div>
-                  <div className="item">
-                    <span>کارمزد معاملات توکن ها</span>
-                    <strong>3</strong>
-                  </div>
-                </div>
-                <div className="d-flex just-end">
-                  <a
-                    href="https://kifpool.me/member_v2/verify/cards"
-                    className="dark-warning"
-                  >
-                    ثبت کارت بانکی جدید{" "}
-                    <i className="icon-arrow-square-left"></i>
-                  </a>
-                </div>
+          </div>
+        </div>
+      </div>
+      <div className="section fix-mr15">
+        <div>
+          <div className="d-flex-wrap align-top">
+            <div className="section-main" style={{ padding: "0" }}>
+              <div className="block pd-20">
+                {item && renderAccountDetails()}
               </div>
+            </div>
+            <div
+              className="section-side grow-1 d-flex"
+              style={{ border: "none" }}
+            >
+              <div className="block pd-20">{item && renderParameters()}</div>
             </div>
           </div>
         </div>

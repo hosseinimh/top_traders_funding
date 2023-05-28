@@ -23,7 +23,7 @@ class UpdateChallengeeRequest extends FormRequest
             'account_no' => 'required|numeric',
             'password' => 'required|min:5|max:50',
             'investor_password' => 'required|min:5|max:50',
-            'meta_api_token' => 'required|min:5|max:100',
+            'meta_api_token' => 'required|min:5|max:1000',
             'meta_api_account_id' => 'required|min:5|max:50',
         ];
     }

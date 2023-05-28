@@ -573,13 +573,17 @@ export const challengesPage = {
   _subTitle: "فهرست چالش‌ها",
   _subTitleUser: "فهرست چالش‌هایی که در آن شرکت کرده‌اید.",
   user: "کاربر",
-  accountNo: "حساب",
+  accountNo: "شماره حساب",
   status: "وضعیت",
   equity: "موجودی",
   server: "سرور",
   level: "چالش",
   analyze: "آنالیز",
-  account: "صورت‌حساب",
+  accountDetails: "جزییات حساب",
+  password: "کلمه عبور",
+  investorPassword: "کلمه عبور سرمایه‌گذار",
+  metaApiToken: "Meta Api Token",
+  metaApiAccountId: "Meta Api Account Id",
   changeStatus: "تغییر وضعیت",
   submitted: "وضعیت چالش با موفقیت تغییر یافت.",
 };
@@ -587,7 +591,7 @@ export const challengesPage = {
 export const editChallengePage = {
   _title: "مشخصات چالش",
   _subTitle: "نمایش مشخصات چالش",
-  accountNo: "حساب",
+  accountNo: "شماره حساب",
   password: "کلمه عبور",
   investorPassword: "کلمه عبور سرمایه‌گذار",
   metaApiToken: "Meta Api Token",
@@ -596,6 +600,7 @@ export const editChallengePage = {
   equity: "موجودی",
   server: "سرور",
   level: "چالش",
+  submitted: "ویرایش مشخصات چالش با موفقیت انجام گردید.",
 };
 
 export const analyzeChallengePage = {
@@ -614,7 +619,7 @@ export const analyzeChallengePage = {
   maxDailyLoss: "حداکثر ضرر روزانه",
   maxTotalLoss: "حداکثر ضرر کلی",
   stable: "پایدار",
-  accountDetails: "آمار جزئیات معاملات",
+  accountDetails: "آمار جزییات معاملات",
   accountDetailsItem1: "تعداد معاملات",
   accountDetailsItem2: "معاملات موفق",
   accountDetailsItem3: "معاملات ناموفق",

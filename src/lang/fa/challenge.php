@@ -27,7 +27,7 @@ return [
     'investor_password_max' => $maxStringMessage('کلمه عبور سرمایه‌گذار', 50),
     'meta_api_token_required' => $requiredMessage('Meta Api Token'),
     'meta_api_token_min' => $minStringMessage('Meta Api Token', 5),
-    'meta_api_token_max' => $maxStringMessage('Meta Api Token', 100),
+    'meta_api_token_max' => $maxStringMessage('Meta Api Token', 1000),
     'meta_api_account_id_required' => $requiredMessage('Meta Api Account Id'),
     'meta_api_account_id_min' => $minStringMessage('Meta Api Account Id', 5),
     'meta_api_account_id_max' => $maxStringMessage('Meta Api Account Id', 50),

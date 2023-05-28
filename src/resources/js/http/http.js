@@ -30,7 +30,8 @@ export const get = async (url, data = null) => {
   return response;
 };
 
-export const post = async (url, data = null) => {
+export const post = async (url, data = null, withCredentials) => {
+  axios.defaults.withCredentials = withCredentials;
   data = { ...data, _locale: utils.getLSVariable("locale") };
   const response = await axios.post(url, data, createConfig());
 

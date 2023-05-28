@@ -33,11 +33,11 @@ class Entity {
     }
   }
 
-  async handlePost(url, data = {}) {
+  async handlePost(url, data = {}, withCredentials = true) {
     try {
       this.errorMessage = "";
       this.errorCode = 0;
-      const response = await post(url, data);
+      const response = await post(url, data, withCredentials);
 
       return this.handleResponse(response);
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { Challenge as Entity } from "../../../../http/entities";
+import { Challenge as Entity, MetaApi } from "../../../../http/entities";
 import {
   setPageIconAction,
   setPagePropsAction,
@@ -23,7 +23,9 @@ export class PageUtils extends BasePageUtils {
     this.entity = new Entity();
     this.initialPageProps = {
       item: null,
+      challengeId: null,
       challengeRule: null,
+      accountData: null,
     };
     this.callbackUrl = `${BASE_PATH}/challenges`;
   }
@@ -44,11 +46,27 @@ export class PageUtils extends BasePageUtils {
       this.dispatch(setLoadingAction(true));
       const result = await this.fetchItem(data.challengeId);
       this.navigateIfItemNotFound(result);
-      this.handleFetchResult(result);
+      const accountDataResult = await this.fetchAccount(result.item);
+      this.handleFetchResult(result, accountDataResult);
     } catch {
     } finally {
       this.dispatch(setLoadingAction(false));
     }
+  }
+
+  async fetchData() {
+    try {
+      const result = await this.fetchItem(this.pageState?.props?.challengeId);
+      if (result?.item) {
+        const accountDataResult = await this.fetchAccount(result.item);
+        this.dispatch(
+          setPagePropsAction({
+            item: result.item,
+            accountData: accountDataResult?.accountData ?? null,
+          })
+        );
+      }
+    } catch {}
   }
 
   async fetchItem(id) {
@@ -63,7 +81,12 @@ export class PageUtils extends BasePageUtils {
     return result;
   }
 
-  handleFetchResult(result) {
+  async fetchAccount(item) {
+    const metaApi = new MetaApi();
+    return await metaApi.get(item.metaApiToken, item.metaApiAccountId);
+  }
+
+  handleFetchResult(result, accountDataResult) {
     this.dispatch(
       setPageTitleAction(
         `${this.strings._title} [ ${result.item.levelText} ]`,
@@ -73,7 +96,9 @@ export class PageUtils extends BasePageUtils {
     this.dispatch(
       setPagePropsAction({
         item: result.item,
+        challengeId: result.item.id,
         challengeRule: result.challengeRule,
+        accountData: accountDataResult?.accountData ?? null,
       })
     );
   }

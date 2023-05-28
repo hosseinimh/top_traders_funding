@@ -45,7 +45,7 @@ const Challenges = () => {
   };
 
   const renderModal = () => (
-    <Modal id="accountModal" title={strings.account}>
+    <Modal id="accountModal" title={strings.accountDetails}>
       <InputTextColumn
         field="accountNo"
         readonly={true}
@@ -63,13 +63,41 @@ const Challenges = () => {
         value={pageState?.props?.item?.server}
       />
       <InputTextColumn
-        field="token"
+        field="password"
         readonly={true}
         showLabel
         icon="icon-size4 icon-clickable"
-        iconClick={() => pageUtils?.onCopy("token")}
-        value={pageState?.props?.item?.token}
+        iconClick={() => pageUtils?.onCopy("password")}
+        value={pageState?.props?.item?.password}
       />
+      <InputTextColumn
+        field="investorPassword"
+        readonly={true}
+        showLabel
+        icon="icon-size4 icon-clickable"
+        iconClick={() => pageUtils?.onCopy("investorPassword")}
+        value={pageState?.props?.item?.investorPassword}
+      />
+      {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+        <>
+          <InputTextColumn
+            field="metaApiToken"
+            readonly={true}
+            showLabel
+            icon="icon-size4 icon-clickable"
+            iconClick={() => pageUtils?.onCopy("metaApiToken")}
+            value={pageState?.props?.item?.metaApiToken}
+          />
+          <InputTextColumn
+            field="metaApiAccountId"
+            readonly={true}
+            showLabel
+            icon="icon-size4 icon-clickable"
+            iconClick={() => pageUtils?.onCopy("metaApiAccountId")}
+            value={pageState?.props?.item?.metaApiAccountId}
+          />
+        </>
+      )}
     </Modal>
   );
 
@@ -174,9 +202,9 @@ const Challenges = () => {
                     onClick={(e) =>
                       pageUtils?.onShowModal(e, "accountModal", item)
                     }
-                    title={strings.account}
+                    title={strings.accountDetails}
                   >
-                    {strings.account}
+                    {strings.accountDetails}
                   </button>
                 </>
               )}
