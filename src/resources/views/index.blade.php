@@ -45,8 +45,6 @@
     }
     @endphp
     <script src="{{$THEME::JS_PATH}}/index.js?v={{$fileModified}}"></script>
-    <script src="{{$THEME::JS_PATH}}/coreui.bundle.min.js"></script>
-    <script src="{{$THEME::JS_PATH}}/coreui-utils.js"></script>
 </body>
 
 </html>

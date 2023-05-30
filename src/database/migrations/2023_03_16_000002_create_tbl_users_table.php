@@ -21,6 +21,14 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('family')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('national_no')->nullable();
+            $table->string('identity_no')->nullable();
+            $table->string('birth_date')->nullable();
+            $table->unsignedTinyInteger('gender')->default(1);
+            $table->text('address')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('tel')->nullable();
             $table->string('email')->unique();
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();

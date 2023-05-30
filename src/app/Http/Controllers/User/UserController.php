@@ -10,6 +10,7 @@ use App\Http\Requests\User\ForgotPasswordRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\SignupUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\VerifyRequestUserRequest;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
@@ -97,5 +98,10 @@ class UserController extends Controller
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
         return $this->onItem($this->service->get(auth()->user()->id));
+    }
+
+    public function verify(VerifyRequestUserRequest $request): HttpJsonResponse
+    {
+        return $this->onUpdate($this->service->verify(auth()->user(), $request->name, $request->family, $request->father_name, $request->national_no, $request->identity_no, $request->birth_date, $request->gender, $request->address, $request->mobile, $request->tel, $request->email));
     }
 }

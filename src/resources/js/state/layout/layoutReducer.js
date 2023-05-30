@@ -6,6 +6,7 @@ const initialState = {
   width: 0,
   height: 0,
   locale: utils.initLocale(),
+  direction: "rtl",
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
   dropDownElement: null,
@@ -29,6 +30,7 @@ const layoutReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         locale: payload,
+        direction: payload === "fa" ? "rtl" : "ltr",
       };
     case actions.SET_NOTIFICATIONS_ACTION:
       return {

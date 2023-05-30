@@ -88,39 +88,42 @@ const InputSelectColumn = ({
     slideUp(element);
   };
 
-  const renderItem = () => (
-    <div className="select-box" id={`select-box-${field}`}>
-      <div className="select" onClick={(e) => showList(e)}>
-        <input type="text" className="selectval" name={field} hidden />
-        <input
-          type="text"
-          className={`select-input select-input-${field}`}
-          placeholder={label}
-          autoComplete="off"
-          readOnly
-          name={field}
-        />
-        {messageState?.messageField === field.name && (
-          <span className="error">{messageState?.message}</span>
-        )}
-        <div className="icon">
-          <i className="icon-arrow-down-1"></i>
+  const renderItem = () => {
+    const style = fullRow ? {} : { margin: "0.625rem 0.625rem 1.25rem" };
+    return (
+      <div className="select-box" id={`select-box-${field}`} style={style}>
+        <div className="select" onClick={(e) => showList(e)}>
+          <input type="text" className="selectval" name={field} hidden />
+          <input
+            type="text"
+            className={`select-input select-input-${field}`}
+            placeholder={label}
+            autoComplete="off"
+            readOnly
+            name={field}
+          />
+          {messageState?.messageField === field.name && (
+            <span className="error">{messageState?.message}</span>
+          )}
+          <div className="icon">
+            <i className="icon-arrow-down-1"></i>
+          </div>
+        </div>
+        <div className="select-list scrollhide dropdown-list">
+          {items?.map((item, index) => (
+            <div
+              key={item[keyItem]}
+              onClick={(e) => selectOption(e, item[keyItem])}
+              data-select={item[keyItem]}
+              className={`select-option select-option-${field}`}
+            >
+              {item[valueItem]}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="select-list scrollhide dropdown-list">
-        {items?.map((item, index) => (
-          <div
-            key={item[keyItem]}
-            onClick={(e) => selectOption(e, item[keyItem])}
-            data-select={item[keyItem]}
-            className={`select-option select-option-${field}`}
-          >
-            {item[valueItem]}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    );
+  };
 
   if (form) {
     if (fullRow) {

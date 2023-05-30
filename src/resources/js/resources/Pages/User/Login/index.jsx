@@ -47,15 +47,26 @@ const Login = () => {
           {strings.recoverPassword}
         </Link>
       </div>
-      <button
-        className="btn btn-primary"
-        onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
-        type="button"
-        title={strings.submit}
-        disabled={layoutState?.loading}
-      >
-        {strings.submit}
-      </button>
+      <div className="d-flex-column align-center">
+        <button
+          className="btn btn-primary mb-10"
+          onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
+          type="button"
+          title={strings.submit}
+          disabled={layoutState?.loading}
+        >
+          {strings.submit}
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
+          type="button"
+          title={strings.loginByGoogle}
+          disabled={layoutState?.loading}
+        >
+          {strings.loginByGoogle}
+        </button>
+      </div>
       <div className="line-gr m-td-30"></div>
       <div className="pd-30">
         {strings.notSignedup}

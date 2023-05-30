@@ -147,7 +147,7 @@ export const sidebar = {
   challengePlatforms: "پلتفرم‌ها",
   tickets: "تیکت‌های پشتیبانی",
   challengesManagement: "مدیریت چالش‌ها",
-  systemManagement: "مدیریت سیستم",
+  verifyUserRequest: "احراز هویت",
   editProfile: "ویرایش پروفایل",
   changePassword: "تغییر کلمه عبور",
   logout: "خروج از حساب کاربری",
@@ -246,6 +246,51 @@ export const changePasswordUserPage = {
   confirmPassword: "تایید کلمه عبور جدید",
   confirmPasswordPlaceholder: "تایید کلمه عبور جدید",
   submitted: "تغییر کلمه عبور با موفقیت انجام گردید.",
+};
+
+export const genderTypes = {
+  male: "مرد",
+  female: "زن",
+};
+
+export const verifyUserPage = {
+  _title: "احراز هویت",
+  _subTitle: "لطفا اطلاعات هویتی خود را وارد نمایید.",
+  title1: "اطلاعات فردی",
+  name: "نام",
+  namePlaceholder: "نام",
+  family: "نام خانوادگی",
+  familyPlaceholder: "نام خانوادگی",
+  fatherName: "نام پدر",
+  fatherNamePlaceholder: "نام پدر",
+  nationalCode: "کد ملی",
+  nationalCodePlaceholder: "کد ملی",
+  identityNo: "شماره شناسنامه",
+  identityNoPlaceholder: "شماره شناسنامه",
+  birthDate: "تاریخ تولد",
+  gender: "جنسیت",
+  title2: "اطلاعات تماس",
+  mobile: "موبایل",
+  mobilePlaceholder: "موبایل",
+  tel: "تلفن ثابت",
+  telPlaceholder: "تلفن ثابت",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
+  address: "آدرس",
+  addressPlaceholder: "آدرس",
+  title3: "تصویر سلفی",
+  file: "پیوست سلفی",
+  fileProperties:
+    "تصویر از خود به همراه مدرک شناسنایی با فرمت jpg یا png و حداکثر سایز 4 مگابایت",
+  image: "پیوست تصویر",
+  fileTips: "نکات پیوست سلفی",
+  fileDescription1: "عکسی از خود مطابق با تصویر نمونه، تهیه و ارسال کنید.",
+  fileDescription2:
+    "* در صورتی که در حال حاضر امکان تهیه تصویر سلفی با مدرک شناسنایی را ندارید، می‌توانید روی دکمه تکمیل اطلاعات بزنید و بعدا تصویر سلفی خود را ارسال کنید .",
+  fileDescription3:
+    "طبق تصویر زیر، کلمه Top Traders Funding را به همراه تاریخ روز عضویت در یک برگه نوشته و همراه مدرک شناسایی خود در دست نگه دارید. تصویر باید طوری باشد که مدرک شناسایی خوانا و چهره‌تان نمایان باشد.",
+  submitted:
+    "اطلاعات هویتی با موفقیت ثبت گردید. پس از تایید، می‌توانید در چالش شرکت نمایید.",
 };
 
 export const appRulesPage = {

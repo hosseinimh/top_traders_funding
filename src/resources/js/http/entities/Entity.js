@@ -41,6 +41,17 @@ class Entity {
 
       return this.handleResponse(response);
     } catch (error) {
+      if (error.response) {
+        this.errorMessage = error.response.data;
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        return null;
+      } else if (error.request) {
+        this.errorMessage = error.request;
+        console.log(error.request);
+        return null;
+      }
       console.log(error);
 
       if (error.message === "Network Error") {

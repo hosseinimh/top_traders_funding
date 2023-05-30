@@ -10,6 +10,7 @@ import FallbackError from "./Error/FallbackError";
 import InputButtonRadiosColumn from "./Input/InputButtonRadiosColumn";
 import InputCheckboxColumn from "./Input/InputCheckboxColumn";
 import InputCheckboxContainer from "./Input/InputCheckboxContainer";
+import InputDatePickerColumn from "./Input/InputDatePickerColumn";
 import InputFileColumn from "./Input/InputFileColumn";
 import InputHiddenElement from "./Input/InputHiddenElement";
 import InputRadioColumn from "./Input/InputRadioColumn";
@@ -64,6 +65,7 @@ export {
   InputButtonRadiosColumn,
   InputCheckboxColumn,
   InputCheckboxContainer,
+  InputDatePickerColumn,
   InputFileColumn,
   InputHiddenElement,
   InputRadioColumn,

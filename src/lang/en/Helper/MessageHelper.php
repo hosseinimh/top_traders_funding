@@ -55,11 +55,9 @@ $maxNumericMessage = function ($field, $value) use ($templateMessages) {
     return str_replace(':value', $value, $message);
 };
 
-$digitsMessage = function ($field, $length) use ($templateMessages) {
+$digitsMessage = function ($field) use ($templateMessages) {
     $message = $templateMessages['digits'];
-    $message = str_replace(':field', $field, $message);
-
-    return str_replace(':length', $length, $message);
+    return str_replace(':field', $field, $message);
 };
 
 $maxDigitsMessage = function ($field, $length) use ($templateMessages) {

@@ -6,6 +6,7 @@ import AddUser from "./User/AddUser";
 import EditCurrentUser from "./User/EditUser/EditCurrentUser";
 import EditUser from "./User/EditUser/EditUser";
 import ChangePasswordCurrentUser from "./User/ChangePasswordUser/ChangePasswordCurrentUser";
+import VerifyUserRequest from "./User/Verify/VerifyUserRequest";
 import ChangePasswordUser from "./User/ChangePasswordUser/ChangePasswordUser";
 import Users from "./User/Users";
 import AppRulesAdmin from "./AppRule/AppRulesAdmin";
@@ -48,6 +49,7 @@ export {
   EditCurrentUser,
   EditUser,
   ChangePasswordCurrentUser,
+  VerifyUserRequest,
   ChangePasswordUser,
   Users,
   AppRulesAdmin,

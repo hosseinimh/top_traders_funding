@@ -44,7 +44,7 @@ const Modal = ({ id, title, children }) => {
               className="modal-close icon-close-circle4 mxdir-10"
               onClick={hideModal}
             />
-            {title}
+            <span className="white">{title}</span>
           </span>
         </div>
         <div className="modal-main">{children}</div>

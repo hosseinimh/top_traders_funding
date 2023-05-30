@@ -8,6 +8,7 @@ import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";
 
 const AnalyzeChallenge = () => {
+  const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const [item, setItem] = useState(null);
   const [accountData, setAccountData] = useState(null);
@@ -54,7 +55,7 @@ const AnalyzeChallenge = () => {
   }, [profits]);
 
   const getProfits = () => {
-    const deals = accountData?.deals?.deals;
+    const deals = accountData?.deals;
     const dealItems = deals.filter(
       (deal) =>
         deal.type === "DEAL_TYPE_BALANCE" ||
@@ -459,106 +460,116 @@ const AnalyzeChallenge = () => {
   };
 
   const renderAccountDetails = () => (
-    <>
-      <h3 className="field-title pd-d-20">{strings.accountDetails}</h3>
-      <div className="d-flex-wrap align-top just-around">
-        <div className="grow-1 pd-lr-10">
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem1}</div>
-            <span>-</span>
+    <div className="section-main" style={{ padding: "0" }}>
+      <div className="block pd-20">
+        <h3 className="field-title pd-d-20">{strings.accountDetails}</h3>
+        <div className="d-flex-wrap align-top just-around">
+          <div className="grow-1 pd-lr-10">
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem1}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem3}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem5}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem7}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem9}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem11}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem13}</div>
+              <span>-</span>
+            </div>
           </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem3}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem5}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem7}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem9}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem11}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem13}</div>
-            <span>-</span>
-          </div>
-        </div>
-        <div className="grow-1 side pd-lr-10">
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem2}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem4}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem6}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem8}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem10}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem12}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.accountDetailsItem14}</div>
-            <span>-</span>
+          <div className="grow-1 side pd-lr-10">
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem2}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem4}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem6}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem8}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem10}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem12}</div>
+              <span>-</span>
+            </div>
+            <div className="item-horizontal">
+              <div>{strings.accountDetailsItem14}</div>
+              <span>-</span>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 
-  const renderParameters = () => (
-    <>
-      <h3 className="field-title pd-d-20">{strings.parameteresTitle}</h3>
-      <div className="d-flex-wrap align-top just-around">
-        <div className="grow-1 pd-lr-10">
-          <div className="item-horizontal">
-            <div>{strings.profitFactor}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.sharpeRatio}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.sortinoRatio}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.zScore}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.expectedProfit}</div>
-            <span>-</span>
-          </div>
-          <div className="item-horizontal">
-            <div>{strings.expectedPipProfit}</div>
-            <span>-</span>
+  const renderParameters = () => {
+    const style =
+      layoutState?.direction === "rtl"
+        ? { marginRight: "0.4rem" }
+        : { marginLeft: "0.4rem" };
+    return (
+      <div className="section-side grow-1 d-flex" style={{ border: "none" }}>
+        <div className="block pd-20" style={style}>
+          <h3 className="field-title pd-d-20">{strings.parameteresTitle}</h3>
+          <div className="d-flex-wrap align-top just-around">
+            <div className="grow-1 pd-lr-10">
+              <div className="item-horizontal">
+                <div>{strings.profitFactor}</div>
+                <span>-</span>
+              </div>
+              <div className="item-horizontal">
+                <div>{strings.sharpeRatio}</div>
+                <span>-</span>
+              </div>
+              <div className="item-horizontal">
+                <div>{strings.sortinoRatio}</div>
+                <span>-</span>
+              </div>
+              <div className="item-horizontal">
+                <div>{strings.zScore}</div>
+                <span>-</span>
+              </div>
+              <div className="item-horizontal">
+                <div>{strings.expectedProfit}</div>
+                <span>-</span>
+              </div>
+              <div className="item-horizontal">
+                <div>{strings.expectedPipProfit}</div>
+                <span>-</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
-  );
+    );
+  };
 
   return (
     <BlankPage pageUtils={pageUtils}>
@@ -587,17 +598,8 @@ const AnalyzeChallenge = () => {
       <div className="section fix-mr15">
         <div>
           <div className="d-flex-wrap align-top">
-            <div className="section-main" style={{ padding: "0" }}>
-              <div className="block pd-20">
-                {item && renderAccountDetails()}
-              </div>
-            </div>
-            <div
-              className="section-side grow-1 d-flex"
-              style={{ border: "none" }}
-            >
-              <div className="block pd-20">{item && renderParameters()}</div>
-            </div>
+            {item && renderAccountDetails()}
+            {item && renderParameters()}
           </div>
         </div>
       </div>

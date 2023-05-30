@@ -106,6 +106,26 @@ class UserService
         return $model->update($data);
     }
 
+    public function verify(Model $model, string $name, string $family, string $fatherName, string $nationalNo, string $identityNo, string $birthDate, int $gender, string $address, string $mobile, string $tel, string $email): mixed
+    {
+        $this->throwIfEmailNotUnique($email, $model);
+        $gender = in_array($gender, [1, 2]) ? $gender : 1;
+        $data = [
+            'name' => $name,
+            'family' => $family,
+            'father_name' => $fatherName,
+            'national_no' => $nationalNo,
+            'identity_no' => $identityNo,
+            'birth_date' => $birthDate,
+            'gender' => $gender,
+            'address' => $address,
+            'mobile' => $mobile,
+            'tel' => $tel,
+            'email' => $email,
+        ];
+        return $model->update($data);
+    }
+
     public function count(string|null $username, string|null $name, string|null $email): int
     {
         return Model::where('username', 'LIKE', '%' . $username . '%')->where(function ($query) use ($name) {

@@ -164,15 +164,15 @@ function Sidebar() {
             renderMenuItem(
               `${BASE_PATH}/challenges`,
               strings.challenges,
-              "icon-medal-star4",
-              "Challenges"
+              "icon-medal4",
+              ["Challenges", "AnalyzeChallenge"]
             )}
           {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
             renderMenuItem(
               `${BASE_PATH}/challenges`,
               strings.challengesAdmin,
               "icon-medal-star4",
-              ["Challenges", "EditChallenge"],
+              ["Challenges", "EditChallenge", "AnalyzeChallenge"],
               layoutState?.notifications?.waitingChallengesCount
             )}
           <div className="menu-title">{strings.quickAccess}</div>
@@ -251,6 +251,13 @@ function Sidebar() {
               )}
             </>
           )}
+          {userState?.user?.role === USER_ROLES.USER &&
+            renderMenuItem(
+              `${BASE_PATH}/users/verify_request`,
+              strings.verifyUserRequest,
+              "icon-profile-tick4",
+              "UserVerify"
+            )}
           <ul></ul>
           {renderMenuItem(
             `${BASE_PATH}/users/edit`,
