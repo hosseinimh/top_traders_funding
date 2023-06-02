@@ -41,10 +41,10 @@ const Modal = ({ id, title, children }) => {
         <div className="modal-hd">
           <span>
             <i
-              className="modal-close icon-close-circle4 mxdir-10"
+              className="modal-close icon-close-circle4 mx-rdir-10"
               onClick={hideModal}
             />
-            <span className="white">{title}</span>
+            <span className="text">{title}</span>
           </span>
         </div>
         <div className="modal-main">{children}</div>

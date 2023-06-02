@@ -16,13 +16,13 @@ const Table = ({
   }, [items]);
 
   return (
-    <div id="orderTable_wrapper" className="dataTables_wrapper no-footer">
+    <div className="dataTables_wrapper no-footer">
       <div
         className="dataTables_scrollBody"
         style={{ position: "relative", overflow: "auto", width: "100%" }}
       >
         <table
-          className={`display nowrap dataTable dtr-inline collapsed no-footer ${className}`}
+          className={`nowrap dataTable dtr-inline collapsed no-footer ${className}`}
           style={style}
         >
           <thead style={style}>{renderHeader()}</thead>

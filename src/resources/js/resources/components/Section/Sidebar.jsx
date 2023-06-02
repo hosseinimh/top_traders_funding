@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { slideUp, slideDown } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
-import { BASE_PATH, IMAGES_PATH, USER_ROLES } from "../../../constants";
+import { BASE_PATH, IMAGES_PATH, THEMES, USER_ROLES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import { CustomLink } from "../";
 import { useLocale } from "../../../hooks";
@@ -69,11 +69,9 @@ function Sidebar() {
         closeOtherMenus(links, link);
         if (parent.classList.contains("mm-active")) {
           parent.classList.remove("mm-active");
-          link.setAttribute("aria-expanded", "false");
           slideUp(link.nextElementSibling);
         } else {
           parent.classList.add("mm-active");
-          link.setAttribute("aria-expanded", "true");
           slideDown(link.nextElementSibling, {
             duration: 400,
             easing: easeOutQuint,
@@ -87,7 +85,6 @@ function Sidebar() {
     const otherLinks = links.filter((l) => l !== exceptLink);
     otherLinks.forEach((link) => {
       link.parentNode.classList.remove("mm-active");
-      link.setAttribute("aria-expanded", "false");
       slideUp(link.nextElementSibling);
     });
   };
@@ -129,7 +126,11 @@ function Sidebar() {
         <div className="logo">
           <img
             className="logo-large dark-logo"
-            src={`${IMAGES_PATH}/logo-large.svg`}
+            src={`${
+              layoutState?.theme?.name === THEMES.DARK
+                ? `${IMAGES_PATH}/logo-large.svg`
+                : `${IMAGES_PATH}/logo-large-light.svg`
+            }`}
             alt=""
           />
           <img

@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-import { LOCALES } from "../constants";
+import { LOCALES, THEMES } from "../constants";
 import { en, fa } from "../constants/strings";
 
 function isValidMobile(value) {
@@ -404,6 +404,14 @@ const initLocale = () => {
   return getLSVariable("locale");
 };
 
+const initTheme = () => {
+  const theme = getLSVariable("theme");
+  if (![THEMES.DARK, THEMES.LIGHT].includes(theme)) {
+    setLSVariable("theme", THEMES.DARK);
+  }
+  return getLSVariable("theme");
+};
+
 const utils = {
   isValidMobile,
   validateMobile,
@@ -429,6 +437,7 @@ const utils = {
   isNumber,
   isId,
   initLocale,
+  initTheme,
 };
 
 export default utils;

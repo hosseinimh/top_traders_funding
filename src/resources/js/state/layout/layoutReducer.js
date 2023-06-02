@@ -1,5 +1,13 @@
+import { themes } from "../../constants";
 import utils from "../../utils/Utils";
 import * as actions from "./layoutActions";
+
+let selectedTheme = themes.find(
+  (tm) => tm.name === utils.getLSVariable("theme")
+);
+if (!selectedTheme) {
+  selectedTheme = themes[0];
+}
 
 const initialState = {
   loading: false,
@@ -7,6 +15,7 @@ const initialState = {
   height: 0,
   locale: utils.initLocale(),
   direction: "rtl",
+  theme: selectedTheme,
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
   dropDownElement: null,
@@ -31,6 +40,11 @@ const layoutReducer = (state = initialState, { type, payload }) => {
         ...state,
         locale: payload,
         direction: payload === "fa" ? "rtl" : "ltr",
+      };
+    case actions.SET_THEME_ACTION:
+      return {
+        ...state,
+        theme: payload,
       };
     case actions.SET_NOTIFICATIONS_ACTION:
       return {

@@ -19,6 +19,7 @@ const ForgotPassword = () => {
         type="email"
         showLabel={false}
         textAlign="left"
+        icon={"icon-sms4"}
       />
       <button
         className="btn btn-primary"
@@ -31,7 +32,7 @@ const ForgotPassword = () => {
       </button>
       <div className="line-gr m-td-30"></div>
       <div className="pd-30">
-        <Link className="orange mx-5" to={`${BASE_PATH}/users/login`}>
+        <Link className="dark-warning mx-5" to={`${BASE_PATH}/users/login`}>
           {strings.login}
         </Link>
       </div>

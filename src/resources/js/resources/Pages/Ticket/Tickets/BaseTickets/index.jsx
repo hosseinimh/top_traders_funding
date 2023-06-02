@@ -21,16 +21,10 @@ const Tickets = ({ userId }) => {
 
   const renderHeader = () => (
     <tr>
-      <th scope="col" style={{ width: "50px" }}>
-        #
-      </th>
-      <th scope="col" style={{ width: "200px" }}>
-        {strings.type}
-      </th>
-      <th scope="col">{strings.subject}</th>
-      <th scope="col" style={{ width: "250px" }}>
-        {strings.lastUpdate}
-      </th>
+      <th style={{ width: "50px" }}>#</th>
+      <th style={{ width: "200px" }}>{strings.type}</th>
+      <th>{strings.subject}</th>
+      <th style={{ width: "250px" }}>{strings.lastUpdate}</th>
     </tr>
   );
 
@@ -45,14 +39,16 @@ const Tickets = ({ userId }) => {
         <td>
           <Link
             to={`${BASE_PATH}/tickets/threads/${item.id}`}
-            className="orange"
+            className="dark-warning"
           >
             {item.typeText}
           </Link>
           <div className="dot">
             <span
               className={`${
-                item.status === TICKET_STATUSES.OPEN ? "bg-green" : "bg-orange"
+                item.status === TICKET_STATUSES.OPEN
+                  ? "bg-success"
+                  : "bg-dark-warning"
               }`}
             ></span>
             <span>{item.statusText}</span>
@@ -64,7 +60,7 @@ const Tickets = ({ userId }) => {
               !item.adminSeenTime) ||
               (userState?.user?.role === USER_ROLES.USER &&
                 !item.userSeenTime)) && (
-              <span className="badge bg-success mxdir-2 text-white">
+              <span className="badge bg-success mx-rdir-10 text">
                 {strings.new}
               </span>
             )}

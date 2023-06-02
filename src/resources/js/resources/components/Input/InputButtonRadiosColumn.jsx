@@ -51,7 +51,7 @@ const InputButtonRadiosColumn = ({
       {radioItems?.map((item) => (
         <React.Fragment key={item.id}>
           {separate && (
-            <div className="mxdir-1" style={{ borderRadius: "5px" }}>
+            <div className="mx-rdir-10" style={{ borderRadius: "5px" }}>
               {renderItem(item)}
             </div>
           )}

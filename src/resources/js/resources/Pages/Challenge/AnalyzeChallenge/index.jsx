@@ -306,15 +306,15 @@ const AnalyzeChallenge = () => {
 
   const renderProfit = () => (
     <div className="d-flex align-center">
-      <div className="pd-dir-10">
-        <h4 className="white">{strings.totalProfit}</h4>
-        <div className="text-center white" style={{ direction: "ltr" }}>
+      <div className="pd-rdir-10">
+        <h4 className="text">{strings.totalProfit}</h4>
+        <div className="text-center text" style={{ direction: "ltr" }}>
           <span
             className={`${
               totalProfit < 0
                 ? "danger"
                 : totalProfit === 0
-                ? "white"
+                ? "text"
                 : "success"
             }`}
           >
@@ -391,7 +391,7 @@ const AnalyzeChallenge = () => {
             }
             return (
               <div className="pd-td-10">
-                <h4 className="pd-d-10 white">{title}</h4>
+                <h4 className="pd-d-10 text">{title}</h4>
                 <span style={{ fontSize: "0.75rem" }}>{body}</span>
               </div>
             );
@@ -410,7 +410,7 @@ const AnalyzeChallenge = () => {
           className="bg-dark grow-1 pd-10 d-flex-column align-center"
           style={{ borderRadius: "0.625rem" }}
         >
-          <h4 className="white pd-d-10">{strings.maxDailyLoss}</h4>
+          <h4 className="text pd-d-10">{strings.maxDailyLoss}</h4>
           <Chart
             type="radialBar"
             options={dailyLossChartOptions}
@@ -419,11 +419,11 @@ const AnalyzeChallenge = () => {
             height={155}
           />
           <div className="text-center" style={{ direction: "ltr" }}>
-            <span className={`${dailyLoss < 0 ? "danger" : "white"}`}>
+            <span className={`${dailyLoss < 0 ? "danger" : "text"}`}>
               {dailyLoss.toFixed(2)}
             </span>
-            <span className="white"> / </span>
-            <span className="white">{800}</span>
+            <span className="text"> / </span>
+            <span className="text">{800}</span>
           </div>
         </div>
       );
@@ -438,7 +438,7 @@ const AnalyzeChallenge = () => {
           className="bg-dark grow-1 pd-10 d-flex-column align-center"
           style={{ borderRadius: "0.625rem" }}
         >
-          <h4 className="white pd-d-10">{strings.maxTotalLoss}</h4>
+          <h4 className="text pd-d-10">{strings.maxTotalLoss}</h4>
           <Chart
             type="radialBar"
             options={totalLossChartOptions}
@@ -447,11 +447,11 @@ const AnalyzeChallenge = () => {
             height={155}
           />
           <div className="text-center" style={{ direction: "ltr" }}>
-            <span className={`${totalLoss < 0 ? "danger" : "white"}`}>
+            <span className={`${totalLoss < 0 ? "danger" : "text"}`}>
               {totalLoss.toFixed(2)}
             </span>
-            <span className="white"> / </span>
-            <span className="white">{800}</span>
+            <span className="text"> / </span>
+            <span className="text">{800}</span>
           </div>
         </div>
       );
@@ -580,7 +580,7 @@ const AnalyzeChallenge = () => {
             <div className="d-flex-wrap align-top">
               <div className="section-main">{renderMainChart()}</div>
               <div className="section-side grow-1 pd-20">
-                <h3 className="white pd-d-20">{item?.levelText}</h3>
+                <h3 className="text pd-d-20">{item?.levelText}</h3>
                 {renderProfit()}
                 {renderRules()}
                 <div

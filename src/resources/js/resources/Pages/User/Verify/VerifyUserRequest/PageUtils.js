@@ -52,6 +52,24 @@ export class PageUtils extends BasePageUtils {
     this.useForm.setValue("email", result.item.email);
   }
 
+  onSetSelfieFile(file) {
+    this.dispatch(
+      setPagePropsAction({
+        action: "SET_SELFIE_FILE",
+        file,
+      })
+    );
+  }
+
+  onSetIdentityFile(file) {
+    this.dispatch(
+      setPagePropsAction({
+        action: "SET_IDENTITY_FILE",
+        file,
+      })
+    );
+  }
+
   async onSubmit(data) {
     const promise =
       this.userState?.user?.role === USER_ROLES.ADMINISTRATOR

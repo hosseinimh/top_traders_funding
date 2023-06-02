@@ -21,6 +21,10 @@ const AppRulesUser = () => {
     }
   }, [pageState?.props?.items]);
 
+  useEffect(() => {
+    setItems(null);
+  }, []);
+
   const toggleItem = (element, item) => {
     while (element && !element.classList.contains("question")) {
       element = element.parentNode;
@@ -56,7 +60,7 @@ const AppRulesUser = () => {
               <i className="icon-arrow-left-2"></i>
             </div>
             <div className="answer" style={{ display: "none" }}>
-              {item.body}
+              <div>{item.body}</div>
             </div>
           </React.Fragment>
         ))}

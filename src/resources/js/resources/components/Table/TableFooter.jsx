@@ -45,13 +45,12 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
   return (
     <tr>
       <td colSpan={columnsCount}>
-        <nav className="pagination" aria-label="...">
+        <nav className="pagination">
           <ul className="pagination">
             <li className={`page-item ${prevStatus}`}>
               <a
                 className="page-link"
                 tabIndex={"-1"}
-                aria-disabled="true"
                 onClick={() => pageUtils.setPage(1)}
               >
                 {general.first}
@@ -60,7 +59,6 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
             <li className={`page-item ${prevStatus}`}>
               <a
                 className="page-link"
-                aria-disabled="true"
                 onClick={() =>
                   pageState?.props?.pageNumber > 1 &&
                   pageUtils.setPage(pageState?.props?.pageNumber - 1)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { slideDown, slideUp } from "es6-slide-up-down";
@@ -9,6 +9,7 @@ import {
   ASSETS_PATH,
   LOCALES,
   IMAGES_PATH,
+  THEMES,
 } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
@@ -18,6 +19,7 @@ import {
   setLoadingAction,
   toggleSidebarAction,
   setDropDownElementAction,
+  setThemeAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User } from "../../../http/entities";
@@ -26,7 +28,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const { header: strings, general } = useLocale();
   const layoutState = useSelector((state) => state.layoutReducer);
-  const [lightTheme, setLightTheme] = useState(false);
   const authUser = utils.getLSUser();
 
   const toggleSidebar = () => {
@@ -71,7 +72,6 @@ const Header = () => {
           type="button"
           data-toggle="dropdown"
           className="p-0 btn btn-link locale-dropdown"
-          aria-expanded="false"
         >
           <span className="icon-wrapper icon-wrapper-alt rounded-circle">
             <span className="icon-wrapper-bg bg-focus"></span>
@@ -82,8 +82,6 @@ const Header = () => {
         </button>
         <div
           tabIndex="-1"
-          role="menu"
-          aria-hidden="true"
           className="rm-pointers dropdown-menu dropdown-menu-left locale-popup"
         >
           <div className="dropdown-menu-header">
@@ -94,7 +92,7 @@ const Header = () => {
                   backgroundImage: `url("${ASSETS_PATH}/images/menu-bg2.jpg")`,
                 }}
               ></div>
-              <div className="menu-header-content text-center text-white">
+              <div className="menu-header-content text-center">
                 <h6 className="menu-header-subtitle mt-0">
                   {strings.chooseLocale}
                 </h6>
@@ -107,7 +105,7 @@ const Header = () => {
             className={`dropdown-item ${flag === "US" ? "active" : ""}`}
             onClick={() => setLocale(LOCALES.EN)}
           >
-            <span className="mxdir-3 opacity-8 flag large US"></span>{" "}
+            <span className="mx-rdir-10 opacity-8 flag large US"></span>{" "}
             {strings.us}
           </button>
           <button
@@ -116,7 +114,7 @@ const Header = () => {
             className={`dropdown-item ${flag === "IR" ? "active" : ""}`}
             onClick={() => setLocale(LOCALES.FA)}
           >
-            <span className="mxdir-3 opacity-8 flag large IR"></span>{" "}
+            <span className="mx-rdir-10 opacity-8 flag large IR"></span>{" "}
             {strings.fa}
           </button>
         </div>
@@ -142,16 +140,12 @@ const Header = () => {
   };
 
   const toggleTheme = () => {
-    setLightTheme(!lightTheme);
-  };
-
-  useEffect(() => {
-    if (lightTheme) {
-      document.body.classList.add("light");
+    if (layoutState?.theme?.name === THEMES.LIGHT) {
+      dispatch(setThemeAction(THEMES.DARK));
     } else {
-      document.body.classList.remove("light");
+      dispatch(setThemeAction(THEMES.LIGHT));
     }
-  }, [lightTheme]);
+  };
 
   return (
     <div className="navbar d-flex align-center">
@@ -189,7 +183,11 @@ const Header = () => {
       </div>
       <div className="navbar-actions">
         <CustomLink onClick={toggleTheme}>
-          <div className="item dark-toggle">
+          <div
+            className={`item dark-toggle ${
+              layoutState?.theme?.name === THEMES.LIGHT ? "active" : ""
+            }`}
+          >
             <i className="icon-sun-1"></i>
           </div>
         </CustomLink>

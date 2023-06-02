@@ -10,6 +10,7 @@ import {
   setLoadingAction,
   setShownModalAction,
   setSizeAction,
+  setThemeAction,
   toggleSidebarAction,
 } from "../../../state/layout/layoutActions";
 import {
@@ -135,6 +136,8 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
       onPageLayoutChanged();
     });
     utils.initLocale();
+    utils.initTheme();
+    dispatch(setThemeAction(utils.getLSVariable("theme")));
   }, []);
 
   const onPageLayoutChanged = () => {
@@ -216,39 +219,37 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
   const renderToday = () => {
     if (isPersian) {
       const date = new persianDate();
-      return `${date.daysInMonth()} ${date.format("MMMM")} ${date.year()}`;
+      return `${date.date()} ${date.format("MMMM")} ${date.year()}`;
     }
   };
 
-  return (
-    <div className="dashboard d-flex" onClick={(e) => onAppContainerClick(e)}>
-      {userState.isAuthenticated && (
-        <>
-          <Sidebar />
-          <div className="main">
-            <div className="center">
-              <Header />
-              <div className="statusbar">
-                <div className="todaydate d-flex align-center">
-                  <div className="online-state"></div>
-                  <div id="pdate">{renderToday()}</div>
-                </div>
+  if (userState.isAuthenticated) {
+    return (
+      <div className="dashboard d-flex" onClick={(e) => onAppContainerClick(e)}>
+        <Sidebar />
+        <div className="main">
+          <div className="center">
+            <Header />
+            <div className="statusbar">
+              <div className="todaydate d-flex align-center">
+                <div className="online-state"></div>
+                <div id="pdate">{renderToday()}</div>
               </div>
-              <div className="dashboard-content">
-                <div className="content-title">
-                  <h2>{pageState?.title}</h2>
-                  <div className="subtitle">{pageState?.subTitle}</div>
-                </div>
-                {children}
-              </div>
-              <Footer />
             </div>
+            <div className="dashboard-content">
+              <div className="content-title">
+                <h2>{pageState?.title}</h2>
+                <div className="subtitle">{pageState?.subTitle}</div>
+              </div>
+              {children}
+            </div>
+            <Footer />
           </div>
-        </>
-      )}
-      {!userState.isAuthenticated && { ...children }}
-    </div>
-  );
+        </div>
+      </div>
+    );
+  }
+  return { ...children };
 };
 
 export default BasePageLayout;

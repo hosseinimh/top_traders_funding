@@ -35,7 +35,6 @@ const AlertState = () => {
         className={`alert mb-20 ${
           type === MESSAGE_TYPES.ERROR ? "alert-danger" : "alert-success"
         }`}
-        role="alert"
       >
         {message}
       </div>

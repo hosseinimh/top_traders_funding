@@ -17,6 +17,7 @@ const InputTextColumn = ({
   textAlign = "",
   readonly = false,
   fullRow = true,
+  inputContainerClassName = "",
   inputClassName = "",
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
@@ -89,7 +90,7 @@ const InputTextColumn = ({
     <>
       {showLabel && <div className="input-info">{label}</div>}
       <div
-        className={`input-text input-bg input-border ${
+        className={`input-text input-bg input-border ${inputContainerClassName} ${
           messageState?.messageField === field ? "error mb-40" : "mb-30"
         }`}
       >

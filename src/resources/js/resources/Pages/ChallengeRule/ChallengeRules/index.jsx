@@ -16,19 +16,11 @@ const ChallengeRules = () => {
 
   const renderHeader = () => (
     <tr>
-      <th scope="col" style={{ width: "25%" }}></th>
-      <th scope="col" style={{ textAlign: "center" }}>
-        {strings.level1}
-      </th>
-      <th scope="col" style={{ textAlign: "center" }}>
-        {strings.level2}
-      </th>
-      <th scope="col" style={{ textAlign: "center" }}>
-        {strings.realAccount}
-      </th>
-      <th scope="col" style={{ textAlign: "center" }}>
-        {strings.freeAccount}
-      </th>
+      <th style={{ width: "25%" }}></th>
+      <th style={{ textAlign: "center" }}>{strings.level1}</th>
+      <th style={{ textAlign: "center" }}>{strings.level2}</th>
+      <th style={{ textAlign: "center" }}>{strings.realAccount}</th>
+      <th style={{ textAlign: "center" }}>{strings.freeAccount}</th>
     </tr>
   );
 
@@ -91,7 +83,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.dailySl1)}
               {pageState.props.item.dailySl1 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -103,7 +95,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.dailySl2)}
               {pageState.props.item.dailySl2 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -115,7 +107,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.dailySlReal)}
               {pageState.props.item.dailySlReal !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -127,7 +119,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.dailySlFree)}
               {pageState.props.item.dailySlFree !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
           </tr>
@@ -142,7 +134,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.totalSl1)}
               {pageState.props.item.totalSl1 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -154,7 +146,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.totalSl2)}
               {pageState.props.item.totalSl2 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -166,7 +158,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.totalSlReal)}
               {pageState.props.item.totalSlReal !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -178,7 +170,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.totalSlFree)}
               {pageState.props.item.totalSlFree !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
           </tr>
@@ -193,7 +185,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.target1)}
               {pageState.props.item.target1 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -205,7 +197,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.target2)}
               {pageState.props.item.target2 !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -217,7 +209,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.targetReal)}
               {pageState.props.item.targetReal !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
             <td>
@@ -229,7 +221,7 @@ const ChallengeRules = () => {
                   )
                 : utils.addCommas(pageState.props.item.targetFree)}
               {pageState.props.item.targetFree !== 0 && (
-                <span className="mxdir-5">%</span>
+                <span className="mx-rdir-10">%</span>
               )}
             </td>
           </tr>
@@ -285,7 +277,7 @@ const ChallengeRules = () => {
       table={{ renderHeader, renderItems }}
     >
       <button
-        className="btn btn-primary mxdir-5"
+        className="btn btn-primary mx-rdir-10"
         type="button"
         title={strings.edit}
         onClick={() => pageUtils.onEdit({ item: null })}

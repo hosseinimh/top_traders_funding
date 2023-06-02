@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { slideDown, slideUp } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
+import { ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   CustomLink,
@@ -44,6 +46,20 @@ const Challenges = () => {
     });
   };
 
+  const onCopy = (field) => {
+    pageUtils?.onCopy(field);
+    const message = general.copiedToClipboard.replace(":item", strings[field]);
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   const renderModal = () => (
     <Modal id="accountModal" title={strings.accountDetails}>
       <InputTextColumn
@@ -51,7 +67,7 @@ const Challenges = () => {
         readonly={true}
         showLabel
         icon="icon-size4 icon-clickable"
-        iconClick={() => pageUtils?.onCopy("accountNo")}
+        iconClick={() => onCopy("accountNo")}
         value={pageState?.props?.item?.accountNo}
       />
       <InputTextColumn
@@ -59,7 +75,7 @@ const Challenges = () => {
         readonly={true}
         showLabel
         icon="icon-size4 icon-clickable"
-        iconClick={() => pageUtils?.onCopy("server")}
+        iconClick={() => onCopy("server")}
         value={pageState?.props?.item?.server}
       />
       <InputTextColumn
@@ -67,7 +83,7 @@ const Challenges = () => {
         readonly={true}
         showLabel
         icon="icon-size4 icon-clickable"
-        iconClick={() => pageUtils?.onCopy("password")}
+        iconClick={() => onCopy("password")}
         value={pageState?.props?.item?.password}
       />
       <InputTextColumn
@@ -75,7 +91,7 @@ const Challenges = () => {
         readonly={true}
         showLabel
         icon="icon-size4 icon-clickable"
-        iconClick={() => pageUtils?.onCopy("investorPassword")}
+        iconClick={() => onCopy("investorPassword")}
         value={pageState?.props?.item?.investorPassword}
       />
       {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
@@ -85,7 +101,7 @@ const Challenges = () => {
             readonly={true}
             showLabel
             icon="icon-size4 icon-clickable"
-            iconClick={() => pageUtils?.onCopy("metaApiToken")}
+            iconClick={() => onCopy("metaApiToken")}
             value={pageState?.props?.item?.metaApiToken}
           />
           <InputTextColumn
@@ -93,7 +109,7 @@ const Challenges = () => {
             readonly={true}
             showLabel
             icon="icon-size4 icon-clickable"
-            iconClick={() => pageUtils?.onCopy("metaApiAccountId")}
+            iconClick={() => onCopy("metaApiAccountId")}
             value={pageState?.props?.item?.metaApiAccountId}
           />
         </>
@@ -103,27 +119,15 @@ const Challenges = () => {
 
   const renderHeader = () => (
     <tr>
-      <th scope="col" style={{ width: "50px" }}>
-        #
-      </th>
+      <th style={{ width: "50px" }}>#</th>
       {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
-        <th scope="col" style={{ width: "150px" }}>
-          {strings.user}
-        </th>
+        <th style={{ width: "150px" }}>{strings.user}</th>
       )}
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.accountNo}
-      </th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.status}
-      </th>
-      <th scope="col">{strings.equity}</th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.server}
-      </th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.level}
-      </th>
+      <th style={{ width: "150px" }}>{strings.accountNo}</th>
+      <th style={{ width: "150px" }}>{strings.status}</th>
+      <th>{strings.equity}</th>
+      <th style={{ width: "150px" }}>{strings.server}</th>
+      <th style={{ width: "150px" }}>{strings.level}</th>
     </tr>
   );
 
@@ -175,7 +179,7 @@ const Challenges = () => {
                   <>
                     <button
                       type="button"
-                      className="btn btn-primary mxdir-5"
+                      className="btn btn-primary mx-rdir-10"
                       onClick={() => pageUtils.onEdit(item)}
                       title={general.edit}
                       disabled={layoutState?.loading}
@@ -188,7 +192,7 @@ const Challenges = () => {
                 <>
                   <button
                     type="button"
-                    className="btn btn-success mxdir-5"
+                    className="btn btn-success mx-rdir-10"
                     disabled={layoutState?.loading}
                     onClick={() => pageUtils?.onAnalyze(item)}
                     title={strings.analyze}
@@ -197,7 +201,7 @@ const Challenges = () => {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-primary mxdir-5"
+                    className="btn btn-primary mx-rdir-10"
                     disabled={layoutState?.loading}
                     onClick={(e) =>
                       pageUtils?.onShowModal(e, "accountModal", item)
@@ -212,11 +216,11 @@ const Challenges = () => {
                 <button
                   id="change-status"
                   type="button"
-                  className="btn btn-primary btn-dropdown mxdir-5"
+                  className="btn btn-primary btn-dropdown mx-rdir-10"
                   onClick={(e) => toggleChallengeStatus(e)}
                 >
                   <div className="d-flex">
-                    <span className="grow-1 mxdir-10">
+                    <span className="grow-1 mx-rdir-10">
                       {strings.changeStatus}
                     </span>
                     <div className="icon">
@@ -260,6 +264,17 @@ const Challenges = () => {
       hasAdd={false}
     >
       {pageState?.props?.item && renderModal()}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={layoutState?.direction === "rtl" ? true : false}
+        pauseOnHover
+        transition={Zoom}
+        theme="dark"
+      />
     </ListPage>
   );
 };

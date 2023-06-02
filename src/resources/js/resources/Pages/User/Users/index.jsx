@@ -38,76 +38,57 @@ const Users = () => {
 
   const renderHeader = () => (
     <tr>
-      <th scope="col" style={{ width: "50px" }}>
-        #
-      </th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.username}
-      </th>
-      <th scope="col">{strings.nameFamily}</th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.email}
-      </th>
-      <th scope="col" style={{ width: "150px" }}>
-        {strings.role}
-      </th>
-      <th scope="col" style={{ width: "100px" }}>
-        {strings.status}
-      </th>
+      <th style={{ width: "150px" }}>{strings.username}</th>
+      <th style={{ width: "150px" }}>{strings.nameFamily}</th>
+      <th style={{ width: "150px" }}>{strings.email}</th>
+      <th style={{ width: "150px" }}>{strings.role}</th>
+      <th style={{ width: "100px" }}>{strings.status}</th>
+      <th>{general.actions}</th>
     </tr>
   );
 
   const renderItems = () => {
     const children = pageState?.props?.items?.map((item, index) => (
-      <React.Fragment key={item.id}>
-        <tr className={index % 2 === 0 ? "even" : "odd"}>
-          <td>
-            {utils.en2faDigits(
-              (pageState?.props?.pageNumber - 1) * 10 + index + 1
-            )}
-          </td>
-          <td>{item.username}</td>
-          <td>{`${item.name} ${item.family}`}</td>
-          <td>{item.email}</td>
-          <td>
-            {item.role === USER_ROLES.ADMINISTRATOR
-              ? general.administrator
-              : general.user}
-          </td>
-          <td>{item.isActive === 1 ? strings.active : strings.notActive}</td>
-        </tr>
-        <tr className={`${index % 2 === 0 ? "even" : "odd"} actions`}>
-          <td colSpan={columnsCount}>
-            <button
-              type="button"
-              className="btn btn-primary mx-5 mb-20"
-              onClick={() => pageUtils.onEdit(item)}
-              title={general.edit}
-              disabled={layoutState?.loading}
-            >
-              {general.edit}
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary mx-5 mb-20"
-              onClick={() => pageUtils.onChangePassword(item)}
-              title={strings.changePassword}
-              disabled={layoutState?.loading}
-            >
-              {strings.changePassword}
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary mx-5 mb-20"
-              onClick={() => pageUtils.onTickets(item)}
-              title={strings.tickets}
-              disabled={layoutState?.loading}
-            >
-              {strings.tickets}
-            </button>
-          </td>
-        </tr>
-      </React.Fragment>
+      <tr key={item.id}>
+        <td>{item.username}</td>
+        <td>{`${item.name} ${item.family}`}</td>
+        <td>{item.email}</td>
+        <td>
+          {item.role === USER_ROLES.ADMINISTRATOR
+            ? general.administrator
+            : general.user}
+        </td>
+        <td>{item.isActive === 1 ? strings.active : strings.notActive}</td>
+        <td>
+          <button
+            type="button"
+            className="btn btn-primary mx-5"
+            onClick={() => pageUtils.onEdit(item)}
+            title={general.edit}
+            disabled={layoutState?.loading}
+          >
+            {general.edit}
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary mx-5"
+            onClick={() => pageUtils.onChangePassword(item)}
+            title={strings.changePassword}
+            disabled={layoutState?.loading}
+          >
+            {strings.changePassword}
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary mx-5"
+            onClick={() => pageUtils.onTickets(item)}
+            title={strings.tickets}
+            disabled={layoutState?.loading}
+          >
+            {strings.tickets}
+          </button>
+        </td>
+      </tr>
     ));
 
     return <TableItems columnsCount={columnsCount} children={children} />;

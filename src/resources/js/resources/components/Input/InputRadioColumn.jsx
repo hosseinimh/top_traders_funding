@@ -46,7 +46,7 @@ const InputRadioColumn = ({
   };
 
   return (
-    <div className="mxdir-20">
+    <div className="mx-rdir-20">
       <input
         {...form?.register(field)}
         id={field}

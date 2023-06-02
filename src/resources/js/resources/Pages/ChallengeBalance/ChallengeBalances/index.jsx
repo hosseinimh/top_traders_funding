@@ -16,13 +16,9 @@ const ChallengeBalances = () => {
 
   const renderHeader = () => (
     <tr>
-      <th scope="col" style={{ width: "50px" }}>
-        #
-      </th>
-      <th scope="col">{strings.value}</th>
-      <th scope="col" style={{ width: "150px" }}>
-        {general.actions}
-      </th>
+      <th style={{ width: "50px" }}>#</th>
+      <th>{strings.value}</th>
+      <th style={{ width: "150px" }}>{general.actions}</th>
     </tr>
   );
 
@@ -38,7 +34,7 @@ const ChallengeBalances = () => {
         <td>
           <button
             type="button"
-            className="btn btn-primary mxdir-5"
+            className="btn btn-primary mx-rdir-10"
             onClick={() => pageUtils.onEdit(item)}
             title={general.edit}
             disabled={layoutState?.loading}

@@ -14,6 +14,8 @@ import {
   IMAGES_PATH,
   STORAGE_PATH,
   PAGE_ITEMS,
+  THEMES,
+  themes,
 } from "./theme";
 
 const BASE_URL = serverConfig.baseUrl;
@@ -25,6 +27,8 @@ export {
   IMAGES_PATH,
   STORAGE_PATH,
   PAGE_ITEMS,
+  THEMES,
+  themes,
   MESSAGE_TYPES,
   MESSAGE_CODES,
   UPLOADED_FILE,

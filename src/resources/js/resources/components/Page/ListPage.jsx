@@ -25,7 +25,7 @@ const ListPage = ({
           <div className="table-header">
             {hasAdd && (
               <button
-                className="btn btn-primary mxdir-5"
+                className="btn btn-primary mx-rdir-10"
                 type="button"
                 title={pageUtils.strings.add}
                 onClick={pageUtils.onAdd}
@@ -36,7 +36,7 @@ const ListPage = ({
             )}
             {backUrl && (
               <button
-                className="btn btn-border mxdir-5"
+                className="btn btn-border mx-rdir-10"
                 type="button"
                 title={general.back}
                 onClick={() => navigate(backUrl)}
