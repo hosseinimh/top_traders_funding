@@ -12,7 +12,6 @@ const InputFileColumn = ({
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const messageState = useSelector((state) => state.messageReducer);
   const [label, setLabel] = useState(
     strings && field in strings ? strings[field] : ""
   );

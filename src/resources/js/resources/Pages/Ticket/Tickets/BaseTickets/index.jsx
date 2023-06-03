@@ -15,13 +15,12 @@ import { useLocale } from "../../../../../hooks";
 const Tickets = ({ userId }) => {
   const pageState = useSelector((state) => state.pageReducer);
   const userState = useSelector((state) => state.userReducer);
-  const columnsCount = 4;
+  const columnsCount = 3;
   const { ticketsPage: strings } = useLocale();
   const pageUtils = new PageUtils(userId);
 
   const renderHeader = () => (
     <tr>
-      <th style={{ width: "50px" }}>#</th>
       <th style={{ width: "200px" }}>{strings.type}</th>
       <th>{strings.subject}</th>
       <th style={{ width: "250px" }}>{strings.lastUpdate}</th>
@@ -29,13 +28,8 @@ const Tickets = ({ userId }) => {
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item, index) => (
+    const children = pageState?.props?.items?.map((item) => (
       <tr key={item.id}>
-        <td>
-          {utils.en2faDigits(
-            (pageState?.props?.pageNumber - 1) * 10 + index + 1
-          )}
-        </td>
         <td>
           <Link
             to={`${BASE_PATH}/tickets/threads/${item.id}`}
@@ -87,7 +81,7 @@ const Tickets = ({ userId }) => {
       </tr>
     ));
 
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   const renderFooter = () => (

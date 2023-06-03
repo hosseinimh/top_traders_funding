@@ -7,10 +7,8 @@ import {
   InputCheckboxContainer,
 } from "../../../components";
 import { PageUtils } from "./PageUtils";
-import { useLocale } from "../../../../hooks";
 
 const EditCampaign = () => {
-  const { editCampaignPage: strings } = useLocale();
   const pageUtils = new PageUtils();
 
   return (

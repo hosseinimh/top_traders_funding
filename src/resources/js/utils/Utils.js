@@ -203,7 +203,7 @@ const convertNumberToPersion = () => {
       }
     }
 
-    for (var i = 0; i < el.childNodes.length; i++) {
+    for (let i = 0; i < el.childNodes.length; i++) {
       traverse(el.childNodes[i]);
     }
   }
@@ -412,6 +412,105 @@ const initTheme = () => {
   return getLSVariable("theme");
 };
 
+const setTheme = (theme) => {
+  setLSVariable("theme", theme.name);
+  document.documentElement.style.setProperty("--text", theme.colors.text);
+  document.documentElement.style.setProperty("--light", theme.colors.light);
+  document.documentElement.style.setProperty("--dark", theme.colors.dark);
+  document.documentElement.style.setProperty("--body", theme.colors.body);
+  document.documentElement.style.setProperty(
+    "--light-body",
+    theme.colors.lightBody
+  );
+  document.documentElement.style.setProperty("--link", theme.colors.link);
+  document.documentElement.style.setProperty("--success", theme.colors.success);
+  document.documentElement.style.setProperty("--danger", theme.colors.danger);
+  document.documentElement.style.setProperty("--primary", theme.colors.primary);
+  document.documentElement.style.setProperty(
+    "--primary-light",
+    theme.colors.primaryLight
+  );
+  document.documentElement.style.setProperty("--warning", theme.colors.warning);
+  document.documentElement.style.setProperty(
+    "--dark-warning",
+    theme.colors.darkWarning
+  );
+  document.documentElement.style.setProperty(
+    "--placeholder",
+    theme.colors.placeholder
+  );
+  document.documentElement.style.setProperty("--border", theme.colors.border);
+  document.documentElement.style.setProperty(
+    "--border-error",
+    theme.colors.borderError
+  );
+  document.documentElement.style.setProperty(
+    "--border-error-light",
+    theme.colors.borderErrorLight
+  );
+  document.documentElement.style.setProperty("--hover", theme.colors.hover);
+  document.documentElement.style.setProperty(
+    "--box-shadow",
+    theme.colors.boxShadow
+  );
+  document.documentElement.style.setProperty(
+    "--gradient-bg",
+    theme.colors.gradientBg
+  );
+  document.documentElement.style.setProperty(
+    "--dropdown-corner",
+    theme.colors.dropdownCorner
+  );
+  document.documentElement.style.setProperty(
+    "--table-btn",
+    theme.colors.tableBtn
+  );
+  document.documentElement.style.setProperty(
+    "--table-row-odd",
+    theme.colors.tableRowOdd
+  );
+  document.documentElement.style.setProperty(
+    "--table-row-odd-hover",
+    theme.colors.tableRowOddHover
+  );
+  document.documentElement.style.setProperty(
+    "--table-row-even",
+    theme.colors.tableRowEven
+  );
+  document.documentElement.style.setProperty(
+    "--table-row-even-hover",
+    theme.colors.tableRowEvenHover
+  );
+  document.documentElement.style.setProperty(
+    "--modal-overlay",
+    theme.colors.modalOverlay
+  );
+  document.documentElement.style.setProperty(
+    "--alert-sucess-background",
+    theme.colors.alertSucessBackground
+  );
+  document.documentElement.style.setProperty(
+    "--alert-success-border",
+    theme.colors.alertSuccessBorder
+  );
+  document.documentElement.style.setProperty(
+    "--alert-success-color",
+    theme.colors.alertSuccessColor
+  );
+  document.documentElement.style.setProperty(
+    "--alert-danger-background",
+    theme.colors.alertDangerBackground
+  );
+  document.documentElement.style.setProperty(
+    "--alert-danger-border",
+    theme.colors.alertDangerBorder
+  );
+  document.documentElement.style.setProperty(
+    "--alert-danger-color",
+    theme.colors.alertDangerColor
+  );
+};
+
 const utils = {
   isValidMobile,
   validateMobile,
@@ -438,6 +537,7 @@ const utils = {
   isId,
   initLocale,
   initTheme,
+  setTheme,
 };
 
 export default utils;

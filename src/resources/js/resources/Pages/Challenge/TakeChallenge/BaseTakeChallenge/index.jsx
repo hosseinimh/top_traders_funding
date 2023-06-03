@@ -16,9 +16,8 @@ import utils from "../../../../../utils/Utils";
 
 const BaseTakeChallenge = ({ level }) => {
   const pageState = useSelector((state) => state.pageReducer);
-  const { takeChallenge: strings, general } = useLocale();
+  const { takeChallenge: strings } = useLocale();
   const columnsCount = level === CHALLENGE_LEVELS.FREE ? 2 : 4;
-  const isPersian = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils(level);
 
   const renderHeader = () => (
@@ -53,19 +52,11 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.duration1 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.duration1)
-                      )
                     : utils.addCommas(pageState.props.rules.duration1)}
                 </td>
                 <td>
                   {pageState.props.rules.duration2 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.duration2)
-                      )
                     : utils.addCommas(pageState.props.rules.duration2)}
                 </td>
                 <td>
@@ -73,10 +64,6 @@ const BaseTakeChallenge = ({ level }) => {
                     ? "-"
                     : pageState.props.rules.durationReal === 0
                     ? strings.noLimit
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.durationReal)
-                      )
                     : utils.addCommas(pageState.props.rules.durationReal)}
                 </td>
               </>
@@ -85,10 +72,6 @@ const BaseTakeChallenge = ({ level }) => {
               <td>
                 {pageState.props.rules.durationFree === 0
                   ? "-"
-                  : isPersian
-                  ? utils.en2faDigits(
-                      utils.addCommas(pageState.props.rules.durationFree)
-                    )
                   : utils.addCommas(pageState.props.rules.durationFree)}
               </td>
             )}
@@ -100,10 +83,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.dailySl1 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.dailySl1)
-                      )
                     : utils.addCommas(pageState.props.rules.dailySl1)}
                   {pageState.props.rules.dailySl1 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -112,10 +91,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.dailySl2 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.dailySl2)
-                      )
                     : utils.addCommas(pageState.props.rules.dailySl2)}
                   {pageState.props.rules.dailySl2 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -124,10 +99,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.dailySlReal === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.dailySlReal)
-                      )
                     : utils.addCommas(pageState.props.rules.dailySlReal)}
                   {pageState.props.rules.dailySlReal !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -139,10 +110,6 @@ const BaseTakeChallenge = ({ level }) => {
               <td>
                 {pageState.props.rules.dailySlFree === 0
                   ? "-"
-                  : isPersian
-                  ? utils.en2faDigits(
-                      utils.addCommas(pageState.props.rules.dailySlFree)
-                    )
                   : utils.addCommas(pageState.props.rules.dailySlFree)}
                 {pageState.props.rules.dailySlFree !== 0 && (
                   <span className="mx-rdir-10">%</span>
@@ -157,10 +124,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.totalSl1 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.totalSl1)
-                      )
                     : utils.addCommas(pageState.props.rules.totalSl1)}
                   {pageState.props.rules.totalSl1 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -169,10 +132,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.totalSl2 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.totalSl2)
-                      )
                     : utils.addCommas(pageState.props.rules.totalSl2)}
                   {pageState.props.rules.totalSl2 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -181,10 +140,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.totalSlReal === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.totalSlReal)
-                      )
                     : utils.addCommas(pageState.props.rules.totalSlReal)}
                   {pageState.props.rules.totalSlReal !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -196,10 +151,6 @@ const BaseTakeChallenge = ({ level }) => {
               <td>
                 {pageState.props.rules.totalSlFree === 0
                   ? "-"
-                  : isPersian
-                  ? utils.en2faDigits(
-                      utils.addCommas(pageState.props.rules.totalSlFree)
-                    )
                   : utils.addCommas(pageState.props.rules.totalSlFree)}
                 {pageState.props.rules.totalSlFree !== 0 && (
                   <span className="mx-rdir-10">%</span>
@@ -214,10 +165,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.target1 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.target1)
-                      )
                     : utils.addCommas(pageState.props.rules.target1)}
                   {pageState.props.rules.target1 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -226,10 +173,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.target2 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.target2)
-                      )
                     : utils.addCommas(pageState.props.rules.target2)}
                   {pageState.props.rules.target2 !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -238,10 +181,6 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.targetReal === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.targetReal)
-                      )
                     : utils.addCommas(pageState.props.rules.targetReal)}
                   {pageState.props.rules.targetReal !== 0 && (
                     <span className="mx-rdir-10">%</span>
@@ -253,10 +192,6 @@ const BaseTakeChallenge = ({ level }) => {
               <td>
                 {pageState.props.rules.targetFree === 0
                   ? "-"
-                  : isPersian
-                  ? utils.en2faDigits(
-                      utils.addCommas(pageState.props.rules.targetFree)
-                    )
                   : utils.addCommas(pageState.props.rules.targetFree)}
                 {pageState.props.rules.targetFree !== 0 && (
                   <span className="mx-rdir-10">%</span>
@@ -271,28 +206,16 @@ const BaseTakeChallenge = ({ level }) => {
                 <td>
                   {pageState.props.rules.tradeDays1 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.tradeDays1)
-                      )
                     : utils.addCommas(pageState.props.rules.tradeDays1)}
                 </td>
                 <td>
                   {pageState.props.rules.tradeDays2 === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.tradeDays2)
-                      )
                     : utils.addCommas(pageState.props.rules.tradeDays2)}
                 </td>
                 <td>
                   {pageState.props.rules.tradeDaysReal === 0
                     ? "-"
-                    : isPersian
-                    ? utils.en2faDigits(
-                        utils.addCommas(pageState.props.rules.tradeDaysReal)
-                      )
                     : utils.addCommas(pageState.props.rules.tradeDaysReal)}
                 </td>
               </>
@@ -301,10 +224,6 @@ const BaseTakeChallenge = ({ level }) => {
               <td>
                 {pageState.props.rules.tradeDaysFree === 0
                   ? "-"
-                  : isPersian
-                  ? utils.en2faDigits(
-                      utils.addCommas(pageState.props.rules.tradeDaysFree)
-                    )
                   : utils.addCommas(pageState.props.rules.tradeDaysFree)}
               </td>
             )}
@@ -312,7 +231,7 @@ const BaseTakeChallenge = ({ level }) => {
         </React.Fragment>,
       ];
     }
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   return (

@@ -5,7 +5,7 @@ import { useLocale } from "../../../hooks";
 import { Footer } from "../";
 
 const FallbackError = () => {
-  const { footer, general } = useLocale();
+  const { general } = useLocale();
   return (
     <div className="dashboard d-flex">
       <div className="main">

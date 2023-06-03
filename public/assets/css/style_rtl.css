@@ -58,17 +58,20 @@
     #313640 49.01%,
     rgba(49, 54, 64, 0) 100%
   );
+  --dropdown-corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='5' viewBox='0 0 16 5'%3E%3Cpath fill='%23141a22' fill-rule='evenodd' d='M62.6,1.8 L57,6 L57,6 L73,6 L67.4,1.8 C65.9777778,0.733333333 64.0222222,0.733333333 62.6,1.8 Z' transform='translate(-57 -1)'/%3E%3C/svg%3E%0A");
   --table-btn: "#27313e";
   --table-row-odd: #141a22;
   --table-row-odd-hover: #191f28;
   --table-row-even: #0b0e12;
   --table-row-even-hover: rgba(11, 14, 18, 0.5);
+  ---modal-overlay: rgba(0, 0, 0, 0.6);
   --alert-sucess-background: rgba(35, 159, 64, 0.2);
   --alert-success-border: rgba(35, 159, 64, 0.5);
   --alert-success-color: "#239f40";
   --alert-danger-background: rgba(159, 35, 35, 0.2);
   --alert-danger-border: rgba(159, 35, 35, 0.5);
   --alert-danger-color: "#bf2626";
+  --login-bg: #0042a0;
   --font: "YekanBakh";
 }
 *,
@@ -523,11 +526,6 @@ input[type="radio"] ~ span.error {
   border-radius: 0.675rem;
   resize: none;
 }
-.fanum {
-  margin-bottom: 0.675rem;
-  padding-right: 5px;
-  display: none;
-}
 .textarea span.error {
   right: 1.25rem;
 }
@@ -558,11 +556,6 @@ input[type="radio"] ~ span.error {
   position: absolute;
   opacity: 0;
   pointer-events: none;
-}
-.filenameinput {
-  white-space: nowrap;
-  text-align: left;
-  direction: ltr;
 }
 .input-file i {
   margin-right: 1.25rem;
@@ -737,7 +730,6 @@ input[type="radio"] ~ span.error {
   display: none;
   margin-top: 0.625rem;
   margin-right: 0.625rem;
-  margin-right: 1rem;
 }
 @media (max-width: 1024px) {
   .sidebar {
@@ -836,6 +828,10 @@ input[type="radio"] ~ span.error {
   margin-left: 5px;
   position: relative;
 }
+.navbar-actions > .item .color-btn img {
+  width: 1.375rem;
+  height: 1.375rem;
+}
 @media (max-width: 1024px) {
   .navbar {
     padding: 0.625rem 1rem;
@@ -874,7 +870,6 @@ input[type="radio"] ~ span.error {
   width: 2.375rem;
   text-align: center;
   line-height: 2.5rem;
-  background: var(--light-body);
   border-radius: 6.25rem;
   color: var(--dark-warning) !important;
   display: inline-block;
@@ -926,7 +921,6 @@ input[type="radio"] ~ span.error {
 }
 .block-border {
   border-bottom: 1px solid var(--border);
-  margin-bottom: 2rem;
   opacity: 0.8;
 }
 .dot {
@@ -945,7 +939,7 @@ input[type="radio"] ~ span.error {
   border-bottom: 1px solid var(--border);
   width: 100%;
 }
-.btn-dropdown-menu {
+.dropdown-menu {
   position: absolute;
   top: 50px;
   right: 0;
@@ -958,17 +952,21 @@ input[type="radio"] ~ span.error {
   z-index: 2;
   border: 1px solid var(--border);
 }
-.btn-dropdown-menu ul {
+.dropdown-menu-end {
+  right: unset;
+  left: 0;
+}
+.dropdown-menu ul {
   list-style: none;
 }
-.btn-dropdown-menu ul li a {
+.dropdown-menu ul li a {
   color: var(--text);
   padding: 2px 1.25rem;
   display: block;
   line-height: 1.775rem;
   text-align: right;
 }
-.btn-dropdown-menu ul li a:hover {
+.dropdown-menu ul li a:hover {
   opacity: 0.3;
 }
 .section-items {
@@ -1084,7 +1082,7 @@ input[type="radio"] ~ span.error {
   margin: 0.625rem 0 1.25rem;
   box-shadow: 0 0 0 1px var(--border);
   border-radius: 0.625rem;
-  height: 48px;
+  height: 3rem;
 }
 .select-box.error {
   box-shadow: 0 0 0 1px var(--border-error), 0 0 1rem var(--border-error-light);
@@ -1102,7 +1100,7 @@ input[type="radio"] ~ span.error {
   text-align: right;
 }
 .select .icon i {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 .select-list {
   position: absolute;
@@ -1152,7 +1150,7 @@ input[type="radio"] ~ span.error {
   right: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--body);
+  background-color: var(---modal-overlay);
   box-shadow: var(--box-shadow);
   z-index: 12;
   display: none;
@@ -1281,6 +1279,14 @@ a.page-link:hover {
   border-radius: 0.625rem;
   background-color: var(--body);
   box-shadow: var(--box-shadow);
+}
+.navbar .submenu.submenu-mid {
+  right: unset;
+  left: -6rem;
+}
+.navbar .submenu.submenu-end {
+  right: unset;
+  left: 0;
 }
 .navbar .submenu ul {
   list-style: none;
@@ -10275,12 +10281,12 @@ div.dataTables_wrapper {
   min-height: 100vh;
 }
 .login-page > div {
-  flex-basis: 400px;
+  flex-basis: 25rem;
   flex-grow: 1;
-  padding: 40px;
+  padding: 2.5rem;
 }
 .login-info {
-  background: var(--link);
+  background: var(--login-bg);
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -10292,7 +10298,7 @@ div.dataTables_wrapper {
 }
 .login-info .logo {
   width: 100%;
-  max-width: 200px;
+  max-width: 12.5rem;
 }
 .login-info .logo img {
   width: 100%;
@@ -10300,15 +10306,16 @@ div.dataTables_wrapper {
 .login-info .img {
   position: relative;
   right: 36%;
-  margin: 60px 0;
+  margin: 3.75rem 0;
 }
 .login-info .img img {
   width: 100%;
 }
 .login-info .info {
-  font-size: 1.2em;
+  font-size: 0.95rem;
   font-weight: 300;
-  margin-bottom: -30px;
+  margin-bottom: -1.875rem;
+  color: #fff;
 }
 .login-box {
   justify-content: center;
@@ -10317,15 +10324,15 @@ div.dataTables_wrapper {
 }
 .login-form {
   width: 100%;
-  max-width: 460px;
+  max-width: 28.75rem;
   position: relative;
 }
 .login-form .title h2 {
   font-weight: 400;
-  font-size: 1.6em;
+  font-size: 1.3rem;
 }
 .login-form .title span {
-  font-size: 1.2em;
+  font-size: 0.95rem;
   font-weight: 300;
   color: var(--placeholder);
 }
@@ -10333,7 +10340,7 @@ div.dataTables_wrapper {
   display: block;
   width: 100%;
   min-height: 1px;
-  max-width: 1200px;
+  max-width: 75rem;
   position: relative;
 }
 .line-gr:before {
@@ -10350,4 +10357,47 @@ div.dataTables_wrapper {
 }
 .login-form .btn {
   min-width: 60%;
+}
+.locales-menu a {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  align-items: center;
+  gap: 1rem;
+}
+.locales-menu img {
+  display: inline;
+}
+.navbar .colors-list:before {
+  background: var(--dropdown-corner) 50% 50%/100% auto no-repeat;
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  width: 1rem;
+  height: 6px;
+  top: -5px;
+  left: 0.625rem;
+}
+.colors-list ul {
+  padding: 0.5rem;
+}
+.colors-list .color {
+  height: 1.875rem;
+  width: 1.875rem;
+  margin: 0.625rem;
+  border: 4px solid #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 0 2px #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+  border-color: var(--body);
+}
+.colors-list .color:hover {
+  transform: scale(1.4);
+}
+.colors-list .purple-btn {
+  background: #9341d7;
+}
+.colors-list .green-btn {
+  background: #248277;
 }

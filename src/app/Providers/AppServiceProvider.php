@@ -63,10 +63,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('helper', function () {
             return new Helper();
         });
-
-        $this->app->bind('send_mail', function () {
-            return new SendMail();
-        });
     }
 
     public function boot()

@@ -2,20 +2,18 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { ListPage, TableItems } from "../../../components";
-import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 
 const AppRulesAdmin = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 4;
+  const columnsCount = 3;
   const { appRulesPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
 
   const renderHeader = () => (
     <tr>
-      <th style={{ width: "50px" }}>#</th>
       <th style={{ width: "150px" }}>{strings.title}</th>
       <th>{strings.body}</th>
       <th style={{ width: "150px" }}>{general.actions}</th>
@@ -23,9 +21,8 @@ const AppRulesAdmin = () => {
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item, index) => (
+    const children = pageState?.props?.items?.map((item) => (
       <tr key={item.id}>
-        <td>{utils.en2faDigits(index + 1)}</td>
         <td>{item.title}</td>
         <td className={"display-linebreak"}>{item.body}</td>
         <td>
@@ -42,7 +39,7 @@ const AppRulesAdmin = () => {
       </tr>
     ));
 
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   return (

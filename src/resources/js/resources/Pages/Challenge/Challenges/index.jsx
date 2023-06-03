@@ -13,7 +13,6 @@ import {
   TableFooter,
   TableItems,
 } from "../../../components";
-import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_STATUSES, USER_ROLES } from "../../../../constants";
@@ -119,7 +118,6 @@ const Challenges = () => {
 
   const renderHeader = () => (
     <tr>
-      <th style={{ width: "50px" }}>#</th>
       {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
         <th style={{ width: "150px" }}>{strings.user}</th>
       )}
@@ -128,11 +126,12 @@ const Challenges = () => {
       <th>{strings.equity}</th>
       <th style={{ width: "150px" }}>{strings.server}</th>
       <th style={{ width: "150px" }}>{strings.level}</th>
+      <th style={{ width: "150px" }}>{general.actions}</th>
     </tr>
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item, index) => {
+    const children = pageState?.props?.items?.map((item) => {
       const statuses = [
         {
           challengeStatus: CHALLENGE_STATUSES.WAITING_VERIFICATION,
@@ -152,105 +151,96 @@ const Challenges = () => {
         },
       ].filter(({ challengeStatus }) => item.status != challengeStatus);
       return (
-        <React.Fragment key={item.id}>
-          <tr>
-            <td>
-              {utils.en2faDigits(
-                (pageState?.props?.pageNumber - 1) * 10 + index + 1
-              )}
-            </td>
-            {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
-              <td>{item.username}</td>
-            )}
-            <td>{item.accountNo === 0 ? "-" : item.accountNo}</td>
-            <td>{item.statusText}</td>
-            <td>
-              {item.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
-                ? "-"
-                : item.equity}
-            </td>
-            <td>{item.server}</td>
-            <td>{item.levelText}</td>
-          </tr>
-          <tr>
-            <td colSpan={columnsCount}>
-              {item.status === CHALLENGE_STATUSES.WAITING_VERIFICATION &&
-                userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
-                  <>
-                    <button
-                      type="button"
-                      className="btn btn-primary mx-rdir-10"
-                      onClick={() => pageUtils.onEdit(item)}
-                      title={general.edit}
-                      disabled={layoutState?.loading}
-                    >
-                      {general.edit}
-                    </button>
-                  </>
-                )}
-              {item.status === CHALLENGE_STATUSES.WAITING_TRADE && (
+        <tr key={item.id}>
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+            <td>{item.username}</td>
+          )}
+          <td>{item.accountNo === 0 ? "-" : item.accountNo}</td>
+          <td>{item.statusText}</td>
+          <td>
+            {item.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
+              ? "-"
+              : item.equity}
+          </td>
+          <td>{item.server}</td>
+          <td>{item.levelText}</td>
+          <td>
+            {item.status === CHALLENGE_STATUSES.WAITING_VERIFICATION &&
+              userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
                 <>
                   <button
                     type="button"
-                    className="btn btn-success mx-rdir-10"
-                    disabled={layoutState?.loading}
-                    onClick={() => pageUtils?.onAnalyze(item)}
-                    title={strings.analyze}
-                  >
-                    {strings.analyze}
-                  </button>
-                  <button
-                    type="button"
                     className="btn btn-primary mx-rdir-10"
+                    onClick={() => pageUtils.onEdit(item)}
+                    title={general.edit}
                     disabled={layoutState?.loading}
-                    onClick={(e) =>
-                      pageUtils?.onShowModal(e, "accountModal", item)
-                    }
-                    title={strings.accountDetails}
                   >
-                    {strings.accountDetails}
+                    {general.edit}
                   </button>
                 </>
               )}
-              {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+            {item.status === CHALLENGE_STATUSES.WAITING_TRADE && (
+              <>
                 <button
-                  id="change-status"
                   type="button"
-                  className="btn btn-primary btn-dropdown mx-rdir-10"
-                  onClick={(e) => toggleChallengeStatus(e)}
+                  className="btn btn-success mx-rdir-10"
+                  disabled={layoutState?.loading}
+                  onClick={() => pageUtils?.onAnalyze(item)}
+                  title={strings.analyze}
                 >
-                  <div className="d-flex">
-                    <span className="grow-1 mx-rdir-10">
-                      {strings.changeStatus}
-                    </span>
-                    <div className="icon">
-                      <i className="icon-arrow-down5"></i>
-                    </div>
-                  </div>
-                  <div className="btn-dropdown-menu">
-                    <ul>
-                      {statuses.map(({ challengeStatus, string }) => (
-                        <li key={challengeStatus}>
-                          <CustomLink
-                            onClick={() =>
-                              pageUtils?.changeStatus(item.id, challengeStatus)
-                            }
-                          >
-                            {string}
-                          </CustomLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {strings.analyze}
                 </button>
-              )}
-            </td>
-          </tr>
-        </React.Fragment>
+                <button
+                  type="button"
+                  className="btn btn-primary mx-rdir-10"
+                  disabled={layoutState?.loading}
+                  onClick={(e) =>
+                    pageUtils?.onShowModal(e, "accountModal", item)
+                  }
+                  title={strings.accountDetails}
+                >
+                  {strings.accountDetails}
+                </button>
+              </>
+            )}
+            {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
+              <button
+                id="change-status"
+                type="button"
+                className="btn btn-primary btn-dropdown mx-rdir-10"
+                onClick={(e) => toggleChallengeStatus(e)}
+              >
+                <div className="d-flex">
+                  <span className="grow-1 mx-rdir-10">
+                    {strings.changeStatus}
+                  </span>
+                  <div className="icon">
+                    <i className="icon-arrow-down5"></i>
+                  </div>
+                </div>
+                <div className="dropdown-menu dropdown-menu-end">
+                  <ul>
+                    {statuses.map(({ challengeStatus, string }) => (
+                      <li key={challengeStatus}>
+                        <CustomLink
+                          onClick={() =>
+                            pageUtils?.changeStatus(item.id, challengeStatus)
+                          }
+                        >
+                          {string}
+                        </CustomLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </button>
+            )}
+          </td>
+        </tr>
       );
     });
 
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   const renderFooter = () => (

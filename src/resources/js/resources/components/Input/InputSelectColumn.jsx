@@ -110,7 +110,7 @@ const InputSelectColumn = ({
           </div>
         </div>
         <div className="select-list scrollhide dropdown-list">
-          {items?.map((item, index) => (
+          {items?.map((item) => (
             <div
               key={item[keyItem]}
               onClick={(e) => selectOption(e, item[keyItem])}

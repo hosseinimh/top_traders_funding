@@ -7,7 +7,6 @@ import {
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
-import utils from "../../../../utils/Utils";
 import { useLocale } from "../../../../hooks";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 

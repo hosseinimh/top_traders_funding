@@ -12,8 +12,7 @@ import { setLoadingAction } from "../../../../../state/layout/layoutActions";
 export class PageUtils extends BasePageUtils {
   constructor(level) {
     const form = useForm();
-    const { takeRealChallengePage, takeFreeChallengePage, general } =
-      useLocale();
+    const { takeRealChallengePage, takeFreeChallengePage } = useLocale();
     const name =
       level === CHALLENGE_LEVELS.FREE ? "TakeFreeChallenge" : "TakeChallenge";
     const strings =
@@ -23,7 +22,6 @@ export class PageUtils extends BasePageUtils {
     super(name, strings, form);
     this.entity = new Entity();
     this.initialPageProps = {
-      isPersian: general.locale === "فارسی" ? true : false,
       level,
       balances: null,
       servers: null,
@@ -65,9 +63,7 @@ export class PageUtils extends BasePageUtils {
       balances.map((balance) => ({
         id: balance.id,
         value: balance.id,
-        label: this.initialPageProps.isPersian
-          ? utils.en2faDigits(utils.addCommas(balance.value))
-          : utils.addCommas(balance.value),
+        label: utils.addCommas(balance.value),
         checked: false,
       }))
     );
@@ -89,9 +85,7 @@ export class PageUtils extends BasePageUtils {
       platforms.map((platform) => ({
         id: platform.id,
         value: platform.id,
-        label: this.initialPageProps.isPersian
-          ? utils.en2faDigits(platform.value)
-          : platform.value,
+        label: platform.value,
         checked: false,
       }))
     );
@@ -102,9 +96,7 @@ export class PageUtils extends BasePageUtils {
       leverages.map((leverage) => ({
         id: leverage.id,
         value: leverage.id,
-        label: this.initialPageProps.isPersian
-          ? utils.en2faDigits(utils.addCommas(leverage.value))
-          : utils.addCommas(leverage.value),
+        label: utils.addCommas(leverage.value),
         checked: false,
       }))
     );

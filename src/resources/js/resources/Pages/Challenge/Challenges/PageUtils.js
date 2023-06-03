@@ -8,7 +8,6 @@ import {
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import {
   BASE_PATH,
-  CHALLENGE_STATUSES,
   MESSAGE_CODES,
   MESSAGE_TYPES,
   USER_ROLES,

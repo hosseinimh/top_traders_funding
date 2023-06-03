@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import utils from "../../../utils/Utils";
 
 const InputButtonRadiosColumn = ({
   items,
@@ -39,7 +38,7 @@ const InputButtonRadiosColumn = ({
 
   useEffect(() => {
     if (radioItems?.length > 0) {
-      form?.setValue(field, radioItems.filter((item) => item.checked)[0].value);
+      form?.setValue(field, radioItems.find((item) => item.checked).value);
     }
   }, [radioItems]);
 

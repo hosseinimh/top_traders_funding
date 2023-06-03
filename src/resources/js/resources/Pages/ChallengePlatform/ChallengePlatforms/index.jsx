@@ -2,30 +2,26 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { ListPage, TableItems } from "../../../components";
-import utils from "../../../../utils/Utils";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 
 const ChallengePlatforms = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 3;
+  const columnsCount = 2;
   const { challengePlatformsPage: strings, general } = useLocale();
-  const isPersian = general.locale === "فارسی" ? true : false;
   const pageUtils = new PageUtils();
 
   const renderHeader = () => (
     <tr>
-      <th style={{ width: "50px" }}>#</th>
       <th>{strings.value}</th>
       <th style={{ width: "150px" }}>{general.actions}</th>
     </tr>
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item, index) => (
+    const children = pageState?.props?.items?.map((item) => (
       <tr key={item.id}>
-        <td>{isPersian ? utils.en2faDigits(index + 1) : index + 1}</td>
         <td>{item.value}</td>
         <td>
           <button
@@ -41,7 +37,7 @@ const ChallengePlatforms = () => {
       </tr>
     ));
 
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   return (

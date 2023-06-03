@@ -11,8 +11,6 @@ import { BASE_PATH } from "../../../../constants";
 import utils from "../../../../utils/Utils";
 import { searchUserSchema as schema } from "../../../validations";
 import { useLocale } from "../../../../hooks";
-import { get } from "../../../../http";
-import axios from "axios";
 
 export class PageUtils extends BasePageUtils {
   constructor() {

@@ -9,7 +9,6 @@ import {
   TableFooter,
   TableItems,
 } from "../../../components";
-import utils from "../../../../utils/Utils";
 import { USER_ROLES } from "../../../../constants";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
@@ -48,7 +47,7 @@ const Users = () => {
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item, index) => (
+    const children = pageState?.props?.items?.map((item) => (
       <tr key={item.id}>
         <td>{item.username}</td>
         <td>{`${item.name} ${item.family}`}</td>
@@ -91,7 +90,7 @@ const Users = () => {
       </tr>
     ));
 
-    return <TableItems columnsCount={columnsCount} children={children} />;
+    return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };
 
   const renderFooter = () => (

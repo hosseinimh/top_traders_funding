@@ -110,6 +110,7 @@ const TicketThreads = () => {
               <a
                 href={`${STORAGE_PATH}/ticket_threads/${item.file}`}
                 target={"_blank"}
+                rel="noreferrer"
               >
                 <BsPaperclip className="orange" />
                 <span className="orange">{general.file}</span>

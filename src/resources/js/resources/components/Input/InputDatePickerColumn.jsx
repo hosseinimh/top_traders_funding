@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Controller } from "react-hook-form";
 import { useSelector } from "react-redux";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import Button from "react-multi-date-picker/components/button";
 
 import InputRow from "./InputRow";
 
@@ -52,6 +50,12 @@ const InputDatePickerColumn = ({
       setDate(label);
     }
   }, [label]);
+
+  useEffect(() => {
+    if (form && date) {
+      form?.setValue(field, date?.toString());
+    }
+  }, [date]);
 
   const renderItem = () => (
     <>

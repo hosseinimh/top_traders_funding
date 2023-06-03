@@ -116,19 +116,15 @@ class Entity {
   }
 
   handleError() {
-    try {
-      switch (this.errorCode) {
-        case 1:
-        case 2:
-          this.logout();
+    switch (this.errorCode) {
+      case 1:
+      case 2:
+        this.logout();
 
-          break;
-        default:
-          return;
-      }
-    } catch (error) {}
-
-    return;
+        break;
+      default:
+        return;
+    }
   }
 
   logout() {

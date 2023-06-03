@@ -1,8 +1,6 @@
 import React from "react";
 
 import { useLocale } from "../../../hooks";
-import utils from "../../../utils/Utils";
-import { LOCALES } from "../../../constants";
 
 const Footer = () => {
   const { footer: strings } = useLocale();

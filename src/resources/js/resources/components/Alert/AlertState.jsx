@@ -7,7 +7,6 @@ import utils from "../../../utils/Utils";
 const AlertState = () => {
   const messageState = useSelector((state) => state.messageReducer);
   const [message, setMessage] = useState(null);
-  const [code, setCode] = useState(0);
   const [type, setType] = useState(0);
 
   useEffect(() => {
@@ -19,7 +18,6 @@ const AlertState = () => {
         if (messageState?.message) {
           if (messageState?.messageRender) {
             setMessage(utils.en2faDigits(messageState?.message.toString()));
-            setCode(utils.en2faDigits(messageState?.messageCode.toString()));
             setType(messageState?.messageType);
           }
         }

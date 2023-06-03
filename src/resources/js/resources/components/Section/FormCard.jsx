@@ -37,7 +37,7 @@ const FormCard = ({
               : general.submit}
           </button>
         )}
-        {hasSubmit && (
+        {hasCancel && (
           <button
             className="btn btn-border"
             type="button"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Chart from "react-apexcharts";
 
-import { BlankPage, Span } from "../../../components";
+import { BlankPage } from "../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";

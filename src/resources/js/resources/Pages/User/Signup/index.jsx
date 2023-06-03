@@ -47,7 +47,7 @@ const Signup = () => {
       <InputTextColumn
         field="username"
         textAlign="left"
-        showLabe
+        showLabel
         icon={"icon-frame-14"}
       />
       <InputRow>

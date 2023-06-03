@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 import {
   BlankPage,
@@ -12,7 +11,6 @@ import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 
 const VerifyUserRequest = () => {
-  const pageState = useSelector((state) => state.pageReducer);
   const [selfieFileSelected, setSelfieFileSelected] = useState(null);
   const [identityFileSelected, setIdentityFileSelected] = useState(null);
   const { verifyUserPage: strings, genderTypes } = useLocale();

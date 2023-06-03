@@ -1,15 +1,9 @@
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { User as Entity } from "../../../../../http/entities";
-import {
-  setPageAction,
-  setPageIconAction,
-  setPageTitleAction,
-} from "../../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../../utils/BasePageUtils";
-import { BASE_PATH, USER_ROLES } from "../../../../../constants";
+import { USER_ROLES } from "../../../../../constants";
 import { setLoadingAction } from "../../../../../state/layout/layoutActions";
 import { editUserSchema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
@@ -27,13 +21,13 @@ export class PageUtils extends BasePageUtils {
 
   onLoad() {
     super.onLoad();
-    this.fillForm({ userId: this.userState?.user?.id });
+    this.fillForm();
   }
 
-  async fillForm(data) {
+  async fillForm() {
     try {
       this.dispatch(setLoadingAction(true));
-      const result = await this.fetchItem(data.userId);
+      const result = await this.fetchItem();
       this.navigateIfItemNotFound(result);
       this.handleFetchResult(result);
     } catch {
@@ -42,7 +36,7 @@ export class PageUtils extends BasePageUtils {
     }
   }
 
-  async fetchItem(id) {
+  async fetchItem() {
     return await this.entity.getFromUser();
   }
 
