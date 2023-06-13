@@ -22,7 +22,7 @@ class SignupUserRequest extends FormRequest
         return [
             'username' => 'required|min:6|max:50|unique:tbl_users',
             'password' => 'required|min:6|max:50|confirmed',
-            'email' => 'required|min:5|max:50|unique:tbl_users',
+            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|min:5|max:50|unique:tbl_users',
             'name' => 'required|min:2|max:50',
             'family' => 'required|min:2|max:50',
         ];
@@ -40,6 +40,7 @@ class SignupUserRequest extends FormRequest
             'password.max' => __('user.password_max'),
             'password.confirmed' => __('user.password_confirmed'),
             'email.required' => __('user.email_required'),
+            'email.regex' => __('user.email_regex'),
             'email.min' => __('user.email_min'),
             'email.max' => __('user.email_max'),
             'email.unique' => __('user.email_unique'),

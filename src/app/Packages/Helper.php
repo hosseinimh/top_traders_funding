@@ -4,26 +4,15 @@ namespace App\Packages;
 
 use App\Models\Error;
 use DateTime;
+use Exception;
 
 class Helper
 {
-    public function handleError(\Exception $e)
+    public function handleError(Exception $e)
     {
         try {
             Error::create(['message' => $e->__toString()]);
-        } catch (\Exception) {
-        }
-    }
-
-    public function logError($e)
-    {
-        try {
-            if (is_string($e)) {
-                Error::create(['message' => $e]);
-            } else {
-                Error::create(['message' => $e->__toString()]);
-            }
-        } catch (\Exception) {
+        } catch (Exception) {
         }
     }
 
@@ -38,7 +27,7 @@ class Helper
             }
 
             return $randstring;
-        } catch (\Exception) {
+        } catch (Exception) {
         }
 
         return '1234';
@@ -55,7 +44,7 @@ class Helper
             }
 
             return $randstring;
-        } catch (\Exception) {
+        } catch (Exception) {
         }
 
         return '1234';
@@ -67,7 +56,7 @@ class Helper
             $persianNumber = str_replace(array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'), $englishNumber);
 
             return $persianNumber;
-        } catch (\Exception) {
+        } catch (Exception) {
         }
 
         return $englishNumber;
@@ -79,13 +68,13 @@ class Helper
             if (app()->getLocale() === 'fa') {
                 return Helper::persianNumbers($number);
             }
-        } catch (\Exception) {
+        } catch (Exception) {
         }
 
         return $number;
     }
 
-    public function resizeImage($file, $width)
+    public function resizeImage(string $file, int $width): void
     {
         try {
             $src = imagecreatefromjpeg($file);
@@ -93,7 +82,7 @@ class Helper
             $dst = $imgWidth > $width ? imagescale($src, $width) : $src;
 
             imagejpeg($dst, $file);
-        } catch (\Exception) {
+        } catch (Exception) {
         }
     }
 
@@ -135,9 +124,37 @@ class Helper
             }
 
             return ($mod === '') ? array($jy, $jm, $jd) : $jy . $mod . $jm . $mod . $jd;
-        } catch (\Exception) {
+        } catch (Exception) {
             return null;
         }
+    }
+
+    function jalaliToGregorian($jy, $jm, $jd, $mod = '')
+    {
+        if ($jy > 979) {
+            $gy = 1600;
+            $jy -= 979;
+        } else {
+            $gy = 621;
+        }
+        $days = (365 * $jy) + (((int)($jy / 33)) * 8) + ((int)((($jy % 33) + 3) / 4)) + 78 + $jd + (($jm < 7) ? ($jm - 1) * 31 : (($jm - 7) * 30) + 186);
+        $gy += 400 * ((int)($days / 146097));
+        $days %= 146097;
+        if ($days > 36524) {
+            $gy += 100 * ((int)(--$days / 36524));
+            $days %= 36524;
+            if ($days >= 365) $days++;
+        }
+        $gy += 4 * ((int)(($days) / 1461));
+        $days %= 1461;
+        $gy += (int)(($days - 1) / 365);
+        if ($days > 365) $days = ($days - 1) % 365;
+        $gd = $days + 1;
+        foreach (array(0, 31, ((($gy % 4 == 0) and ($gy % 100 != 0)) or ($gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) as $gm => $v) {
+            if ($gd <= $v) break;
+            $gd -= $v;
+        }
+        return ($mod === '') ? array($gy, $gm, $gd) : $gy . $mod . $gm . $mod . $gd;
     }
 
     private function getFaDate($date)
@@ -170,5 +187,22 @@ class Helper
         $date = Helper::getFaDate($date);
 
         return $date[3] . ':' . $date[4] . ':' . $date[5] . ' ' . $date[2] . '-' . $date[1] . '-' . $date[0];
+    }
+
+    public function logError($e)
+    {
+        try {
+            $message = 'url: ' . url()->current();
+            $message .= "
+";
+            $message .= "
+" . is_string($e) ? $e : $e->__toString();
+            foreach (getallheaders() as $name => $value) {
+                $message .= "
+$name: $value";
+            }
+            Error::create(['message' => $message]);
+        } catch (Exception) {
+        }
     }
 }

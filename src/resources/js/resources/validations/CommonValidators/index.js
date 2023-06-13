@@ -1,15 +1,21 @@
-import stringValidator from "./stringValidator";
-import numberValidator from "./numberValidator";
-import nameValidator from "./nameValidator";
-import nationalCodeValidator from "./nationalCodeValidator";
-import emailValidator from "./emailValidator";
 import asciiValidator from "./asciiValidator";
+import dateValidator from "./dateValidator";
+import emailValidator from "./emailValidator";
+import mobileValidator from "./mobileValidator";
+import nameValidator from "./nameValidator";
+import nationalNoValidator from "./nationalNoValidator";
+import numberValidator from "./numberValidator";
+import stringValidator from "./stringValidator";
+import telValidator from "./telValidator";
 
 export {
-  stringValidator,
-  numberValidator,
-  nameValidator,
-  nationalCodeValidator,
-  emailValidator,
   asciiValidator,
+  dateValidator,
+  emailValidator,
+  mobileValidator,
+  nameValidator,
+  nationalNoValidator,
+  numberValidator,
+  stringValidator,
+  telValidator,
 };

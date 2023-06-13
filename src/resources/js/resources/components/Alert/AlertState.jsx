@@ -27,6 +27,12 @@ const AlertState = () => {
     }
   }, [messageState]);
 
+  useEffect(() => {
+    if (message) {
+      window.scrollTo(0, 0);
+    }
+  }, [message]);
+
   if (message) {
     return (
       <div

@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { MESSAGE_TYPES } from "../../../constants";
 
 const AlertMessage = ({ message, code = "", messageType }) => {
+  useEffect(() => {
+    if (message) {
+      window.scrollTo(0, 0);
+    }
+  }, [message]);
+
   if (message) {
     return (
       <div

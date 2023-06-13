@@ -26,6 +26,7 @@ export const general = {
   up: "بالا",
   down: "پایین",
   file: "فایل ضمیمه",
+  currency: "تومان",
   itemNotFound: "آیتم یافت نشد.",
   noDataFound: "داده‌ای برای نمایش وجود ندارد.",
   noPermission: "شما مجوز ورود به این بخش را ندارید.",
@@ -47,8 +48,8 @@ export const validation = {
   asciiStringMessage: ":field تنها باید شامل حروف انگلیسی باشد.",
   requiredMessage: "لطفا :field را وارد نمایید.",
   validMessage: "لطفا :field را به درستی وارد نمایید.",
+  notValidMessage: ":field نامعتبر است.",
   confirmedMessage: ":field با تاییدیه اش مطابقت نمی نماید.",
-  emailMessage: "پست الکترونیک نامعتبر است.",
   minMessage: "حداقل طول فیلد :field، :min حرف است.",
   maxMessage: "حداکثر طول فیلد :field، :max حرف است.",
   minDigitMessage: "حداقل طول فیلد :field، :min رقم است.",
@@ -162,6 +163,14 @@ export const dashboardPage = {
   _subTitle: "سامانه در یک نگاه",
   users: "کاربران",
   challenges: "چالش‌های برگزارشده",
+  wallet: "ارزش کل دارایی",
+  notVerifiedInfo:
+    "احراز هویت شما تکمیل نیست. جهت استفاده از تمامی امکانات، لطفا هویت خود را احراز نمایید.",
+  verifingInfo:
+    "اطلاعات هویتی شما تکمیل شده است. پس از تایید اطلاعات، می‌توانید در چالش شرکت نمایید.",
+  verifiedInfo: "احراز هویت شما انجام شده است.",
+  verify: "تکمیل ثبت‌نام",
+  verified: "مشاهده اطلاعات",
 };
 
 export const usersPage = {
@@ -219,6 +228,7 @@ export const editUserPage = {
   type: "نوع کاربری",
   administrator: "مدیر",
   user: "کاربر",
+  editNotAllowed: "امکان ویرایش اطلاعات پس از تکمیل احراز هویت وجود ندارد.",
   submitted: "ویرایش کاربر با موفقیت انجام گردید.",
 };
 
@@ -254,9 +264,14 @@ export const genderTypes = {
   female: "زن",
 };
 
-export const verifyUserPage = {
+export const verifyUserRequestPage = {
   _title: "احراز هویت",
   _subTitle: "لطفا اطلاعات هویتی خود را وارد نمایید.",
+  verified: "احراز هویت تکمیل شده است.",
+  verifing: "اطلاعات هویتی شما تکمیل شده است. لطفا منتظر تایید اطلاعات باشید.",
+  notVerified: "احراز هویت تکمیل نشده است.",
+  finishedPercentage: "درصد تکمیل‌شده",
+  remainedPercentage: "درصد باقی‌مانده",
   title1: "اطلاعات فردی",
   name: "نام",
   namePlaceholder: "نام",
@@ -264,12 +279,14 @@ export const verifyUserPage = {
   familyPlaceholder: "نام خانوادگی",
   fatherName: "نام پدر",
   fatherNamePlaceholder: "نام پدر",
-  nationalCode: "کد ملی",
-  nationalCodePlaceholder: "کد ملی",
+  nationalNo: "کد ملی",
+  nationalNoPlaceholder: "کد ملی",
   identityNo: "شماره شناسنامه",
   identityNoPlaceholder: "شماره شناسنامه",
   birthDate: "تاریخ تولد",
+  birthDatePlaceholder: "تاریخ تولد",
   gender: "جنسیت",
+  submitted1: "اطلاعات فردی با موفقیت ثبت گردید.",
   title2: "اطلاعات تماس",
   mobile: "موبایل",
   mobilePlaceholder: "موبایل",
@@ -279,7 +296,11 @@ export const verifyUserPage = {
   emailPlaceholder: "پست الکترونیک",
   address: "آدرس",
   addressPlaceholder: "آدرس",
-  title3: "تصویر سلفی",
+  submitted2:
+    "اطلاعات تماس با موفقیت ثبت گردید. لطفا با مراجعه به صندوق پست الکترونیک خود، آدرس پست الکترونیک را تایید نمایید.",
+  submitted2EmailVerified: "اطلاعات تماس با موفقیت ثبت گردید.",
+  title3: "بارگذاری مدارک",
+  title4: "تصویر سلفی",
   selfieFile: "پیوست سلفی",
   selfieFileProperties:
     "تصویر از خود به همراه مدرک شناسایی با فرمت jpg یا png و حداکثر سایز 4 مگابایت",
@@ -288,10 +309,8 @@ export const verifyUserPage = {
   selfieFileDescription1:
     "عکسی از خود مطابق با تصویر نمونه، تهیه و ارسال کنید.",
   selfieFileDescription2:
-    "* در صورتی که در حال حاضر امکان تهیه تصویر سلفی با مدرک شناسایی را ندارید، می‌توانید روی دکمه تکمیل اطلاعات بزنید و بعدا تصویر سلفی خود را ارسال کنید .",
-  selfieFileDescription3:
     "طبق تصویر زیر، مدرک شناسایی خود را در دست نگه دارید. تصویر باید طوری باشد که مدرک شناسایی خوانا و چهره‌تان نمایان باشد.",
-  title4: "تصویر مدرک شناسایی",
+  title5: "تصویر مدرک شناسایی",
   identityFile: "پیوست مدرک شناسایی",
   identityFileProperties:
     "تصویری از مدرک شناسایی خود با فرمت jpg یا png و حداکثر سایز 4 مگابایت",
@@ -299,11 +318,10 @@ export const verifyUserPage = {
   identityFileTips: "نکات پیوست تصویر مدرک شناسایی",
   identityFileDescription1:
     "عکسی از مدرک شناسایی خود مطابق با تصویر نمونه، تهیه و ارسال کنید.",
-  identityFileDescription2:
-    "* در صورتی که در حال حاضر امکان تهیه تصویر مدرک شناسایی  خود را ندارید، می‌توانید روی دکمه تکمیل اطلاعات بزنید و بعدا تصویر آن را ارسال کنید .",
-  identityFileDescription3: "تصویر باید طوری باشد که مدرک شناسایی خوانا باشد.",
+  identityFileDescription2: "تصویر باید طوری باشد که مدرک شناسایی خوانا باشد.",
   submitted:
-    "اطلاعات هویتی با موفقیت ثبت گردید. پس از تایید، می‌توانید در چالش شرکت نمایید.",
+    "اطلاعات هویتی با موفقیت ثبت گردید. پس از تایید اطلاعات، می‌توانید در چالش شرکت نمایید.",
+  next: "مرحله بعد",
 };
 
 export const appRulesPage = {

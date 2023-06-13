@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Ticket;
 
+use App\Constants\Locale;
 use App\Facades\Helper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,15 +17,17 @@ class TicketResource extends JsonResource
             'creatorId' => intval($this->creator_id),
             'userId' => intval($this->user_id),
             'adminCreated' => intval($this->admin_created),
-            'subject' => Helper::localeNumbers($this->subject),
+            'subject' => $this->subject,
             'status' => intval($this->status),
             'statusText' => $this->getStatusText(intval($this->status)),
             'userSeenTime' => $this->user_seen_time,
-            'faUserSeenTime' => Helper::faDate2($this->user_seen_time),
+            'userSeenTimeLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->user_seen_time) : $this->user_seen_time,
             'adminSeenTime' => $this->admin_seen_time,
-            'faAdminSeenTime' => Helper::faDate2($this->admin_seen_time),
-            'faCreatedAt' =>  Helper::localeNumbers(Helper::faDate($this->created_at)),
-            'faUpdatedAt' =>  Helper::localeNumbers(Helper::faDate($this->updated_at)),
+            'adminSeenTimeLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->admin_seen_time) : $this->admin_seen_time,
+            'createdAt' =>  $this->created_at,
+            'createdAtLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->created_at) : $this->created_at,
+            'updatedAt' =>  $this->updated_at,
+            'updatedAtLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->updated_at) : $this->updated_at,
         ];
     }
 

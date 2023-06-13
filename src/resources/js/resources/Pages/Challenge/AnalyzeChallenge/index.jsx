@@ -55,7 +55,7 @@ const AnalyzeChallenge = () => {
   }, [profits]);
 
   const getProfits = () => {
-    const deals = accountData?.deals;
+    const deals = accountData?.deals?.deals;
     const dealItems = deals.filter(
       (deal) =>
         deal.type === "DEAL_TYPE_BALANCE" ||

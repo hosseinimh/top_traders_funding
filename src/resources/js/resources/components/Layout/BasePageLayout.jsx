@@ -220,6 +220,10 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
     if (isPersian) {
       const date = new persianDate();
       return `${date.date()} ${date.format("MMMM")} ${date.year()}`;
+    } else {
+      const date = new Date();
+      const month = date.toLocaleString("default", { month: "short" });
+      return `${date.getDate()} ${month} ${date.getFullYear()}`;
     }
   };
 

@@ -14,67 +14,40 @@ class FileUploaderController extends Controller
         $this->storagePath = $storagePath;
     }
 
-    public function uploadImage(Model $model, Request $request, string $requestKey, string $modelColumn)
+    public function uploadImage(Model $model, Request $request, string $requestKey, string $modelColumn, int $maxSize = 0)
     {
-        $result = ['uploaded' => UploadedFile::NOT_UPLOADED_ERROR, 'uploadedText' => ''];
-
         if ($request->hasFile($requestKey) && $request->file($requestKey)->isValid()) {
             if (($fileMimeType = $request->file($requestKey)->getMimeType()) && ($fileMimeType === 'image/jpeg' || $fileMimeType === 'image/png')) {
-                $path = $request->$requestKey->store($this->storagePath);
-                Helper::resizeImage(storage_path('app') . '/' . $path, 200);
-
-                if ($path) {
-                    @unlink(storage_path('app') . '/' . $this->storagePath . '/' . $model->$modelColumn);
-
-                    $data = [$modelColumn => basename($path)];
-                    $result['uploaded'] = $model->update($data) ? UploadedFile::OK : UploadedFile::ERROR;
-                } else {
-                    $result['uploaded'] = UploadedFile::UPLOAD_ERROR;
+                if ($request->file($requestKey)->getSize() > $maxSize) {
+                    return UploadedFile::MAX_SIZE_ERROR;
                 }
-            } else {
-                $result['uploaded'] = UploadedFile::MIME_TYPE_ERROR;
+                $path = $request->$requestKey->store($this->storagePath);
+                if ($path) {
+                    if ($maxSize === 0) {
+                        Helper::resizeImage(storage_path('app') . '/' . $path, 200);
+                    }
+                    @unlink(storage_path('app') . '/' . $this->storagePath . '/' . $model->$modelColumn);
+                    $data = [$modelColumn => basename($path)];
+                    return $model->update($data) ? UploadedFile::OK : UploadedFile::ERROR;
+                }
+                return UploadedFile::UPLOAD_ERROR;
             }
-        } else {
-            $result['uploaded'] = UploadedFile::NOT_UPLOADED_ERROR;
+            return UploadedFile::MIME_TYPE_ERROR;
         }
-
-        $result['uploadedText'] = $this->getUploadedText($result['uploaded']);
-
-        return $result;
+        return UploadedFile::NOT_UPLOADED_ERROR;
     }
 
     public function uploadFile(Model $model, Request $request, string $requestKey, string $modelColumn)
     {
-        $result = ['uploaded' => UploadedFile::NOT_UPLOADED_ERROR, 'uploadedText' => ''];
-
         if ($request->hasFile($requestKey) && $request->file($requestKey)->isValid()) {
             $path = $request->$requestKey->store($this->storagePath);
-
             if ($path) {
                 @unlink(storage_path('app') . '/' . $this->storagePath . '/' . $model->$modelColumn);
-
                 $data = [$modelColumn => basename($path)];
-                $result['uploaded'] = $model->update($data) ? UploadedFile::OK : UploadedFile::ERROR;
-            } else {
-                $result['uploaded'] = UploadedFile::UPLOAD_ERROR;
+                return $model->update($data) ? UploadedFile::OK : UploadedFile::ERROR;
             }
-        } else {
-            $result['uploaded'] = UploadedFile::NOT_UPLOADED_ERROR;
+            return UploadedFile::UPLOAD_ERROR;
         }
-
-        $result['uploadedText'] = $this->getUploadedText($result['uploaded']);
-
-        return $result;
-    }
-
-    private function getUploadedText($uploaded)
-    {
-        $text = __('general.uploaded_undefined');
-
-        if ($uploaded >= 1 && $uploaded <= 6) {
-            $text = __('general.uploaded_' . $uploaded);
-        }
-
-        return $text;
+        return UploadedFile::NOT_UPLOADED_ERROR;
     }
 }

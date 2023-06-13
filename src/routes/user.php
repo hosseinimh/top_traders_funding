@@ -20,6 +20,9 @@ Route::middleware(['cors'])->group(function () {
     Route::post('users/signup', [UserController::class, 'signup']);
     Route::post('users/logout', [UserController::class, 'logout']);
     Route::post('users/set_locale', [UserController::class, 'setLocale']);
+    Route::post('users/verify_request_1', [UserController::class, 'verifyRequest1']);
+    Route::post('users/verify_request_2', [UserController::class, 'verifyRequest2']);
+    Route::post('users/verify_request_3', [UserController::class, 'verifyRequest3']);
 });
 
 // 'user' type users

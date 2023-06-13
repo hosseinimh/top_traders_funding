@@ -3,20 +3,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { User as Entity } from "../../../../../http/entities";
 import { BasePageUtils } from "../../../../../utils/BasePageUtils";
-import { USER_ROLES } from "../../../../../constants";
 import { setLoadingAction } from "../../../../../state/layout/layoutActions";
-import { editUserSchema as schema } from "../../../../validations";
+import { verifyUserRequest3Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
+import { fetchAuthAction } from "../../../../../state/user/userActions";
+import { BASE_PATH } from "../../../../../constants";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
     const form = useForm({
       resolver: yupResolver(schema),
     });
-    const { verifyUserPage: strings } = useLocale();
-    super("UserVerify", strings, form);
+    const { verifyUserRequestPage: strings } = useLocale();
+    super("VerifyUserRequest3", strings, form);
     this.entity = new Entity();
+    this.initialPageProps = {
+      item: null,
+      selfieFile: null,
+      identityFile: null,
+      action: null,
+    };
+    this.callbackUrl = BASE_PATH;
   }
 
   onLoad() {
@@ -41,52 +49,39 @@ export class PageUtils extends BasePageUtils {
   }
 
   handleFetchResult(result) {
-    this.useForm.setValue("name", result.item.name);
-    this.useForm.setValue("family", result.item.family);
-    this.useForm.setValue("email", result.item.email);
+    this.dispatch(setPagePropsAction({ item: result.item }));
   }
 
   onSetSelfieFile(file) {
+    this.useForm?.setValue("selfieFile", file);
     this.dispatch(
       setPagePropsAction({
-        action: "SET_SELFIE_FILE",
-        file,
+        selfieFile: file,
       })
     );
   }
 
   onSetIdentityFile(file) {
+    this.useForm?.setValue("identityFile", file);
     this.dispatch(
       setPagePropsAction({
-        action: "SET_IDENTITY_FILE",
-        file,
+        identityFile: file,
       })
     );
   }
 
-  async onSubmit(data) {
-    const promise =
-      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-        ? this.handleSubmit(data)
-        : this.handleSubmitFromUser(data);
-    this.onModifySubmit(promise);
-  }
-
-  async handleSubmit(data) {
-    const role = data.administrator
-      ? USER_ROLES.ADMINISTRATOR
-      : USER_ROLES.USER;
-    return this.entity.update(
-      this.pageState?.props?.userId,
-      data.name,
-      data.family,
-      data.email,
-      role,
-      data.isActive ? 1 : 0
+  async onSubmit() {
+    this.onSendRequest();
+    const result = await this.entity.verifyRequest3(
+      this.pageState?.props?.selfieFile,
+      this.pageState?.props?.identityFile
     );
-  }
-
-  async handleSubmitFromUser(data) {
-    return this.entity.updateFromUser(data.name, data.family);
+    this.dispatch(setLoadingAction(false));
+    if (result === null) {
+      this.handleModifyResultIfNull();
+    } else {
+      this.dispatch(fetchAuthAction());
+      this.handleModifyResultAndNavigateIfOK();
+    }
   }
 }

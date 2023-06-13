@@ -8,7 +8,7 @@ import utils from "../../../utils/Utils";
 
 const NotAuthPageLayout = ({ children, pageUtils }) => {
   const { notAuthPages: strings } = useLocale();
-  const locale = utils.getLSLocale() ?? LOCALES.FA;
+  const locale = utils.getLSVariable("locale") ?? LOCALES.FA;
   const screen =
     locale === LOCALES.FA
       ? `${IMAGES_PATH}/screen-rtl.png`

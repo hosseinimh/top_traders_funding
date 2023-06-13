@@ -87,7 +87,7 @@ const InputTextColumn = ({
   };
 
   const renderItem = () => (
-    <>
+    <div className="d-flex d-flex-column">
       {showLabel && <div className="input-info">{label}</div>}
       <div
         className={`input-text input-bg input-border ${inputContainerClassName} ${
@@ -110,7 +110,7 @@ const InputTextColumn = ({
           </>
         )}
       </div>
-    </>
+    </div>
   );
 
   if (fullRow) {

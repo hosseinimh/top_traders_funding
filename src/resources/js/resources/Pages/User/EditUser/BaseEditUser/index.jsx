@@ -8,9 +8,10 @@ import {
   InputCheckboxColumn,
   InputCheckboxContainer,
   InputRadioContainer,
+  AlertMessage,
 } from "../../../../components";
 import { PageUtils } from "./PageUtils";
-import { USER_ROLES } from "../../../../../constants";
+import { MESSAGE_TYPES, USER_ROLES } from "../../../../../constants";
 import { useLocale } from "../../../../../hooks";
 
 const BaseEditUser = ({ userId }) => {
@@ -19,9 +20,33 @@ const BaseEditUser = ({ userId }) => {
   const userState = useSelector((state) => state.userReducer);
 
   return (
-    <FormPage pageUtils={pageUtils}>
-      <InputTextColumn field="name" showLabel={true} />
-      <InputTextColumn field="family" showLabel={true} />
+    <FormPage
+      pageUtils={pageUtils}
+      submitEnabled={userState?.user?.verifyRequest3At ? false : true}
+      renderBefore={
+        userState?.user?.verifyRequest3At && (
+          <AlertMessage
+            message={strings.editNotAllowed}
+            messageType={MESSAGE_TYPES.ERROR}
+          />
+        )
+      }
+    >
+      <InputTextColumn
+        field="name"
+        showLabel={true}
+        readonly={userState?.user?.verifyRequest3At ? true : false}
+      />
+      <InputTextColumn
+        field="family"
+        showLabel={true}
+        readonly={userState?.user?.verifyRequest3At ? true : false}
+      />
+      <InputTextColumn
+        field="mobile"
+        showLabel={true}
+        readonly={userState?.user?.verifyRequest3At ? true : false}
+      />
       <InputTextColumn
         field="email"
         showLabel={true}

@@ -2,6 +2,7 @@
 
 $templateMessages = [
     'required' => 'لطفا :field را وارد نمایید.',
+    'valid' => 'لطفا :field را به درستی وارد نمایید.',
     'minString' => 'طول فیلد :field حداقل باید :length حرف باشد.',
     'maxString' => 'طول فیلد :field حداکثر باید :length حرف باشد.',
     'numeric' => 'مقدار فیلد :field تنها باید شامل اعداد باشد.',
@@ -17,6 +18,12 @@ $templateMessages = [
 
 $requiredMessage = function ($field) use ($templateMessages) {
     $message = $templateMessages['required'];
+
+    return str_replace(':field', $field, $message);
+};
+
+$validMessage = function ($field) use ($templateMessages) {
+    $message = $templateMessages['valid'];
 
     return str_replace(':field', $field, $message);
 };

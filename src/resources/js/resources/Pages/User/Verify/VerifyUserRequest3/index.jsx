@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import {
-  BlankPage,
-  InputDatePickerColumn,
-  InputRow,
-  InputSelectColumn,
-  InputTextColumn,
-} from "../../../../components";
+import { BlankPage } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
+import { STORAGE_PATH } from "../../../../../constants";
+import Header from "../components/Header";
 
-const VerifyUserRequest = () => {
+const VerifyUserRequest3 = () => {
+  const layoutState = useSelector((state) => state.layoutReducer);
+  const userState = useSelector((state) => state.userReducer);
+  const pageState = useSelector((state) => state.pageReducer);
   const [selfieFileSelected, setSelfieFileSelected] = useState(null);
   const [identityFileSelected, setIdentityFileSelected] = useState(null);
-  const { verifyUserPage: strings, genderTypes } = useLocale();
+  const { verifyUserRequestPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
-  const types = [
-    { id: 1, value: genderTypes.male },
-    { id: 2, value: genderTypes.female },
-  ];
 
   const onChangeSelfieFile = (e) => {
     const file = e?.target?.files[0];
@@ -106,79 +102,30 @@ const VerifyUserRequest = () => {
   return (
     <BlankPage pageUtils={pageUtils}>
       <div className="section fix-mr15">
+        <Header />
         <div className="block pd-30">
           <div className="block-title pd-d-20">
-            <h3>{strings.title1}</h3>
-          </div>
-          <InputRow>
-            <InputTextColumn field="name" fullRow={false} icon={"icon-user"} />
-            <InputTextColumn
-              field="family"
-              fullRow={false}
-              icon={"icon-user"}
-            />
-            <InputTextColumn
-              field="fatherName"
-              fullRow={false}
-              icon={"icon-personalcard4"}
-            />
-          </InputRow>
-          <InputRow>
-            <InputTextColumn
-              field="nationalCode"
-              type="number"
-              textAlign="left"
-              fullRow={false}
-              icon={"icon-personalcard4"}
-            />
-            <InputTextColumn
-              field="identityNo"
-              type="number"
-              textAlign="left"
-              fullRow={false}
-              icon={"icon-personalcard4"}
-            />
-            <InputDatePickerColumn field="birthDate" fullRow={false} />
-            <InputSelectColumn field="gender" items={types} fullRow={false} />
-          </InputRow>
-          <div className="block-border"></div>
-          <div className="block-title pd-d-20">
-            <h3>{strings.title2}</h3>
-          </div>
-          <InputRow>
-            <InputTextColumn
-              field="mobile"
-              type="number"
-              textAlign="left"
-              fullRow={false}
-              icon={"icon-mobile"}
-            />
-            <InputTextColumn
-              field="tel"
-              type="number"
-              textAlign="left"
-              fullRow={false}
-              icon={"icon-call-calling"}
-            />
-            <InputTextColumn
-              field="email"
-              textAlign="left"
-              fullRow={false}
-              icon={"icon-sms"}
-            />
-          </InputRow>
-          <InputTextColumn
-            field="address"
-            fullRow={false}
-            icon={"icon-location4"}
-          />
-          <div className="block-border"></div>
-          <div className="block-title pd-d-20">
-            <h3>{strings.title3}</h3>
+            <h3>{strings.title4}</h3>
           </div>
           <div className="d-flex-wrap mb-20">
             <div className="upload-box">
               <div className="upload-img-box">
+                {pageState?.props?.item?.selfieFile && (
+                  <div className="img-preview d-block" style={{ opacity: "1" }}>
+                    <div className="img">
+                      <a
+                        href={`${STORAGE_PATH}/users/selfies/${pageState.props.item.selfieFile}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          alt={strings.selfieFile}
+                          src={`${STORAGE_PATH}/users/selfies/${pageState.props.item.selfieFile}`}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                )}
                 <div className="img-preview selfie">
                   <div className="img">
                     <img id="img-preview-selfie" alt={strings.selfieFile} />
@@ -208,11 +155,8 @@ const VerifyUserRequest = () => {
                 <p className="text-warning" style={{ textAlign: "justify" }}>
                   {strings.selfieFileDescription1}
                 </p>
-                <p className="text-warning" style={{ textAlign: "justify" }}>
-                  {strings.selfieFileDescription2}
-                </p>
                 <p style={{ textAlign: "justify" }}>
-                  {strings.selfieFileDescription3}
+                  {strings.selfieFileDescription2}
                 </p>
               </div>
               <div className="upload-box-img">
@@ -225,11 +169,27 @@ const VerifyUserRequest = () => {
           </div>
           <div className="block-border"></div>
           <div className="block-title pd-d-20">
-            <h3>{strings.title4}</h3>
+            <h3>{strings.title5}</h3>
           </div>
           <div className="d-flex-wrap">
             <div className="upload-box">
               <div className="upload-img-box">
+                {pageState?.props?.item?.identityFile && (
+                  <div className="img-preview d-block" style={{ opacity: "1" }}>
+                    <div className="img">
+                      <a
+                        href={`${STORAGE_PATH}/users/identities/${pageState.props.item.identityFile}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          alt={strings.identityFile}
+                          src={`${STORAGE_PATH}/users/identities/${pageState.props.item.identityFile}`}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                )}
                 <div className="img-preview identity">
                   <div className="img">
                     <img id="img-preview-identity" alt={strings.identityFile} />
@@ -259,11 +219,8 @@ const VerifyUserRequest = () => {
                 <p className="text-warning" style={{ textAlign: "justify" }}>
                   {strings.identityFileDescription1}
                 </p>
-                <p className="text-warning" style={{ textAlign: "justify" }}>
-                  {strings.identityFileDescription2}
-                </p>
                 <p style={{ textAlign: "justify" }}>
-                  {strings.identityFileDescription3}
+                  {strings.identityFileDescription2}
                 </p>
               </div>
               <div className="upload-box-img">
@@ -274,10 +231,26 @@ const VerifyUserRequest = () => {
               </div>
             </div>
           </div>
+          {!userState?.user?.verifyRequest3At && (
+            <>
+              <div className="block-border"></div>
+              <div className="btns d-flex mt-30">
+                <button
+                  className="btn btn-success"
+                  type="button"
+                  title={general.submit}
+                  onClick={pageUtils?.useForm.handleSubmit(pageUtils.onSubmit)}
+                  disabled={layoutState?.loading}
+                >
+                  {general.submit}
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </BlankPage>
   );
 };
 
-export default VerifyUserRequest;
+export default VerifyUserRequest3;

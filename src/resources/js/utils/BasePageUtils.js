@@ -231,8 +231,7 @@ export class BasePageUtils {
 
         break;
       case "SET_FILE":
-        this.dispatch(setPagePropsAction({ file: props.file }));
-
+        this.useForm?.setValue("file", props.file);
         break;
     }
 
@@ -268,7 +267,7 @@ export class BasePageUtils {
   async onModifySubmit(promise) {
     this.onSendRequest();
     const result = await promise;
-    this.handleModifyResultAndNavigate(result);
+    return this.handleModifyResultAndNavigate(result);
   }
 
   onSubmit(data = null) {

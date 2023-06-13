@@ -22,22 +22,23 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:50',
             'family' => 'required|min:2|max:50',
-            'email' => 'required|min:5|max:50',
+            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|min:5|max:50',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required' => __('user.email_required'),
-            'email.min' => __('user.email_min'),
-            'email.max' => __('user.email_max'),
             'name.required' => __('user.name_required'),
             'name.min' => __('user.name_min'),
             'name.max' => __('user.name_max'),
             'family.required' => __('user.family_required'),
             'family.min' => __('user.family_min'),
             'family.max' => __('user.family_max'),
+            'email.required' => __('user.email_required'),
+            'email.regex' => __('user.email_regex'),
+            'email.min' => __('user.email_min'),
+            'email.max' => __('user.email_max'),
         ];
     }
 }

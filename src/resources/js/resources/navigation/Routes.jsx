@@ -135,8 +135,16 @@ function AuthRoute() {
                 element={<Pages.TakeFreeChallenge />}
               />
               <Route
-                path={`${BASE_PATH}/users/verify_request`}
-                element={<Pages.VerifyUserRequest />}
+                path={`${BASE_PATH}/users/verify_request1`}
+                element={<Pages.VerifyUserRequest1 />}
+              />
+              <Route
+                path={`${BASE_PATH}/users/verify_request2`}
+                element={<Pages.VerifyUserRequest2 />}
+              />
+              <Route
+                path={`${BASE_PATH}/users/verify_request3`}
+                element={<Pages.VerifyUserRequest3 />}
               />
             </>
           )}

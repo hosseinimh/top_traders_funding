@@ -93,7 +93,7 @@ const TicketThreads = () => {
                   item?.adminCreated === 0 ? userDirection : adminDirection,
               }}
             >
-              {item?.faCreatedAt}
+              {item?.createdAtLocale}
             </p>
             <p
               style={{

@@ -90,6 +90,45 @@ export class User extends Entity {
     });
   }
 
+  async verifyRequest1(
+    name,
+    family,
+    fatherName,
+    nationalNo,
+    identityNo,
+    birthDate,
+    gender
+  ) {
+    return await this.handlePost(`${BASE_URL}/u/users/verify_request_1`, {
+      name,
+      family,
+      father_name: fatherName,
+      national_no: nationalNo,
+      identity_no: identityNo,
+      birth_date: birthDate,
+      gender,
+    });
+  }
+
+  async verifyRequest2(mobile, tel, email, address) {
+    return await this.handlePost(`${BASE_URL}/u/users/verify_request_2`, {
+      mobile,
+      tel,
+      address,
+      email,
+    });
+  }
+
+  async verifyRequest3(selfieFile, identityFile) {
+    let data = new FormData();
+    data.append("selfie", selfieFile);
+    data.append("identity", identityFile);
+    return await this.handlePostFile(
+      `${BASE_URL}/u/users/verify_request_3`,
+      data
+    );
+  }
+
   logOut() {
     utils.clearLS();
   }

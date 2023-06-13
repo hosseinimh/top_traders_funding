@@ -21,7 +21,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'username' => 'required|min:6|max:50|unique:tbl_users',
-            'email' => 'required|min:5|max:50|unique:tbl_users',
+            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|min:5|max:50|unique:tbl_users',
             'password' => 'required|min:6|max:50|confirmed',
             'name' => 'required|min:2|max:50',
             'family' => 'required|min:2|max:50',
@@ -36,6 +36,7 @@ class StoreUserRequest extends FormRequest
             'username.max' => __('user.username_max'),
             'username.unique' => __('user.username_unique'),
             'email.required' => __('user.email_required'),
+            'email.regex' => __('user.email_regex'),
             'email.min' => __('user.email_min'),
             'email.max' => __('user.email_max'),
             'email.unique' => __('user.email_unique'),

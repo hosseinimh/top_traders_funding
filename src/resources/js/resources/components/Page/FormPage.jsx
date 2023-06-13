@@ -1,9 +1,14 @@
 import React from "react";
 import { FormCard, FormPageLayout } from "../";
 
-const FormPage = ({ children, pageUtils, submitEnabled = true }) => {
+const FormPage = ({
+  children,
+  pageUtils,
+  submitEnabled = true,
+  renderBefore = null,
+}) => {
   return (
-    <FormPageLayout pageUtils={pageUtils}>
+    <FormPageLayout pageUtils={pageUtils} renderBefore={renderBefore}>
       <FormCard pageUtils={pageUtils} submitEnabled={submitEnabled}>
         {children}
       </FormCard>

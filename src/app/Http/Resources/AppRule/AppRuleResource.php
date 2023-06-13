@@ -11,8 +11,8 @@ class AppRuleResource extends JsonResource
     {
         return [
             'id' => intval($this->id),
-            'title' => Helper::localeNumbers($this->title),
-            'body' => Helper::localeNumbers($this->body),
+            'title' => $this->title,
+            'body' => $this->body,
         ];
     }
 }

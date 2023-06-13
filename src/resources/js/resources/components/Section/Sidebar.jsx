@@ -254,10 +254,10 @@ function Sidebar() {
           )}
           {userState?.user?.role === USER_ROLES.USER &&
             renderMenuItem(
-              `${BASE_PATH}/users/verify_request`,
+              `${BASE_PATH}/users/verify_request1`,
               strings.verifyUserRequest,
               "icon-profile-tick4",
-              "UserVerify"
+              ["VerifyUserRequest1", "VerifyUserRequest2", "VerifyUserRequest3"]
             )}
           <ul></ul>
           {renderMenuItem(

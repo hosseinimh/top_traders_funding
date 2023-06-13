@@ -6,7 +6,9 @@ import AddUser from "./User/AddUser";
 import EditCurrentUser from "./User/EditUser/EditCurrentUser";
 import EditUser from "./User/EditUser/EditUser";
 import ChangePasswordCurrentUser from "./User/ChangePasswordUser/ChangePasswordCurrentUser";
-import VerifyUserRequest from "./User/Verify/VerifyUserRequest";
+import VerifyUserRequest1 from "./User/Verify/VerifyUserRequest1";
+import VerifyUserRequest2 from "./User/Verify/VerifyUserRequest2";
+import VerifyUserRequest3 from "./User/Verify/VerifyUserRequest3";
 import ChangePasswordUser from "./User/ChangePasswordUser/ChangePasswordUser";
 import Users from "./User/Users";
 import AppRulesAdmin from "./AppRule/AppRulesAdmin";
@@ -49,7 +51,9 @@ export {
   EditCurrentUser,
   EditUser,
   ChangePasswordCurrentUser,
-  VerifyUserRequest,
+  VerifyUserRequest1,
+  VerifyUserRequest2,
+  VerifyUserRequest3,
   ChangePasswordUser,
   Users,
   AppRulesAdmin,

@@ -4,13 +4,18 @@ namespace App\Http\Controllers\User;
 
 use App\Constants\ErrorCode;
 use App\Constants\Role;
+use App\Constants\StoragePath;
+use App\Constants\UploadedFile;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileUploaderController;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ForgotPasswordRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\SignupUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\VerifyRequestUserRequest;
+use App\Http\Requests\User\VerifyEmailRequest;
+use App\Http\Requests\User\VerifyUserRequest1Request;
+use App\Http\Requests\User\VerifyUserRequest2Request;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
@@ -32,6 +37,9 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request): HttpJsonResponse
     {
+        if (auth()->user()->verify_request_3_at) {
+            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
+        }
         return $this->onUpdate($this->service->update(auth()->user(), $request->name, $request->family, auth()->user()->email, Role::USER, 1));
     }
 
@@ -100,8 +108,40 @@ class UserController extends Controller
         return $this->onItem($this->service->get(auth()->user()->id));
     }
 
-    public function verify(VerifyRequestUserRequest $request): HttpJsonResponse
+    public function verifyRequest1(VerifyUserRequest1Request $request): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->verify(auth()->user(), $request->name, $request->family, $request->father_name, $request->national_no, $request->identity_no, $request->birth_date, $request->gender, $request->address, $request->mobile, $request->tel, $request->email));
+        if (auth()->user()->verify_request_3_at) {
+            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
+        }
+        return $this->onUpdate($this->service->verifyRequest1(auth()->user(), $request->name, $request->family, $request->father_name, $request->national_no, $request->identity_no, $request->birth_date, $request->gender));
+    }
+
+    public function verifyRequest2(VerifyUserRequest2Request $request): HttpJsonResponse
+    {
+        if (auth()->user()->verify_request_3_at) {
+            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
+        }
+        return $this->onUpdate($this->service->verifyRequest2(auth()->user(), $request->mobile, $request->tel, $request->email, $request->address), ['emailVerifiedAt' => auth()->user()->email_verified_at ? true : false]);
+    }
+
+    public function verifyEmail(VerifyEmailRequest $request): HttpJsonResponse
+    {
+        if (auth()->user()->verify_request_3_at) {
+            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
+        }
+        return $this->onUpdate($this->service->verifyEmail(auth()->user(), $request->t));
+    }
+
+    public function verifyRequest3(Request $request): HttpJsonResponse
+    {
+        if (auth()->user()->verify_request_3_at) {
+            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
+        }
+        $user = $this->service->get(auth()->user()->id);
+        $uploadSelfieResult = (new FileUploaderController(StoragePath::USER_SELFIE))->uploadImage($user, $request, 'selfie', 'selfie_file', 4 * 1024 * 1024);
+        $uploadIdentityResult = (new FileUploaderController(StoragePath::USER_IDENTITY))->uploadImage($user, $request, 'identity', 'identity_file', 4 * 1024 * 1024);
+        $selfieUploaded = $uploadSelfieResult === UploadedFile::OK ? true : false;
+        $identityUploaded = $uploadIdentityResult === UploadedFile::OK ? true : false;
+        return $this->onUpdate($this->service->verifyRequest3(auth()->user(), $selfieUploaded, $identityUploaded));
     }
 }

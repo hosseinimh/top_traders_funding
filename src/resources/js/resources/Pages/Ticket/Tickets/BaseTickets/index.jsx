@@ -77,7 +77,7 @@ const Tickets = ({ userId }) => {
             </span>
           </p>
         </td>
-        <td>{item.faUpdatedAt || item.faCreatedAt}</td>
+        <td>{item.updatedAtLcale || item.createdAtLocale}</td>
       </tr>
     ));
 

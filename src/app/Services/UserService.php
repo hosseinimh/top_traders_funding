@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    const MAX_SENT_EMAIL_TOKEN_COUNTER = 5;
+
     public function get(int $id): mixed
     {
         return Model::leftJoin('tbl_challenges', function ($join) {
@@ -106,9 +108,17 @@ class UserService
         return $model->update($data);
     }
 
-    public function verify(Model $model, string $name, string $family, string $fatherName, string $nationalNo, string $identityNo, string $birthDate, int $gender, string $address, string $mobile, string $tel, string $email): mixed
+    public function verifyRequest1(Model $model, string $name, string $family, string $fatherName, string $nationalNo, string $identityNo, string $birthDate, int $gender): mixed
     {
-        $this->throwIfEmailNotUnique($email, $model);
+        if (app()->getLocale() === Locale::FA) {
+            $year = substr($birthDate, 0, 4);
+            $month = substr($birthDate, 4, 2);
+            $day = substr($birthDate, 6, 2);
+            $jDate = Helper::jalaliToGregorian($year, $month, $day);
+            $jDate[1] = $jDate[1] < 10 ? '0' . $jDate[1] : $jDate[1];
+            $jDate[2] = $jDate[2] < 10 ? '0' . $jDate[2] : $jDate[2];
+            $birthDate = $jDate[0] . '/' . $jDate[1] . '/' . $jDate[2];
+        }
         $gender = in_array($gender, [1, 2]) ? $gender : 1;
         $data = [
             'name' => $name,
@@ -118,10 +128,56 @@ class UserService
             'identity_no' => $identityNo,
             'birth_date' => $birthDate,
             'gender' => $gender,
-            'address' => $address,
-            'mobile' => $mobile,
-            'tel' => $tel,
-            'email' => $email,
+            'verify_request_1_at' => date('Y:m:d H:i:s')
+        ];
+        return $model->update($data);
+    }
+
+    public function verifyRequest2(Model $model, string $mobile, string $tel, string $email, string $address): mixed
+    {
+        $this->throwIfEmailNotUnique($email, $model);
+        if ($model->email_verified_at) {
+            $token = Helper::randomString(20);
+            $data = [
+                'mobile' => $mobile,
+                'tel' => $tel,
+                'address' => $address,
+            ];
+            return $model->update($data);
+        } else {
+            $this->throwIfSentEmailTokenExceeded($model);
+            $token = Helper::randomString(20);
+            $data = [
+                'mobile' => $mobile,
+                'tel' => $tel,
+                'email' => $email,
+                'email_token' => $token,
+                'sent_email_token_counter' => $model->sent_email_token_counter + 1,
+                'address' => $address,
+            ];
+            if ($model->update($data)) {
+                Mailer::SendUserEmailTokenMail($email, $token);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function verifyEmail(Model $model, string $token): mixed
+    {
+        if ($model->email_token === $token) {
+            $data = [
+                'email_verified_at' => date('Y:m:d H:i:s'),
+            ];
+            return $model->update($data);
+        }
+        return false;
+    }
+
+    public function verifyRequest3(Model $model, bool $selfieUploaded, bool $identityUploaded): mixed
+    {
+        $data = [
+            'verify_request_3_at' => $selfieUploaded && $identityUploaded ? date('Y:m:d H:i:s') : null
         ];
         return $model->update($data);
     }
@@ -145,5 +201,12 @@ class UserService
             return;
         }
         throw new Exception(__('user.email_unique'), ErrorCode::CUSTOM_ERROR);
+    }
+
+    private function throwIfSentEmailTokenExceeded(Model $model)
+    {
+        if ($model->sent_email_token_counter > UserService::MAX_SENT_EMAIL_TOKEN_COUNTER) {
+            throw new Exception(__('user.sent_email_token_exceeded'), ErrorCode::CUSTOM_ERROR);
+        }
     }
 }

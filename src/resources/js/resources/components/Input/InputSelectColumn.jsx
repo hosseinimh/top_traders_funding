@@ -16,6 +16,7 @@ const InputSelectColumn = ({
   noSelect = false,
   selectedValue = null,
   fullRow = true,
+  showLabel = false,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -58,6 +59,13 @@ const InputSelectColumn = ({
     }
   }, [form?.formState]);
 
+  useEffect(() => {
+    const v = form?.getValues(field);
+    if (v) {
+      selectOption(null, v);
+    }
+  }, [form?.getValues(field)]);
+
   const showList = (e) => {
     e.stopPropagation();
     if (layoutState?.dropDownElement) {
@@ -91,35 +99,43 @@ const InputSelectColumn = ({
   const renderItem = () => {
     const style = fullRow ? {} : { margin: "0.625rem 0.625rem 1.25rem" };
     return (
-      <div className="select-box" id={`select-box-${field}`} style={style}>
-        <div className="select" onClick={(e) => showList(e)}>
-          <input type="text" className="selectval" name={field} hidden />
-          <input
-            type="text"
-            className={`select-input select-input-${field}`}
-            placeholder={label}
-            autoComplete="off"
-            readOnly
-            name={field}
-          />
-          {messageState?.messageField === field.name && (
-            <span className="error">{messageState?.message}</span>
-          )}
-          <div className="icon">
-            <i className="icon-arrow-down-1"></i>
-          </div>
-        </div>
-        <div className="select-list scrollhide dropdown-list">
-          {items?.map((item) => (
-            <div
-              key={item[keyItem]}
-              onClick={(e) => selectOption(e, item[keyItem])}
-              data-select={item[keyItem]}
-              className={`select-option select-option-${field}`}
-            >
-              {item[valueItem]}
+      <div className="d-flex d-flex-column">
+        {showLabel && <div className="input-info">{label}</div>}
+        <div className="select-box" id={`select-box-${field}`} style={style}>
+          <div
+            className={`select input-border ${
+              messageState?.messageField === field ? "error mb-40" : "mb-30"
+            }`}
+            onClick={(e) => showList(e)}
+          >
+            <input type="text" className="selectval" name={field} hidden />
+            <input
+              type="text"
+              className={`select-input select-input-${field}`}
+              placeholder={label}
+              autoComplete="off"
+              readOnly
+              name={field}
+            />
+            {messageState?.messageField === field && (
+              <span className="error">{messageState?.message}</span>
+            )}
+            <div className="icon">
+              <i className="icon-arrow-down-1"></i>
             </div>
-          ))}
+          </div>
+          <div className="select-list scrollhide dropdown-list">
+            {items?.map((item) => (
+              <div
+                key={item[keyItem]}
+                onClick={(e) => selectOption(e, item[keyItem])}
+                data-select={item[keyItem]}
+                className={`select-option select-option-${field}`}
+              >
+                {item[valueItem]}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

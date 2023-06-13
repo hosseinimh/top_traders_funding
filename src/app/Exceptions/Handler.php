@@ -4,8 +4,7 @@ namespace App\Exceptions;
 
 use App\Constants\ErrorCode;
 use App\Constants\Theme;
-use App\Models\Error;
-use Exception;
+use App\Facades\Helper;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -36,52 +35,25 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ValidationException) {
             return $exception->getResponse();
         }
-
         if ($exception instanceof AuthenticationException || $exception instanceof TokenMismatchException) {
             if ($request->expectsJson()) {
                 return response()->json(['_result' => '0', '_error' => __('user.not_authorized'), '_errorCode' => ErrorCode::USER_NOT_AUTHORIZED], 200);
             }
-
             return redirect(Theme::LOGIN_URL);
         }
-
         if ($exception instanceof ModelNotFoundException) {
             if ($request->expectsJson()) {
                 return response()->json(['_result' => '0', '_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND], 200);
             }
-
             return redirect(Theme::LOGIN_URL);
         }
-
-        $this->storeError($exception);
-
+        Helper::logError($exception);
         if ($request->expectsJson()) {
             if ($exception->getCode() === ErrorCode::CUSTOM_ERROR) {
                 return response()->json(['_result' => '0', '_error' => $exception->getMessage(), '_errorCode' => ErrorCode::FORM_INPUT_INVALID], 200);
             }
-
             return response()->json(['_result' => '0', '_error' => __('general.server_error'), '_errorCode' => ErrorCode::SERVER_ERROR], 200);
         }
-
         return redirect(Theme::BASE_URL);
-    }
-
-    private function storeError($e)
-    {
-        try {
-            $message = 'url: ' . url()->current();
-            $message .= "
-";
-            $message .= "
-" . is_string($e) ? $e : $e->__toString();
-
-            foreach (getallheaders() as $name => $value) {
-                $message .= "
-$name: $value";
-            }
-
-            Error::create(['message' => $message]);
-        } catch (Exception) {
-        }
     }
 }

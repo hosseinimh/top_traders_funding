@@ -11,7 +11,7 @@ class CampaignResource extends JsonResource
     {
         return [
             'id' => intval($this->id),
-            'title' => Helper::localeNumbers($this->title),
+            'title' => $this->title,
             'isActive' => intval($this->is_active),
         ];
     }

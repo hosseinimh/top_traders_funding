@@ -20,7 +20,7 @@ class ForgotPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|min:5|max:50',
+            'email' => 'required|regex:/(.+)@(.+)\.(.+)/i|min:5|max:50',
         ];
     }
 
@@ -28,6 +28,7 @@ class ForgotPasswordRequest extends FormRequest
     {
         return [
             'email.required' => __('user.email_required'),
+            'email.regex' => __('user.email_regex'),
             'email.min' => __('user.email_min'),
             'email.max' => __('user.email_max'),
         ];
