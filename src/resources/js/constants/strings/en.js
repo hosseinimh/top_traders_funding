@@ -59,18 +59,19 @@ export const validation = {
     "طول فیلد :field، حداقل :digit1 و حداکثر :digit2 رقم است.",
   minNumberMessage: "حداقل مقدار فیلد :field، باید :min باشد.",
   maxNumberMessage: "حداکثر مقدار فیلد :field، باید :max باشد.",
+  fileMaxSizeMessage: "اندازه فایل بیشتر از حد مجاز است.",
+  fileTypeMessage: "نوع فایل غیر مجاز است.",
 };
 
 export const header = {
   chooseLocale: "انتخاب زبان",
   us: "English",
   fa: "فارسی",
-  tools: "امکانات",
-  changePassword: "تغییر کلمه عبور",
   profile: "پروفایل کاربری",
   logout: "خروج از حساب کاربری",
-  messageInbox: "پیام",
-  supportTickets: "تیکت‌ها",
+  notifications: "اعلان‌ها",
+  userNotifications: "اعلان‌های شما",
+  systemNotifications: "اعلان‌های سیستمی",
 };
 
 export const footer = {
@@ -138,6 +139,7 @@ export const sidebar = {
   takePaidChallenge: "شرکت در چالش جدید",
   challenges: "چالش‌های من",
   challengesAdmin: "چالش‌ها",
+  verifyRequests: "درخواست‌های احراز هویت",
   users: "کاربران",
   quickAccess: "دسترسی سریع",
   appRules: "قوانین",
@@ -199,7 +201,9 @@ export const addUserPage = {
   username: "نام کاربری",
   usernamePlaceholder: "نام کاربری",
   password: "کلمه عبور",
+  passwordPlaceholder: "کلمه عبور",
   confirmPassword: "تاییدیه کلمه عبور",
+  confirmPasswordPlaceholder: "تاییدیه کلمه عبور",
   name: "نام",
   namePlaceholder: "نام",
   family: "نام خانوادگی",
@@ -262,6 +266,17 @@ export const changePasswordUserPage = {
 export const genderTypes = {
   male: "مرد",
   female: "زن",
+};
+
+export const verifyUserRequestsPage = {
+  _title: "درخواست‌های احراز هویت",
+  _subTitle: "فهرست درخواست‌های احراز هویت کاربران",
+  username: "نام کاربری",
+  usernamePlaceholder: "نام کاربری",
+  nameFamily: "نام / نام خانوادگی",
+  nameFamilyPlaceholder: "نام / نام خانوادگی",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
 };
 
 export const verifyUserRequestPage = {

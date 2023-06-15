@@ -19,13 +19,12 @@ class TicketThreadResource extends JsonResource
             'adminCreated' => intval($this->admin_created),
             'content' => $this->content,
             'userSeenTime' => $this->user_seen_time,
-            'userSeenTimeLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->user_seen_time) : $this->user_seen_time,
-            'userSeenTimeFa' => Helper::faDate2($this->user_seen_time),
+            'userSeenTimeLocale' => app()->getLocale() === Locale::FA ? ($this->user_seen_time ? Helper::faDate2($this->user_seen_time) : null) : $this->user_seen_time,
             'adminSeenTime' => $this->admin_seen_time,
-            'adminSeenTimeLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->admin_seen_time) : $this->admin_seen_time,
+            'adminSeenTimeLocale' => app()->getLocale() === Locale::FA ? ($this->admin_seen_time ? Helper::faDate2($this->admin_seen_time) : null) : $this->admin_seen_time,
             'file' => $this->file ?? null,
             'createdAt' =>  $this->created_at,
-            'createdAtLocale' => app()->getLocale() === Locale::FA ? Helper::faDate2($this->created_at) : $this->created_at,
+            'createdAtLocale' => app()->getLocale() === Locale::FA ? ($this->created_at ? Helper::faDate2($this->created_at) : null) : $this->created_at,
         ];
     }
 }

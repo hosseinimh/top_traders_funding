@@ -53,6 +53,10 @@ function AuthRoute() {
                 path={`${BASE_PATH}/users/edit/:userId`}
                 element={<Pages.EditUser />}
               />
+              <Route
+                path={`${BASE_PATH}/users/verify_requests`}
+                element={<Pages.VerifyUserRequests />}
+              />
               <Route path={`${BASE_PATH}/users`} element={<Pages.Users />} />
               <Route
                 path={`${BASE_PATH}/tickets/add/:userId`}

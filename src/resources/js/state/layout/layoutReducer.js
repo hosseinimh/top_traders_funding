@@ -18,6 +18,7 @@ const initialState = {
   theme: selectedTheme,
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
+  sidebarProps: { link: null },
   dropDownElement: null,
   shownModal: null,
 };
@@ -56,6 +57,17 @@ const layoutReducer = (state = initialState, { type, payload }) => {
         ...state,
         sidebarCollapsed: !state.sidebarCollapsed,
       };
+    case actions.SET_SIDEBAR_PROPS_ACTION:
+      if (
+        JSON.stringify({ ...state.sidebarProps, ...payload }) !==
+        JSON.stringify({ ...state.sidebarProps })
+      ) {
+        return {
+          ...state,
+          sidebarProps: { ...state.sidebarProps, ...payload },
+        };
+      }
+      return { ...state };
     case actions.SET_DROP_DOWN_ELEMENT_ACTION:
       return {
         ...state,

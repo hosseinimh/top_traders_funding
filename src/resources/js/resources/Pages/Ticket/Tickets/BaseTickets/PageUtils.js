@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Ticket as Entity } from "../../../../../http/entities";
 import {
   setPageAction,
-  setPageIconAction,
   setPagePropsAction,
   setPageTitleAction,
 } from "../../../../../state/page/pageActions";
@@ -38,7 +37,6 @@ export class PageUtils extends BasePageUtils {
         ? "Users"
         : "Tickets";
     this.dispatch(setPageAction(name));
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.dispatch(setPagePropsAction(this.initialPageProps));
     this.fillForm(this.initialPageProps);
   }

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 
 import { ChallengePlatform as Entity } from "../../../../http/entities";
-import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import utils from "../../../../utils/Utils";
@@ -22,7 +21,6 @@ export class PageUtils extends BasePageUtils {
 
   onLoad() {
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-users"));
     this.fillForm();
   }
 

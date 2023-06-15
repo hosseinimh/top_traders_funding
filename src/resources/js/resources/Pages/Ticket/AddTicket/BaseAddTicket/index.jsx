@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import {
   FormPage,
@@ -12,6 +13,7 @@ import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 
 const BaseAddTicket = ({ userId }) => {
+  const pageState = useSelector((state) => state.pageReducer);
   const { ticketTypes } = useLocale();
   const pageUtils = new PageUtils(userId);
   const types = [
@@ -24,10 +26,13 @@ const BaseAddTicket = ({ userId }) => {
 
   const onChangeFile = (e) => {
     const file = e?.target?.files[0];
-
     if (file) {
       pageUtils.onSetFile(file);
     }
+  };
+
+  const onRemoveFile = () => {
+    pageUtils.onSetFile(null);
   };
 
   return (
@@ -39,7 +44,15 @@ const BaseAddTicket = ({ userId }) => {
       />
       <InputTextColumn field="subject" />
       <InputTextAreaColumn field="content" />
-      <InputFileColumn field="file" onChangeFile={(e) => onChangeFile(e)} />
+      <InputFileColumn
+        field="file"
+        onChangeFile={(e) => onChangeFile(e)}
+        file={pageState?.props?.file}
+        showFile={true}
+        maxSize={2 * 1024 * 1024}
+        onRemoveFile={onRemoveFile}
+        accept="image/jpeg,image/png,image/gif"
+      />
     </FormPage>
   );
 };

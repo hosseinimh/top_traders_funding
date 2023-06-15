@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Constants\ErrorCode;
-use App\Constants\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\IndexUsersRequest;
-use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User as Model;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -25,6 +23,11 @@ class UserController extends Controller
     public function index(IndexUsersRequest $request): HttpJsonResponse
     {
         return $this->onItems($this->service->getPaginate($request->username, $request->name, $request->email, $request->_pn, $request->_pi), $this->service->count($request->username, $request->name, $request->email));
+    }
+
+    public function indexVerifyRequests(Request $request): HttpJsonResponse
+    {
+        return $this->onItems($this->service->getPaginateVerifyRequests($request->_pn, $request->_pi), $this->service->countVerifyRequests());
     }
 
     public function show(Model $model): HttpJsonResponse

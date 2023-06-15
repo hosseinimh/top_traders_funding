@@ -229,25 +229,27 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
 
   if (userState.isAuthenticated) {
     return (
-      <div className="dashboard d-flex" onClick={(e) => onAppContainerClick(e)}>
-        <Sidebar />
-        <div className="main">
-          <div className="center">
-            <Header />
-            <div className="statusbar">
-              <div className="todaydate d-flex align-center">
-                <div className="online-state"></div>
-                <div id="pdate">{renderToday()}</div>
+      <div onClick={(e) => onAppContainerClick(e)}>
+        <div className="dashboard d-flex">
+          <Sidebar />
+          <div className="main">
+            <div className="center">
+              <Header />
+              <div className="statusbar">
+                <div className="todaydate d-flex align-center">
+                  <div className="online-state"></div>
+                  <div id="pdate">{renderToday()}</div>
+                </div>
               </div>
-            </div>
-            <div className="dashboard-content">
-              <div className="content-title">
-                <h2>{pageState?.title}</h2>
-                <div className="subtitle">{pageState?.subTitle}</div>
+              <div className="dashboard-content">
+                <div className="content-title">
+                  <h2>{pageState?.title}</h2>
+                  <div className="subtitle">{pageState?.subTitle}</div>
+                </div>
+                {children}
               </div>
-              {children}
+              <Footer />
             </div>
-            <Footer />
           </div>
         </div>
       </div>

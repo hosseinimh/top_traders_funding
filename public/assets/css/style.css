@@ -309,6 +309,9 @@ textarea {
 .text {
   color: var(--text) !important;
 }
+.placeholder {
+  color: var(--placeholder) !important;
+}
 .bg-success {
   background-color: var(--success) !important;
 }
@@ -546,7 +549,6 @@ input[type="radio"] ~ span.error {
   background: 0 0;
 }
 .input-file {
-  border: 1px dashed var(--border);
   border-radius: 0.675rem;
   display: flex;
   justify-content: space-between;
@@ -556,8 +558,8 @@ input[type="radio"] ~ span.error {
   position: relative;
   cursor: pointer;
   flex-grow: 1;
-  flex-basis: 18.75rem;
   max-width: 25rem;
+  margin: 0.625rem 0.625rem 1.25rem;
 }
 .input-file input {
   position: absolute;
@@ -733,10 +735,8 @@ input[type="radio"] ~ span.error {
 .menu .submenu {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 5px 0 !important;
-  display: none;
-  margin-top: 0.625rem;
-  margin-left: 0.625rem;
+  margin: 0 0.625rem 0 0;
+  padding-bottom: 5px;
 }
 @media (max-width: 1024px) {
   .sidebar {
@@ -772,6 +772,7 @@ input[type="radio"] ~ span.error {
 .userinfo {
   display: flex;
   align-items: center;
+  overflow-wrap: anywhere;
 }
 .userinfo .img {
   height: 2.75rem;
@@ -1085,7 +1086,7 @@ input[type="radio"] ~ span.error {
 .select-box {
   position: relative;
   cursor: pointer;
-  margin: 0.625rem 0 1.25rem;
+  margin: 0.625rem 0.625rem 1.25rem;
   box-shadow: 0 0 0 1px var(--border);
   border-radius: 0.625rem;
   height: 3rem;
@@ -1105,6 +1106,7 @@ input[type="radio"] ~ span.error {
   width: 100%;
   cursor: pointer;
   text-align: left;
+  padding: 0 0.3rem;
 }
 .select .icon i {
   font-size: 1.125rem;
@@ -1326,8 +1328,12 @@ a.page-link:hover {
 .answer div {
   padding: 1.25rem;
 }
+.input-radio {
+  margin: 0.625rem 0.625rem 1.25rem;
+}
 .input-radio label {
   cursor: pointer;
+  padding: 0 5px;
 }
 .modal input[type="radio"],
 .modal input[type="checkbox"] {
@@ -10254,7 +10260,7 @@ div.dataTables_wrapper {
   height: 100%;
   object-fit: contain;
 }
-.img-preview .remove-img {
+.remove-file {
   height: 35px;
   width: 35px;
   border-radius: 10px;
@@ -10264,7 +10270,7 @@ div.dataTables_wrapper {
   display: inline-block;
   cursor: pointer;
 }
-.remove-img i:hover {
+.remove-file i:hover {
   color: var(--text);
 }
 .upload-box-info {
@@ -10516,4 +10522,42 @@ div.dataTables_wrapper {
   display: block;
   margin-top: 10px;
   white-space: nowrap;
+}
+.apexcharts-tooltip {
+  display: block !important;
+  text-align: right;
+  white-space: nowrap;
+  min-width: 120px;
+  direction: rtl !important;
+  background: var(--text) !important;
+}
+.apexcharts-tooltip {
+  color: var(--body);
+  background: var(--text) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: none;
+  opacity: 1;
+  line-height: 20px;
+  border: none;
+  box-shadow: 0 0 10px var(--light);
+}
+.apexcharts-tooltip-text-y-label {
+  display: block;
+}
+.apexcharts-tooltip-text {
+  flex-grow: 1;
+  font-family: YekanBakh !important;
+}
+.apexcharts-tooltip-y-group {
+  padding: 5px 0 !important;
+}
+.apexcharts-tooltip-series-group {
+  text-align: right !important;
+  direction: rtl !important;
+  justify-content: right !important;
+  color: var(--body);
+  background: unset !important;
+}
+.apexcharts-legend {
+  display: none;
 }

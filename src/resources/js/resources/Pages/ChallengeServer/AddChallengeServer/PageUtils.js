@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { ChallengeServer as Entity } from "../../../../http/entities";
-import { setPageIconAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { addChallengeServerSchema as schema } from "../../../validations";
@@ -21,7 +20,6 @@ export class PageUtils extends BasePageUtils {
 
   onLoad() {
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-id"));
   }
 
   async onSubmit(data) {

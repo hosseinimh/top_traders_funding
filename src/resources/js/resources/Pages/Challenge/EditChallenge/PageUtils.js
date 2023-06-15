@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Challenge as Entity } from "../../../../http/entities";
 import {
-  setPageIconAction,
   setPagePropsAction,
   setPageTitleAction,
 } from "../../../../state/page/pageActions";
@@ -27,7 +26,6 @@ export class PageUtils extends BasePageUtils {
   onLoad() {
     this.validateIfNotValidateParams();
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.fillForm(this.pageState.params);
   }
 

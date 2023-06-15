@@ -3,7 +3,6 @@ import { handleError } from "../globalActions";
 import utils from "../../utils/Utils";
 import { BASE_URL } from "../../constants";
 import { useLSLocale } from "../../hooks";
-import { setNotificationsAction } from "../layout/layoutActions";
 
 const { utils: strings } = useLSLocale();
 
@@ -90,13 +89,6 @@ const handleLogin = async (dispatch, promise) => {
     }
 
     if (response.data._result === "1") {
-      if (response.data?.waitingChallengesCount > 0) {
-        dispatch(
-          setNotificationsAction({
-            waitingChallengesCount: response.data.waitingChallengesCount,
-          })
-        );
-      }
       utils.setLSVariable("user", JSON.stringify(response.data.item));
       window.location.reload();
 

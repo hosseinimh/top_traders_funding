@@ -6,6 +6,7 @@ use App\Constants\ErrorCode;
 use App\Constants\Role;
 use App\Constants\StoragePath;
 use App\Constants\TicketStatus;
+use App\Constants\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Requests\Ticket\IndexTicketsRequest;
@@ -58,8 +59,8 @@ class TicketController extends Controller
         }
         if (($thread = $this->service->store($request->type, $user->id, auth()->user()->id, 1, $request->subject, $request->content, TicketStatus::OPEN))) {
             $response = [];
-            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file');
-            $response['uploaded'] = $uploadResult;
+            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
+            $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
@@ -69,8 +70,8 @@ class TicketController extends Controller
     {
         if (($model->status === TicketStatus::OPEN) && ($thread = $this->service->storeThread($model->id, auth()->user()->id, 1, $request->content))) {
             $response = [];
-            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file');
-            $response['uploaded'] = $uploadResult;
+            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
+            $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);

@@ -11,20 +11,20 @@ const Header = () => {
   const userState = useSelector((state) => state.userReducer);
   const navigate = useNavigate();
   const { verifyUserRequestPage: strings } = useLocale();
-  const [levels, setLevels] = useState([0, 360]);
+  const [levels, setLevels] = useState([0, 100]);
   const [levelsChartOptions, setLevelsChartOptions] = useState(null);
   const [levelsSeries, setLevelsSeries] = useState(null);
 
   useEffect(() => {
     const finished =
       useState?.user?.verifiedAt || userState?.user?.verifyRequest3At
-        ? 360
+        ? 100
         : userState?.user?.emailVerifiedAt
-        ? 240
+        ? 66
         : userState?.user?.verifyRequest1At
-        ? 120
+        ? 33
         : 0;
-    setLevels([finished, 360 - finished]);
+    setLevels([finished, 100 - finished]);
   }, [userState?.user]);
 
   useEffect(() => {
@@ -38,15 +38,20 @@ const Header = () => {
           startAngle: 0,
           donut: {
             size: "70%",
-            dataLabels: {
-              enabled: false,
+            labels: {
+              show: false,
             },
+          },
+          dataLabels: {
+            offset: 300,
+            minAngleToShowLabel: 30,
           },
         },
       },
       dataLabels: {
         enabled: false,
       },
+      labels: [strings.finishedPercentage, strings.remainedPercentage],
       fill: {
         width: 20,
         type: "solid",
@@ -71,6 +76,12 @@ const Header = () => {
       },
       legend: {
         show: false,
+      },
+      tooltip: {
+        enabled: true,
+        y: {
+          formatter: (value) => `${value} %`,
+        },
       },
     });
     setLevelsSeries(levels);

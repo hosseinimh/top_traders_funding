@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { User as Entity } from "../../../../../http/entities";
 import {
   setPageAction,
-  setPageIconAction,
   setPageTitleAction,
 } from "../../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../../utils/BasePageUtils";
@@ -39,7 +38,6 @@ export class PageUtils extends BasePageUtils {
         ? "ChangePasswordProfile"
         : "Users";
     this.dispatch(setPageAction(name));
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.dispatch(setPagePropsAction(this.initialPageProps));
     this.fillForm(this.initialPageProps);
   }

@@ -9,6 +9,7 @@ import {
   InputCheckboxContainer,
   InputRadioContainer,
   AlertMessage,
+  InputRow,
 } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { MESSAGE_TYPES, USER_ROLES } from "../../../../../constants";
@@ -32,29 +33,32 @@ const BaseEditUser = ({ userId }) => {
         )
       }
     >
-      <InputTextColumn
-        field="name"
-        showLabel={true}
-        readonly={userState?.user?.verifyRequest3At ? true : false}
-      />
-      <InputTextColumn
-        field="family"
-        showLabel={true}
-        readonly={userState?.user?.verifyRequest3At ? true : false}
-      />
-      <InputTextColumn
-        field="mobile"
-        showLabel={true}
-        readonly={userState?.user?.verifyRequest3At ? true : false}
-      />
-      <InputTextColumn
-        field="email"
-        showLabel={true}
-        textAlign="left"
-        readonly={
-          userState?.user?.role === USER_ROLES.ADMINISTRATOR ? false : true
-        }
-      />
+      <InputRow>
+        <InputTextColumn
+          field="name"
+          showLabel={true}
+          readonly={userState?.user?.verifyRequest3At ? true : false}
+          fullRow={false}
+          icon={"icon-personalcard4"}
+        />
+        <InputTextColumn
+          field="family"
+          showLabel={true}
+          readonly={userState?.user?.verifyRequest3At ? true : false}
+          fullRow={false}
+          icon={"icon-personalcard4"}
+        />
+        <InputTextColumn
+          field="email"
+          showLabel={true}
+          textAlign="left"
+          readonly={
+            userState?.user?.role === USER_ROLES.ADMINISTRATOR ? false : true
+          }
+          fullRow={false}
+          icon={"icon-sms4"}
+        />
+      </InputRow>
       {userState?.user?.role === USER_ROLES.ADMINISTRATOR && (
         <>
           <InputCheckboxContainer>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { BlankPage } from "../../../../components";
 import { PageUtils } from "./PageUtils";
@@ -13,12 +15,38 @@ const VerifyUserRequest3 = () => {
   const pageState = useSelector((state) => state.pageReducer);
   const [selfieFileSelected, setSelfieFileSelected] = useState(null);
   const [identityFileSelected, setIdentityFileSelected] = useState(null);
-  const { verifyUserRequestPage: strings, general } = useLocale();
+  const { verifyUserRequestPage: strings, general, validation } = useLocale();
   const pageUtils = new PageUtils();
 
   const onChangeSelfieFile = (e) => {
     const file = e?.target?.files[0];
     if (file) {
+      if (file.size > 4 * 1024 * 1024) {
+        document.querySelector(".img-input.selfie").value = "";
+        toast.error(validation.fileMaxSizeMessage, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          progress: undefined,
+          theme: layoutState?.theme?.name,
+        });
+        return;
+      }
+      if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+        document.querySelector(".img-input.selfie").value = "";
+        toast.error(validation.fileTypeMessage, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          progress: undefined,
+          theme: layoutState?.theme?.name,
+        });
+        return;
+      }
       const imgPreview = document.querySelector("#img-preview-selfie");
       imgPreview.src = URL.createObjectURL(file);
       setSelfieFileSelected(true);
@@ -28,8 +56,33 @@ const VerifyUserRequest3 = () => {
 
   const onChangeIdentityFile = (e) => {
     const file = e?.target?.files[0];
-
     if (file) {
+      if (file.size > 4 * 1024 * 1024) {
+        document.querySelector(".img-input.identity").value = "";
+        toast.error(validation.fileMaxSizeMessage, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          progress: undefined,
+          theme: layoutState?.theme?.name,
+        });
+        return;
+      }
+      if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+        document.querySelector(".img-input.identity").value = "";
+        toast.error(validation.fileTypeMessage, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          progress: undefined,
+          theme: layoutState?.theme?.name,
+        });
+        return;
+      }
       const imgPreview = document.querySelector("#img-preview-identity");
       imgPreview.src = URL.createObjectURL(file);
       setIdentityFileSelected(true);
@@ -130,7 +183,7 @@ const VerifyUserRequest3 = () => {
                   <div className="img">
                     <img id="img-preview-selfie" alt={strings.selfieFile} />
                   </div>
-                  <div className="remove-img" onClick={removeSelfieFile}>
+                  <div className="remove-file" onClick={removeSelfieFile}>
                     <i className="icon-trash"></i>
                   </div>
                 </div>
@@ -140,7 +193,7 @@ const VerifyUserRequest3 = () => {
                   </h3>
                   <span>{strings.selfieFileProperties}</span>
                   <input
-                    accept="image/*"
+                    accept="image/jpeg,image/png,image/gif"
                     type="file"
                     className="img-input selfie"
                     onChange={(e) => onChangeSelfieFile(e)}
@@ -194,7 +247,7 @@ const VerifyUserRequest3 = () => {
                   <div className="img">
                     <img id="img-preview-identity" alt={strings.identityFile} />
                   </div>
-                  <div className="remove-img" onClick={removeIdentityFile}>
+                  <div className="remove-file" onClick={removeIdentityFile}>
                     <i className="icon-trash"></i>
                   </div>
                 </div>
@@ -204,7 +257,7 @@ const VerifyUserRequest3 = () => {
                   </h3>
                   <span>{strings.identityFileProperties}</span>
                   <input
-                    accept="image/*"
+                    accept="image/jpeg,image/png,image/gif"
                     type="file"
                     className="img-input identity"
                     onChange={(e) => onChangeIdentityFile(e)}
@@ -249,6 +302,17 @@ const VerifyUserRequest3 = () => {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={layoutState?.direction === "rtl" ? true : false}
+        pauseOnHover
+        transition={Zoom}
+        theme={layoutState?.theme?.name}
+      />
     </BlankPage>
   );
 };

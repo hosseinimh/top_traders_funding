@@ -78,6 +78,7 @@ const InputTextColumn = ({
           type={type}
           className={inputClassName}
           style={{ ...style }}
+          autoComplete="false"
         />
         {messageState?.messageField === field.name && (
           <span className="error">{messageState?.message}</span>

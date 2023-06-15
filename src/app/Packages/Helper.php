@@ -129,7 +129,7 @@ class Helper
         }
     }
 
-    function jalaliToGregorian($jy, $jm, $jd, $mod = '')
+    public function jalaliToGregorian($jy, $jm, $jd, $mod = '')
     {
         if ($jy > 979) {
             $gy = 1600;
@@ -157,7 +157,7 @@ class Helper
         return ($mod === '') ? array($gy, $gm, $gd) : $gy . $mod . $gm . $mod . $gd;
     }
 
-    private function getFaDate($date)
+    public function getFaDate($date, bool $fullDate = true)
     {
         $date = new DateTime($date);
         $h = $date->format('H');
@@ -165,8 +165,8 @@ class Helper
         $s = $date->format('s');
         $date = Helper::gregorianToJalali($date->format('Y'), $date->format('m'), $date->format('d'));
 
-        if (intval($date[1]) < 10) $date[1] = '0' . $date[1];
-        if (intval($date[2]) < 10) $date[2] = '0' . $date[2];
+        if ($fullDate && intval($date[1]) < 10) $date[1] = '0' . $date[1];
+        if ($fullDate && intval($date[2]) < 10) $date[2] = '0' . $date[2];
 
         $date[3] = $h;
         $date[4] = $i;

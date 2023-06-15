@@ -2,10 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { ChallengeServer as Entity } from "../../../../http/entities";
-import {
-  setPageIconAction,
-  setPageTitleAction,
-} from "../../../../state/page/pageActions";
+import { setPageTitleAction } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
 import { BASE_PATH } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
@@ -26,7 +23,6 @@ export class PageUtils extends BasePageUtils {
   onLoad() {
     this.validateIfNotValidateParams();
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.fillForm(this.pageState.params);
   }
 

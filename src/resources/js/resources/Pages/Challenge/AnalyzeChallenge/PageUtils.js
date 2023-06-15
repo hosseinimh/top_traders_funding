@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 
 import { Challenge as Entity, MetaApi } from "../../../../http/entities";
 import {
-  setPageIconAction,
   setPagePropsAction,
   setPageTitleAction,
 } from "../../../../state/page/pageActions";
@@ -33,7 +32,6 @@ export class PageUtils extends BasePageUtils {
   onLoad() {
     this.validateIfNotValidateParams();
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.fillForm(this.pageState.params);
   }
 

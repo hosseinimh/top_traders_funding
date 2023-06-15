@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
     Route::post('dashboard', [DashboardController::class, 'index']);
 
     Route::post('users', [UserController::class, 'index']);
+    Route::post('users/verify_requests', [UserController::class, 'indexVerifyRequests']);
     Route::post('users/show/{model}', [UserController::class, 'show']);
     Route::post('users/store', [UserController::class, 'store']);
     Route::post('users/update/{model}', [UserController::class, 'update']);

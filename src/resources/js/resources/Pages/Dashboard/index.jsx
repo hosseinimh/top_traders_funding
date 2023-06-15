@@ -62,6 +62,9 @@ const Dashboard = () => {
       legend: {
         show: false,
       },
+      tooltip: {
+        enabled: false,
+      },
     });
     setWalletSeries([wallet]);
   };

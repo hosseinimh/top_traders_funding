@@ -6,6 +6,7 @@ use App\Constants\ErrorCode;
 use App\Constants\Role;
 use App\Constants\StoragePath;
 use App\Constants\UploadedFile;
+use App\Facades\Notification;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Requests\User\ChangePasswordRequest;
@@ -105,6 +106,7 @@ class UserController extends Controller
         if (!auth()->attempt($data)) {
             return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
         }
+        Notification::onLoginSuccess(auth()->user());
         return $this->onItem($this->service->get(auth()->user()->id));
     }
 
@@ -140,8 +142,7 @@ class UserController extends Controller
         $user = $this->service->get(auth()->user()->id);
         $uploadSelfieResult = (new FileUploaderController(StoragePath::USER_SELFIE))->uploadImage($user, $request, 'selfie', 'selfie_file', 4 * 1024 * 1024);
         $uploadIdentityResult = (new FileUploaderController(StoragePath::USER_IDENTITY))->uploadImage($user, $request, 'identity', 'identity_file', 4 * 1024 * 1024);
-        $selfieUploaded = $uploadSelfieResult === UploadedFile::OK ? true : false;
-        $identityUploaded = $uploadIdentityResult === UploadedFile::OK ? true : false;
-        return $this->onUpdate($this->service->verifyRequest3(auth()->user(), $selfieUploaded, $identityUploaded));
+        $uploadResult = $uploadSelfieResult === UploadedFile::OK && $uploadIdentityResult === UploadedFile::OK ? true : false;
+        return $uploadResult ? $this->onUpdate($this->service->verifyRequest3(auth()->user())) : $this->onUpdate(false);
     }
 }

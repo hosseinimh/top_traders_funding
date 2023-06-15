@@ -5,10 +5,7 @@ import {
   setLoadingAction,
   setNotificationsAction,
 } from "../../../state/layout/layoutActions";
-import {
-  setPageIconAction,
-  setPagePropsAction,
-} from "../../../state/page/pageActions";
+import { setPagePropsAction } from "../../../state/page/pageActions";
 import { BasePageUtils } from "../../../utils/BasePageUtils";
 
 export class PageUtils extends BasePageUtils {
@@ -28,7 +25,6 @@ export class PageUtils extends BasePageUtils {
 
   onLoad() {
     super.onLoad();
-    this.dispatch(setPageIconAction("pe-7s-rocket"));
     this.dispatch(setPagePropsAction(this.initialPageProps));
     this.fillForm();
   }
@@ -54,14 +50,22 @@ export class PageUtils extends BasePageUtils {
   }
 
   propsIfOK(result) {
-    if (
-      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-      result?.waitingChallengesCount > 0
-    ) {
+    if (this.userState?.user?.role === USER_ROLES.ADMINISTRATOR) {
       this.dispatch(
         setNotificationsAction({
           ...this.layoutState?.notifications,
-          waitingChallengesCount: result?.waitingChallengesCount,
+          verifyUserRequestsCount: result.verifyUserRequestsCount,
+          waitingChallengesCount: result.waitingChallengesCount,
+          systemNotifications: result.systemNotifications,
+          userNotifications: result.userNotifications,
+        })
+      );
+    } else {
+      this.dispatch(
+        setNotificationsAction({
+          ...this.layoutState?.notifications,
+          systemNotifications: result.systemNotifications,
+          userNotifications: result.userNotifications,
         })
       );
     }

@@ -7,6 +7,7 @@ export const SET_LOCALE_ACTION = "SET_LOCALE_ACTION";
 export const SET_THEME_ACTION = "SET_THEME_ACTION";
 export const SET_NOTIFICATIONS_ACTION = "SET_NOTIFICATIONS_ACTION";
 export const TOGGLE_SIDEBAR_ACTION = "TOGGLE_SIDEBAR_ACTION";
+export const SET_SIDEBAR_PROPS_ACTION = "SET_SIDEBAR_PROPS_ACTION";
 export const SET_DROP_DOWN_ELEMENT_ACTION = "SET_DROP_DOWN_ELEMENT_ACTION";
 export const SET_SHOWN_MODAL_ACTION = "SET_SHOWN_MODAL_ACTION";
 
@@ -46,6 +47,7 @@ export const setThemeAction = (theme) => async (dispatch) => {
 
 export const setNotificationsAction = (notifications) => async (dispatch) => {
   utils.setLSVariable("notifications", JSON.stringify(notifications));
+  console.log(notifications);
   dispatch({
     type: SET_NOTIFICATIONS_ACTION,
     payload: notifications,
@@ -55,6 +57,13 @@ export const setNotificationsAction = (notifications) => async (dispatch) => {
 export const toggleSidebarAction = () => async (dispatch) => {
   dispatch({
     type: TOGGLE_SIDEBAR_ACTION,
+  });
+};
+
+export const setSidebarPropsAction = (props) => async (dispatch) => {
+  dispatch({
+    type: SET_SIDEBAR_PROPS_ACTION,
+    payload: props,
   });
 };
 

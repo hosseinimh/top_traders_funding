@@ -28,9 +28,23 @@ const Users = () => {
       onReset={pageUtils.onReset}
     >
       <InputRow>
-        <InputTextColumn field="username" textAlign="left" fullRow={false} />
-        <InputTextColumn field="nameFamily" fullRow={false} />
-        <InputTextColumn field="email" textAlign="left" fullRow={false} />
+        <InputTextColumn
+          field="username"
+          textAlign="left"
+          icon={"icon-frame-14"}
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="nameFamily"
+          icon={"icon-personalcard4"}
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="email"
+          icon={"icon-sms4"}
+          textAlign="left"
+          fullRow={false}
+        />
       </InputRow>
     </SearchBox>
   );

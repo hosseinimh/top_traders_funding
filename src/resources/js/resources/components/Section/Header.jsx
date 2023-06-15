@@ -68,6 +68,23 @@ const Header = () => {
     });
   };
 
+  const toggleNotificationsDropdown = (e) => {
+    e.stopPropagation();
+    const element = document.querySelector("#notifications-menu").lastChild;
+    if (layoutState?.dropDownElement) {
+      slideUp(layoutState.dropDownElement);
+      if (layoutState?.dropDownElement === element) {
+        dispatch(setDropDownElementAction(null));
+        return;
+      }
+    }
+    dispatch(setDropDownElementAction(element));
+    slideDown(element, {
+      duration: 400,
+      easing: easeOutQuint,
+    });
+  };
+
   const toggleLocalesDropdown = (e) => {
     e.stopPropagation();
     const element = document.querySelector("#locales-menu").lastChild;
@@ -128,6 +145,63 @@ const Header = () => {
             </CustomLink>
           </li>
         </ul>
+      </div>
+    </div>
+  );
+
+  const renderNotificationsDropdown = () => (
+    <div
+      className="item sub dropdown-link d-flex align-center"
+      id="notifications-menu"
+      onClick={(e) => toggleNotificationsDropdown(e)}
+    >
+      <i className="icon-notification-bing">
+        <div className="notification-new"></div>
+      </i>
+      <span>{strings.notifications}</span>
+      <div className="sub-box tab-container submenu submenu-mid">
+        <div>
+          <div className="checked-list scrollhide d-flex">
+            <div className="checked-item tab-item active" data-tab-box="">
+              {strings.userNotifications}
+            </div>
+            <div className="checked-item tab-item" data-tab-box="">
+              {strings.systemNotifications}
+            </div>
+          </div>
+          <div className="tab-content active">
+            <div className="notification-list scrollhide">
+              {layoutState?.notifications?.userNotifications?.map(
+                (item, index) => (
+                  <div className="notification-item" key={index}>
+                    <div className="notification-item-hd d-flex align-center">
+                      <div className="icon">
+                        <i className="icon-notification-bing"></i>
+                      </div>
+                      <div className="info">
+                        <div className="date">41 ثانیه پیش</div>
+                        <h3>ورود موفق به حساب</h3>
+                      </div>
+                    </div>
+                    <div className="notification-text drop-slide">
+                      ورود موفق به حساب کاربری در تاریخ ۲۵ خرداد ۱۴۰۲ ساعت ۱۴:۰۸
+                      با دستگاه desktop
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+          <div className="d-flex align-center just-between pd-t-10">
+            <button className="btn btn-border">خواندن همه</button>
+            <a
+              href="https://kifpool.me/member_v2/notifications"
+              className="btn btn-primary"
+            >
+              همه اعلان ها
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -226,6 +300,7 @@ const Header = () => {
       </div>
       {renderUserDropdown()}
       <div className="navbar-actions">
+        {renderNotificationsDropdown()}
         {renderLocalesDropdown()}
         {renderToggleTheme()}
         {renderColorsDropdown()}

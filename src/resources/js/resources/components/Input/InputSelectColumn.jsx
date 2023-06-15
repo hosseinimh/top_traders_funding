@@ -93,7 +93,9 @@ const InputSelectColumn = ({
     });
     const element = document.querySelector(`#select-box-${field}`).lastChild;
     dispatch(setDropDownElementAction(null));
-    slideUp(element);
+    if (layoutState?.dropDownElement === element) {
+      slideUp(element);
+    }
   };
 
   const renderItem = () => {

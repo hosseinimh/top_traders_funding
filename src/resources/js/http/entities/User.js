@@ -17,6 +17,13 @@ export class User extends Entity {
     });
   }
 
+  async getPaginateVerifyRequests(_pn = 1, _pi = PAGE_ITEMS) {
+    return await this.handlePost(`${BASE_URL}/a/users/verify_requests`, {
+      _pn,
+      _pi,
+    });
+  }
+
   async get(id) {
     return await this.handlePost(`${BASE_URL}/a/users/show/${id}`);
   }

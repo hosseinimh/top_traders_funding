@@ -4,22 +4,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Ticket as Entity, User } from "../../../../../http/entities";
 import {
   setPageAction,
-  setPageIconAction,
   setPagePropsAction,
   setPageTitleAction,
 } from "../../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../../utils/BasePageUtils";
-import { BASE_PATH, USER_ROLES } from "../../../../../constants";
+import {
+  BASE_PATH,
+  MESSAGE_CODES,
+  MESSAGE_TYPES,
+  USER_ROLES,
+} from "../../../../../constants";
 import { addTicketSchema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setLoadingAction } from "../../../../../state/layout/layoutActions";
+import { setMessageAction } from "../../../../../state/message/messageActions";
 
 export class PageUtils extends BasePageUtils {
   constructor(userId) {
     const form = useForm({
       resolver: yupResolver(schema),
     });
-    const { addTicketPage: strings } = useLocale();
+    let { addTicketPage: strings, validation } = useLocale();
+    strings = { ...strings, ...validation };
     super("Tickets", strings, form);
     this.entity = new Entity();
     this.initialPageProps = {
@@ -40,7 +46,6 @@ export class PageUtils extends BasePageUtils {
         ? "Users"
         : "Tickets";
     this.dispatch(setPageAction(name));
-    this.dispatch(setPageIconAction("pe-7s-id"));
     this.dispatch(setPagePropsAction(this.initialPageProps));
     this.fillForm(this.initialPageProps);
   }
@@ -87,6 +92,30 @@ export class PageUtils extends BasePageUtils {
   }
 
   async onSubmit(data) {
+    if (this.pageState?.props?.file?.size > 2 * 1024 * 1024) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileMaxSizeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
+    if (
+      !["image/jpeg", "image/png", "image/gif"].includes(
+        this.pageState?.props?.file?.type
+      )
+    ) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileTypeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
     const promise =
       this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
         ? this.entity.store(

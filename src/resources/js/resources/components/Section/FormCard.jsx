@@ -17,7 +17,8 @@ const FormCard = ({
   return (
     <div className="block pd-20 pd-d-10">
       {children}
-      <div className="btns d-flex mt-30">
+      <div className="block-border"></div>
+      <div className="btns d-flex mt-30 mb-10">
         {hasSubmit && (
           <button
             className="btn btn-success"

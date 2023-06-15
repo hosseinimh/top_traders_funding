@@ -8,14 +8,20 @@ import { verifyUserRequest3Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
 import { fetchAuthAction } from "../../../../../state/user/userActions";
-import { BASE_PATH } from "../../../../../constants";
+import {
+  BASE_PATH,
+  MESSAGE_CODES,
+  MESSAGE_TYPES,
+} from "../../../../../constants";
+import { setMessageAction } from "../../../../../state/message/messageActions";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
     const form = useForm({
       resolver: yupResolver(schema),
     });
-    const { verifyUserRequestPage: strings } = useLocale();
+    let { verifyUserRequestPage: strings, validation } = useLocale();
+    strings = { ...strings, ...validation };
     super("VerifyUserRequest3", strings, form);
     this.entity = new Entity();
     this.initialPageProps = {
@@ -71,6 +77,54 @@ export class PageUtils extends BasePageUtils {
   }
 
   async onSubmit() {
+    if (this.pageState?.props?.selfieFile?.size > 4 * 1024 * 1024) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileMaxSizeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
+    if (
+      !["image/jpeg", "image/png", "image/gif"].includes(
+        this.pageState?.props?.selfieFile?.type
+      )
+    ) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileTypeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
+    if (this.pageState?.props?.identityFile?.size > 4 * 1024 * 1024) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileMaxSizeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
+    if (
+      !["image/jpeg", "image/png", "image/gif"].includes(
+        this.pageState?.props?.identityFile?.type
+      )
+    ) {
+      this.dispatch(
+        setMessageAction(
+          this.strings.fileTypeMessage,
+          MESSAGE_TYPES.ERROR,
+          MESSAGE_CODES.FORM_INPUT_INVALID
+        )
+      );
+      return;
+    }
     this.onSendRequest();
     const result = await this.entity.verifyRequest3(
       this.pageState?.props?.selfieFile,

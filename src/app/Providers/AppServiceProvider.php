@@ -39,6 +39,7 @@ use App\Http\Resources\Ticket\TicketResource;
 use App\Http\Resources\User\UserResource;
 use App\Packages\Helper;
 use App\Packages\JsonResponse;
+use App\Packages\Notification;
 use App\Services\AppRuleService;
 use App\Services\CampaignService;
 use App\Services\ChallengeBalanceService;
@@ -48,7 +49,6 @@ use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
 use App\Services\ErrorService;
-use App\Services\SendMail;
 use App\Services\TicketService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\View;
@@ -62,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('helper', function () {
             return new Helper();
+        });
+
+        $this->app->bind('notification', function () {
+            return new Notification();
         });
     }
 
