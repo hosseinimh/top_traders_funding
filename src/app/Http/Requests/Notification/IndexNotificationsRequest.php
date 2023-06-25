@@ -20,18 +20,13 @@ class IndexNotificationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|numeric|gte:0',
-            'category' => 'required|numeric|gte:0',
+            'category' => 'numeric|gte:0',
         ];
     }
 
     public function messages()
     {
         return [
-            'type.required' => __('notification.type_required'),
-            'type.numeric' => __('notification.type_numeric'),
-            'type.gte' => __('notification.type_gte'),
-            'category.required' => __('notification.category_required'),
             'category.numeric' => __('notification.category_numeric'),
             'category.gte' => __('notification.category_gte'),
         ];

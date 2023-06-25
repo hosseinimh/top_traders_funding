@@ -20,9 +20,11 @@ const ListPage = ({
   return (
     <PageLayout pageUtils={pageUtils}>
       <div className="section fix-mr15">
-        {renderTopList && renderTopList()}
-        <div className="block">
-          <div className="table-header">
+        {renderTopList && (
+          <div style={{ margin: "1rem 0" }}>{renderTopList()}</div>
+        )}
+        {(hasAdd || backUrl) && (
+          <div style={{ margin: "1rem" }}>
             {hasAdd && (
               <button
                 className="btn btn-primary mx-rdir-10"
@@ -47,6 +49,8 @@ const ListPage = ({
             )}
             {children}
           </div>
+        )}
+        <div className="block">
           <Table
             renderHeader={table.renderHeader}
             renderItems={table.renderItems}

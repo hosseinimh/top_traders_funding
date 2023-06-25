@@ -100,6 +100,8 @@ function parseJwt(token) {
 }
 
 function clearLS() {
+  localStorage.removeItem("locale");
+  localStorage.removeItem("theme");
   localStorage.removeItem("user");
   localStorage.removeItem("notifications");
 }
@@ -511,6 +513,88 @@ const setTheme = (theme) => {
   );
 };
 
+const getDateParams = (date) => {
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds(),
+    totalInSeconds: Math.round(date / 1000),
+  };
+};
+
+const relativeDate = (utcDate) => {
+  try {
+    const date = new Date(utcDate);
+    const now = new Date(
+      Date.now() + new Date().getTimezoneOffset() * 60 * 1000
+    );
+    const dateParams = getDateParams(date);
+    const nowParams = getDateParams(now);
+    let amount = 0;
+    let isBefore =
+      dateParams.totalInSeconds < nowParams.totalInSeconds ? true : false;
+    let format = "";
+    const olderParams = isBefore ? dateParams : nowParams;
+    const newerParams = isBefore ? nowParams : dateParams;
+    if (newerParams.year > olderParams.year) {
+      amount = newerParams.year - olderParams.year;
+      format = "year";
+    } else if (newerParams.month > olderParams.month) {
+      amount = newerParams.month - olderParams.month;
+      format = "month";
+    } else if (newerParams.day > olderParams.day) {
+      amount = newerParams.day - olderParams.day;
+      format = "day";
+    } else if (newerParams.hour > olderParams.hour) {
+      amount = newerParams.hour - olderParams.hour;
+      format = "hour";
+    } else if (newerParams.minute > olderParams.minute) {
+      amount = newerParams.minute - olderParams.minute;
+      format = "minute";
+    } else if (newerParams.second > olderParams.second + 20) {
+      amount = newerParams.second - olderParams.second;
+      format = "second";
+    } else {
+      amount = 0;
+      format = "second";
+    }
+    return {
+      amount,
+      isBefore,
+      format,
+    };
+  } catch {}
+  return {
+    amount: 0,
+    isBefore: true,
+    format: "second",
+  };
+};
+
+const toLocaleDateString = (date, locale) => {
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(date).toLocaleDateString(locale, options);
+};
+
+const getTimezoneDate = (date, locale) => {
+  const d = new Date(
+    new Date(date).getTime() - new Date().getTimezoneOffset() * 60 * 1000
+  );
+  const time = d.toString().substring(16, 21);
+  return { date: utils.toLocaleDateString(d, locale), time };
+};
+
+const getExtension = (filename) => {
+  return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : undefined;
+};
+
 const utils = {
   isValidMobile,
   validateMobile,
@@ -538,6 +622,10 @@ const utils = {
   initLocale,
   initTheme,
   setTheme,
+  relativeDate,
+  toLocaleDateString,
+  getTimezoneDate,
+  getExtension,
 };
 
 export default utils;

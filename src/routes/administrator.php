@@ -29,6 +29,8 @@ Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
     Route::post('users/store', [UserController::class, 'store']);
     Route::post('users/update/{model}', [UserController::class, 'update']);
     Route::post('users/change_password/{model}', [UserController::class, 'changePassword']);
+    Route::post('users/verify_request/{model}', [UserController::class, 'verifyRequest']);
+    Route::post('users/reject_request/{model}', [UserController::class, 'rejectRequest']);
 
     Route::post('app_rules/store', [AppRuleController::class, 'store']);
     Route::post('app_rules/update/{model}', [AppRuleController::class, 'update']);

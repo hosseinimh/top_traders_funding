@@ -16,7 +16,7 @@ const Tickets = ({ userId }) => {
   const pageState = useSelector((state) => state.pageReducer);
   const userState = useSelector((state) => state.userReducer);
   const columnsCount = 3;
-  const { ticketsPage: strings } = useLocale();
+  const { ticketsPage: strings, general } = useLocale();
   const pageUtils = new PageUtils(userId);
 
   const renderHeader = () => (
@@ -28,58 +28,70 @@ const Tickets = ({ userId }) => {
   );
 
   const renderItems = () => {
-    const children = pageState?.props?.items?.map((item) => (
-      <tr key={item.id}>
-        <td>
-          <Link
-            to={`${BASE_PATH}/tickets/threads/${item.id}`}
-            className="dark-warning"
-          >
-            {item.typeText}
-          </Link>
-          <div className="dot">
-            <span
-              className={`${
-                item.status === TICKET_STATUSES.OPEN
-                  ? "bg-success"
-                  : "bg-dark-warning"
-              }`}
-            ></span>
-            <span>{item.statusText}</span>
-          </div>
-        </td>
-        <td>
-          <p>
-            {((userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-              !item.adminSeenTime) ||
-              (userState?.user?.role === USER_ROLES.USER &&
-                !item.userSeenTime)) && (
-              <span className="badge bg-success mx-rdir-10 text">
-                {strings.new}
-              </span>
-            )}
-            <span
-              style={{
-                maxHeight: "3rem",
-                whiteSpace: "pre-wrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                fontWeight:
-                  (userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
-                    !item.adminSeenTime) ||
-                  (userState?.user?.role === USER_ROLES.USER &&
-                    !item.userSeenTime)
-                    ? "bold"
-                    : "",
-              }}
+    const children = pageState?.props?.items?.map((item) => {
+      let dateObj;
+      if (item.updatedAt) {
+        dateObj = utils.getTimezoneDate(item.updatedAt, general.locale);
+      } else {
+        dateObj = utils.getTimezoneDate(item.createdAt, general.locale);
+      }
+      const { date, time } = dateObj;
+      return (
+        <tr key={item.id}>
+          <td>
+            <Link
+              to={`${BASE_PATH}/tickets/threads/${item.id}`}
+              className="dark-warning"
             >
-              {`${utils.en2faDigits(item.id)}# - ${item.subject}`}
-            </span>
-          </p>
-        </td>
-        <td>{item.updatedAtLcale || item.createdAtLocale}</td>
-      </tr>
-    ));
+              {item.typeText}
+            </Link>
+            <div className="dot">
+              <span
+                className={`${
+                  item.status === TICKET_STATUSES.OPEN
+                    ? "bg-success"
+                    : "bg-dark-warning"
+                }`}
+              ></span>
+              <span>{item.statusText}</span>
+            </div>
+          </td>
+          <td>
+            <p>
+              {((userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                !item.adminSeenAt) ||
+                (userState?.user?.role === USER_ROLES.USER &&
+                  !item.userSeenAt)) && (
+                <span className="badge bg-success mx-rdir-10 text">
+                  {strings.new}
+                </span>
+              )}
+              <span
+                style={{
+                  maxHeight: "3rem",
+                  whiteSpace: "pre-wrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  fontWeight:
+                    (userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+                      !item.adminSeenAt) ||
+                    (userState?.user?.role === USER_ROLES.USER &&
+                      !item.userSeenAt)
+                      ? "bold"
+                      : "",
+                }}
+              >
+                {`${utils.en2faDigits(item.id)}# - ${item.subject}`}
+              </span>
+            </p>
+          </td>
+          <td className="d-flex-wrap just-around">
+            <div>{date}</div>
+            <div>{time}</div>
+          </td>
+        </tr>
+      );
+    });
 
     return <TableItems columnsCount={columnsCount}>{children}</TableItems>;
   };

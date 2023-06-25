@@ -7,6 +7,7 @@ import nationalNoValidator from "./nationalNoValidator";
 import numberValidator from "./numberValidator";
 import stringValidator from "./stringValidator";
 import telValidator from "./telValidator";
+import fileValidator from "./fileValidator";
 
 export {
   asciiValidator,
@@ -18,4 +19,5 @@ export {
   numberValidator,
   stringValidator,
   telValidator,
+  fileValidator,
 };

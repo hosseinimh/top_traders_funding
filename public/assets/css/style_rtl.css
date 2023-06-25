@@ -494,6 +494,17 @@ textarea {
 .input-text .img img {
   width: 100%;
 }
+.input-img {
+  margin: 0.625rem 0.625rem 1.25rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.625rem;
+  position: relative;
+}
+.input-img img {
+  max-width: 100%;
+  border-radius: 0.625rem;
+}
 .input-info {
   margin: 0 0.625rem;
   width: 100%;
@@ -796,6 +807,7 @@ input[type="radio"] ~ span.error {
   padding: 1.25rem 0 1.25rem 1rem;
   width: 100%;
   overflow: hidden;
+  align-self: stretch;
 }
 @media (max-width: 1024px) {
   .main {
@@ -930,7 +942,7 @@ input[type="radio"] ~ span.error {
 .block-border {
   border-bottom: 1px solid var(--border);
   opacity: 0.8;
-  margin-bottom: 1.5rem;
+  margin: 0.625rem 0.625rem 1.25rem;
 }
 .dot {
   display: flex;
@@ -942,6 +954,24 @@ input[type="radio"] ~ span.error {
   display: inline-block;
   border-radius: 6.25rem;
   margin-left: 5px;
+}
+.dot-icon {
+  position: relative;
+  height: 0.625rem;
+  width: 0.625rem;
+  display: inline-block;
+  border-radius: 6.25rem;
+  top: -5px;
+  right: 8px;
+  z-index: 1000;
+}
+.dot-icon-inline {
+  border-radius: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 0.625rem;
 }
 .section-hd {
   padding: 0.625rem;
@@ -1186,7 +1216,7 @@ input[type="radio"] ~ span.error {
   color: var(--placeholder);
   border-bottom: 1px solid var(--border);
   position: relative;
-  max-height: 80vh;
+  max-height: 70vh;
   overflow: auto;
 }
 .modal-close:hover {
@@ -1762,6 +1792,10 @@ a.page-link:hover {
 .mx-10 {
   margin-right: 0.625rem;
   margin-left: 0.625rem;
+}
+.mx-15 {
+  margin-right: 1rem !important;
+  margin-left: 1rem !important;
 }
 .mx-20 {
   margin-right: 1.25rem;
@@ -10569,20 +10603,20 @@ div.dataTables_wrapper {
 }
 .sub-box {
   position: absolute;
-  min-width: 450px !important;
-  max-width: 500px;
+  min-width: 28.125rem !important;
+  max-width: 31.25rem;
   left: 30px;
   top: 60px;
   background: var(--body);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   cursor: default;
   display: none;
   overflow: hidden;
 }
 @media (max-width: 400px) {
   .sub-box {
-    min-width: 200px !important;
-    max-width: 200px !important;
+    min-width: 12.5rem !important;
+    max-width: 12.5rem !important;
   }
 }
 .sub-box > div {
@@ -10592,28 +10626,27 @@ div.dataTables_wrapper {
   flex-grow: 5;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-  margin: 0 -5px 10px;
+  margin: 0 -5px 0.625rem;
 }
 .checked-list.d-flex,
 .checked-list.d-flex-wrap {
   display: flex;
 }
 .checked-list .checked-item {
-  padding: 0 20px;
-  height: 48px;
+  padding: 0 1.25rem;
+  height: 2.75rem;
   text-align: center;
-  flex-basis: 120px;
-  background: var(--body);
-  border-radius: 10px;
-  margin: 5px;
-  line-height: 48px;
+  flex-basis: 7.5rem;
+  background: var(--light-body);
+  border-radius: 0.625rem;
+  margin: 0 5px;
+  line-height: 3rem;
   color: var(--text);
   white-space: nowrap;
-}
-.checked-item {
+  cursor: pointer;
   position: relative;
 }
-@media (max-width: 482px) {
+@media (max-width: 30.125rem) {
   .checked-item {
     flex-grow: 1;
   }
@@ -10628,7 +10661,7 @@ div.dataTables_wrapper {
   top: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   border-color: transparent;
 }
 .checked-item input:checked:before {
@@ -10644,29 +10677,48 @@ div.dataTables_wrapper {
   display: block;
 }
 .notification-list {
-  max-height: 225px;
-  padding: 0 0 10px;
+  max-height: 14rem;
+  padding: 0 0 0.625rem;
 }
 .notification-item {
-  padding: 10px;
+  padding: 0.625rem;
   border: 1px solid var(--border);
-  margin-top: 10px;
-  border-radius: 10px;
+  margin-top: 0.625rem;
+  border-radius: 0.625rem;
   transition: all 0.5s;
   cursor: pointer;
 }
+.notification-item * {
+  pointer-events: none;
+}
 .notification-item .icon,
 .support-item .icon {
-  height: 40px;
-  width: 40px;
+  height: 2.5rem;
+  width: 2.5rem;
   background: var(--light-body);
   color: var(--text);
   text-align: center;
-  line-height: 40px;
-  margin-left: 10px;
-  border-radius: 100px;
+  line-height: 2.5rem;
+  margin-left: 0.625rem;
+  border-radius: 6.25rem;
   transition: all 0.5s;
   position: relative;
+}
+.notification-item .icon:before {
+  content: "";
+  height: 10px;
+  width: 10px;
+  background: var(--success);
+  position: absolute;
+  border-radius: 100px;
+  right: 0;
+}
+.notification-item .icon.seen:before {
+  background: var(--placeholder);
+}
+.notification-item:hover .icon,
+.notification-item.active .icon {
+  background: var(--dark-warning) !important;
 }
 .notification-list .notification-item .date {
   font-size: 0.7rem;
@@ -10679,8 +10731,68 @@ div.dataTables_wrapper {
   color: var(--text);
 }
 .notification-text {
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-  margin-top: 10px;
   display: none;
+}
+.notification-text > div {
+  border-top: 1px solid var(--border);
+  padding-top: 0.625rem;
+  margin-top: 0.625rem;
+}
+.notification-item:hover,
+.notification-item.active,
+.support-item:hover {
+  background: var(--dark);
+  box-shadow: none;
+}
+.notification-item .notification-item-hd:after {
+  content: "\eea5";
+  margin-right: auto;
+  opacity: 0;
+}
+.notification-item:hover .notification-item-hd:after {
+  opacity: 1;
+}
+.notification-btns {
+  display: flex;
+  align-items: center;
+  padding-top: 0 !important;
+  justify-content: end;
+  gap: 5px;
+}
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  line-height: 2px;
+}
+.loader {
+  width: 100%;
+  height: 3px;
+  display: inline-block;
+  position: relative;
+  background: var(--light-body);
+  overflow: hidden;
+}
+.loader::after {
+  content: "";
+  width: 20%;
+  height: 3px;
+  background: var(--placeholder);
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 3s linear infinite;
+}
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
 }

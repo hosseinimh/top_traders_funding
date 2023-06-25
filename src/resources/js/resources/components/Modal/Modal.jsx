@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setShownModalAction } from "../../../state/layout/layoutActions";
 
-const Modal = ({ id, title, children }) => {
+const Modal = ({ id, title, children, footer = null }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const dispatch = useDispatch();
 
@@ -48,6 +48,11 @@ const Modal = ({ id, title, children }) => {
           </span>
         </div>
         <div className="modal-main">{children}</div>
+        {footer && (
+          <div className="modal-footer pd-td-10 pd-lr-20">
+            <>{footer}</>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -47,7 +47,6 @@ export const setThemeAction = (theme) => async (dispatch) => {
 
 export const setNotificationsAction = (notifications) => async (dispatch) => {
   utils.setLSVariable("notifications", JSON.stringify(notifications));
-  console.log(notifications);
   dispatch({
     type: SET_NOTIFICATIONS_ACTION,
     payload: notifications,

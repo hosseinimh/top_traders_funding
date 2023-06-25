@@ -319,6 +319,13 @@ function Sidebar() {
             )}
           <ul></ul>
           {renderMenuItem(
+            `${BASE_PATH}/notifications`,
+            strings.notifications,
+            "icon-notification-bing",
+            "Notifications",
+            "Notifications"
+          )}
+          {renderMenuItem(
             `${BASE_PATH}/users/edit`,
             strings.editProfile,
             "icon-user-edit4",

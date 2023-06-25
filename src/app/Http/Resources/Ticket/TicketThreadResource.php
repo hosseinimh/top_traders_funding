@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources\Ticket;
 
-use App\Constants\Locale;
-use App\Facades\Helper;
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TicketThreadResource extends JsonResource
@@ -18,13 +17,10 @@ class TicketThreadResource extends JsonResource
             'creatorFamily' => $this->creator_family,
             'adminCreated' => intval($this->admin_created),
             'content' => $this->content,
-            'userSeenTime' => $this->user_seen_time,
-            'userSeenTimeLocale' => app()->getLocale() === Locale::FA ? ($this->user_seen_time ? Helper::faDate2($this->user_seen_time) : null) : $this->user_seen_time,
-            'adminSeenTime' => $this->admin_seen_time,
-            'adminSeenTimeLocale' => app()->getLocale() === Locale::FA ? ($this->admin_seen_time ? Helper::faDate2($this->admin_seen_time) : null) : $this->admin_seen_time,
+            'userSeenAt' => $this->user_seen_at ? (new DateTime($this->user_seen_at))->format('Y-m-d H:i:s') : null,
+            'adminSeenAt' => $this->admin_seen_at ? (new DateTime($this->admin_seen_at))->format('Y-m-d H:i:s') : null,
             'file' => $this->file ?? null,
-            'createdAt' =>  $this->created_at,
-            'createdAtLocale' => app()->getLocale() === Locale::FA ? ($this->created_at ? Helper::faDate2($this->created_at) : null) : $this->created_at,
+            'createdAt' => (new DateTime($this->created_at))->format('Y-m-d H:i:s'),
         ];
     }
 }

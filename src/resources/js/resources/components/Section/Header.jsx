@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { slideDown, slideUp } from "es6-slide-up-down";
@@ -14,15 +14,59 @@ import {
   toggleSidebarAction,
   setDropDownElementAction,
   setThemeAction,
+  setNotificationsAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
-import { User } from "../../../http/entities";
+import { User, Notification } from "../../../http/entities";
+import notification from "../../../utils/Notification";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { header: strings } = useLocale();
+  const { header: strings, date, general } = useLocale();
   const layoutState = useSelector((state) => state.layoutReducer);
+  const [hasNotifications, setHasNotifications] = useState(false);
+  const notificationEntity = new Notification();
   const authUser = utils.getLSUser();
+
+  useEffect(() => {
+    let countUnSeenUserNotifications =
+      layoutState?.notifications?.userNotifications?.filter(
+        (item) => !item.seenAt
+      ).length;
+    let countUnSeenSystemNotifications =
+      layoutState?.notifications?.systemNotifications?.filter(
+        (item) => !item.seenAt
+      ).length;
+    setHasNotifications(
+      countUnSeenUserNotifications + countUnSeenSystemNotifications > 0
+        ? true
+        : false
+    );
+  }, [layoutState?.notifications]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getNotifications();
+    }, 10000);
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, []);
+
+  const getNotifications = async () => {
+    const result = await notificationEntity.getReview();
+    if (result) {
+      dispatch(
+        setNotificationsAction({
+          ...layoutState.notifications,
+          userNotifications: result.userNotifications,
+          systemNotifications: result.systemNotifications,
+        })
+      );
+    }
+  };
 
   const toggleSidebar = () => {
     dispatch(toggleSidebarAction());
@@ -49,6 +93,94 @@ const Header = () => {
 
   const onLogout = () => {
     dispatch(fetchLogoutAction());
+  };
+
+  const hideNotificationTexts = (e) => {
+    document.querySelectorAll(".notification-text.show").forEach((item) => {
+      if (e.target.lastChild !== item) {
+        item.classList.remove("show");
+        slideUp(item);
+      }
+    });
+  };
+
+  const onChangeTabContent = (e) => {
+    e.stopPropagation();
+    const dataTabContent = e.target.getAttribute("data-tab-content");
+    [...document.querySelectorAll(".checked-item.tab-item.dropdown-item")].map(
+      (btn) => {
+        if (e.target === btn) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      }
+    );
+    [...document.querySelectorAll(".tab-content")].map((tabContent) => {
+      if (tabContent.classList.contains(dataTabContent)) {
+        tabContent.classList.add("active");
+      } else {
+        tabContent.classList.remove("active");
+      }
+    });
+  };
+
+  const onNotificationClick = (e) => {
+    e.stopPropagation();
+    hideNotificationTexts(e);
+    const element = e.target.lastChild;
+    if (element.classList.contains("show")) {
+      slideUp(element);
+    } else {
+      const id = parseInt(e.target.className.substring(23));
+      const item = layoutState?.notifications?.userNotifications?.find(
+        (notification) => notification.id === id
+      );
+      if (item) {
+        const seen = item.seenAt ? true : false;
+        item.seenAt = seen ? item.seenAt : Date.now();
+        dispatch(
+          setNotificationsAction({
+            ...layoutState.notifications,
+            userNotifications: layoutState.notifications.userNotifications,
+          })
+        );
+        if (!seen) {
+          const notification = new Notification();
+          notification.seen(item.id);
+        }
+      }
+      slideDown(element, {
+        duration: 400,
+        easing: easeOutQuint,
+      });
+    }
+    element.classList.toggle("show");
+  };
+
+  const onSeenReview = () => {
+    if (!hasNotifications) {
+      return;
+    }
+    const userNotifications =
+      layoutState?.notifications?.userNotifications?.map((notification) => ({
+        ...notification,
+        seenAt: Date.now(),
+      }));
+    const systemNotifications =
+      layoutState?.notifications?.systemNotifications?.map((notification) => ({
+        ...notification,
+        seenAt: Date.now(),
+      }));
+    dispatch(
+      setNotificationsAction({
+        ...layoutState.notifications,
+        userNotifications,
+        systemNotifications,
+      })
+    );
+    const notification = new Notification();
+    notification.seenReview();
   };
 
   const toggleUserMenu = (e) => {
@@ -78,6 +210,18 @@ const Header = () => {
         return;
       }
     }
+    layoutState?.notifications?.userNotifications?.forEach((item) => {
+      let timespan = "";
+      let relativeDate = utils.relativeDate(item.createdAt);
+      if (relativeDate.amount === 0) {
+        timespan = date.now;
+      } else {
+        timespan = `${relativeDate.amount} ${date[relativeDate.format]}${
+          relativeDate.amount > 1 ? date.plural : ""
+        } ${relativeDate.isBefore ? date.ago : date.ahead}`;
+      }
+      item.timespan = timespan;
+    });
     dispatch(setDropDownElementAction(element));
     slideDown(element, {
       duration: 400,
@@ -136,15 +280,52 @@ const Header = () => {
         <ul>
           <li>
             <Link to={`${BASE_PATH}/users/edit`}>
-              <i className="icon-personalcard"></i> {strings.profile}
+              <i className="icon-personalcard"></i>
+              <span className="mx-10">{strings.profile}</span>
             </Link>
           </li>
           <li>
             <CustomLink onClick={onLogout} className="danger">
-              <i className="icon-logout"></i> {strings.logout}
+              <i className="icon-logout"></i>
+              <span className="mx-10">{strings.logout}</span>
             </CustomLink>
           </li>
         </ul>
+      </div>
+    </div>
+  );
+
+  const renderNotifications = (notifications, dataTabContent) => (
+    <div
+      className={`tab-content ${dataTabContent} ${
+        dataTabContent === "user-notifications" ? "active" : ""
+      }`}
+    >
+      <div className="notification-list scrollhide">
+        {notifications?.map((item) => {
+          return (
+            <div
+              className={`notification-item item-${item.id}`}
+              key={item.id}
+              onClick={(e) => onNotificationClick(e)}
+            >
+              <div className="notification-item-hd d-flex align-center">
+                <div className={`icon ${item.seenAt ? "seen" : ""}`}>
+                  <i className="icon-notification-bing"></i>
+                </div>
+                <div className="info">
+                  <div className="date">{item.timespan}</div>
+                  <h3>{item.subCategoryTitle}</h3>
+                </div>
+              </div>
+              <div className="notification-text">
+                <div>
+                  {notification.getSubCategoryText(item, general.locale)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -155,52 +336,43 @@ const Header = () => {
       id="notifications-menu"
       onClick={(e) => toggleNotificationsDropdown(e)}
     >
-      <i className="icon-notification-bing">
-        <div className="notification-new"></div>
-      </i>
+      {hasNotifications && <div className="dot-icon bg-success"></div>}
+      <i className="icon-notification-bing"></i>
       <span>{strings.notifications}</span>
       <div className="sub-box tab-container submenu submenu-mid">
         <div>
           <div className="checked-list scrollhide d-flex">
-            <div className="checked-item tab-item active" data-tab-box="">
+            <div
+              className="checked-item tab-item dropdown-item active"
+              data-tab-content="user-notifications"
+              onClick={(e) => onChangeTabContent(e)}
+            >
               {strings.userNotifications}
             </div>
-            <div className="checked-item tab-item" data-tab-box="">
+            <div
+              className="checked-item tab-item dropdown-item"
+              data-tab-content="system-notifications"
+              onClick={(e) => onChangeTabContent(e)}
+            >
               {strings.systemNotifications}
             </div>
           </div>
-          <div className="tab-content active">
-            <div className="notification-list scrollhide">
-              {layoutState?.notifications?.userNotifications?.map(
-                (item, index) => (
-                  <div className="notification-item" key={index}>
-                    <div className="notification-item-hd d-flex align-center">
-                      <div className="icon">
-                        <i className="icon-notification-bing"></i>
-                      </div>
-                      <div className="info">
-                        <div className="date">41 ثانیه پیش</div>
-                        <h3>ورود موفق به حساب</h3>
-                      </div>
-                    </div>
-                    <div className="notification-text drop-slide">
-                      ورود موفق به حساب کاربری در تاریخ ۲۵ خرداد ۱۴۰۲ ساعت ۱۴:۰۸
-                      با دستگاه desktop
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-          <div className="d-flex align-center just-between pd-t-10">
-            <button className="btn btn-border">خواندن همه</button>
-            <a
-              href="https://kifpool.me/member_v2/notifications"
-              className="btn btn-primary"
-            >
-              همه اعلان ها
-            </a>
-          </div>
+          {renderNotifications(
+            layoutState?.notifications?.userNotifications,
+            "user-notifications"
+          )}
+          {renderNotifications(
+            layoutState?.notifications?.systemNotifications,
+            "system-notifications"
+          )}
+        </div>
+        <div className="notification-btns">
+          <button className="btn btn-border" onClick={() => onSeenReview()}>
+            {strings.seenReviewNotifications}
+          </button>
+          <Link to={`${BASE_PATH}/notifications`} className="btn btn-primary">
+            {strings.showNotifications}
+          </Link>
         </div>
       </div>
     </div>
@@ -210,10 +382,10 @@ const Header = () => {
     let flag;
     let locale = utils.getLSVariable("locale");
     switch (locale) {
-      case "fa":
+      case "fa-IR":
         flag = "IR";
         break;
-      case "en":
+      case "en-US":
         flag = "US";
         break;
       default:

@@ -43,4 +43,20 @@ export class PageUtils extends BasePageUtils {
     );
     this.dispatch(setShownModalAction(modal));
   }
+
+  onHideModal() {
+    this.dispatch(
+      setPagePropsAction({
+        modal: null,
+        item: null,
+      })
+    );
+    this.dispatch(setShownModalAction(null));
+  }
+
+  async onVerifyRequest(userId) {
+    const promise = this.entity.verifyRequest(userId);
+    this.onModifySubmit(promise);
+    this.onHideModal();
+  }
 }

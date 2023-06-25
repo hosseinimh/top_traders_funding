@@ -8,6 +8,8 @@ import { TICKET_TYPES } from "./ticketTypes";
 import { TICKET_STATUSES } from "./ticketStatuses";
 import { CHALLENGE_LEVELS } from "./challengeLevels";
 import { CHALLENGE_STATUSES } from "./challengeStatuses";
+import { NOTIFICATION_CATEGORIES } from "./notificationCategories";
+import { NOTIFICATION_SUB_CATEGORIES } from "./notificationSubCategories";
 import {
   BASE_PATH,
   ASSETS_PATH,
@@ -38,4 +40,6 @@ export {
   TICKET_STATUSES,
   CHALLENGE_LEVELS,
   CHALLENGE_STATUSES,
+  NOTIFICATION_CATEGORIES,
+  NOTIFICATION_SUB_CATEGORIES,
 };

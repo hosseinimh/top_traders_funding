@@ -12,7 +12,7 @@ import {
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 import Header from "../components/Header";
-import { BASE_PATH } from "../../../../../constants";
+import { BASE_PATH, LOCALES } from "../../../../../constants";
 
 const VerifyUserRequest1 = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
@@ -24,7 +24,7 @@ const VerifyUserRequest1 = () => {
     { id: 1, value: genderTypes.male },
     { id: 2, value: genderTypes.female },
   ];
-  const isPersian = general.locale === "فارسی" ? true : false;
+  const isPersian = general.locale === LOCALES.FA ? true : false;
 
   return (
     <BlankPage pageUtils={pageUtils}>

@@ -173,6 +173,11 @@ function AuthRoute() {
             element={<Pages.AnalyzeChallenge />}
           />
           <Route
+            path={`${BASE_PATH}/notifications`}
+            exact={true}
+            element={<Pages.Notifications />}
+          />
+          <Route
             path={`${BASE_PATH}/users/edit`}
             element={<Pages.EditCurrentUser />}
           />

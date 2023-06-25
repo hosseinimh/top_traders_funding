@@ -24,12 +24,12 @@ class ChallengeService
             ->join('tbl_challenge_platforms', 'tbl_challenges.platform_id', '=', 'tbl_challenge_platforms.id')
             ->join('tbl_challenge_leverages', 'tbl_challenges.leverage_id', '=', 'tbl_challenge_leverages.id');
         if ($userId) {
-            $query = $query->where('user_id', $userId);
+            $query->where('user_id', $userId);
         }
         if ($status !== 0) {
-            $query = $query->where('status', $status);
+            $query->where('status', $status);
         }
-        return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage',)->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+        return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage')->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
     public function store(int $userId, int $balanceId, int $serverId, int $platformId,  int $leverageId, int $level, int $equity): mixed

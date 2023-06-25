@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('from', 50);
             $table->string('to', 50);
-            $table->text('body');
+            $table->string('type');
+            $table->string('message_fields');
             $table->timestamps();
             $table->softDeletes();
         });

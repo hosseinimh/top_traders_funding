@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import persianDate from "persian-date";
 import { slideUp } from "es6-slide-up-down";
 
 import { BASE_PATH, MESSAGE_CODES, MESSAGE_TYPES } from "../../../constants";
@@ -29,7 +28,7 @@ import {
 } from "../../../state/page/pageActions";
 import { clearLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
-import { Footer, Header, Sidebar } from "../../components";
+import { Footer, Header, Sidebar, TopLoadingBar } from "../../components";
 import { useLocale } from "../../../hooks";
 
 const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
@@ -42,7 +41,6 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
   const pageState = useSelector((state) => state.pageReducer);
   const messageState = useSelector((state) => state.messageReducer);
   const userState = useSelector((state) => state.userReducer);
-  const isPersian = general.locale === "فارسی" ? true : false;
 
   useEffect(() => {
     if (userState?.error) {
@@ -217,19 +215,13 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
   };
 
   const renderToday = () => {
-    if (isPersian) {
-      const date = new persianDate();
-      return `${date.date()} ${date.format("MMMM")} ${date.year()}`;
-    } else {
-      const date = new Date();
-      const month = date.toLocaleString("default", { month: "short" });
-      return `${date.getDate()} ${month} ${date.getFullYear()}`;
-    }
+    return utils.toLocaleDateString(new Date(), general.locale);
   };
 
   if (userState.isAuthenticated) {
     return (
       <div onClick={(e) => onAppContainerClick(e)}>
+        <TopLoadingBar />
         <div className="dashboard d-flex">
           <Sidebar />
           <div className="main">

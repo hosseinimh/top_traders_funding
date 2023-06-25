@@ -1,7 +1,8 @@
 <?php
 
+use App\Constants\NotificationSubCaegory;
+use App\Facades\Mailer;
 use App\Http\Controllers\User\UserController;
-use App\Services\Mailer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('emails/token', function () {
@@ -26,6 +27,11 @@ Route::get('emails/signup', function () {
     $username = 'hosseinimh@gmail.com';
     $password = '1';
     return view('emails.user.signup', compact('locale', 'dir', 'username', 'password'));
+});
+
+Route::get('test', function () {
+    $d = NotificationSubCaegory::toArray();
+    dd($d);
 });
 
 Route::get('panel/users/logout', [UserController::class, 'logout']);

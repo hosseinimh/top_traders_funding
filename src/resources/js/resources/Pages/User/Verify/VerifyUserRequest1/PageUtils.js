@@ -11,6 +11,7 @@ import { general } from "../../../../../constants/strings/fa";
 import { fetchAuthAction } from "../../../../../state/user/userActions";
 import {
   BASE_PATH,
+  LOCALES,
   MESSAGE_CODES,
   MESSAGE_TYPES,
 } from "../../../../../constants";
@@ -52,7 +53,7 @@ export class PageUtils extends BasePageUtils {
   }
 
   handleFetchResult(result) {
-    const isPersian = general.locale === "فارسی" ? true : false;
+    const isPersian = general.locale === LOCALES.FA ? true : false;
     this.useForm.setValue("name", result.item.name);
     this.useForm.setValue("family", result.item.family);
     this.useForm.setValue("fatherName", result.item.fatherName);

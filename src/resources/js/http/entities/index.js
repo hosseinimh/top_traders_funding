@@ -10,6 +10,7 @@ import { ChallengeLeverage } from "./ChallengeLeverage";
 import { ChallengeRule } from "./ChallengeRule";
 import { ChallengePlatform } from "./ChallengePlatform";
 import { Challenge } from "./Challenge";
+import { Notification } from "./Notification";
 import { MetaApi } from "./MetaApi";
 
 export {
@@ -25,5 +26,6 @@ export {
   ChallengeRule,
   ChallengePlatform,
   Challenge,
+  Notification,
   MetaApi,
 };

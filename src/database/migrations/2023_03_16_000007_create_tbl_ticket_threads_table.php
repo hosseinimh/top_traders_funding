@@ -20,8 +20,8 @@ class CreateTblTicketThreadsTable extends Migration
             $table->unsignedTinyInteger('admin_created');
             $table->text('content');
             $table->string('file')->nullable();
-            $table->dateTime('user_seen_time')->nullable();
-            $table->dateTime('admin_seen_time')->nullable();
+            $table->timestamp('user_seen_at')->nullable();
+            $table->timestamp('admin_seen_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

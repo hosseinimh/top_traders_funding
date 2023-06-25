@@ -9,6 +9,7 @@ use App\Http\Controllers\User\ChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController;
+use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -70,4 +71,9 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
 
     Route::post('challenges/take', [ChallengeController::class, 'take']);
     Route::post('challenges/store/{balance}/{server}/{platform}/{leverage}', [ChallengeController::class, 'store']);
+
+    Route::post('notifications', [NotificationController::class, 'index']);
+    Route::post('notifications/review', [NotificationController::class, 'review']);
+    Route::post('notifications/seen/{model}', [NotificationController::class, 'seen']);
+    Route::post('notifications/seen_review', [NotificationController::class, 'seenReview']);
 });

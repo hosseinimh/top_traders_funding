@@ -6,7 +6,7 @@ import { BlankPage, InputRow, InputTextColumn } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 import Header from "../components/Header";
-import { BASE_PATH } from "../../../../../constants";
+import { BASE_PATH, LOCALES } from "../../../../../constants";
 
 const VerifyUserRequest2 = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
@@ -14,7 +14,7 @@ const VerifyUserRequest2 = () => {
   const navigate = useNavigate();
   const { verifyUserRequestPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
-  const isPersian = general.locale === "فارسی" ? true : false;
+  const isPersian = general.locale === LOCALES.FA ? true : false;
 
   return (
     <BlankPage pageUtils={pageUtils}>

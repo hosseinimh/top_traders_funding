@@ -42,6 +42,7 @@ import TakeFreeChallenge from "./Challenge/TakeChallenge/TakeFreeChallenge";
 import Challenges from "./Challenge/Challenges";
 import EditChallenge from "./Challenge/EditChallenge";
 import AnalyzeChallenge from "./Challenge/AnalyzeChallenge";
+import Notifications from "./Notification/Notifications";
 
 export {
   Dashboard,
@@ -88,4 +89,5 @@ export {
   Challenges,
   EditChallenge,
   AnalyzeChallenge,
+  Notifications,
 };

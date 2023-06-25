@@ -49,4 +49,9 @@ class UserController extends Controller
     {
         return $this->onUpdate($this->service->changePassword($model, $request->new_password));
     }
+
+    public function verifyRequest(Model $model): HttpJsonResponse
+    {
+        return $this->onUpdate($this->service->verifyRequest($model));
+    }
 }

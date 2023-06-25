@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources\Notification;
 
-use App\Constants\Locale;
-use App\Facades\Helper;
+use App\Constants\NotificationSubCaegory;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotificationResource extends JsonResource
@@ -15,12 +14,31 @@ class NotificationResource extends JsonResource
             'type' => intval($this->type),
             'category' => intval($this->category),
             'subCategory' => intval($this->sub_category),
-            'userId' => intval($this->user_id),
+            'subCategoryTitle' => $this->getSubCategoryTitle(intval($this->sub_category)),
+            'subCategoryText' => $this->getSubCategoryText(intval($this->sub_category)),
+            'messageFields' => $this->message_fields,
             'priority' => intval($this->priority),
+            'userId' => intval($this->user_id),
             'seenAt' => $this->seen_at,
-            'seenAtLocale' => app()->getLocale() === Locale::FA ? ($this->seen_at ? Helper::faDate2($this->seen_at) : null) : $this->seen_at,
-            'createdAt' => $this->created_at,
-            'createdAtLocale' => app()->getLocale() === Locale::FA ? ($this->created_at ? Helper::faDate2($this->created_at) : null) : $this->created_at,
+            'createdAt' => date_format($this->created_at, 'Y-m-d H:i:s'),
         ];
+    }
+
+    private function getSubCategoryTitle(int $subCategory)
+    {
+        $text = __('notification.sub_category_undefined');
+        if (in_array($subCategory, NotificationSubCaegory::toArray())) {
+            $text = __('notification.sub_category_' . $subCategory);
+        }
+        return $text;
+    }
+
+    private function getSubCategoryText(int $subCategory)
+    {
+        $text = __('notification.sub_category_text_undefined');
+        if (in_array($subCategory, NotificationSubCaegory::toArray())) {
+            $text = __('notification.sub_category_text_' . $subCategory);
+        }
+        return $text;
     }
 }

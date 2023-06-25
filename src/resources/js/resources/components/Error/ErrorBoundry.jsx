@@ -2,6 +2,7 @@ import React from "react";
 
 import FallbackError from "./FallbackError";
 import { Error as HttpError } from "../../../http/entities";
+import utils from "../../../utils/Utils";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
+      utils.clearLS();
       return <FallbackError />;
     }
 

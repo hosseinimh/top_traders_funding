@@ -6,6 +6,7 @@ use App\Constants\ErrorCode;
 use App\Constants\StoragePath;
 use App\Constants\TicketStatus;
 use App\Constants\UploadedFile;
+use App\Facades\Notification;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Requests\Ticket\IndexTicketsRequest;
@@ -52,6 +53,7 @@ class TicketController extends Controller
             $response = [];
             $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
             $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
+            Notification::onTicketRegistered($thread->ticket_id, $request->subject, auth()->user()->name, auth()->user()->family, auth()->user()->username);
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
@@ -63,6 +65,7 @@ class TicketController extends Controller
             $response = [];
             $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
             $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
+            Notification::onTicketRegistered($model->id, $model->subject, auth()->user()->name, auth()->user()->family, auth()->user()->username);
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);

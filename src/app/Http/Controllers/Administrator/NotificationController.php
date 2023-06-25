@@ -20,8 +20,8 @@ class NotificationController extends Controller
 
     public function index(IndexNotificationsRequest $request, User $user): HttpJsonResponse
     {
-        $type = in_array($request->type, range(NotificationType::SYSTEM, NotificationType::USER)) ? $request->type : 0;
-        $category = in_array($request->category, range(NotificationCategory::ACCOUNT, NotificationCategory::USER_VERIFIATION)) ? $request->category : 0;
+        $type = in_array($request->type, NotificationType::toArray()) ? $request->type : 0;
+        $category = in_array($request->category, NotificationCategory::toArray()) ? $request->category : 0;
         return $this->onItems($this->service->getPaginate($user->id, $type, $category, $request->_pn, $request->_pi), $this->service->count($user->id, $type, $category));
     }
 }

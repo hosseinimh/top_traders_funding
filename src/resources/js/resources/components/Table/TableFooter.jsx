@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import utils from "../../../utils/Utils";
 import { useLocale } from "../../../hooks";
 
 const TableFooter = ({ columnsCount, pageUtils }) => {
@@ -75,7 +74,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
                   }`}
                   onClick={() => pageUtils.setPage(page)}
                 >
-                  {utils.en2faDigits(page)}
+                  {page}
                 </a>
               </li>
             ))}
@@ -100,7 +99,7 @@ const TableFooter = ({ columnsCount, pageUtils }) => {
             </li>
           </ul>
           <span className="mx-20">
-            {utils.en2faDigits(pageState?.props?.itemsCount)} {general.records}
+            {pageState?.props?.itemsCount} {general.records}
           </span>
         </nav>
       </td>

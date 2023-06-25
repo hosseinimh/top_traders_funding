@@ -13,6 +13,7 @@ use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\ErrorController;
+use App\Http\Controllers\Administrator\NotificationController;
 use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
 use App\Http\Controllers\User\AppRuleController as UserAppRuleController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\User\ChallengePlatformController as UserChallengePlatfo
 use App\Http\Controllers\User\ChallengeRuleController as UserChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController as UserChallengeServerController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\NotificationController as UserNotificationController;
 use App\Http\Controllers\User\TicketController as UserTicketController;
 use App\Http\Controllers\User\UserController as UserUserController;
 use App\Http\Resources\AppRule\AppRuleResource;
@@ -35,10 +37,12 @@ use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
 use App\Http\Resources\ChallengeRule\ChallengeRuleResource;
 use App\Http\Resources\ChallengeServer\ChallengeServerResource;
 use App\Http\Resources\Error\ErrorResource;
+use App\Http\Resources\Notification\NotificationResource;
 use App\Http\Resources\Ticket\TicketResource;
 use App\Http\Resources\User\UserResource;
 use App\Packages\Helper;
 use App\Packages\JsonResponse;
+use App\Packages\Mailer;
 use App\Packages\Notification;
 use App\Services\AppRuleService;
 use App\Services\CampaignService;
@@ -49,6 +53,7 @@ use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
 use App\Services\ErrorService;
+use App\Services\NotificationService;
 use App\Services\TicketService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\View;
@@ -62,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('helper', function () {
             return new Helper();
+        });
+
+        $this->app->bind('mailer', function () {
+            return new Mailer();
         });
 
         $this->app->bind('notification', function () {
@@ -167,6 +176,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserChallengeController::class, function ($app) {
             return new UserChallengeController(new JsonResponse(ChallengeResource::class), $app->make(ChallengeService::class));
+        });
+
+        $this->app->bind(NotificationController::class, function ($app) {
+            return new NotificationController(new JsonResponse(NotificationResource::class), $app->make(NotificationService::class));
+        });
+
+        $this->app->bind(UserNotificationController::class, function ($app) {
+            return new UserNotificationController(new JsonResponse(NotificationResource::class), $app->make(NotificationService::class));
         });
     }
 }

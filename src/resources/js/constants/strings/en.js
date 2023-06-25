@@ -3,7 +3,7 @@ export const layout = { brand: "Top Traders Funding" };
 export const general = {
   brand: "Top Traders Funding",
   brandLogo: "Top Traders Funding",
-  locale: "english",
+  locale: "en-US",
   add: "افزودن",
   edit: "ویرایش",
   remove: "حذف",
@@ -63,6 +63,19 @@ export const validation = {
   fileTypeMessage: "نوع فایل غیر مجاز است.",
 };
 
+export const date = {
+  year: "سال",
+  month: "ماه",
+  day: "روز",
+  hour: "ساعت",
+  minute: "دقیقه",
+  second: "ثانیه",
+  now: "الان",
+  ago: "پیش",
+  ahead: "بعد",
+  plural: "s",
+};
+
 export const header = {
   chooseLocale: "انتخاب زبان",
   us: "English",
@@ -72,6 +85,8 @@ export const header = {
   notifications: "اعلان‌ها",
   userNotifications: "اعلان‌های شما",
   systemNotifications: "اعلان‌های سیستمی",
+  seenReviewNotifications: "خواندن همه",
+  showNotifications: "همه اعلان‌ها",
 };
 
 export const footer = {
@@ -152,6 +167,7 @@ export const sidebar = {
   tickets: "تیکت‌های پشتیبانی",
   challengesManagement: "مدیریت چالش‌ها",
   verifyUserRequest: "احراز هویت",
+  notifications: "اعلان‌ها",
   editProfile: "ویرایش پروفایل",
   changePassword: "تغییر کلمه عبور",
   logout: "خروج از حساب کاربری",
@@ -277,6 +293,20 @@ export const verifyUserRequestsPage = {
   nameFamilyPlaceholder: "نام / نام خانوادگی",
   email: "پست الکترونیک",
   emailPlaceholder: "پست الکترونیک",
+  viewUser: "مشاهده اطلاعات",
+  name: "نام",
+  family: "نام خانوادگی",
+  fatherName: "نام پدر",
+  nationalNo: "کد ملی",
+  identityNo: "شماره شناسنامه",
+  birthDate: "تاریخ تولد",
+  gender: "جنسیت",
+  mobile: "موبایل",
+  tel: "تلفن ثابت",
+  address: "آدرس",
+  selfieFile: "پیوست سلفی",
+  identityFile: "پیوست مدرک شناسایی",
+  verify: "تایید احراز هویت",
 };
 
 export const verifyUserRequestPage = {
@@ -732,4 +762,15 @@ export const analyzeChallengePage = {
   zScore: "zScore",
   expectedProfit: "بازدهی مورد انتظار",
   expectedPipProfit: "بازدهی مورد انتظار بر اساس پیپ",
+};
+
+export const notificationsPage = {
+  _title: "اعلان‌ها",
+  _subTitle: "فهرست اعلان‌ها",
+  allNotificaions: "همه اعلان‌ها",
+  accountNotifications: "اعلان‌های حساب",
+  systemNotificaions: "اعلان‌های سیستمی",
+  title: "عنوان",
+  body: "متن",
+  date: "تاریخ",
 };

@@ -34,4 +34,9 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketThread::class, 'ticket_id')->orderBy('id', 'ASC');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'user_id');
+    }
 }

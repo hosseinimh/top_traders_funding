@@ -2,8 +2,16 @@
 
 namespace App\Constants;
 
+use ReflectionClass;
+
 abstract class Locale
 {
-    const EN = 'en';
-    const FA = 'fa';
+    const EN = 'en-US';
+    const FA = 'fa-IR';
+
+    public static function toArray()
+    {
+        $class = new ReflectionClass(__CLASS__);
+        return $class->getConstants();
+    }
 }

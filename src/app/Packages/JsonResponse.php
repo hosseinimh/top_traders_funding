@@ -5,7 +5,6 @@ namespace App\Packages;
 use App\Constants\ErrorCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class JsonResponse
 {

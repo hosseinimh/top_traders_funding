@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources\User;
 
-use App\Constants\Locale;
-use App\Facades\Helper;
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -20,8 +19,7 @@ class UserResource extends JsonResource
             'identityNo' => $this->identity_no ?? '',
             'birthDate' => $this->birth_date ?? '',
             'gender' => intval($this->gender),
-            'verifyRequest1At' => $this->verify_request_1_at,
-            'verifyRequest1AtLocale' => app()->getLocale() === Locale::FA ? ($this->verify_request_1_at ? Helper::faDate2($this->verify_request_1_at) : null) : $this->verify_request_1_at,
+            'verifyRequest1At' => $this->verify_request_1_at ? (new DateTime($this->verify_request_1_at))->format('Y-m-d H:i:s') : null,
             'mobile_country_code' => $this->mobile_country_code,
             'mobile' => $this->mobile ?? '',
             'tel_country_code' => $this->tel_country_code,
@@ -29,14 +27,11 @@ class UserResource extends JsonResource
             'address' => $this->address ?? '',
             'email' => $this->email ?? '',
             'emailToken' => $this->email_token,
-            'emailVerifiedAt' => $this->email_verified_at,
-            'emailVerifiedAtLocale' => app()->getLocale() === Locale::FA ? ($this->email_verified_at ? Helper::faDate2($this->email_verified_at) : null) : $this->email_verified_at,
+            'emailVerifiedAt' => $this->email_verified_at ? (new DateTime($this->email_verified_at))->format('Y-m-d H:i:s') : null,
             'selfieFile' => $this->selfie_file,
             'identityFile' => $this->identity_file,
-            'verifyRequest3At' => $this->verify_request_3_at,
-            'verifyRequest3AtLocale' => app()->getLocale() === Locale::FA ? ($this->verify_request_3_at ? Helper::faDate2($this->verify_request_3_at) : null) : $this->verify_request_3_at,
-            'verifiedAt' => $this->verified_at,
-            'verifiedAtLocale' => app()->getLocale() === Locale::FA ? ($this->verified_at ? Helper::faDate2($this->verified_at) : null) : $this->verified_at,
+            'verifyRequest3At' => $this->verify_request_3_at ? (new DateTime($this->verify_request_3_at))->format('Y-m-d H:i:s') : null,
+            'verifiedAt' => $this->verified_at ? (new DateTime($this->verified_at))->format('Y-m-d H:i:s') : null,
             'googleId' => $this->google_id,
             'avatar' => $this->avatar,
             'avatarOriginal' => $this->avatar_original,

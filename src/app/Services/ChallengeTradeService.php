@@ -19,7 +19,7 @@ class ChallengeTradeService
         if ($status !== 0) {
             $query = $query->where('status', $status);
         }
-        return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage',)->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+        return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage')->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
     public function store(int $challengeId, int $dealId, string $platform, int $type,  string $time, string $brokerTime, float $commission, float $swap, float $profit, string|null $symbol, int|null $magic, int|null $orderId, int|null $positionId, int|null $reason, int|null $entryType, float $volume, float $price, float $accountCurrencyExchangeRate, float $updateSequenceNumber): mixed

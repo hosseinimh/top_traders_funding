@@ -17,8 +17,8 @@ class TicketThread extends Model
         'creator_id',
         'admin_created',
         'content',
-        'user_seen_time',
-        'admin_seen_time',
+        'user_seen_at',
+        'admin_seen_at',
         'file',
     ];
 

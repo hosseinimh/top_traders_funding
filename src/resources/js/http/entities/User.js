@@ -136,6 +136,12 @@ export class User extends Entity {
     );
   }
 
+  async verifyRequest(userId) {
+    return await this.handlePost(
+      `${BASE_URL}/a/users/verify_request/${userId}`
+    );
+  }
+
   logOut() {
     utils.clearLS();
   }

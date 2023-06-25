@@ -8,6 +8,7 @@ use App\Constants\Locale;
 use App\Constants\Role;
 use App\Constants\Status;
 use App\Facades\Helper;
+use App\Facades\Mailer;
 use App\Models\User as Model;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,11 @@ class UserService
     public function getByEmail(string $email): mixed
     {
         return Model::where('email', $email)->first();
+    }
+
+    public function getAdministrator(): mixed
+    {
+        return Model::where('role', Role::ADMINISTRATOR)->where('is_active', 1)->first();
     }
 
     public function getPaginate(string|null $username, string|null $name, string|null $email, int $page, int $pageItems): mixed
@@ -102,7 +108,7 @@ class UserService
 
     public function setLocale(Model|null $model, string $locale): bool
     {
-        $locales = [Locale::EN, Locale::FA];
+        $locales = Locale::toArray();
         if (!in_array($locale, $locales) || !$model) {
             return false;
         }
@@ -183,6 +189,14 @@ class UserService
     {
         $data = [
             'verify_request_3_at' => date('Y:m:d H:i:s'),
+        ];
+        return $model->update($data);
+    }
+
+    public function verifyRequest(Model $model): mixed
+    {
+        $data = [
+            'verified_at' => date('Y:m:d H:i:s'),
         ];
         return $model->update($data);
     }
