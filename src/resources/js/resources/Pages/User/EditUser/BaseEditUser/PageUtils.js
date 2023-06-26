@@ -28,10 +28,7 @@ export class PageUtils extends BasePageUtils {
     this.initialPageProps = {
       userId,
     };
-    this.callbackUrl =
-      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-        ? `${BASE_PATH}/users`
-        : BASE_PATH;
+    this.callbackUrl = `${BASE_PATH}/users`;
   }
 
   onLoad() {
@@ -63,9 +60,7 @@ export class PageUtils extends BasePageUtils {
   }
 
   async fetchItem(id) {
-    return this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-      ? await this.entity.get(id)
-      : await this.entity.getFromUser();
+    await this.entity.get(id);
   }
 
   handleFetchResult(result) {
@@ -77,21 +72,16 @@ export class PageUtils extends BasePageUtils {
       result.item.role === USER_ROLES.ADMINISTRATOR ? "administrator" : "user",
       "on"
     );
-    if (this.userState?.user?.role === USER_ROLES.ADMINISTRATOR) {
-      this.dispatch(
-        setPageTitleAction(
-          `${this.strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
-          this.strings._subTitle
-        )
-      );
-    }
+    this.dispatch(
+      setPageTitleAction(
+        `${this.strings._title} [ ${result.item.name} ${result.item.family} - ${result.item.username} ]`,
+        this.strings._subTitle
+      )
+    );
   }
 
   async onSubmit(data) {
-    const promise =
-      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-        ? this.handleSubmit(data)
-        : this.handleSubmitFromUser(data);
+    const promise = this.handleSubmit(data);
     this.onModifySubmit(promise);
   }
 
@@ -107,9 +97,5 @@ export class PageUtils extends BasePageUtils {
       role,
       data.isActive ? 1 : 0
     );
-  }
-
-  async handleSubmitFromUser(data) {
-    return this.entity.updateFromUser(data.name, data.family);
   }
 }

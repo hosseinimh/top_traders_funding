@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'identityNo' => $this->identity_no ?? '',
             'birthDate' => $this->birth_date ?? '',
             'gender' => intval($this->gender),
+            'genderText' => $this->getGenderText(intval($this->gender)),
             'verifyRequest1At' => $this->verify_request_1_at ? (new DateTime($this->verify_request_1_at))->format('Y-m-d H:i:s') : null,
             'mobile_country_code' => $this->mobile_country_code,
             'mobile' => $this->mobile ?? '',
@@ -40,5 +41,16 @@ class UserResource extends JsonResource
             'isActive' => intval($this->is_active),
             'freeChallengeRegistered' => intval($this->free_challenge_id) > 0 ? 1 : 0,
         ];
+    }
+
+    private function getGenderText(int $gender)
+    {
+        $text = __('general.gender_undefined');
+
+        if ($gender >= 1 && $gender <= 2) {
+            $text = __('general.gender_' . $gender);
+        }
+
+        return $text;
     }
 }

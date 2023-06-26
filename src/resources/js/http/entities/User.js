@@ -64,13 +64,6 @@ export class User extends Entity {
     });
   }
 
-  async updateFromUser(name, family) {
-    return await this.handlePost(`${BASE_URL}/u/users/update`, {
-      name,
-      family,
-    });
-  }
-
   async changePassword(id, newPassword, confirmPassword) {
     return await this.handlePost(`${BASE_URL}/a/users/change_password/${id}`, {
       new_password: newPassword,

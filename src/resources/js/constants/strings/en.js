@@ -59,8 +59,8 @@ export const validation = {
     "طول فیلد :field، حداقل :digit1 و حداکثر :digit2 رقم است.",
   minNumberMessage: "حداقل مقدار فیلد :field، باید :min باشد.",
   maxNumberMessage: "حداکثر مقدار فیلد :field، باید :max باشد.",
-  fileMaxSizeMessage: "اندازه فایل بیشتر از حد مجاز است.",
-  fileTypeMessage: "نوع فایل غیر مجاز است.",
+  fileMaxSizeMessage: "اندازه :field بیشتر از حد مجاز است.",
+  fileTypeMessage: "نوع فایل بارگذاری‌شده غیر مجاز است.",
 };
 
 export const date = {
@@ -87,6 +87,25 @@ export const header = {
   systemNotifications: "اعلان‌های سیستمی",
   seenReviewNotifications: "خواندن همه",
   showNotifications: "همه اعلان‌ها",
+  username: "نام کاربری",
+  usernamePlaceholder: "نام کاربری",
+  nameFamily: "نام / نام خانوادگی",
+  nameFamilyPlaceholder: "نام / نام خانوادگی",
+  email: "پست الکترونیک",
+  emailPlaceholder: "پست الکترونیک",
+  viewUser: "مشاهده اطلاعات",
+  name: "نام",
+  family: "نام خانوادگی",
+  fatherName: "نام پدر",
+  nationalNo: "کد ملی",
+  identityNo: "شماره شناسنامه",
+  birthDate: "تاریخ تولد",
+  gender: "جنسیت",
+  mobile: "موبایل",
+  tel: "تلفن ثابت",
+  address: "آدرس",
+  selfieFile: "پیوست سلفی",
+  identityFile: "پیوست مدرک شناسایی",
 };
 
 export const footer = {
@@ -172,8 +191,8 @@ export const sidebar = {
   changePassword: "تغییر کلمه عبور",
   logout: "خروج از حساب کاربری",
   telSupport: "تلفن پشتیبانی",
-  tel: "تلفن پشتیبانی",
-  supportHours: "تلفن پشتیبانی",
+  tel: "09301234567",
+  supportHours: "پاسخگوی تلفنی 9 صبح تا 9 شب",
 };
 
 export const dashboardPage = {
@@ -454,7 +473,7 @@ export const ticketThreadsPage = {
   _subTitle: "",
   sendTicket: "ارسال تیکت",
   content: "متن",
-  file: "فایل ضمیمه",
+  file: "فایل پیوست (حداکثر حجم: 2 مگابایت)",
   closeTicket: "بستن تیکت",
   submitted: "ثبت تیکت با موفقیت انجام شد.",
 };
@@ -769,6 +788,7 @@ export const notificationsPage = {
   _subTitle: "فهرست اعلان‌ها",
   allNotificaions: "همه اعلان‌ها",
   accountNotifications: "اعلان‌های حساب",
+  ticketNotifications: "اعلان‌های تیکت پشتیبانی",
   systemNotificaions: "اعلان‌های سیستمی",
   title: "عنوان",
   body: "متن",

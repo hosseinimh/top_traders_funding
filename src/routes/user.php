@@ -30,7 +30,6 @@ Route::middleware(['cors'])->group(function () {
 Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
     Route::post('dashboard', [DashboardController::class, 'index']);
 
-    Route::post('users/update', [UserController::class, 'update']);
     Route::post('users/change_password', [UserController::class, 'changePassword']);
 
     Route::post('tickets', [TicketController::class, 'index']);

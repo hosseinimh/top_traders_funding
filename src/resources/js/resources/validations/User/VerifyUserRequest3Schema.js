@@ -1,13 +1,22 @@
 import * as yup from "yup";
 
-import { stringValidator } from "../CommonValidators";
+import { fileValidator } from "../CommonValidators";
 import { useLSLocale } from "../../../hooks";
 
 const { verifyUserRequestPage: strings } = useLSLocale();
 
 const verifyUserRequest3Schema = yup.object().shape({
-  selfieFile: stringValidator(yup.string(), strings.selfieFile, 5, 300),
-  identityFile: stringValidator(yup.string(), strings.identityFile, 5, 300),
+  selfieFile: fileValidator(yup.mixed(), strings.selfieFile, 4 * 1024 * 1024, [
+    "jpg",
+    "jpeg",
+    "png",
+  ]),
+  identityFile: fileValidator(
+    yup.mixed(),
+    strings.identityFile,
+    4 * 1024 * 1024,
+    ["jpg", "jpeg", "png"]
+  ),
 });
 
 export default verifyUserRequest3Schema;

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BlankPage } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
-import { STORAGE_PATH } from "../../../../../constants";
+import { BASE_PATH, STORAGE_PATH } from "../../../../../constants";
 import Header from "../components/Header";
 
 const VerifyUserRequest3 = () => {
@@ -15,6 +16,7 @@ const VerifyUserRequest3 = () => {
   const pageState = useSelector((state) => state.pageReducer);
   const [selfieFileSelected, setSelfieFileSelected] = useState(null);
   const [identityFileSelected, setIdentityFileSelected] = useState(null);
+  const navigate = useNavigate();
   const { verifyUserRequestPage: strings, general, validation } = useLocale();
   const pageUtils = new PageUtils();
 
@@ -34,7 +36,7 @@ const VerifyUserRequest3 = () => {
         });
         return;
       }
-      if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
         document.querySelector(".img-input.selfie").value = "";
         toast.error(validation.fileTypeMessage, {
           position: "top-right",
@@ -70,7 +72,7 @@ const VerifyUserRequest3 = () => {
         });
         return;
       }
-      if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
         document.querySelector(".img-input.identity").value = "";
         toast.error(validation.fileTypeMessage, {
           position: "top-right",
@@ -151,6 +153,24 @@ const VerifyUserRequest3 = () => {
       }, 400);
     }
   }, [identityFileSelected]);
+
+  useEffect(() => {
+    if (!userState?.user) {
+      return;
+    }
+    if (!userState?.user?.verifyRequest1At) {
+      navigate(`${BASE_PATH}/users/verify_request1`);
+      return;
+    }
+    if (!userState?.user?.emailVerifiedAt) {
+      navigate(`${BASE_PATH}/users/verify_request2`);
+      return;
+    }
+    if (userState?.user?.verifyRequest3At || userState?.user?.verifiedAt) {
+      navigate(BASE_PATH);
+      return;
+    }
+  }, [userState?.user]);
 
   return (
     <BlankPage pageUtils={pageUtils}>

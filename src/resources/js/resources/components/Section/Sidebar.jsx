@@ -131,17 +131,12 @@ function Sidebar() {
             className="logo-large dark-logo"
             src={`${
               layoutState?.theme?.name === THEMES.DARK
-                ? `${IMAGES_PATH}/logo-large.svg`
-                : `${IMAGES_PATH}/logo-large-light.svg`
+                ? `${IMAGES_PATH}/logo-dark.png`
+                : `${IMAGES_PATH}/logo-light.png`
             }`}
             alt=""
           />
-          <img
-            className="logo-large light-logo"
-            src={`${IMAGES_PATH}/logo-large-light.sv`}
-            alt=""
-          />
-          <img className="logo-sm" src={`${IMAGES_PATH}/logo-sm.svg`} alt="" />
+          <img className="logo-sm" src={`${IMAGES_PATH}/logo-sm.png`} alt="" />
         </div>
         <div className="closemenu" onClick={toggleSidebar}>
           <i className="icon-arrow-right"></i>
@@ -325,13 +320,14 @@ function Sidebar() {
             "Notifications",
             "Notifications"
           )}
-          {renderMenuItem(
-            `${BASE_PATH}/users/edit`,
-            strings.editProfile,
-            "icon-user-edit4",
-            "EditProfile",
-            "EditProfile"
-          )}
+          {userState?.user?.role === USER_ROLES.ADMINISTRATOR &&
+            renderMenuItem(
+              `${BASE_PATH}/users/edit`,
+              strings.editProfile,
+              "icon-user-edit4",
+              "EditProfile",
+              "EditProfile"
+            )}
           {renderMenuItem(
             `${BASE_PATH}/users/change_password`,
             strings.changePassword,

@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static void onLoginSuccess(User $user)
- * @method static void onTicketRegistered(int $ticketId, string $subject, string $name, string $family, string $username)
- * @method static void onTicketAnswered(int $ticketId, string $subject, int $administratorId, int $userId)
+ * @method static void onTicketUserRegistered(Ticket $ticket, User $user)
+ * @method static void onTicketThreadUserRegistered(Ticket $ticket, User $user)
+ * @method static void onTicketAdministratorRegistered(Ticket $ticket, User $administrator)
+ * @method static void onTicketThreadAdministratorRegistered(Ticket $ticket, User $administrator)
  */
 class Notification extends Facade
 {

@@ -62,7 +62,7 @@ const Tickets = ({ userId }) => {
                 !item.adminSeenAt) ||
                 (userState?.user?.role === USER_ROLES.USER &&
                   !item.userSeenAt)) && (
-                <span className="badge bg-success mx-rdir-10 text">
+                <span className="badge bg-success rounded mx-rdir-10 text pd-td-5 pd-lr-10">
                   {strings.new}
                 </span>
               )}
@@ -81,7 +81,7 @@ const Tickets = ({ userId }) => {
                       : "",
                 }}
               >
-                {`${utils.en2faDigits(item.id)}# - ${item.subject}`}
+                {`${item.id}# - ${item.subject}`}
               </span>
             </p>
           </td>

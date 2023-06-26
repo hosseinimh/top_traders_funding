@@ -67,7 +67,7 @@ class UserService
         $model = Model::create($data);
 
         if ($model) {
-            Mailer::SendUserSignupMail($email, $username, $password);
+            Mailer::sendUserSignupMail($email, $username, $password);
         }
 
         return $model ?? null;
@@ -100,7 +100,7 @@ class UserService
     {
         $code = Helper::randomString(10);
         if ($this->changePassword($user, $code)) {
-            Mailer::SendUserForgotPasswordMail($email, $user->username, $code);
+            Mailer::sendUserForgotPasswordMail($email, $user->username, $code);
             return true;
         }
         return false;
@@ -167,7 +167,7 @@ class UserService
                 'address' => $address,
             ];
             if ($model->update($data)) {
-                Mailer::SendUserEmailTokenMail($email, $token);
+                Mailer::sendUserEmailTokenMail($email, $token);
                 return true;
             }
         }

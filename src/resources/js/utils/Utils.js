@@ -100,7 +100,6 @@ function parseJwt(token) {
 }
 
 function clearLS() {
-  localStorage.removeItem("locale");
   localStorage.removeItem("theme");
   localStorage.removeItem("user");
   localStorage.removeItem("notifications");
@@ -124,7 +123,6 @@ const getLSVariable = (key) => {
 const setLSVariable = (key, value) => {
   try {
     const text = CryptoJS.AES.encrypt(value, "top_traders_funding").toString();
-
     localStorage.setItem(key, text);
   } catch (error) {}
 };

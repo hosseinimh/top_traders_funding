@@ -81,7 +81,7 @@ const VerifyUserRequests = () => {
         readonly={true}
         showLabel
         icon="icon-user"
-        value={pageState?.props?.item?.gender}
+        value={pageState?.props?.item?.genderText}
       />
       <InputTextColumn
         field="mobile"

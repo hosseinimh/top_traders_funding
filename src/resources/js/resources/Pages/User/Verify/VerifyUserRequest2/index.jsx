@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,24 @@ const VerifyUserRequest2 = () => {
   const { verifyUserRequestPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
   const isPersian = general.locale === LOCALES.FA ? true : false;
+
+  useEffect(() => {
+    if (!userState?.user) {
+      return;
+    }
+    if (!userState?.user?.verifyRequest1At) {
+      navigate(`${BASE_PATH}/users/verify_request1`);
+      return;
+    }
+    if (userState?.user?.emailVerifiedAt) {
+      if (userState?.user?.verifyRequest3At || userState?.user?.verifiedAt) {
+        navigate(BASE_PATH);
+        return;
+      }
+      navigate(`${BASE_PATH}/users/verify_request3`);
+      return;
+    }
+  }, [userState?.user]);
 
   return (
     <BlankPage pageUtils={pageUtils}>

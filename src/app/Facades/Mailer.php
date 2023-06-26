@@ -5,9 +5,9 @@ namespace App\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void SendUserSignupMail(string $email, string $username, string $password)
- * @method static void SendUserForgotPasswordMail(string $email, string $username, string $password)
- * @method static void SendUserEmailTokenMail(string $email, string $token)
+ * @method static void sendUserSignupMail(string $email, string $username, string $password)
+ * @method static void sendUserForgotPasswordMail(string $email, string $username, string $password)
+ * @method static void sendUserEmailTokenMail(string $email, string $token)
  */
 class Mailer extends Facade
 {

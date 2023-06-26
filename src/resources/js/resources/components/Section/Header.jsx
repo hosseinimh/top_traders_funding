@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import { slideDown, slideUp } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
-import { BASE_PATH, LOCALES, IMAGES_PATH, THEMES } from "../../../constants";
+import {
+  BASE_PATH,
+  LOCALES,
+  IMAGES_PATH,
+  THEMES,
+  STORAGE_PATH,
+} from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import CustomLink from "../Link/CustomLink";
@@ -15,18 +21,22 @@ import {
   setDropDownElementAction,
   setThemeAction,
   setNotificationsAction,
+  setShownModalAction,
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User, Notification } from "../../../http/entities";
 import notification from "../../../utils/Notification";
+import Modal from "../Modal/Modal";
+import InputTextColumn from "../Input/InputTextColumn";
 
 const Header = () => {
+  const layoutState = useSelector((state) => state.layoutReducer);
+  const userState = useSelector((state) => state.userReducer);
+  const [hasNotifications, setHasNotifications] = useState(false);
   const dispatch = useDispatch();
   const { header: strings, date, general } = useLocale();
-  const layoutState = useSelector((state) => state.layoutReducer);
-  const [hasNotifications, setHasNotifications] = useState(false);
-  const notificationEntity = new Notification();
   const authUser = utils.getLSUser();
+  const notificationEntity = new Notification();
 
   useEffect(() => {
     let countUnSeenUserNotifications =
@@ -45,14 +55,7 @@ const Header = () => {
   }, [layoutState?.notifications]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      getNotifications();
-    }, 10000);
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
+    getNotifications();
   }, []);
 
   const getNotifications = async () => {
@@ -65,6 +68,9 @@ const Header = () => {
           systemNotifications: result.systemNotifications,
         })
       );
+      setTimeout(() => {
+        getNotifications();
+      }, 10000);
     }
   };
 
@@ -93,6 +99,11 @@ const Header = () => {
 
   const onLogout = () => {
     dispatch(fetchLogoutAction());
+  };
+
+  const showProfileModal = (e) => {
+    e.stopPropagation();
+    dispatch(setShownModalAction("profileModal"));
   };
 
   const hideNotificationTexts = (e) => {
@@ -279,10 +290,10 @@ const Header = () => {
       <div className="submenu dropdown-list">
         <ul>
           <li>
-            <Link to={`${BASE_PATH}/users/edit`}>
+            <CustomLink onClick={(e) => showProfileModal(e)}>
               <i className="icon-personalcard"></i>
               <span className="mx-10">{strings.profile}</span>
-            </Link>
+            </CustomLink>
           </li>
           <li>
             <CustomLink onClick={onLogout} className="danger">
@@ -293,6 +304,131 @@ const Header = () => {
         </ul>
       </div>
     </div>
+  );
+
+  const renderModal = () => (
+    <Modal
+      id="profileModal"
+      title={`${userState?.user?.name} ${userState?.user?.family} - [ ${userState?.user?.username} ]`}
+    >
+      <InputTextColumn
+        field="name"
+        readonly={true}
+        strings={strings}
+        showLabel
+        icon="icon-user"
+        value={userState?.user?.name}
+      />
+      <InputTextColumn
+        field="family"
+        readonly={true}
+        strings={strings}
+        showLabel
+        icon="icon-user"
+        value={userState?.user?.family}
+      />
+      <InputTextColumn
+        field="fatherName"
+        readonly={true}
+        strings={strings}
+        showLabel
+        icon="icon-personalcard4"
+        value={userState?.user?.fatherName}
+      />
+      <InputTextColumn
+        field="nationalNo"
+        readonly={true}
+        strings={strings}
+        showLabel
+        textAlign="left"
+        icon="icon-personalcard4"
+        value={userState?.user?.nationalNo}
+      />
+      <InputTextColumn
+        field="birthDate"
+        readonly={true}
+        strings={strings}
+        showLabel
+        textAlign="left"
+        icon="icon-calendar-1"
+        value={userState?.user?.birthDate}
+      />
+      <InputTextColumn
+        field="gender"
+        readonly={true}
+        strings={strings}
+        showLabel
+        icon="icon-user"
+        value={userState?.user?.genderText}
+      />
+      <InputTextColumn
+        field="mobile"
+        readonly={true}
+        strings={strings}
+        showLabel
+        textAlign="left"
+        icon="icon-mobile"
+        value={userState?.user?.mobile}
+      />
+      <InputTextColumn
+        field="tel"
+        readonly={true}
+        strings={strings}
+        showLabel
+        textAlign="left"
+        icon="icon-call-calling"
+        value={userState?.user?.tel}
+      />
+      <InputTextColumn
+        field="email"
+        readonly={true}
+        strings={strings}
+        showLabel
+        textAlign="left"
+        icon="icon-sms4"
+        value={userState?.user?.email}
+      />
+      <InputTextColumn
+        field="address"
+        readonly={true}
+        strings={strings}
+        showLabel
+        icon="icon-location4"
+        value={userState?.user?.address}
+      />
+      <div className="d-flex d-flex-column">
+        <div className="input-info">{strings.selfieFile}</div>
+        <div className="input-img input-bg input-border mb-30">
+          {userState?.user?.selfieFile && (
+            <a
+              href={`${STORAGE_PATH}/users/selfies/${userState?.user?.selfieFile}`}
+              target="_blank"
+              rel="noReferrer"
+            >
+              <img
+                src={`${STORAGE_PATH}/users/selfies/${userState?.user?.selfieFile}`}
+              />
+            </a>
+          )}
+        </div>
+      </div>
+      <div className="d-flex d-flex-column">
+        <div className="input-info">{strings.identityFile}</div>
+        <div className="input-img input-bg input-border mb-30">
+          {userState?.user?.identityFile && (
+            <a
+              href={`${STORAGE_PATH}/users/identities/${userState?.user?.identityFile}`}
+              target="_blank"
+              rel="noReferrer"
+            >
+              <img
+                src={`${STORAGE_PATH}/users/identities/${userState?.user?.identityFile}`}
+              />
+            </a>
+          )}
+        </div>
+      </div>
+    </Modal>
   );
 
   const renderNotifications = (notifications, dataTabContent) => (
@@ -472,6 +608,7 @@ const Header = () => {
       </div>
       {renderUserDropdown()}
       <div className="navbar-actions">
+        {renderModal()}
         {renderNotificationsDropdown()}
         {renderLocalesDropdown()}
         {renderToggleTheme()}

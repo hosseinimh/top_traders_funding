@@ -57,9 +57,12 @@ const InputTextColumn = ({
     if (form && value) {
       form?.setValue(field, value);
     }
+    if (!form && value) {
+      document.querySelector(`#${field}`).value = value;
+    }
   }, [form]);
 
-  const renderInput = (field) => {
+  const renderControlledInput = (field) => {
     let style;
     if (textAlign === "left") {
       style = { ...inputStyle, textAlign, direction: "ltr" };
@@ -87,6 +90,30 @@ const InputTextColumn = ({
     );
   };
 
+  const renderUncontrolledInput = (field) => {
+    let style;
+    if (textAlign === "left") {
+      style = { ...inputStyle, textAlign, direction: "ltr" };
+    } else if (textAlign === "right") {
+      style = { ...inputStyle, textAlign, direction: "rtl" };
+    } else {
+      style = { ...inputStyle };
+    }
+    return (
+      <>
+        <input
+          id={field}
+          placeholder={placeholder}
+          disabled={layoutState?.loading || readonly}
+          type={type}
+          className={inputClassName}
+          style={{ ...style }}
+          autoComplete="false"
+        />
+      </>
+    );
+  };
+
   const renderItem = () => (
     <div className="d-flex d-flex-column">
       {showLabel && <div className="input-info">{label}</div>}
@@ -98,7 +125,7 @@ const InputTextColumn = ({
         {form && (
           <>
             <Controller
-              render={({ field }) => renderInput(field)}
+              render={({ field }) => renderControlledInput(field)}
               name={field}
               control={form?.control}
               defaultValue={defaultValue}
@@ -110,6 +137,7 @@ const InputTextColumn = ({
             )}
           </>
         )}
+        {!form && renderUncontrolledInput(field)}
       </div>
     </div>
   );

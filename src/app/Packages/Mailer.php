@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 
 class Mailer
 {
-    public function SendUserSignupMail(string $email, string $username, string $password): void
+    public function sendUserSignupMail(string $email, string $username, string $password): void
     {
         try {
             $messageFields = implode("|", [$username, $password]);
@@ -24,7 +24,7 @@ class Mailer
         }
     }
 
-    public function SendUserForgotPasswordMail(string $email, string $username, string $password): void
+    public function sendUserForgotPasswordMail(string $email, string $username, string $password): void
     {
         try {
             $messageFields = implode("|", [$username, $password]);
@@ -36,7 +36,7 @@ class Mailer
         }
     }
 
-    public function SendUserEmailTokenMail(string $email, string $token): void
+    public function sendUserEmailTokenMail(string $email, string $token): void
     {
         try {
             $messageFields = implode("|", [$email, $token]);

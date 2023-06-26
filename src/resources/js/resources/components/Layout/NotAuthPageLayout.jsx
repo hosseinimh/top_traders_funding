@@ -11,15 +11,15 @@ const NotAuthPageLayout = ({ children, pageUtils }) => {
   const locale = utils.getLSVariable("locale") ?? LOCALES.FA;
   const screen =
     locale === LOCALES.FA
-      ? `${IMAGES_PATH}/screen-rtl.png`
-      : `${IMAGES_PATH}/screen-ltr.png`;
+      ? `${IMAGES_PATH}/screen-rtl1.png`
+      : `${IMAGES_PATH}/screen-ltr1.png`;
 
   return (
     <BasePageLayout authPage={false} pageUtils={pageUtils}>
       <div className="login-page d-flex-wrap">
         <div className="login-info d-flex-column">
           <div className="logo">
-            <img src={`${IMAGES_PATH}/logo-large.svg`} alt="" />
+            <img src={`${IMAGES_PATH}/logo-dark.png`} alt="" />
           </div>
 
           <div className="img">

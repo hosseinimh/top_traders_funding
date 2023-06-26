@@ -49,6 +49,14 @@ const Notifications = () => {
       </button>
       <button
         className="checked-item tab-item tab-page-item"
+        data-tab-content={NOTIFICATION_CATEGORIES.TICKET}
+        onClick={(e) => onChangeTabContent(e)}
+        disabled={layoutState?.loading}
+      >
+        {strings.ticketNotifications}
+      </button>
+      <button
+        className="checked-item tab-item tab-page-item"
         data-tab-content={NOTIFICATION_CATEGORIES.SYSTEM}
         onClick={(e) => onChangeTabContent(e)}
         disabled={layoutState?.loading}

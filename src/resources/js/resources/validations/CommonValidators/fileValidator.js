@@ -2,6 +2,7 @@ import utils from "../../../utils/Utils";
 
 const fileValidator = (
   schema,
+  field,
   max = null,
   extensions = null,
   required = true
@@ -9,7 +10,7 @@ const fileValidator = (
   const { validation } = utils.getLSLocale();
   schema = schema
     .test({
-      message: validation.fileMaxSizeMessage + "456",
+      message: validation.fileMaxSizeMessage.replace(":field", field) + "456",
       test: (file) => {
         if (!required) {
           return true;
@@ -21,7 +22,6 @@ const fileValidator = (
     .test({
       message: validation.fileTypeMessage + "123",
       test: (file, context) => {
-        console.log(file);
         if (!required || !file) {
           return true;
         }

@@ -8,7 +8,6 @@ import {
   InputTextAreaColumn,
 } from "../../../components";
 import { LOCALES, STORAGE_PATH, TICKET_STATUSES } from "../../../../constants";
-import { BsPaperclip } from "react-icons/bs";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import utils from "../../../../utils/Utils";
@@ -23,10 +22,13 @@ const TicketThreads = () => {
 
   const onChangeFile = (e) => {
     const file = e?.target?.files[0];
-
     if (file) {
       pageUtils.onSetFile(file);
     }
+  };
+
+  const onRemoveFile = () => {
+    pageUtils.onSetFile(null);
   };
 
   return (
@@ -76,7 +78,13 @@ const TicketThreads = () => {
               className="block pd-20 pd-d-10"
               style={{
                 backgroundColor:
-                  item.adminCreated === 0 ? "" : "rgba(20,26,32,0.2)",
+                  item.adminCreated === 0
+                    ? getComputedStyle(
+                        document.documentElement
+                      ).getPropertyValue("--body")
+                    : getComputedStyle(
+                        document.documentElement
+                      ).getPropertyValue("--light-body"),
               }}
             >
               <div>
@@ -100,7 +108,13 @@ const TicketThreads = () => {
                       item?.adminCreated === 0 ? userDirection : adminDirection,
                   }}
                 >
-                  <div className="d-flex-wrap" style={{ gap: "1rem" }}>
+                  <div
+                    className="d-flex-wrap"
+                    style={{
+                      gap: "1rem",
+                      flexDirection: item.adminCreated ? "row-reverse" : "row",
+                    }}
+                  >
                     <span>{date}</span>
                     <span>{time}</span>
                   </div>
@@ -117,14 +131,19 @@ const TicketThreads = () => {
                 </p>
               </div>
               {item?.file && (
-                <div className="mt-20">
+                <div
+                  className="d-flex-wrap mt-20"
+                  style={{
+                    flexDirection: item.adminCreated ? "row-reverse" : "row",
+                  }}
+                >
                   <a
                     href={`${STORAGE_PATH}/ticket_threads/${item.file}`}
                     target={"_blank"}
                     rel="noreferrer"
                   >
-                    <BsPaperclip className="dark-warining" />
-                    <span className="dark-warining">{general.file}</span>
+                    <i className="icon-gallery4 mx-5" />
+                    <span className="primary">{general.file}</span>
                   </a>
                 </div>
               )}
@@ -140,6 +159,11 @@ const TicketThreads = () => {
             <InputFileColumn
               field="file"
               onChangeFile={(e) => onChangeFile(e)}
+              file={pageState?.props?.file}
+              showFile={true}
+              maxSize={2 * 1024 * 1024}
+              onRemoveFile={onRemoveFile}
+              accept="image/jpeg,image/png,image/gif"
             />
           </FormCard>
         )}

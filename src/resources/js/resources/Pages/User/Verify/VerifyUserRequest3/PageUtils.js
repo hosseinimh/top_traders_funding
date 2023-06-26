@@ -8,12 +8,7 @@ import { verifyUserRequest3Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
 import { fetchAuthAction } from "../../../../../state/user/userActions";
-import {
-  BASE_PATH,
-  MESSAGE_CODES,
-  MESSAGE_TYPES,
-} from "../../../../../constants";
-import { setMessageAction } from "../../../../../state/message/messageActions";
+import { BASE_PATH } from "../../../../../constants";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -77,54 +72,6 @@ export class PageUtils extends BasePageUtils {
   }
 
   async onSubmit() {
-    if (this.pageState?.props?.selfieFile?.size > 4 * 1024 * 1024) {
-      this.dispatch(
-        setMessageAction(
-          this.strings.fileMaxSizeMessage,
-          MESSAGE_TYPES.ERROR,
-          MESSAGE_CODES.FORM_INPUT_INVALID
-        )
-      );
-      return;
-    }
-    if (
-      !["image/jpeg", "image/png", "image/gif"].includes(
-        this.pageState?.props?.selfieFile?.type
-      )
-    ) {
-      this.dispatch(
-        setMessageAction(
-          this.strings.fileTypeMessage,
-          MESSAGE_TYPES.ERROR,
-          MESSAGE_CODES.FORM_INPUT_INVALID
-        )
-      );
-      return;
-    }
-    if (this.pageState?.props?.identityFile?.size > 4 * 1024 * 1024) {
-      this.dispatch(
-        setMessageAction(
-          this.strings.fileMaxSizeMessage,
-          MESSAGE_TYPES.ERROR,
-          MESSAGE_CODES.FORM_INPUT_INVALID
-        )
-      );
-      return;
-    }
-    if (
-      !["image/jpeg", "image/png", "image/gif"].includes(
-        this.pageState?.props?.identityFile?.type
-      )
-    ) {
-      this.dispatch(
-        setMessageAction(
-          this.strings.fileTypeMessage,
-          MESSAGE_TYPES.ERROR,
-          MESSAGE_CODES.FORM_INPUT_INVALID
-        )
-      );
-      return;
-    }
     this.onSendRequest();
     const result = await this.entity.verifyRequest3(
       this.pageState?.props?.selfieFile,

@@ -16,7 +16,7 @@ const addTicketSchema = yup.object().shape({
   file: fileValidator(
     yup.mixed(),
     2 * 1024 * 1024,
-    ["jpg", "jpeg", "gif"],
+    ["jpg", "jpeg", "png", "gif"],
     false
   ),
 });

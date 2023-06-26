@@ -35,4 +35,7 @@ return
         'month_10' => 'دی',
         'month_11' => 'بهمن',
         'month_12' => 'اسفند',
+        'gender_undefined' => 'نامشخص',
+        'gender_1' => 'مرد',
+        'gender_2' => 'زن',
     ];

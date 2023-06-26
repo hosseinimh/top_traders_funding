@@ -36,14 +36,6 @@ class UserController extends Controller
         return $this->onItem($this->service->get(auth()->user()->id));
     }
 
-    public function update(UpdateUserRequest $request): HttpJsonResponse
-    {
-        if (auth()->user()->verify_request_3_at) {
-            return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
-        }
-        return $this->onUpdate($this->service->update(auth()->user(), $request->name, $request->family, auth()->user()->email, Role::USER, 1));
-    }
-
     public function changePassword(ChangePasswordRequest $request): HttpJsonResponse
     {
         return $this->onUpdate($this->service->changePassword(auth()->user(), $request->new_password));
@@ -112,7 +104,7 @@ class UserController extends Controller
 
     public function verifyRequest1(VerifyUserRequest1Request $request): HttpJsonResponse
     {
-        if (auth()->user()->verify_request_3_at) {
+        if (auth()->user()->verify_request_1_at || auth()->user()->email_verified_at || auth()->user()->verify_request_3_at) {
             return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
         }
         return $this->onUpdate($this->service->verifyRequest1(auth()->user(), $request->name, $request->family, $request->father_name, $request->national_no, $request->identity_no, $request->birth_date, $request->gender));
@@ -120,7 +112,7 @@ class UserController extends Controller
 
     public function verifyRequest2(VerifyUserRequest2Request $request): HttpJsonResponse
     {
-        if (auth()->user()->verify_request_3_at) {
+        if (!auth()->user()->verify_request_1_at || auth()->user()->email_verified_at || auth()->user()->verify_request_3_at) {
             return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
         }
         return $this->onUpdate($this->service->verifyRequest2(auth()->user(), $request->mobile, $request->tel, $request->email, $request->address), ['emailVerifiedAt' => auth()->user()->email_verified_at ? true : false]);
@@ -128,7 +120,7 @@ class UserController extends Controller
 
     public function verifyEmail(VerifyEmailRequest $request): HttpJsonResponse
     {
-        if (auth()->user()->verify_request_3_at) {
+        if (!auth()->user()->verify_request_1_at || auth()->user()->email_verified_at || auth()->user()->verify_request_3_at) {
             return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
         }
         return $this->onUpdate($this->service->verifyEmail(auth()->user(), $request->t));
@@ -136,12 +128,12 @@ class UserController extends Controller
 
     public function verifyRequest3(Request $request): HttpJsonResponse
     {
-        if (auth()->user()->verify_request_3_at) {
+        if (!auth()->user()->verify_request_1_at || !auth()->user()->email_verified_at || auth()->user()->verify_request_3_at) {
             return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
         }
         $user = $this->service->get(auth()->user()->id);
-        $uploadSelfieResult = (new FileUploaderController(StoragePath::USER_SELFIE))->uploadImage($user, $request, 'selfie', 'selfie_file', 4 * 1024 * 1024);
-        $uploadIdentityResult = (new FileUploaderController(StoragePath::USER_IDENTITY))->uploadImage($user, $request, 'identity', 'identity_file', 4 * 1024 * 1024);
+        $uploadSelfieResult = (new FileUploaderController(StoragePath::USER_SELFIE))->uploadFile($user, $request, 'selfie', 'selfie_file', 4 * 1024 * 1024, ['image/jpeg', 'image/png']);
+        $uploadIdentityResult = (new FileUploaderController(StoragePath::USER_IDENTITY))->uploadFile($user, $request, 'identity', 'identity_file', 4 * 1024 * 1024, ['image/jpeg', 'image/png']);
         $uploadResult = $uploadSelfieResult === UploadedFile::OK && $uploadIdentityResult === UploadedFile::OK ? true : false;
         return $uploadResult ? $this->onUpdate($this->service->verifyRequest3(auth()->user())) : $this->onUpdate(false);
     }

@@ -35,4 +35,7 @@ return
         'month_10' => 'October',
         'month_11' => 'November',
         'month_12' => 'December',
+        'gender_undefined' => 'نامشخص',
+        'gender_1' => 'مرد',
+        'gender_2' => 'زن',
     ];

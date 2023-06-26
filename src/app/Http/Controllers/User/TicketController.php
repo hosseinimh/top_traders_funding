@@ -51,9 +51,9 @@ class TicketController extends Controller
     {
         if (($thread = $this->service->store($request->type, auth()->user()->id, auth()->user()->id, 0, $request->subject, $request->content, TicketStatus::OPEN))) {
             $response = [];
-            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
+            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/gif', 'image/png']);
             $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
-            Notification::onTicketRegistered($thread->ticket_id, $request->subject, auth()->user()->name, auth()->user()->family, auth()->user()->username);
+            Notification::onTicketUserRegistered($thread->ticket(), auth()->user());
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
@@ -63,9 +63,9 @@ class TicketController extends Controller
     {
         if (($model->user_id === auth()->user()->id) && ($model->status === TicketStatus::OPEN) && ($thread = $this->service->storeThread($model->id, auth()->user()->id, 0, $request->content))) {
             $response = [];
-            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/png']);
+            $uploadResult = (new FileUploaderController(StoragePath::TICKET_THREAD_FILE))->uploadFile($thread, $request, 'file', 'file', 2 * 1024 * 1024, ['image/jpeg', 'image/gif', 'image/png']);
             $response['uploaded'] = $uploadResult === UploadedFile::OK ? true : false;
-            Notification::onTicketRegistered($model->id, $model->subject, auth()->user()->name, auth()->user()->family, auth()->user()->username);
+            Notification::onTicketThreadUserRegistered($model, auth()->user());
             return $this->onOk($response);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);

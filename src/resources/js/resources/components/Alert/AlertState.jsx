@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { MESSAGE_TYPES } from "../../../constants";
-import utils from "../../../utils/Utils";
 
 const AlertState = () => {
   const messageState = useSelector((state) => state.messageReducer);
@@ -17,7 +16,7 @@ const AlertState = () => {
       try {
         if (messageState?.message) {
           if (messageState?.messageRender) {
-            setMessage(utils.en2faDigits(messageState?.message.toString()));
+            setMessage(messageState?.message.toString());
             setType(messageState?.messageType);
           }
         }
