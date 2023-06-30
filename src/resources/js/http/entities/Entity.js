@@ -38,7 +38,6 @@ class Entity {
       this.errorMessage = "";
       this.errorCode = 0;
       const response = await post(url, data, withCredentials);
-
       return this.handleResponse(response);
     } catch (error) {
       if (error.response) {

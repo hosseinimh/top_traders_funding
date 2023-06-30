@@ -9,31 +9,40 @@ const fileValidator = (
 ) => {
   const { validation } = utils.getLSLocale();
   schema = schema
-    .test({
-      message: validation.fileMaxSizeMessage.replace(":field", field) + "456",
-      test: (file) => {
-        if (!required) {
+    .test(
+      "required",
+      validation.requiredMessage.replace(":field", field),
+      (file) => {
+        if (!file || file.size === 0) {
+          if (!required) {
+            return true;
+          }
+          return false;
+        }
+        return true;
+      }
+    )
+    .test(
+      "fileSize",
+      validation.fileMaxSizeMessage.replace(":field", field),
+      (file) => {
+        if (file?.size < max) {
           return true;
         }
-        const isValid = file?.size < max;
-        return isValid;
-      },
-    })
-    .test({
-      message: validation.fileTypeMessage + "123",
-      test: (file, context) => {
-        if (!required || !file) {
+        return false;
+      }
+    )
+    .test("fileType", validation.fileTypeMessage, (file) => {
+      if (!extensions || extensions?.length === 0) {
+        return true;
+      }
+      try {
+        if (extensions.includes(utils.getExtension(file?.name)[0])) {
           return true;
         }
-        if (!extensions || extensions?.length === 0) {
-          return true;
-        }
-        const isValid = extensions.includes(utils.getExtension(file?.name));
-        if (!isValid) {
-          context?.createError();
-        }
-        return isValid;
-      },
+        return false;
+      } catch {}
+      return false;
     });
   return schema;
 };

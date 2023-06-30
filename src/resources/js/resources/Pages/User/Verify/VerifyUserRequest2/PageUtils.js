@@ -7,7 +7,6 @@ import { setLoadingAction } from "../../../../../state/layout/layoutActions";
 import { verifyUserRequest2Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
-import { fetchAuthAction } from "../../../../../state/user/userActions";
 import {
   BASE_PATH,
   MESSAGE_CODES,
@@ -25,6 +24,9 @@ export class PageUtils extends BasePageUtils {
     this.entity = new Entity();
     this.initialPageProps = {
       item: null,
+      sentEmail: false,
+      token: null,
+      verifyResult: null,
     };
     this.callbackUrl = `${BASE_PATH}/users/verify_request1`;
   }
@@ -37,6 +39,40 @@ export class PageUtils extends BasePageUtils {
   async fillForm() {
     try {
       this.dispatch(setLoadingAction(true));
+      if (this?.pageState?.params?.token) {
+        const verifyResult = await this.entity.verifyEmail(
+          this?.pageState?.params?.token
+        );
+        if (verifyResult) {
+          this.dispatch(
+            setPagePropsAction({
+              token: this?.pageState?.params?.token,
+              verifyResult: true,
+            })
+          );
+          this.dispatch(
+            setMessageAction(
+              this.strings.emailVerified,
+              MESSAGE_TYPES.SUCCESS,
+              MESSAGE_CODES.OK
+            )
+          );
+        } else {
+          this.dispatch(
+            setPagePropsAction({
+              token: this?.pageState?.params?.token,
+              verifyResult: false,
+            })
+          );
+          this.dispatch(
+            setMessageAction(
+              this.strings.emailNotVerified,
+              MESSAGE_TYPES.ERROR,
+              MESSAGE_CODES.CLIENT_ERROR
+            )
+          );
+        }
+      }
       const result = await this.fetchItem();
       this.navigateIfItemNotFound(result);
       this.handleFetchResult(result);
@@ -70,6 +106,7 @@ export class PageUtils extends BasePageUtils {
     if (result === null) {
       this.handleModifyResultIfNull();
     } else {
+      this.dispatch(setPagePropsAction({ sentEmail: true }));
       this.dispatch(
         setMessageAction(
           result?.emailVerifiedAt
@@ -79,7 +116,6 @@ export class PageUtils extends BasePageUtils {
           MESSAGE_CODES.OK
         )
       );
-      this.dispatch(fetchAuthAction());
     }
   }
 }

@@ -119,6 +119,12 @@ export class User extends Entity {
     });
   }
 
+  async verifyEmail(token) {
+    return await this.handlePost(`${BASE_URL}/u/users/verify_email`, {
+      token,
+    });
+  }
+
   async verifyRequest3(selfieFile, identityFile) {
     let data = new FormData();
     data.append("selfie", selfieFile);
@@ -132,6 +138,15 @@ export class User extends Entity {
   async verifyRequest(userId) {
     return await this.handlePost(
       `${BASE_URL}/a/users/verify_request/${userId}`
+    );
+  }
+
+  async rejectRequest(userId, rejectReason) {
+    return await this.handlePost(
+      `${BASE_URL}/a/users/reject_request/${userId}`,
+      {
+        reject_reason: rejectReason,
+      }
     );
   }
 

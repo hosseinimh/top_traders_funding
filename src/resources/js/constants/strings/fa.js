@@ -46,8 +46,8 @@ export const validation = {
   stringMessage: ":field تنها باید شامل حروف باشد.",
   numberMessage: ":field تنها باید شامل اعداد باشد.",
   asciiStringMessage: ":field تنها باید شامل حروف انگلیسی باشد.",
-  requiredMessage: "لطفا :field را وارد نمایید.",
-  validMessage: "لطفا :field را به درستی وارد نمایید.",
+  requiredMessage: "لطفا :field را وارد کنید.",
+  validMessage: "لطفا :field را به درستی وارد کنید.",
   notValidMessage: ":field نامعتبر است.",
   confirmedMessage: ":field با تاییدیه اش مطابقت نمی نماید.",
   minMessage: "حداقل طول فیلد :field، :min حرف است.",
@@ -87,25 +87,6 @@ export const header = {
   systemNotifications: "اعلان‌های سیستمی",
   seenReviewNotifications: "خواندن همه",
   showNotifications: "همه اعلان‌ها",
-  username: "نام کاربری",
-  usernamePlaceholder: "نام کاربری",
-  nameFamily: "نام / نام خانوادگی",
-  nameFamilyPlaceholder: "نام / نام خانوادگی",
-  email: "پست الکترونیک",
-  emailPlaceholder: "پست الکترونیک",
-  viewUser: "مشاهده اطلاعات",
-  name: "نام",
-  family: "نام خانوادگی",
-  fatherName: "نام پدر",
-  nationalNo: "کد ملی",
-  identityNo: "شماره شناسنامه",
-  birthDate: "تاریخ تولد",
-  gender: "جنسیت",
-  mobile: "موبایل",
-  tel: "تلفن ثابت",
-  address: "آدرس",
-  selfieFile: "پیوست سلفی",
-  identityFile: "پیوست مدرک شناسایی",
 };
 
 export const footer = {
@@ -114,15 +95,14 @@ export const footer = {
 };
 
 export const notAuthPages = {
-  _title: "حساب اینترنتی مطمئن برای نگهداری دارایی شما",
-  _subTitle:
-    "با سامانه کیف پول من خرید و فروش و دارایی های دیجیتال خود را به آسانی مدیریت کنید.",
+  _title: "Top Traders Funding",
+  _subTitle: "Don't worry about capital, enjoy trading!",
 };
 
 export const loginUserPage = {
   _title: "ورود به حساب کاربری",
   _subTitle:
-    "برای استفاده از امکانات Top Traders Funding وارد حساب کاربری خود شوید.",
+    "جهت استفاده از امکانات Top Traders Funding وارد حساب کاربری خود شوید.",
   username: "نام کاربری",
   usernamePlaceholder: "نام کاربری",
   password: "کلمه عبور",
@@ -137,7 +117,7 @@ export const loginUserPage = {
 
 export const forgotPasswordPage = {
   _title: "بازیابی کلمه عبور",
-  _subTitle: "برای بازیابی کلمه عبور، لطفا پست الکترونیک خود را وارد نمایید.",
+  _subTitle: "جهت بازیابی کلمه عبور، لطفا پست الکترونیک خود را وارد کنید.",
   email: "پست الکترونیک",
   emailPlaceholder: "پست الکترونیک",
   submit: "بازیابی کلمه عبور",
@@ -148,7 +128,7 @@ export const forgotPasswordPage = {
 export const signupPage = {
   _title: "ثبت نام",
   _subTitle:
-    "برای افتتاح حساب در Top Traders Funding، لطفا مشخصات خود را وارد نمایید.",
+    "برای افتتاح حساب در Top Traders Funding، لطفا مشخصات خود را وارد کنید.",
   username: "نام کاربری",
   usernamePlaceholder: "نام کاربری",
   email: "پست الکترونیک",
@@ -202,9 +182,9 @@ export const dashboardPage = {
   challenges: "چالش‌های برگزارشده",
   wallet: "ارزش کل دارایی",
   notVerifiedInfo:
-    "احراز هویت شما تکمیل نیست. جهت استفاده از تمامی امکانات، لطفا هویت خود را احراز نمایید.",
+    "احراز هویت شما تکمیل نیست. جهت استفاده از تمامی امکانات، لطفا هویت خود را احراز کنید.",
   verifingInfo:
-    "اطلاعات هویتی شما تکمیل شده است. پس از تایید اطلاعات، می‌توانید در چالش شرکت نمایید.",
+    "اطلاعات هویتی شما تکمیل شده است. پس از تایید اطلاعات، می‌توانید در چالش شرکت کنید.",
   verifiedInfo: "احراز هویت شما انجام شده است.",
   verify: "تکمیل ثبت‌نام",
   verified: "مشاهده اطلاعات",
@@ -232,7 +212,7 @@ export const usersPage = {
 
 export const addUserPage = {
   _title: "افزودن کاربر",
-  _subTitle: "مشخصات کاربر جدید را وارد نمایید.",
+  _subTitle: "مشخصات کاربر جدید را وارد کنید.",
   username: "نام کاربری",
   usernamePlaceholder: "نام کاربری",
   password: "کلمه عبور",
@@ -250,12 +230,12 @@ export const addUserPage = {
   type: "نوع کاربری",
   administrator: "مدیر",
   user: "کاربر",
-  submitted: "افزودن کاربر با موفقیت انجام گردید.",
+  submitted: "افزودن کاربر با موفقیت انجام شد.",
 };
 
 export const editUserPage = {
   _title: "ویرایش کاربر",
-  _subTitle: "مشخصات کاربر تعریف‌شده را ویرایش نمایید.",
+  _subTitle: "مشخصات کاربر تعریف شده را ویرایش کنید.",
   name: "نام",
   namePlaceholder: "نام",
   family: "نام خانوادگی",
@@ -268,12 +248,12 @@ export const editUserPage = {
   administrator: "مدیر",
   user: "کاربر",
   editNotAllowed: "امکان ویرایش اطلاعات پس از تکمیل احراز هویت وجود ندارد.",
-  submitted: "ویرایش کاربر با موفقیت انجام گردید.",
+  submitted: "ویرایش کاربر با موفقیت انجام شد.",
 };
 
 export const editProfilePage = {
   _title: "ویرایش پروفایل",
-  _subTitle: "مشخصات پروفایل خود را ویرایش نمایید.",
+  _subTitle: "مشخصات پروفایل خود را ویرایش کنید.",
   name: "نام",
   namePlaceholder: "نام",
   family: "نام خانوادگی",
@@ -285,22 +265,46 @@ export const editProfilePage = {
   type: "نوع کاربری",
   administrator: "مدیر",
   user: "کاربر",
-  submitted: "ویرایش کاربر با موفقیت انجام گردید.",
+  submitted: "ویرایش کاربر با موفقیت انجام شد.",
 };
 
 export const changePasswordUserPage = {
   _title: "تغییر کلمه عبور",
-  _subTitle: "لطفا کلمه عبور مورد نظر خود را وارد نمایید.",
+  _subTitle: "لطفا کلمه عبور مورد نظر خود را وارد کنید.",
   newPassword: "کلمه عبور جدید",
-  newPasswordPlaceholder: "کلمه عبور جدید",
+  newPasswordPlaceholder: "کلمه عبور",
   confirmPassword: "تایید کلمه عبور جدید",
-  confirmPasswordPlaceholder: "تایید کلمه عبور جدید",
-  submitted: "تغییر کلمه عبور با موفقیت انجام گردید.",
+  confirmPasswordPlaceholder: "کلمه عبور",
+  submitted: "تغییر کلمه عبور با موفقیت انجام شد.",
+};
+
+export const profileModal = {
+  usernameModal: "نام کاربری",
+  emailModal: "پست الکترونیک",
+  nameModal: "نام",
+  familyModal: "نام خانوادگی",
+  fatherNameModal: "نام پدر",
+  nationalNoModal: "کد ملی",
+  identityNoModal: "شماره شناسنامه",
+  birthDateModal: "تاریخ تولد",
+  genderModal: "جنسیت",
+  mobileModal: "موبایل",
+  telModal: "تلفن ثابت",
+  addressModal: "آدرس",
+  selfieFileModal: "پیوست سلفی",
+  identityFileModal: "پیوست مدرک شناسایی",
+  notUploaded: "بارگذاری نشده است.",
 };
 
 export const genderTypes = {
   male: "مرد",
   female: "زن",
+};
+
+export const userVerificationRejectTypes = {
+  imageNotValid: "تصویر پیوست نامعتبر است.",
+  imageNotClear: "تصویر پیوست واضح و خوانا نیست.",
+  imageNotMatch: "مضخصات هویتی با تصویر پیوست هم‌خوانی ندارد.",
 };
 
 export const verifyUserRequestsPage = {
@@ -325,12 +329,16 @@ export const verifyUserRequestsPage = {
   address: "آدرس",
   selfieFile: "پیوست سلفی",
   identityFile: "پیوست مدرک شناسایی",
+  verified: "تایید",
+  rejected: "عدم تایید",
+  rejectReason: "علت عدم تایید",
   verify: "تایید احراز هویت",
+  reject: "رد درخواست احراز هویت",
 };
 
 export const verifyUserRequestPage = {
   _title: "احراز هویت",
-  _subTitle: "لطفا اطلاعات هویتی خود را وارد نمایید.",
+  _subTitle: "لطفا اطلاعات هویتی خود را وارد کنید.",
   verified: "احراز هویت تکمیل شده است.",
   verifing: "اطلاعات هویتی شما تکمیل شده است. لطفا منتظر تایید اطلاعات باشید.",
   notVerified: "احراز هویت تکمیل نشده است.",
@@ -350,7 +358,7 @@ export const verifyUserRequestPage = {
   birthDate: "تاریخ تولد",
   birthDatePlaceholder: "تاریخ تولد",
   gender: "جنسیت",
-  submitted1: "اطلاعات فردی با موفقیت ثبت گردید.",
+  submitted1: "اطلاعات فردی با موفقیت ثبت شد.",
   title2: "اطلاعات تماس",
   mobile: "موبایل",
   mobilePlaceholder: "موبایل",
@@ -361,8 +369,11 @@ export const verifyUserRequestPage = {
   address: "آدرس",
   addressPlaceholder: "آدرس",
   submitted2:
-    "اطلاعات تماس با موفقیت ثبت گردید. لطفا با مراجعه به صندوق پست الکترونیک خود، آدرس پست الکترونیک را تایید نمایید.",
-  submitted2EmailVerified: "اطلاعات تماس با موفقیت ثبت گردید.",
+    "اطلاعات تماس با موفقیت ثبت شد. لطفا با مراجعه به صندوق پست الکترونیک خود، آدرس پست الکترونیک را تایید کنید.",
+  submitted2EmailVerified: "اطلاعات تماس با موفقیت ثبت شد.",
+  emailVerified:
+    "پست الکترونیک شما تایید شد. لطفا جهت بارگذاری مدارک به مرحله بعد بروید.",
+  emailNotVerified: "پست الکترونیک شما تایید نشد. لطفا دوباره تلاش کنید.",
   title3: "بارگذاری مدارک",
   title4: "تصویر سلفی",
   selfieFile: "پیوست سلفی",
@@ -384,7 +395,7 @@ export const verifyUserRequestPage = {
     "عکسی از مدرک شناسایی خود مطابق با تصویر نمونه، تهیه و ارسال کنید.",
   identityFileDescription2: "تصویر باید طوری باشد که مدرک شناسایی خوانا باشد.",
   submitted:
-    "اطلاعات هویتی با موفقیت ثبت گردید. پس از تایید اطلاعات، می‌توانید در چالش شرکت نمایید.",
+    "اطلاعات هویتی با موفقیت ثبت شد. پس از تایید اطلاعات، می‌توانید در چالش شرکت کنید.",
   next: "مرحله بعد",
 };
 
@@ -398,22 +409,22 @@ export const appRulesPage = {
 
 export const addAppRulePage = {
   _title: "افزودن قانون",
-  _subTitle: "قانون جدید را وارد نمایید.",
-  title: "عنوان",
-  titlePlaceholder: "عنوان",
-  body: "متن",
-  bodyPlaceholder: "متن",
-  submitted: "افزودن قانون با موفقیت انجام گردید.",
+  _subTitle: "قانون جدید را وارد کنید.",
+  title: "title",
+  titlePlaceholder: "title",
+  body: "body",
+  bodyPlaceholder: "body",
+  submitted: "افزودن قانون با موفقیت انجام شد.",
 };
 
 export const editAppRulePage = {
   _title: "ویرایش قانون",
-  _subTitle: "قانون تعریف‌شده را ویرایش نمایید.",
+  _subTitle: "قانون تعریف شده را ویرایش کنید.",
   title: "عنوان",
   titlePlaceholder: "عنوان",
   body: "متن",
   bodyPlaceholder: "متن",
-  submitted: "ویرایش قانون با موفقیت انجام گردید.",
+  submitted: "ویرایش قانون با موفقیت انجام شد.",
 };
 
 export const campaignsPage = {
@@ -428,22 +439,22 @@ export const campaignsPage = {
 
 export const addCampaignPage = {
   _title: "افزودن کمپین",
-  _subTitle: "مشخصات کمپین جدید را وارد نمایید.",
+  _subTitle: "مشخصات کمپین جدید را وارد کنید.",
   title: "عنوان",
   titlePlaceholder: "عنوان",
   status: "وضعیت",
   isActive: "فعال",
-  submitted: "افزودن کمپین با موفقیت انجام گردید.",
+  submitted: "افزودن کمپین با موفقیت انجام شد.",
 };
 
 export const editCampaignPage = {
   _title: "ویرایش کمپین",
-  _subTitle: "مشخصات کمپین تعریف‌شده را ویرایش نمایید.",
+  _subTitle: "مشخصات کمپین تعریف شده را ویرایش کنید.",
   title: "عنوان",
   titlePlaceholder: "عنوان",
   status: "وضعیت",
   isActive: "فعال",
-  submitted: "ویرایش کمپین با موفقیت انجام گردید.",
+  submitted: "ویرایش کمپین با موفقیت انجام شد.",
 };
 
 export const ticketTypes = {
@@ -500,26 +511,26 @@ export const challengeServersPage = {
 
 export const addChallengeServerPage = {
   _title: "افزودن سرور",
-  _subTitle: "سرور جدید را وارد نمایید.",
+  _subTitle: "مشخصات سرور جدید را وارد کنید.",
   name: "نام سرور",
   namePlaceholder: "نام سرور",
   title: "عنوان",
   titlePlaceholder: "عنوان",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "افزودن سرور با موفقیت انجام گردید.",
+  submitted: "افزودن سرور با موفقیت انجام شد.",
 };
 
 export const editChallengeServerPage = {
   _title: "ویرایش سرور",
-  _subTitle: "مشخصات سرور را ویرایش نمایید.",
+  _subTitle: "مشخصات سرور را ویرایش کنید.",
   name: "نام سرور",
   namePlaceholder: "نام سرور",
   title: "عنوان",
   titlePlaceholder: "عنوان",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "ویرایش سرور با موفقیت انجام گردید.",
+  submitted: "ویرایش سرور با موفقیت انجام شد.",
 };
 
 export const challengeBalancesPage = {
@@ -531,22 +542,22 @@ export const challengeBalancesPage = {
 
 export const addChallengeBalancePage = {
   _title: "افزودن بالانس اکانت‌",
-  _subTitle: "بالانس اکانت‌ جدید را وارد نمایید.",
+  _subTitle: "بالانس اکانت‌ جدید را وارد کنید.",
   value: "ارزش",
   valuePlaceholder: "ارزش",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "افزودن بالانس اکانت‌ با موفقیت انجام گردید.",
+  submitted: "افزودن بالانس اکانت‌ با موفقیت انجام شد.",
 };
 
 export const editChallengeBalancePage = {
   _title: "ویرایش بالانس اکانت‌",
-  _subTitle: "مشخصات بالانس اکانت‌ را ویرایش نمایید.",
+  _subTitle: "مشخصات بالانس اکانت‌ را ویرایش کنید.",
   value: "ارزش",
   valuePlaceholder: "ارزش",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "ویرایش بالانس اکانت‌ با موفقیت انجام گردید.",
+  submitted: "ویرایش بالانس اکانت‌ با موفقیت انجام شد.",
 };
 
 export const challengeLeveragesPage = {
@@ -558,22 +569,22 @@ export const challengeLeveragesPage = {
 
 export const addChallengeLeveragePage = {
   _title: "افزودن اهرم",
-  _subTitle: "اهرم جدید را وارد نمایید.",
+  _subTitle: "اهرم جدید را وارد کنید.",
   value: "اهرم",
   valuePlaceholder: "اهرم",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "افزودن اهرم با موفقیت انجام گردید.",
+  submitted: "افزودن اهرم با موفقیت انجام شد.",
 };
 
 export const editChallengeLeveragePage = {
   _title: "ویرایش اهرم",
-  _subTitle: "اهرم تعریف شده را ویرایش نمایید.",
+  _subTitle: "اهرم تعریف شده را ویرایش کنید.",
   value: "اهرم",
   valuePlaceholder: "اهرم",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "ویرایش اهرم با موفقیت انجام گردید.",
+  submitted: "ویرایش اهرم با موفقیت انجام شد.",
 };
 
 export const challengeRulesPage = {
@@ -594,7 +605,7 @@ export const challengeRulesPage = {
 
 export const editChallengeRulePage = {
   _title: "ویرایش اهرم",
-  _subTitle: "قوانین چالش تعریف شده را ویرایش نمایید.",
+  _subTitle: "قوانین چالش تعریف شده را ویرایش کنید.",
   duration1: "مدت زمان	(مرحله اول)",
   duration1Placeholder: "مدت زمان",
   duration2: "مدت زمان	(مرحله دوم)",
@@ -635,7 +646,7 @@ export const editChallengeRulePage = {
   tradeDaysRealPlaceholder: "حداقل روزهای ترید",
   tradeDaysFree: "حداقل روزهای ترید (چالش رایگان)",
   tradeDaysFreePlaceholder: "حداقل روزهای ترید",
-  submitted: "ویرایش قوانین چالش با موفقیت انجام گردید.",
+  submitted: "ویرایش قوانین چالش با موفقیت انجام شد.",
 };
 
 export const challengePlatformsPage = {
@@ -647,22 +658,22 @@ export const challengePlatformsPage = {
 
 export const addChallengePlatformPage = {
   _title: "افزودن پلتفرم",
-  _subTitle: "پلتفرم جدید را وارد نمایید.",
+  _subTitle: "مشخصات پلتفرم جدید را وارد کنید.",
   value: "پلتفرم",
   valuePlaceholder: "پلتفرم",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "افزودن پلتفرم با موفقیت انجام گردید.",
+  submitted: "افزودن پلتفرم با موفقیت انجام شد.",
 };
 
 export const editChallengePlatformPage = {
   _title: "ویرایش پلتفرم",
-  _subTitle: "پلتفرم تعریف شده را ویرایش نمایید.",
+  _subTitle: "پلتفرم تعریف شده را ویرایش کنید.",
   value: "پلتفرم",
   valuePlaceholder: "پلتفرم",
   free: "استفاده در چالش رایگان",
   real: "استفاده در چالش غیر رایگان",
-  submitted: "ویرایش پلتفرم با موفقیت انجام گردید.",
+  submitted: "ویرایش پلتفرم با موفقیت انجام شد.",
 };
 
 export const takeChallenge = {
@@ -688,16 +699,16 @@ export const takeChallenge = {
 
 export const takeFreeChallengePage = {
   _title: "شرکت در چالش رایگان",
-  _subTitle: "لطفا اطلاعات زیر را تکمیل نمایید.",
+  _subTitle: "لطفا اطلاعات زیر را تکمیل کنید.",
   submitted:
-    "ثبت‌نام در چالش با موفقیت انجام گردید. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد گردید.",
+    "ثبت‌نام در چالش با موفقیت انجام شد. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد شد.",
 };
 
 export const takeRealChallengePage = {
   _title: "شرکت در چالش جدید",
-  _subTitle: "لطفا اطلاعات زیر را تکمیل نمایید.",
+  _subTitle: "لطفا اطلاعات زیر را تکمیل کنید.",
   submitted:
-    "ثبت‌نام در چالش با موفقیت انجام گردید. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد گردید.",
+    "ثبت‌نام در چالش با موفقیت انجام شد. ظرف حداکثر 10 دقیقه حساب شما فعال خواهد شد.",
 };
 
 export const challengeStatuses = {
@@ -740,7 +751,7 @@ export const editChallengePage = {
   equity: "موجودی",
   server: "سرور",
   level: "چالش",
-  submitted: "ویرایش مشخصات چالش با موفقیت انجام گردید.",
+  submitted: "ویرایش مشخصات چالش با موفقیت انجام شد.",
 };
 
 export const analyzeChallengePage = {
@@ -749,7 +760,7 @@ export const analyzeChallengePage = {
   accountNo: "شماره حساب",
   platform: "پلتفرم",
   status: "وضعیت",
-  accountType: "نوع اکانت",
+  accountType: "Account type",
   chart: "نمودار",
   balanceStartDay: "بالانس ابتدای روز",
   totalProfit: "سود ایجادشده",

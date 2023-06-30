@@ -21,6 +21,36 @@ class Notification
         $service->store($user->id, NotificationType::USER, NotificationCategory::ACCOUNT, NotificationSubCaegory::LOGIN_SUCCEED, $messageFields, NotificationPriority::NORMAL, date('Y-m-d H:i:s'));
     }
 
+    public function onUserEmailVerified(User $user): void
+    {
+        $messageFields = '';
+        $service = new NotificationService();
+        $service->store($user->id, NotificationType::USER, NotificationCategory::ACCOUNT, NotificationSubCaegory::USER_EMAIL_VERIFIED, $messageFields, NotificationPriority::NORMAL, date('Y-m-d H:i:s'));
+    }
+
+    public function onUserVerificationRequested(User $user): void
+    {
+        $userService = new UserService();
+        $administrator = $userService->getAdministrator();
+        $messageFields = implode("|", [$user->name, $user->family, $user->username]);
+        $service = new NotificationService();
+        $service->store($administrator->id, NotificationType::USER, NotificationCategory::ACCOUNT, NotificationSubCaegory::USER_VERIFICATION_REQUESTED, $messageFields, NotificationPriority::NORMAL);
+    }
+
+    public function onUserVerificationVerified(User $administrator, User $user): void
+    {
+        $messageFields = implode("|", [$administrator->id]);
+        $service = new NotificationService();
+        $service->store($user->id, NotificationType::USER, NotificationCategory::ACCOUNT, NotificationSubCaegory::USER_VERIFICATION_VERIFIED, $messageFields, NotificationPriority::NORMAL);
+    }
+
+    public function onUserVerificationRejected(User $administrator, User $user, int $rejectReason): void
+    {
+        $messageFields = implode("|", [$administrator->id, $rejectReason]);
+        $service = new NotificationService();
+        $service->store($user->id, NotificationType::USER, NotificationCategory::ACCOUNT, NotificationSubCaegory::USER_VERIFICATION_REJECTED, $messageFields, NotificationPriority::NORMAL);
+    }
+
     public function onTicketUserRegistered(Ticket $ticket, User $user): void
     {
         $userService = new UserService();

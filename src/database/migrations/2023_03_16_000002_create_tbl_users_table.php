@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('identity_file')->nullable();
             $table->timestamp('verify_request_3_at')->nullable();
             $table->timestamp('verified_at')->nullable();
+            $table->unsignedTinyInteger('reject_reason')->default(0);
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_original')->nullable();

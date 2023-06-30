@@ -4,13 +4,7 @@ import { Link } from "react-router-dom";
 import { slideDown, slideUp } from "es6-slide-up-down";
 import { easeOutQuint } from "es6-easings";
 
-import {
-  BASE_PATH,
-  LOCALES,
-  IMAGES_PATH,
-  THEMES,
-  STORAGE_PATH,
-} from "../../../constants";
+import { BASE_PATH, LOCALES, IMAGES_PATH, THEMES } from "../../../constants";
 import { fetchLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
 import CustomLink from "../Link/CustomLink";
@@ -26,13 +20,12 @@ import {
 import { useLocale } from "../../../hooks";
 import { User, Notification } from "../../../http/entities";
 import notification from "../../../utils/Notification";
-import Modal from "../Modal/Modal";
-import InputTextColumn from "../Input/InputTextColumn";
+import ProfileModal from "../Modal/ProfileModal";
 
 const Header = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
-  const userState = useSelector((state) => state.userReducer);
-  const [hasNotifications, setHasNotifications] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const dispatch = useDispatch();
   const { header: strings, date, general } = useLocale();
   const authUser = utils.getLSUser();
@@ -47,11 +40,40 @@ const Header = () => {
       layoutState?.notifications?.systemNotifications?.filter(
         (item) => !item.seenAt
       ).length;
-    setHasNotifications(
+    setHasNewNotifications(
       countUnSeenUserNotifications + countUnSeenSystemNotifications > 0
         ? true
         : false
     );
+    const userNotifications =
+      layoutState?.notifications?.userNotifications?.map((item) => {
+        let timespan = "";
+        let relativeDate = utils.relativeDate(item.createdAt);
+        if (relativeDate.amount === 0) {
+          timespan = date.now;
+        } else {
+          timespan = `${relativeDate.amount} ${date[relativeDate.format]}${
+            relativeDate.amount > 1 ? date.plural : ""
+          } ${relativeDate.isBefore ? date.ago : date.ahead}`;
+        }
+        item.timespan = timespan;
+        return item;
+      });
+    const systemNotifications =
+      layoutState?.notifications?.systemNotifications?.map((item) => {
+        let timespan = "";
+        let relativeDate = utils.relativeDate(item.createdAt);
+        if (relativeDate.amount === 0) {
+          timespan = date.now;
+        } else {
+          timespan = `${relativeDate.amount} ${date[relativeDate.format]}${
+            relativeDate.amount > 1 ? date.plural : ""
+          } ${relativeDate.isBefore ? date.ago : date.ahead}`;
+        }
+        item.timespan = timespan;
+        return item;
+      });
+    setNotifications({ userNotifications, systemNotifications });
   }, [layoutState?.notifications]);
 
   useEffect(() => {
@@ -63,7 +85,6 @@ const Header = () => {
     if (result) {
       dispatch(
         setNotificationsAction({
-          ...layoutState.notifications,
           userNotifications: result.userNotifications,
           systemNotifications: result.systemNotifications,
         })
@@ -152,7 +173,6 @@ const Header = () => {
         item.seenAt = seen ? item.seenAt : Date.now();
         dispatch(
           setNotificationsAction({
-            ...layoutState.notifications,
             userNotifications: layoutState.notifications.userNotifications,
           })
         );
@@ -170,7 +190,7 @@ const Header = () => {
   };
 
   const onSeenReview = () => {
-    if (!hasNotifications) {
+    if (!hasNewNotifications) {
       return;
     }
     const userNotifications =
@@ -185,7 +205,6 @@ const Header = () => {
       }));
     dispatch(
       setNotificationsAction({
-        ...layoutState.notifications,
         userNotifications,
         systemNotifications,
       })
@@ -221,18 +240,6 @@ const Header = () => {
         return;
       }
     }
-    layoutState?.notifications?.userNotifications?.forEach((item) => {
-      let timespan = "";
-      let relativeDate = utils.relativeDate(item.createdAt);
-      if (relativeDate.amount === 0) {
-        timespan = date.now;
-      } else {
-        timespan = `${relativeDate.amount} ${date[relativeDate.format]}${
-          relativeDate.amount > 1 ? date.plural : ""
-        } ${relativeDate.isBefore ? date.ago : date.ahead}`;
-      }
-      item.timespan = timespan;
-    });
     dispatch(setDropDownElementAction(element));
     slideDown(element, {
       duration: 400,
@@ -306,131 +313,6 @@ const Header = () => {
     </div>
   );
 
-  const renderModal = () => (
-    <Modal
-      id="profileModal"
-      title={`${userState?.user?.name} ${userState?.user?.family} - [ ${userState?.user?.username} ]`}
-    >
-      <InputTextColumn
-        field="name"
-        readonly={true}
-        strings={strings}
-        showLabel
-        icon="icon-user"
-        value={userState?.user?.name}
-      />
-      <InputTextColumn
-        field="family"
-        readonly={true}
-        strings={strings}
-        showLabel
-        icon="icon-user"
-        value={userState?.user?.family}
-      />
-      <InputTextColumn
-        field="fatherName"
-        readonly={true}
-        strings={strings}
-        showLabel
-        icon="icon-personalcard4"
-        value={userState?.user?.fatherName}
-      />
-      <InputTextColumn
-        field="nationalNo"
-        readonly={true}
-        strings={strings}
-        showLabel
-        textAlign="left"
-        icon="icon-personalcard4"
-        value={userState?.user?.nationalNo}
-      />
-      <InputTextColumn
-        field="birthDate"
-        readonly={true}
-        strings={strings}
-        showLabel
-        textAlign="left"
-        icon="icon-calendar-1"
-        value={userState?.user?.birthDate}
-      />
-      <InputTextColumn
-        field="gender"
-        readonly={true}
-        strings={strings}
-        showLabel
-        icon="icon-user"
-        value={userState?.user?.genderText}
-      />
-      <InputTextColumn
-        field="mobile"
-        readonly={true}
-        strings={strings}
-        showLabel
-        textAlign="left"
-        icon="icon-mobile"
-        value={userState?.user?.mobile}
-      />
-      <InputTextColumn
-        field="tel"
-        readonly={true}
-        strings={strings}
-        showLabel
-        textAlign="left"
-        icon="icon-call-calling"
-        value={userState?.user?.tel}
-      />
-      <InputTextColumn
-        field="email"
-        readonly={true}
-        strings={strings}
-        showLabel
-        textAlign="left"
-        icon="icon-sms4"
-        value={userState?.user?.email}
-      />
-      <InputTextColumn
-        field="address"
-        readonly={true}
-        strings={strings}
-        showLabel
-        icon="icon-location4"
-        value={userState?.user?.address}
-      />
-      <div className="d-flex d-flex-column">
-        <div className="input-info">{strings.selfieFile}</div>
-        <div className="input-img input-bg input-border mb-30">
-          {userState?.user?.selfieFile && (
-            <a
-              href={`${STORAGE_PATH}/users/selfies/${userState?.user?.selfieFile}`}
-              target="_blank"
-              rel="noReferrer"
-            >
-              <img
-                src={`${STORAGE_PATH}/users/selfies/${userState?.user?.selfieFile}`}
-              />
-            </a>
-          )}
-        </div>
-      </div>
-      <div className="d-flex d-flex-column">
-        <div className="input-info">{strings.identityFile}</div>
-        <div className="input-img input-bg input-border mb-30">
-          {userState?.user?.identityFile && (
-            <a
-              href={`${STORAGE_PATH}/users/identities/${userState?.user?.identityFile}`}
-              target="_blank"
-              rel="noReferrer"
-            >
-              <img
-                src={`${STORAGE_PATH}/users/identities/${userState?.user?.identityFile}`}
-              />
-            </a>
-          )}
-        </div>
-      </div>
-    </Modal>
-  );
-
   const renderNotifications = (notifications, dataTabContent) => (
     <div
       className={`tab-content ${dataTabContent} ${
@@ -472,7 +354,7 @@ const Header = () => {
       id="notifications-menu"
       onClick={(e) => toggleNotificationsDropdown(e)}
     >
-      {hasNotifications && <div className="dot-icon bg-success"></div>}
+      {hasNewNotifications && <div className="dot-icon bg-success"></div>}
       <i className="icon-notification-bing"></i>
       <span>{strings.notifications}</span>
       <div className="sub-box tab-container submenu submenu-mid">
@@ -494,11 +376,11 @@ const Header = () => {
             </div>
           </div>
           {renderNotifications(
-            layoutState?.notifications?.userNotifications,
+            notifications?.userNotifications,
             "user-notifications"
           )}
           {renderNotifications(
-            layoutState?.notifications?.systemNotifications,
+            notifications?.systemNotifications,
             "system-notifications"
           )}
         </div>
@@ -608,7 +490,7 @@ const Header = () => {
       </div>
       {renderUserDropdown()}
       <div className="navbar-actions">
-        {renderModal()}
+        <ProfileModal />
         {renderNotificationsDropdown()}
         {renderLocalesDropdown()}
         {renderToggleTheme()}

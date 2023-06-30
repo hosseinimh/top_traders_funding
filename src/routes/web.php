@@ -1,7 +1,7 @@
 <?php
 
 use App\Constants\NotificationSubCaegory;
-use App\Facades\Mailer;
+use App\Facades\AppMailer;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +10,7 @@ Route::get('emails/token', function () {
     $dir = 'rtl';
     $token = 'jlkj1jlj1233';
     $email = 'hosseinimh@gmail.com';
-    Mailer::SendUserEmailTokenMail($email, $token);
+    AppMailer::sendUserEmailTokenMail($email, $token);
     return view('emails.user.email_token', compact('locale', 'dir', 'token'));
 });
 Route::get('emails/forgot', function () {

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Constants\Locale;
 use Illuminate\Mail\Mailable;
 
 class SendUserSignupMail extends Mailable
@@ -12,8 +13,8 @@ class SendUserSignupMail extends Mailable
 
     public function build()
     {
-        $locale = session('_locale', 'fa');
-        $dir = $locale === 'fa' ? 'rtl' : 'ltr';
+        $locale = session('_locale', Locale::FA);
+        $dir = $locale === Locale::FA ? 'rtl' : 'ltr';
         $username = $this->username;
         $password = $this->password;
         return $this->subject(__('user.signup_subject'))

@@ -23,6 +23,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('users/set_locale', [UserController::class, 'setLocale']);
     Route::post('users/verify_request_1', [UserController::class, 'verifyRequest1']);
     Route::post('users/verify_request_2', [UserController::class, 'verifyRequest2']);
+    Route::post('users/verify_email', [UserController::class, 'verifyEmail']);
     Route::post('users/verify_request_3', [UserController::class, 'verifyRequest3']);
 });
 

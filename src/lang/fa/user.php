@@ -1,8 +1,12 @@
 <?php
 
-require_once __DIR__ . '/Helper/MessageHelper.php';
+require __DIR__ . '/Helper/MessageHelper.php';
 
 return [
+    'reject_reason_undefined' => 'نامشخص.',
+    'reject_reason_1' => 'تصویر پیوست نامعتبر است',
+    'reject_reason_2' => 'تصویر پیوست واضح و خوانا نیست',
+    'reject_reason_3' => 'مضخصات هویتی با تصویر پیوست هم‌خوانی ندارد',
     'user_not_found' => 'نام کاربری یا کلمه عبور اشتباه است.',
     'email_not_found' => 'کاربری با این پست الکترونیک یافت نشد.',
     'username_required' => $requiredMessage('نام کاربری'),
@@ -71,4 +75,8 @@ return [
     'email_token_title' => 'تایید پست الکترونیک',
     'email_token_description' => 'لطفا بر روی دکمه زیر کلیک کنید تا پست الکترونیک شما تایید شود.',
     'email_token_btn' => 'تایید پست الکترونیک',
+    'reject_reason_required' => $requiredMessage('علت عدم تایید'),
+    'reject_reason_numeric' => $numericMessage('علت عدم تایید'),
+    'reject_reason_min' => $minNumericMessage('علت عدم تایید', 1),
+    'reject_reason_max' => $maxNumericMessage('علت عدم تایید', 3),
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Constants\Locale;
 use Illuminate\Mail\Mailable;
 
 class SendUserEmailTokenMail extends Mailable
@@ -12,8 +13,8 @@ class SendUserEmailTokenMail extends Mailable
 
     public function build()
     {
-        $locale = session('_locale', 'fa');
-        $dir = $locale === 'fa' ? 'rtl' : 'ltr';
+        $locale = session('_locale', Locale::FA);
+        $dir = $locale === Locale::FA ? 'rtl' : 'ltr';
         $token = $this->token;
         return $this->subject(__('user.email_token_subject'))
             ->view('emails.user.email_token', compact('locale', 'dir', 'token'));

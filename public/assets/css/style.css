@@ -402,6 +402,10 @@ a.btn {
   color: var(--text);
   background: var(--primary-light);
 }
+.btn-dark-warning {
+  color: var(--text);
+  background: var(--dark-warning);
+}
 .btn-border {
   box-shadow: 0 0 0 1px var(--border);
   background: var(--light-body);
@@ -475,6 +479,7 @@ textarea {
 }
 .input-text input:disabled {
   opacity: 0.6;
+  caret-color: transparent;
 }
 .input-text .icon {
   padding: 0 0.625rem;
@@ -500,6 +505,7 @@ textarea {
   align-items: center;
   border-radius: 0.625rem;
   position: relative;
+  caret-color: transparent;
 }
 .input-img img {
   max-width: 100%;
@@ -659,7 +665,10 @@ input[type="radio"] ~ span.error {
   padding: 1.25rem 0;
 }
 .sidebar .logo {
-  max-width: 8.75rem;
+  max-width: 14rem;
+}
+.sidebar.active .logo {
+  max-width: 2.8rem;
 }
 .sidebar .logo img {
   width: 100%;
@@ -1211,24 +1220,32 @@ input[type="radio"] ~ span.error {
   transition: all 0.3s;
   align-self: safe center;
 }
-.modal-main {
-  padding: 1.25rem;
-  color: var(--placeholder);
-  border-bottom: 1px solid var(--border);
+.modal-hd {
+  padding: 1rem 1.25rem;
   position: relative;
-  max-height: 70vh;
-  overflow: auto;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--light-body);
 }
 .modal-close:hover {
   color: var(--text);
   cursor: pointer;
 }
-.modal-hd {
-  padding: 1rem 1.25rem;
+.modal-main {
+  color: var(--placeholder);
   position: relative;
-  margin-bottom: 0.625rem;
-  border-bottom: 1px solid var(--border);
-  background-color: var(--light-body);
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-main > div {
+  padding: 1.25rem;
+}
+.modal-main > div:first-child {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.modal-main > div:nth-child(2) {
+  border-top: 3px solid var(--border);
 }
 .border-top {
   border-top: 1px solid var(--border);
@@ -1576,16 +1593,8 @@ a.page-link:hover {
 .pd-15 {
   padding: 1rem;
 }
-
 .pd-20 {
   padding: 1.25rem;
-}
-.pd-30 {
-  padding: 1.25rem;
-}
-.pd-td-0 {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
 }
 .pd-30 {
   padding: 1.875rem;
@@ -1625,6 +1634,10 @@ a.page-link:hover {
 }
 .pd-d-50 {
   padding-bottom: 50px;
+}
+.pd-td-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 .pd-td-5 {
   padding-top: 5px;
@@ -10795,4 +10808,7 @@ div.dataTables_wrapper {
     left: 100%;
     transform: translateX(0%);
   }
+}
+.rounded {
+  border-radius: 0.625rem;
 }

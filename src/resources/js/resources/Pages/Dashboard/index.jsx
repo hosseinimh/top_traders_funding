@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Chart from "react-apexcharts";
 
 import { BlankPage } from "../../components";
 import { PageUtils } from "./PageUtils";
 import { BASE_PATH, IMAGES_PATH, USER_ROLES } from "../../../constants";
 import { useLocale } from "../../../hooks";
+import { setShownModalAction } from "../../../state/layout/layoutActions";
 
 const Dashboard = () => {
   const userState = useSelector((state) => state.userReducer);
   const { dashboardPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
-  const [wallet, setWallet] = useState(360);
+  const [wallet, setWallet] = useState([0, 100]);
   const [walletChartOptions, setWalletChartOptions] = useState(null);
   const [walletSeries, setWalletSeries] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setWallet(360);
+    setWallet([5, 100 - 5]);
   }, []);
 
   useEffect(() => {
@@ -31,22 +34,30 @@ const Dashboard = () => {
           startAngle: 0,
           donut: {
             size: "70%",
-            dataLabels: {
-              enabled: false,
+            labels: {
+              show: false,
             },
+          },
+          dataLabels: {
+            offset: 300,
+            minAngleToShowLabel: 30,
           },
         },
       },
       dataLabels: {
         enabled: false,
       },
+      labels: [strings.wallet, strings.wallet],
       fill: {
         width: 20,
         type: "solid",
         lineCap: "round",
         colors: [
           getComputedStyle(document.documentElement).getPropertyValue(
-            "--light-body"
+            "--success"
+          ),
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--dark-warning"
           ),
         ],
       },
@@ -63,10 +74,29 @@ const Dashboard = () => {
         show: false,
       },
       tooltip: {
-        enabled: false,
+        enabled: true,
+        y: {
+          formatter: (value) => `${value} %`,
+        },
       },
     });
-    setWalletSeries([wallet]);
+    setWalletSeries(wallet);
+  };
+
+  const onVerificationClick = (e) => {
+    if (
+      userState?.user?.role === USER_ROLES.ADMINISTRATOR ||
+      userState?.user?.verifyRequest3At
+    ) {
+      showProfileModal(e);
+    } else {
+      navigate(`${BASE_PATH}/users/verify_request1`);
+    }
+  };
+
+  const showProfileModal = (e) => {
+    e.stopPropagation();
+    dispatch(setShownModalAction("profileModal"));
   };
 
   const renderwalletChart = () => {
@@ -113,20 +143,20 @@ const Dashboard = () => {
                 : strings.notVerifiedInfo}
             </span>
             <div className="d-flex just-end">
-              <Link
-                to={`${BASE_PATH}/users/verify_request1`}
+              <button
                 className={`btn ${
                   userState?.user?.verifiedAt ||
                   userState?.user?.verifyRequest3At
                     ? "btn-primary-light"
                     : "btn-success"
                 }`}
+                onClick={(e) => onVerificationClick(e)}
               >
                 {userState?.user?.verifiedAt ||
                 userState?.user?.verifyRequest3At
                   ? strings.verified
                   : strings.verify}
-              </Link>
+              </button>
             </div>
           </div>
         </div>

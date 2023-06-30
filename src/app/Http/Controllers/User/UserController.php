@@ -123,7 +123,11 @@ class UserController extends Controller
         if (!auth()->user()->verify_request_1_at || auth()->user()->email_verified_at || auth()->user()->verify_request_3_at) {
             return $this->onError(['_error' => __('user.edit_not_allowed'), '_errorCode' => ErrorCode::CLIENT_ERROR]);
         }
-        return $this->onUpdate($this->service->verifyEmail(auth()->user(), $request->t));
+        $result = $this->service->verifyEmail(auth()->user(), $request->token);
+        if ($result) {
+            Notification::onUserEmailVerified(auth()->user());
+        }
+        return $this->onUpdate($result);
     }
 
     public function verifyRequest3(Request $request): HttpJsonResponse
@@ -135,6 +139,13 @@ class UserController extends Controller
         $uploadSelfieResult = (new FileUploaderController(StoragePath::USER_SELFIE))->uploadFile($user, $request, 'selfie', 'selfie_file', 4 * 1024 * 1024, ['image/jpeg', 'image/png']);
         $uploadIdentityResult = (new FileUploaderController(StoragePath::USER_IDENTITY))->uploadFile($user, $request, 'identity', 'identity_file', 4 * 1024 * 1024, ['image/jpeg', 'image/png']);
         $uploadResult = $uploadSelfieResult === UploadedFile::OK && $uploadIdentityResult === UploadedFile::OK ? true : false;
-        return $uploadResult ? $this->onUpdate($this->service->verifyRequest3(auth()->user())) : $this->onUpdate(false);
+        if ($uploadResult) {
+            $result = $this->service->verifyRequest3(auth()->user());
+            if ($result) {
+                Notification::onUserVerificationRequested(auth()->user());
+                return $this->onUpdate(true);
+            }
+        }
+        return $this->onUpdate(false);
     }
 }

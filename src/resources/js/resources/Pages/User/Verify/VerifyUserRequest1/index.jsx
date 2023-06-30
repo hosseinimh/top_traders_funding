@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -12,11 +12,16 @@ import {
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 import Header from "../components/Header";
-import { BASE_PATH, LOCALES } from "../../../../../constants";
+import {
+  BASE_PATH,
+  NOTIFICATION_SUB_CATEGORIES,
+} from "../../../../../constants";
+import { fetchAuthAction } from "../../../../../state/user/userActions";
 
 const VerifyUserRequest1 = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const userState = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { verifyUserRequestPage: strings, genderTypes, general } = useLocale();
   const pageUtils = new PageUtils();
@@ -24,7 +29,6 @@ const VerifyUserRequest1 = () => {
     { id: 1, value: genderTypes.male },
     { id: 2, value: genderTypes.female },
   ];
-  const isPersian = general.locale === LOCALES.FA ? true : false;
 
   useEffect(() => {
     if (!userState?.user) {
@@ -43,6 +47,23 @@ const VerifyUserRequest1 = () => {
       return;
     }
   }, [userState?.user]);
+
+  useEffect(() => {
+    const emailVerifiedIndex =
+      layoutState?.notifications?.userNotifications?.findIndex(
+        (item) =>
+          item.subCategory === NOTIFICATION_SUB_CATEGORIES.USER_EMAIL_VERIFIED
+      );
+    const userVerifiedIndex =
+      layoutState?.notifications?.userNotifications?.findIndex(
+        (item) =>
+          item.subCategory ===
+          NOTIFICATION_SUB_CATEGORIES.USER_VERIFICATION_VERIFIED
+      );
+    if (emailVerifiedIndex !== -1 || userVerifiedIndex !== -1) {
+      dispatch(fetchAuthAction());
+    }
+  }, [layoutState?.notifications]);
 
   return (
     <BlankPage pageUtils={pageUtils}>
@@ -107,7 +128,9 @@ const VerifyUserRequest1 = () => {
                 {strings.next}
                 <i
                   className={`${
-                    isPersian ? "icon-arrow-left" : "icon-arrow-right-1"
+                    layoutState?.direction === "rtl"
+                      ? "icon-arrow-left"
+                      : "icon-arrow-right-1"
                   } mx-5`}
                 ></i>
               </button>

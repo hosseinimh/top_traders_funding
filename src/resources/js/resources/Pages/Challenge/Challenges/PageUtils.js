@@ -131,7 +131,6 @@ export class PageUtils extends BasePageUtils {
     if (result) {
       this.dispatch(
         setNotificationsAction({
-          ...this.layoutState?.notifications,
           waitingChallengesCount: result?.waitingChallengesCount,
         })
       );

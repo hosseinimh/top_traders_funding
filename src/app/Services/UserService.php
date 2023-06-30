@@ -7,8 +7,9 @@ use App\Constants\ErrorCode;
 use App\Constants\Locale;
 use App\Constants\Role;
 use App\Constants\Status;
+use App\Constants\StoragePath;
 use App\Facades\Helper;
-use App\Facades\Mailer;
+use App\Facades\AppMailer;
 use App\Models\User as Model;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -67,7 +68,7 @@ class UserService
         $model = Model::create($data);
 
         if ($model) {
-            Mailer::sendUserSignupMail($email, $username, $password);
+            AppMailer::sendUserSignupMail($email, $username, $password);
         }
 
         return $model ?? null;
@@ -100,7 +101,7 @@ class UserService
     {
         $code = Helper::randomString(10);
         if ($this->changePassword($user, $code)) {
-            Mailer::sendUserForgotPasswordMail($email, $user->username, $code);
+            AppMailer::sendUserForgotPasswordMail($email, $user->username, $code);
             return true;
         }
         return false;
@@ -167,7 +168,7 @@ class UserService
                 'address' => $address,
             ];
             if ($model->update($data)) {
-                Mailer::sendUserEmailTokenMail($email, $token);
+                AppMailer::sendUserEmailTokenMail($email, $token);
                 return true;
             }
         }
@@ -199,6 +200,29 @@ class UserService
             'verified_at' => date('Y:m:d H:i:s'),
         ];
         return $model->update($data);
+    }
+
+    public function rejectRequest(Model $model, int $rejectReason): mixed
+    {
+        $selfieFile = $model->selfie_file;
+        $identityFile = $model->identity_file;
+        $data = [
+            'verify_request_1_at' => null,
+            'email_token' => null,
+            'sent_email_token_counter' => 0,
+            'email_verified_at' => null,
+            'selfie_file' => null,
+            'identity_file' => null,
+            'verify_request_3_at' => null,
+            'verified_at' => null,
+            'reject_reason' => $rejectReason,
+        ];
+        $result = $model->update($data);
+        if ($result) {
+            @unlink(storage_path('app') . '/' . StoragePath::USER_SELFIE . '/' . $selfieFile);
+            @unlink(storage_path('app') . '/' . StoragePath::USER_IDENTITY . '/' . $identityFile);
+        }
+        return $result;
     }
 
     public function count(string|null $username, string|null $name, string|null $email): int

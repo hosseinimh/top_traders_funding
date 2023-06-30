@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use App\Facades\Notification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\IndexUsersRequest;
+use App\Http\Requests\User\RejectUserVerificationRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User as Model;
@@ -52,6 +54,19 @@ class UserController extends Controller
 
     public function verifyRequest(Model $model): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->verifyRequest($model));
+        $result = $this->service->verifyRequest($model);
+        if ($result) {
+            Notification::onUserVerificationVerified(auth()->user(), $model);
+        }
+        return $this->onUpdate($result);
+    }
+
+    public function rejectRequest(RejectUserVerificationRequest $request, Model $model): HttpJsonResponse
+    {
+        $result = $this->service->rejectRequest($model, $request->reject_reason);
+        if ($result) {
+            Notification::onUserVerificationRejected(auth()->user(), $model, $request->reject_reason);
+        }
+        return $this->onUpdate($result);
     }
 }

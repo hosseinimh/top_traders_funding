@@ -38,6 +38,7 @@ class User extends Authenticatable
         'identity_file',
         'verify_request_3_at',
         'verified_at',
+        'reject_reason',
         'google_id',
         'avatar',
         'avatar_original',

@@ -7,15 +7,14 @@ import { setLoadingAction } from "../../../../../state/layout/layoutActions";
 import { verifyUserRequest1Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
-import { general } from "../../../../../constants/strings/fa";
 import { fetchAuthAction } from "../../../../../state/user/userActions";
 import {
   BASE_PATH,
-  LOCALES,
   MESSAGE_CODES,
   MESSAGE_TYPES,
 } from "../../../../../constants";
 import { setMessageAction } from "../../../../../state/message/messageActions";
+import utils from "../../../../../utils/Utils";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -53,36 +52,19 @@ export class PageUtils extends BasePageUtils {
   }
 
   handleFetchResult(result) {
-    const isPersian = general.locale === LOCALES.FA ? true : false;
     this.useForm.setValue("name", result.item.name);
     this.useForm.setValue("family", result.item.family);
     this.useForm.setValue("fatherName", result.item.fatherName);
     this.useForm.setValue("nationalNo", result.item.nationalNo);
     this.useForm.setValue("identityNo", result.item.identityNo);
     if (result.item.birthDate) {
-      try {
-        const birthDate = `${result.item.birthDate.substring(
-          0,
-          4
-        )}/${result.item.birthDate.substring(
-          5,
-          7
-        )}/${result.item.birthDate.substring(8, 10)}`;
-        this.useForm.setValue(
-          "birthDate",
-          isPersian
-            ? new Date(birthDate).toLocaleDateString("fa-IR-u-nu-latn", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              })
-            : new Date(birthDate).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              })
-        );
-      } catch {}
+      this.useForm.setValue(
+        "birthDate",
+        utils.toLocaleDateString(
+          result.item.birthDate,
+          this.layoutState?.locale
+        )
+      );
     }
     this.useForm.setValue("gender", result.item.gender);
     this.dispatch(setPagePropsAction({ item: result.item }));

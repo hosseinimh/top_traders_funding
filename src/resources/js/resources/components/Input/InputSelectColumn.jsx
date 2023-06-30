@@ -17,6 +17,7 @@ const InputSelectColumn = ({
   selectedValue = null,
   fullRow = true,
   showLabel = false,
+  onChange = null,
 }) => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
@@ -44,6 +45,9 @@ const InputSelectColumn = ({
   useEffect(() => {
     if (form && selectedValue) {
       selectOption(null, selectedValue);
+      if (onChange) {
+        onChange(null, selectedValue);
+      }
     }
   }, [form]);
 
@@ -130,7 +134,12 @@ const InputSelectColumn = ({
             {items?.map((item) => (
               <div
                 key={item[keyItem]}
-                onClick={(e) => selectOption(e, item[keyItem])}
+                onClick={(e) => {
+                  selectOption(e, item[keyItem]);
+                  if (onChange) {
+                    onChange(e, item[keyItem]);
+                  }
+                }}
                 data-select={item[keyItem]}
                 className={`select-option select-option-${field}`}
               >

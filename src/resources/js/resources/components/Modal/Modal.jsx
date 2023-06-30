@@ -10,7 +10,7 @@ const Modal = ({ id, title, children, footer = null }) => {
   useEffect(() => {
     if (layoutState?.shownModal === id) {
       showModal();
-    } else {
+    } else if (!layoutState?.shownModal) {
       hideModal();
     }
   }, [layoutState?.shownModal]);
@@ -47,12 +47,14 @@ const Modal = ({ id, title, children, footer = null }) => {
             <span className="text">{title}</span>
           </span>
         </div>
-        <div className="modal-main">{children}</div>
-        {footer && (
-          <div className="modal-footer pd-td-10 pd-lr-20">
-            <>{footer}</>
-          </div>
-        )}
+        <div className="modal-main">
+          <div>{children}</div>
+          {footer && (
+            <div className="modal-footer pd-td-10">
+              <>{footer}</>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

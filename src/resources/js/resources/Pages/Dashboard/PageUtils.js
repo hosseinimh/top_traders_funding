@@ -53,7 +53,6 @@ export class PageUtils extends BasePageUtils {
     if (this.userState?.user?.role === USER_ROLES.ADMINISTRATOR) {
       this.dispatch(
         setNotificationsAction({
-          ...this.layoutState?.notifications,
           verifyUserRequestsCount: result.verifyUserRequestsCount,
           waitingChallengesCount: result.waitingChallengesCount,
           systemNotifications: result.systemNotifications,
@@ -63,7 +62,6 @@ export class PageUtils extends BasePageUtils {
     } else {
       this.dispatch(
         setNotificationsAction({
-          ...this.layoutState?.notifications,
           systemNotifications: result.systemNotifications,
           userNotifications: result.userNotifications,
         })

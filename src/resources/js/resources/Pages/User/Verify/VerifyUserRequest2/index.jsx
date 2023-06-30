@@ -1,20 +1,25 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { BlankPage, InputRow, InputTextColumn } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
 import Header from "../components/Header";
-import { BASE_PATH, LOCALES } from "../../../../../constants";
+import {
+  BASE_PATH,
+  NOTIFICATION_SUB_CATEGORIES,
+} from "../../../../../constants";
+import { fetchAuthAction } from "../../../../../state/user/userActions";
 
 const VerifyUserRequest2 = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const userState = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { verifyUserRequestPage: strings, general } = useLocale();
+  const [disabled, setDisabled] = useState(false);
   const pageUtils = new PageUtils();
-  const isPersian = general.locale === LOCALES.FA ? true : false;
 
   useEffect(() => {
     if (!userState?.user) {
@@ -34,6 +39,34 @@ const VerifyUserRequest2 = () => {
     }
   }, [userState?.user]);
 
+  useEffect(() => {
+    const emailVerifiedIndex =
+      layoutState?.notifications?.userNotifications?.findIndex(
+        (item) =>
+          item.subCategory === NOTIFICATION_SUB_CATEGORIES.USER_EMAIL_VERIFIED
+      );
+    const userVerifiedIndex =
+      layoutState?.notifications?.userNotifications?.findIndex(
+        (item) =>
+          item.subCategory ===
+          NOTIFICATION_SUB_CATEGORIES.USER_VERIFICATION_VERIFIED
+      );
+    if (emailVerifiedIndex !== -1 || userVerifiedIndex !== -1) {
+      dispatch(fetchAuthAction());
+    }
+  }, [layoutState?.notifications]);
+
+  useEffect(() => {
+    if (
+      pageUtils?.pageState?.props?.sentEmail ||
+      pageUtils?.pageState?.props?.token
+    ) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [pageUtils?.pageState?.props]);
+
   return (
     <BlankPage pageUtils={pageUtils}>
       <div className="section fix-mr15">
@@ -49,6 +82,7 @@ const VerifyUserRequest2 = () => {
               textAlign="left"
               fullRow={false}
               icon={"icon-mobile"}
+              readonly={disabled}
             />
             <InputTextColumn
               field="tel"
@@ -56,19 +90,23 @@ const VerifyUserRequest2 = () => {
               textAlign="left"
               fullRow={false}
               icon={"icon-call-calling"}
+              readonly={disabled}
             />
             <InputTextColumn
               field="email"
               textAlign="left"
               fullRow={false}
               icon={"icon-sms4"}
-              readonly={userState?.user?.emailVerifiedAt ? true : false}
+              readonly={
+                userState?.user?.emailVerifiedAt || disabled ? true : false
+              }
             />
           </InputRow>
           <InputTextColumn
             field="address"
             fullRow={false}
             icon={"icon-location4"}
+            readonly={disabled}
           />
           <div className="block-border"></div>
           <div className="btns d-flex mt-30">
@@ -78,7 +116,7 @@ const VerifyUserRequest2 = () => {
                 type="button"
                 title={general.submit}
                 onClick={pageUtils?.useForm.handleSubmit(pageUtils.onSubmit)}
-                disabled={layoutState?.loading}
+                disabled={layoutState?.loading || disabled}
               >
                 {general.submit}
               </button>
@@ -94,7 +132,9 @@ const VerifyUserRequest2 = () => {
                 {strings.next}
                 <i
                   className={`${
-                    isPersian ? "icon-arrow-left" : "icon-arrow-right-1"
+                    layoutState?.direction === "rtl"
+                      ? "icon-arrow-left"
+                      : "icon-arrow-right-1"
                   } mx-5`}
                 ></i>
               </button>

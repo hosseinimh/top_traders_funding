@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
+  InputRadioColumn,
+  InputRadioContainer,
+  InputSelectColumn,
   InputTextColumn,
   ListPage,
   Modal,
@@ -10,33 +13,122 @@ import {
 } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
-import { STORAGE_PATH } from "../../../../../constants";
+import {
+  STORAGE_PATH,
+  USER_VERIFICATION_REJECT_REASON,
+} from "../../../../../constants";
+import utils from "../../../../../utils/Utils";
 
 const VerifyUserRequests = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const columnsCount = 4;
-  const { verifyUserRequestsPage: strings, general } = useLocale();
+  const [verified, setVerified] = useState(true);
+  const [rejectReason, setRejectReason] = useState(
+    USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_VALID
+  );
+  const {
+    verifyUserRequestsPage: strings,
+    userVerificationRejectTypes,
+    general,
+  } = useLocale();
   const pageUtils = new PageUtils();
+  const columnsCount = 4;
+  const verificationTypes = [
+    {
+      id: USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_VALID,
+      value: userVerificationRejectTypes.imageNotValid,
+    },
+    {
+      id: USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_CLEAR,
+      value: userVerificationRejectTypes.imageNotClear,
+    },
+    {
+      id: USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_MATCH,
+      value: userVerificationRejectTypes.imageNotMatch,
+    },
+  ];
+
+  const onVerificationChanged = (e, field) => {
+    if (e.target.checked) {
+      if (field === "verified") {
+        setVerified(true);
+      } else {
+        setVerified(false);
+      }
+    }
+  };
+
+  const onRejectReasonChanged = (e, value) => {
+    setRejectReason(value);
+  };
+
+  useEffect(() => {
+    setVerified(true);
+  }, [pageState?.props?.item]);
 
   const renderModal = () => (
     <Modal
       id="verifyRequestModal"
       title={`${pageState?.props?.item?.name} ${pageState?.props?.item?.family} - [ ${pageState?.props?.item?.username} ]`}
       footer={
-        <div className="btns d-flex m-td-10 m-lr-20">
-          <button
-            className="btn btn-success"
-            type="button"
-            title={strings.verify}
-            onClick={() =>
-              pageUtils.onVerifyRequest(pageState?.props?.item?.id)
-            }
-            disabled={layoutState?.loading}
-          >
-            {strings.verify}
-          </button>
-        </div>
+        <>
+          <InputRadioContainer>
+            <InputRadioColumn
+              field="verified"
+              name="verification"
+              checked={true}
+              onChange={(e, field) => onVerificationChanged(e, field)}
+            />
+            <InputRadioColumn
+              field="rejected"
+              name="verification"
+              onChange={(e, field) => onVerificationChanged(e, field)}
+            />
+          </InputRadioContainer>
+          {!verified && (
+            <>
+              <InputSelectColumn
+                field="rejectReason"
+                showLabel
+                items={verificationTypes}
+                selectedValue={USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_VALID}
+                onChange={(e, value) => onRejectReasonChanged(e, value)}
+              />
+              <div style={{ marginBottom: "5rem" }}></div>
+            </>
+          )}
+          <div className="btns d-flex m-td-10 m-lr-20">
+            {verified && (
+              <button
+                className="btn btn-success"
+                type="button"
+                title={strings.verify}
+                onClick={() =>
+                  pageUtils.onVerifyRequest(pageState?.props?.item?.id)
+                }
+                disabled={layoutState?.loading}
+              >
+                {strings.verify}
+              </button>
+            )}
+            {!verified && (
+              <button
+                className="btn btn-dark-warning"
+                type="button"
+                title={strings.reject}
+                onClick={() =>
+                  pageUtils.onRejectRequest(
+                    pageState?.props?.item?.id,
+                    rejectReason
+                  )
+                }
+                disabled={layoutState?.loading}
+              >
+                {strings.reject}
+              </button>
+            )}
+          </div>
+        </>
       }
     >
       <InputTextColumn
@@ -45,6 +137,7 @@ const VerifyUserRequests = () => {
         showLabel
         icon="icon-user"
         value={pageState?.props?.item?.name}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="family"
@@ -52,6 +145,7 @@ const VerifyUserRequests = () => {
         showLabel
         icon="icon-user"
         value={pageState?.props?.item?.family}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="fatherName"
@@ -59,6 +153,7 @@ const VerifyUserRequests = () => {
         showLabel
         icon="icon-personalcard4"
         value={pageState?.props?.item?.fatherName}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="nationalNo"
@@ -67,14 +162,24 @@ const VerifyUserRequests = () => {
         textAlign="left"
         icon="icon-personalcard4"
         value={pageState?.props?.item?.nationalNo}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="birthDate"
         readonly={true}
         showLabel
         textAlign="left"
+        direction={layoutState?.direction}
         icon="icon-calendar-1"
-        value={pageState?.props?.item?.birthDate}
+        value={
+          pageState?.props?.item?.birthDate
+            ? utils.toLocaleDateString(
+                pageState.props.item.birthDate,
+                layoutState?.locale
+              )
+            : ""
+        }
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="gender"
@@ -82,6 +187,7 @@ const VerifyUserRequests = () => {
         showLabel
         icon="icon-user"
         value={pageState?.props?.item?.genderText}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="mobile"
@@ -90,6 +196,7 @@ const VerifyUserRequests = () => {
         textAlign="left"
         icon="icon-mobile"
         value={pageState?.props?.item?.mobile}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="tel"
@@ -98,6 +205,7 @@ const VerifyUserRequests = () => {
         textAlign="left"
         icon="icon-call-calling"
         value={pageState?.props?.item?.tel}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="email"
@@ -106,6 +214,7 @@ const VerifyUserRequests = () => {
         textAlign="left"
         icon="icon-sms4"
         value={pageState?.props?.item?.email}
+        inputStyle={{ opacity: "1" }}
       />
       <InputTextColumn
         field="address"
@@ -113,34 +222,61 @@ const VerifyUserRequests = () => {
         showLabel
         icon="icon-location4"
         value={pageState?.props?.item?.address}
+        inputStyle={{ opacity: "1" }}
       />
       <div className="d-flex d-flex-column">
         <div className="input-info">{strings.selfieFile}</div>
-        <div className="input-img input-bg input-border mb-30">
-          <a
-            href={`${STORAGE_PATH}/users/selfies/${pageState?.props?.item?.selfieFile}`}
-            target="_blank"
-            rel="noReferrer"
-          >
-            <img
-              src={`${STORAGE_PATH}/users/selfies/${pageState?.props?.item?.selfieFile}`}
-            />
-          </a>
-        </div>
+        {pageState?.props?.item?.selfieFile && (
+          <div className="input-img input-bg input-border mb-30">
+            <a
+              href={`${STORAGE_PATH}/users/selfies/${pageState?.props?.item?.selfieFile}`}
+              target="_blank"
+              rel="noReferrer"
+            >
+              <img
+                className="m-15"
+                src={`${STORAGE_PATH}/users/selfies/${pageState?.props?.item?.selfieFile}`}
+              />
+            </a>
+          </div>
+        )}
+        {!pageState?.props?.item?.selfieFile && (
+          <InputTextColumn
+            field="selfieFileModal"
+            readonly={true}
+            strings={strings}
+            icon="icon-gallery4"
+            value={strings.notUploaded}
+            inputStyle={{ opacity: "1" }}
+          />
+        )}
       </div>
       <div className="d-flex d-flex-column">
         <div className="input-info">{strings.identityFile}</div>
-        <div className="input-img input-bg input-border mb-30">
-          <a
-            href={`${STORAGE_PATH}/users/identities/${pageState?.props?.item?.identityFile}`}
-            target="_blank"
-            rel="noReferrer"
-          >
-            <img
-              src={`${STORAGE_PATH}/users/identities/${pageState?.props?.item?.identityFile}`}
-            />
-          </a>
-        </div>
+        {pageState?.props?.item?.identityFile && (
+          <div className="input-img input-bg input-border mb-30">
+            <a
+              href={`${STORAGE_PATH}/users/identities/${pageState?.props?.item?.identityFile}`}
+              target="_blank"
+              rel="noReferrer"
+            >
+              <img
+                className="m-15"
+                src={`${STORAGE_PATH}/users/identities/${pageState?.props?.item?.identityFile}`}
+              />
+            </a>
+          </div>
+        )}
+        {!pageState?.props?.item?.identityFile && (
+          <InputTextColumn
+            field="identityFileModal"
+            readonly={true}
+            strings={strings}
+            icon="icon-gallery4"
+            value={strings.notUploaded}
+            inputStyle={{ opacity: "1" }}
+          />
+        )}
       </div>
     </Modal>
   );

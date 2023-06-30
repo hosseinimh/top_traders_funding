@@ -34,6 +34,7 @@ import TopLoadingBar from "./Loading/TopLoadingBar";
 
 // Modal
 import Modal from "./Modal/Modal";
+import ProfileModal from "./Modal/ProfileModal";
 
 // Page
 import BlankPage from "./Page/BlankPage";
@@ -81,6 +82,7 @@ export {
   CustomLink,
   TopLoadingBar,
   Modal,
+  ProfileModal,
   BlankPage,
   ListPage,
   FormPage,

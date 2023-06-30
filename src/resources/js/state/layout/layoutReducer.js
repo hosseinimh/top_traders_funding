@@ -1,4 +1,4 @@
-import { themes } from "../../constants";
+import { LOCALES, themes } from "../../constants";
 import utils from "../../utils/Utils";
 import * as actions from "./layoutActions";
 
@@ -14,7 +14,7 @@ const initialState = {
   width: 0,
   height: 0,
   locale: utils.initLocale(),
-  direction: "rtl",
+  direction: utils.getLSVariable("locale") !== LOCALES.FA ? "ltr" : "rtl",
   theme: selectedTheme,
   notifications: JSON.parse(utils.getLSVariable("notifications")) ?? {},
   sidebarCollapsed: false,
@@ -40,7 +40,7 @@ const layoutReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         locale: payload,
-        direction: payload === "fa" ? "rtl" : "ltr",
+        direction: payload !== LOCALES.FA ? "ltr" : "rtl",
       };
     case actions.SET_THEME_ACTION:
       return {
@@ -48,9 +48,13 @@ const layoutReducer = (state = initialState, { type, payload }) => {
         theme: payload,
       };
     case actions.SET_NOTIFICATIONS_ACTION:
+      utils.setLSVariable(
+        "notifications",
+        JSON.stringify({ ...state.notifications, payload })
+      );
       return {
         ...state,
-        notifications: payload,
+        notifications: { ...state.notifications, ...payload },
       };
     case actions.TOGGLE_SIDEBAR_ACTION:
       return {

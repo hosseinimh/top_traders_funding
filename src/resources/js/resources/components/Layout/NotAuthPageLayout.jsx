@@ -27,7 +27,7 @@ const NotAuthPageLayout = ({ children, pageUtils }) => {
           </div>
           <div className="info">
             <div>{strings._title}</div>
-            <div>{strings._subTitle}</div>
+            <div style={{ direction: "ltr" }}>{strings._subTitle}</div>
           </div>
         </div>
         <div className="login-box d-flex-column">

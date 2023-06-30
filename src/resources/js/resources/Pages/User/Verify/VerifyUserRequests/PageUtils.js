@@ -17,6 +17,7 @@ export class PageUtils extends BasePageUtils {
       itemsCount: 0,
       item: null,
       items: null,
+      modal: null,
       action: null,
     };
   }
@@ -56,6 +57,12 @@ export class PageUtils extends BasePageUtils {
 
   async onVerifyRequest(userId) {
     const promise = this.entity.verifyRequest(userId);
+    this.onModifySubmit(promise);
+    this.onHideModal();
+  }
+
+  async onRejectRequest(userId, rejectReason) {
+    const promise = this.entity.rejectRequest(userId, rejectReason);
     this.onModifySubmit(promise);
     this.onHideModal();
   }

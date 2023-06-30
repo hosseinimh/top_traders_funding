@@ -147,6 +147,10 @@ function AuthRoute() {
                 element={<Pages.VerifyUserRequest1 />}
               />
               <Route
+                path={`${BASE_PATH}/users/verify_request2/:token`}
+                element={<Pages.VerifyUserRequest2 />}
+              />
+              <Route
                 path={`${BASE_PATH}/users/verify_request2`}
                 element={<Pages.VerifyUserRequest2 />}
               />

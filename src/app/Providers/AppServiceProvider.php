@@ -42,7 +42,7 @@ use App\Http\Resources\Ticket\TicketResource;
 use App\Http\Resources\User\UserResource;
 use App\Packages\Helper;
 use App\Packages\JsonResponse;
-use App\Packages\Mailer;
+use App\Packages\AppMailer;
 use App\Packages\Notification;
 use App\Services\AppRuleService;
 use App\Services\CampaignService;
@@ -69,8 +69,8 @@ class AppServiceProvider extends ServiceProvider
             return new Helper();
         });
 
-        $this->app->bind('mailer', function () {
-            return new Mailer();
+        $this->app->bind('app_mailer', function () {
+            return new AppMailer();
         });
 
         $this->app->bind('notification', function () {

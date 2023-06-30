@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, Zoom, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { BlankPage } from "../../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../../hooks";
-import { BASE_PATH, STORAGE_PATH } from "../../../../../constants";
+import {
+  BASE_PATH,
+  NOTIFICATION_SUB_CATEGORIES,
+  STORAGE_PATH,
+} from "../../../../../constants";
 import Header from "../components/Header";
+import { fetchAuthAction } from "../../../../../state/user/userActions";
 
 const VerifyUserRequest3 = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
@@ -16,79 +19,32 @@ const VerifyUserRequest3 = () => {
   const pageState = useSelector((state) => state.pageReducer);
   const [selfieFileSelected, setSelfieFileSelected] = useState(null);
   const [identityFileSelected, setIdentityFileSelected] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { verifyUserRequestPage: strings, general, validation } = useLocale();
+  const { verifyUserRequestPage: strings, general } = useLocale();
   const pageUtils = new PageUtils();
 
   const onChangeSelfieFile = (e) => {
     const file = e?.target?.files[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) {
-        document.querySelector(".img-input.selfie").value = "";
-        toast.error(validation.fileMaxSizeMessage, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          progress: undefined,
-          theme: layoutState?.theme?.name,
-        });
-        return;
+      if (["image/jpeg", "image/png"].includes(file.type)) {
+        const imgPreview = document.querySelector("#img-preview-selfie");
+        imgPreview.src = URL.createObjectURL(file);
       }
-      if (!["image/jpeg", "image/png"].includes(file.type)) {
-        document.querySelector(".img-input.selfie").value = "";
-        toast.error(validation.fileTypeMessage, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          progress: undefined,
-          theme: layoutState?.theme?.name,
-        });
-        return;
-      }
-      const imgPreview = document.querySelector("#img-preview-selfie");
-      imgPreview.src = URL.createObjectURL(file);
       setSelfieFileSelected(true);
-      pageUtils.onSetSelfieFile(file);
+      pageUtils.useForm.setValue("selfieFile", file);
     }
   };
 
   const onChangeIdentityFile = (e) => {
     const file = e?.target?.files[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) {
-        document.querySelector(".img-input.identity").value = "";
-        toast.error(validation.fileMaxSizeMessage, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          progress: undefined,
-          theme: layoutState?.theme?.name,
-        });
-        return;
+      if (["image/jpeg", "image/png"].includes(file.type)) {
+        const imgPreview = document.querySelector("#img-preview-identity");
+        imgPreview.src = URL.createObjectURL(file);
       }
-      if (!["image/jpeg", "image/png"].includes(file.type)) {
-        document.querySelector(".img-input.identity").value = "";
-        toast.error(validation.fileTypeMessage, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          progress: undefined,
-          theme: layoutState?.theme?.name,
-        });
-        return;
-      }
-      const imgPreview = document.querySelector("#img-preview-identity");
-      imgPreview.src = URL.createObjectURL(file);
       setIdentityFileSelected(true);
-      pageUtils.onSetIdentityFile(file);
+      pageUtils.useForm.setValue("identityFile", file);
     }
   };
 
@@ -97,7 +53,7 @@ const VerifyUserRequest3 = () => {
     const imgPreview = document.querySelector("#img-preview-selfie");
     imgPreview.src = "";
     setSelfieFileSelected(false);
-    pageUtils.onSetSelfieFile(null);
+    pageUtils.useForm.setValue("selfieFile", null);
   };
 
   const removeIdentityFile = () => {
@@ -105,7 +61,7 @@ const VerifyUserRequest3 = () => {
     const imgPreview = document.querySelector("#img-preview-identity");
     imgPreview.src = "";
     setIdentityFileSelected(false);
-    pageUtils.onSetIdentityFile(null);
+    pageUtils.useForm.setValue("identityFile", null);
   };
 
   useEffect(() => {
@@ -172,6 +128,18 @@ const VerifyUserRequest3 = () => {
     }
   }, [userState?.user]);
 
+  useEffect(() => {
+    const userVerifiedIndex =
+      layoutState?.notifications?.userNotifications?.findIndex(
+        (item) =>
+          item.subCategory ===
+          NOTIFICATION_SUB_CATEGORIES.USER_VERIFICATION_VERIFIED
+      );
+    if (userVerifiedIndex !== -1) {
+      dispatch(fetchAuthAction());
+    }
+  }, [layoutState?.notifications]);
+
   return (
     <BlankPage pageUtils={pageUtils}>
       <div className="section fix-mr15">
@@ -213,7 +181,7 @@ const VerifyUserRequest3 = () => {
                   </h3>
                   <span>{strings.selfieFileProperties}</span>
                   <input
-                    accept="image/jpeg,image/png,image/gif"
+                    accept="image/jpeg,image/png"
                     type="file"
                     className="img-input selfie"
                     onChange={(e) => onChangeSelfieFile(e)}
@@ -277,7 +245,7 @@ const VerifyUserRequest3 = () => {
                   </h3>
                   <span>{strings.identityFileProperties}</span>
                   <input
-                    accept="image/jpeg,image/png,image/gif"
+                    accept="image/jpeg,image/png"
                     type="file"
                     className="img-input identity"
                     onChange={(e) => onChangeIdentityFile(e)}
@@ -322,17 +290,6 @@ const VerifyUserRequest3 = () => {
           )}
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={layoutState?.direction === "rtl" ? true : false}
-        pauseOnHover
-        transition={Zoom}
-        theme={layoutState?.theme?.name}
-      />
     </BlankPage>
   );
 };

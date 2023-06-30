@@ -10,6 +10,7 @@ import { CHALLENGE_LEVELS } from "./challengeLevels";
 import { CHALLENGE_STATUSES } from "./challengeStatuses";
 import { NOTIFICATION_CATEGORIES } from "./notificationCategories";
 import { NOTIFICATION_SUB_CATEGORIES } from "./notificationSubCategories";
+import { USER_VERIFICATION_REJECT_REASON } from "./userVerificationRejectReason";
 import {
   BASE_PATH,
   ASSETS_PATH,
@@ -42,4 +43,5 @@ export {
   CHALLENGE_STATUSES,
   NOTIFICATION_CATEGORIES,
   NOTIFICATION_SUB_CATEGORIES,
+  USER_VERIFICATION_REJECT_REASON,
 };

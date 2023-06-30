@@ -47,9 +47,9 @@ const ListPage = ({
                 {general.back}
               </button>
             )}
-            {children}
           </div>
         )}
+        {children}
         <div className="block">
           <Table
             renderHeader={table.renderHeader}

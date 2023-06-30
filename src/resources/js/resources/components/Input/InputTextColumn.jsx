@@ -15,6 +15,7 @@ const InputTextColumn = ({
   defaultValue = "",
   showLabel = false,
   textAlign = "",
+  direction = undefined,
   readonly = false,
   fullRow = true,
   inputContainerClassName = "",
@@ -65,9 +66,9 @@ const InputTextColumn = ({
   const renderControlledInput = (field) => {
     let style;
     if (textAlign === "left") {
-      style = { ...inputStyle, textAlign, direction: "ltr" };
+      style = { ...inputStyle, textAlign, direction: direction ?? "ltr" };
     } else if (textAlign === "right") {
-      style = { ...inputStyle, textAlign, direction: "rtl" };
+      style = { ...inputStyle, textAlign, direction: direction ?? "rtl" };
     } else {
       style = { ...inputStyle };
     }
@@ -93,9 +94,9 @@ const InputTextColumn = ({
   const renderUncontrolledInput = (field) => {
     let style;
     if (textAlign === "left") {
-      style = { ...inputStyle, textAlign, direction: "ltr" };
+      style = { ...inputStyle, textAlign, direction: direction ?? "ltr" };
     } else if (textAlign === "right") {
-      style = { ...inputStyle, textAlign, direction: "rtl" };
+      style = { ...inputStyle, textAlign, direction: direction ?? "rtl" };
     } else {
       style = { ...inputStyle };
     }

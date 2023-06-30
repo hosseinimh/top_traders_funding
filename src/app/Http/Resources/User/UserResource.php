@@ -46,11 +46,9 @@ class UserResource extends JsonResource
     private function getGenderText(int $gender)
     {
         $text = __('general.gender_undefined');
-
         if ($gender >= 1 && $gender <= 2) {
             $text = __('general.gender_' . $gender);
         }
-
         return $text;
     }
 }

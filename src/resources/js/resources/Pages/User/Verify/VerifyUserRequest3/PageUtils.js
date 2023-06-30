@@ -7,8 +7,8 @@ import { setLoadingAction } from "../../../../../state/layout/layoutActions";
 import { verifyUserRequest3Schema as schema } from "../../../../validations";
 import { useLocale } from "../../../../../hooks";
 import { setPagePropsAction } from "../../../../../state/page/pageActions";
-import { fetchAuthAction } from "../../../../../state/user/userActions";
 import { BASE_PATH } from "../../../../../constants";
+import { fetchAuthAction } from "../../../../../state/user/userActions";
 
 export class PageUtils extends BasePageUtils {
   constructor() {
@@ -71,11 +71,11 @@ export class PageUtils extends BasePageUtils {
     );
   }
 
-  async onSubmit() {
+  async onSubmit(data) {
     this.onSendRequest();
     const result = await this.entity.verifyRequest3(
-      this.pageState?.props?.selfieFile,
-      this.pageState?.props?.identityFile
+      data.selfieFile,
+      data.identityFile
     );
     this.dispatch(setLoadingAction(false));
     if (result === null) {
