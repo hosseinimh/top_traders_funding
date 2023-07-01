@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -22,10 +22,6 @@ import utils from "../../../../../utils/Utils";
 const VerifyUserRequests = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
-  const [verified, setVerified] = useState(true);
-  const [rejectReason, setRejectReason] = useState(
-    USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_VALID
-  );
   const {
     verifyUserRequestsPage: strings,
     userVerificationRejectTypes,
@@ -51,20 +47,12 @@ const VerifyUserRequests = () => {
   const onVerificationChanged = (e, field) => {
     if (e.target.checked) {
       if (field === "verified") {
-        setVerified(true);
+        pageUtils.onVerifiedChanged(true);
       } else {
-        setVerified(false);
+        pageUtils.onVerifiedChanged(false);
       }
     }
   };
-
-  const onRejectReasonChanged = (e, value) => {
-    setRejectReason(value);
-  };
-
-  useEffect(() => {
-    setVerified(true);
-  }, [pageState?.props?.item]);
 
   const renderModal = () => (
     <Modal
@@ -85,20 +73,20 @@ const VerifyUserRequests = () => {
               onChange={(e, field) => onVerificationChanged(e, field)}
             />
           </InputRadioContainer>
-          {!verified && (
+          {!pageState?.props?.verified && (
             <>
               <InputSelectColumn
                 field="rejectReason"
                 showLabel
                 items={verificationTypes}
                 selectedValue={USER_VERIFICATION_REJECT_REASON.IMAGE_NOT_VALID}
-                onChange={(e, value) => onRejectReasonChanged(e, value)}
+                onChange={(_, value) => pageUtils.onRejectReasonChanged(value)}
               />
               <div style={{ marginBottom: "5rem" }}></div>
             </>
           )}
           <div className="btns d-flex m-td-10 m-lr-20">
-            {verified && (
+            {pageState?.props?.verified && (
               <button
                 className="btn btn-success"
                 type="button"
@@ -111,16 +99,13 @@ const VerifyUserRequests = () => {
                 {strings.verify}
               </button>
             )}
-            {!verified && (
+            {!pageState?.props?.verified && (
               <button
                 className="btn btn-dark-warning"
                 type="button"
                 title={strings.reject}
                 onClick={() =>
-                  pageUtils.onRejectRequest(
-                    pageState?.props?.item?.id,
-                    rejectReason
-                  )
+                  pageUtils.onRejectRequest(pageState?.props?.item?.id)
                 }
                 disabled={layoutState?.loading}
               >

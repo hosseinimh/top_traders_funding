@@ -9,15 +9,9 @@ use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
-use App\Http\Controllers\Administrator\ErrorController;
 use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
 use Illuminate\Support\Facades\Route;
-
-// not logged users
-Route::middleware(['cors'])->group(function () {
-    Route::post('errors/store', [ErrorController::class, 'store']);
-});
 
 // 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {

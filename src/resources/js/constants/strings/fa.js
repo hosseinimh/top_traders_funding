@@ -334,6 +334,9 @@ export const verifyUserRequestsPage = {
   rejectReason: "علت عدم تایید",
   verify: "تایید احراز هویت",
   reject: "رد درخواست احراز هویت",
+  submitted: "",
+  verifySubmitted: "احراز هویت با موفقیت انجام شد.",
+  rejectSubmitted: "رد درخواست احراز هویت با موفقیت انجام شد.",
 };
 
 export const verifyUserRequestPage = {

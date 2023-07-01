@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-@if (app()->currentLocale() === \App\Constants\Locale::EN)
+@if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
 <html lang="{{app()->currentLocale()}}" dir="ltr">
 @else
-<html lang="fa-IR" dir="rtl">
+<html lang="fa" dir="rtl">
 @endif
 
 <head>
@@ -29,7 +29,7 @@
     $fileModified = '';
     }
     @endphp
-    @if (app()->currentLocale() === \App\Constants\Locale::EN)
+    @if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
     <link href="{{$THEME::CSS_PATH}}/style.css?v={{$fileModified}}" rel="stylesheet">
     @else
     <link href="{{$THEME::CSS_PATH}}/style_rtl.css?v={{$fileModified}}" rel="stylesheet">

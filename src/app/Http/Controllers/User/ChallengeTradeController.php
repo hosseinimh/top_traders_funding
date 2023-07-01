@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrator;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChallengeTrade\StoreChallengeTradeRequest;
@@ -15,11 +15,6 @@ class ChallengeTradeController extends Controller
     {
         parent::__construct($response);
     }
-
-    //public function index(IndexChallengesRequest $request): HttpJsonResponse
-    //{
-    //return $this->onItems($this->service->getPaginate(null, 0, $request->_pn, $request->_pi), $this->service->count(null, 0));
-    // }
 
     public function store(Challenge $challenge, StoreChallengeTradeRequest $request): HttpJsonResponse
     {

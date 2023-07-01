@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Composer;
 use App\Facades\Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -20,7 +21,7 @@ class CodeInit extends Command
      *
      * @var string
      */
-    protected $description = 'Initializing the code with fake data ...';
+    protected $description = 'Initializing the application with fake data ...';
 
     /**
      * Create a new command instance.
@@ -41,6 +42,9 @@ class CodeInit extends Command
     {
         $this->comment($this->description);
         $this->info('');
+
+        $this->comment('composer dump-autoload');
+        app()->make(Composer::class)->run(['dump-autoload']);
 
         Artisan::call('cache:clear');
         Artisan::call('route:clear');

@@ -8,6 +8,7 @@ return [
     'reject_reason_2' => 'تصویر پیوست واضح و خوانا نیست',
     'reject_reason_3' => 'مضخصات هویتی با تصویر پیوست هم‌خوانی ندارد',
     'user_not_found' => 'نام کاربری یا کلمه عبور اشتباه است.',
+    'user_already_logged_in' => 'کاربر قبلا وارد حساب کاربری شده است.',
     'email_not_found' => 'کاربری با این پست الکترونیک یافت نشد.',
     'username_required' => $requiredMessage('نام کاربری'),
     'username_min' => $minStringMessage('نام کاربری', 6),

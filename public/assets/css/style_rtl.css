@@ -83,6 +83,7 @@
 * {
   transition: color 0.5s;
   transition: background-color 0.5s;
+  caret-color: transparent;
 }
 html {
   font-size: 100%;
@@ -185,6 +186,12 @@ input,
 textarea {
   background: 0 0;
   color: var(--text);
+}
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea {
+  caret-color: auto;
 }
 input[type="radio"],
 input[type="checkbox"] {
@@ -505,10 +512,9 @@ textarea {
   align-items: center;
   border-radius: 0.625rem;
   position: relative;
-  caret-color: transparent;
 }
 .input-img img {
-  max-width: 100%;
+  max-width: 90%;
   border-radius: 0.625rem;
 }
 .input-info {

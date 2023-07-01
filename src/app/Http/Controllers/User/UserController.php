@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Constants\ErrorCode;
 use App\Constants\Role;
+use App\Constants\Status;
 use App\Constants\StoragePath;
 use App\Constants\UploadedFile;
+use App\Facades\Helper;
 use App\Facades\Notification;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploaderController;
@@ -13,15 +15,20 @@ use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ForgotPasswordRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\SignupUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\VerifyEmailRequest;
 use App\Http\Requests\User\VerifyUserRequest1Request;
 use App\Http\Requests\User\VerifyUserRequest2Request;
+use App\Http\Resources\User\UserResource;
+use App\Models\PersoanlAccessToken;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
@@ -57,7 +64,42 @@ class UserController extends Controller
 
     public function login(LoginRequest $request): HttpJsonResponse
     {
-        return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => 1]);
+        return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => Status::ACTIVE]);
+    }
+
+    public function loginByGoogle(): RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function loginByGoogleCallback(Request $request)
+    {
+        try {
+            if ($googleUser = Socialite::driver('google')->user()) {
+                $user = $this->service->getByEmail($googleUser->email);
+                if ($user && $user->is_active) {
+                    $this->service->updateByGoogle($user, $googleUser->id, $googleUser->avatar, $googleUser->avatar_original);
+                    return $this->handleGoogleLogin($user);
+                } else if ($user = $this->service->store($googleUser->email, '', $googleUser->name, '', $googleUser->email, $googleUser->id, $googleUser->avatar, $googleUser->avatar_original, Role::USER, Status::ACTIVE)) {
+                    return $this->handleGoogleLogin($user);
+                }
+            }
+        } catch (Exception $e) {
+            Helper::logError($e);
+        }
+        return redirect(BASE_URL . '/users/login');
+    }
+
+    public function loginByToken(Request $request): HttpJsonResponse
+    {
+        if (isset($request->token)) {
+            $token = PersoanlAccessToken::where('name', 'google_login')->where('token', $request->token)->orderBy('id', 'DESC')->first();
+            if ($token && Auth::loginUsingId($token->tokenable_id)) {
+                PersoanlAccessToken::where('name', 'google_login')->where('tokenable_id', $token->tokenable_id)->delete();
+                return $this->onItem(new UserResource(auth()->user()));
+            }
+        }
+        return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
     }
 
     public function logout(): HttpJsonResponse
@@ -69,37 +111,9 @@ class UserController extends Controller
     public function signup(SignupUserRequest $request): HttpJsonResponse
     {
         if ($this->service->store($request->username, $request->password, $request->name, $request->family, $request->email, null, null, null, Role::USER, 1)) {
-            return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => 1]);
+            return $this->handleLogin(['username' => $request->username, 'password' => $request->password, 'is_active' => Status::ACTIVE]);
         }
         return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
-    }
-
-    public function loginByGoogle(): RedirectResponse
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function loginByGoogleCallback(): HttpJsonResponse
-    {
-        if (!$googleUser = Socialite::driver('google')->user()) {
-            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-        }
-        $user = $this->service->getByEmail($googleUser->email);
-        if ($user) {
-            return $this->handleLogin(['email' => $googleUser->email, 'is_active' => 1]);
-        } else if ($user = $this->service->store($googleUser->email, '', $googleUser->name, '', $googleUser->email, $googleUser->id, $googleUser->avatar, $googleUser->avatar_original, Role::USER, 1)) {
-            return $this->handleLogin(['email' => $googleUser->email, 'is_active' => 1]);
-        }
-        return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-    }
-
-    private function handleLogin(array $data): HttpJsonResponse
-    {
-        if (!auth()->attempt($data)) {
-            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
-        }
-        Notification::onLoginSuccess(auth()->user());
-        return $this->onItem($this->service->get(auth()->user()->id));
     }
 
     public function verifyRequest1(VerifyUserRequest1Request $request): HttpJsonResponse
@@ -147,5 +161,25 @@ class UserController extends Controller
             }
         }
         return $this->onUpdate(false);
+    }
+
+    private function handleLogin(array $data): HttpJsonResponse
+    {
+        if (!auth()->attempt($data)) {
+            return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
+        }
+        Notification::onLoginSuccess(auth()->user());
+        return $this->onItem($this->service->get(auth()->user()->id));
+    }
+
+    private function handleGoogleLogin(Model $user)
+    {
+        $token = $user->createToken('google_login')->accessToken->token;
+        auth()->logout();
+        if ($token) {
+            return view('google', ['token' => $token]);
+        } else {
+            return view('index');
+        }
     }
 }

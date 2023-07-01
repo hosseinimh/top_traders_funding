@@ -20,7 +20,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setWallet([5, 100 - 5]);
+    setWallet([0, 100]);
   }, []);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Dashboard = () => {
             "--success"
           ),
           getComputedStyle(document.documentElement).getPropertyValue(
-            "--dark-warning"
+            "--light-body"
           ),
         ],
       },
@@ -76,7 +76,7 @@ const Dashboard = () => {
       tooltip: {
         enabled: true,
         y: {
-          formatter: (value) => `${value} %`,
+          formatter: () => `0`,
         },
       },
     });

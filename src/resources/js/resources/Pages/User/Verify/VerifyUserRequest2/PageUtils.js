@@ -60,7 +60,7 @@ export class PageUtils extends BasePageUtils {
         } else {
           this.dispatch(
             setPagePropsAction({
-              token: this?.pageState?.params?.token,
+              token: null,
               verifyResult: false,
             })
           );

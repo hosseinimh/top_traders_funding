@@ -2,14 +2,14 @@ import { BASE_URL } from "../../constants";
 import Entity from "./Entity";
 
 export class Error extends Entity {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    async store(error, errorInfo) {
-        return await this.handlePost(`${BASE_URL}/a/errors/store`, {
-            error,
-            error_info: errorInfo,
-        });
-    }
+  async store(error, errorInfo) {
+    return await this.handlePost(`${BASE_URL}/u/errors/store`, {
+      error,
+      error_info: errorInfo,
+    });
+  }
 }

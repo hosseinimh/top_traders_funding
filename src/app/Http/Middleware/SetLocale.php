@@ -27,7 +27,7 @@ class SetLocale
     private function setLocale(mixed $locale): bool
     {
         if (isset($locale) && in_array($locale, Locale::toArray())) {
-            app()->setLocale($locale);
+            app()->setLocale(Locale::short($locale));
             session(['_locale' => $locale]);
             if (auth()->user()) {
                 $service = new UserService();

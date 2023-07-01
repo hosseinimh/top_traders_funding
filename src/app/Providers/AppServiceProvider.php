@@ -12,7 +12,6 @@ use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
-use App\Http\Controllers\Administrator\ErrorController;
 use App\Http\Controllers\Administrator\NotificationController;
 use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
@@ -25,6 +24,7 @@ use App\Http\Controllers\User\ChallengePlatformController as UserChallengePlatfo
 use App\Http\Controllers\User\ChallengeRuleController as UserChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController as UserChallengeServerController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\ErrorController;
 use App\Http\Controllers\User\NotificationController as UserNotificationController;
 use App\Http\Controllers\User\TicketController as UserTicketController;
 use App\Http\Controllers\User\UserController as UserUserController;

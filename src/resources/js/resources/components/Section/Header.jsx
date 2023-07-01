@@ -24,11 +24,11 @@ import ProfileModal from "../Modal/ProfileModal";
 
 const Header = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
+  const userState = useSelector((state) => state.userReducer);
   const [notifications, setNotifications] = useState(false);
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const dispatch = useDispatch();
   const { header: strings, date, general } = useLocale();
-  const authUser = utils.getLSUser();
   const notificationEntity = new Notification();
 
   useEffect(() => {
@@ -285,13 +285,20 @@ const Header = () => {
     <div className="userinfo sub dropdown-link" id="user-menu">
       <div className="d-flex align-center" onClick={(e) => toggleUserMenu(e)}>
         <div className="img">
-          <img src={`${IMAGES_PATH}/avatar-user.png`} alt="" />
+          <img
+            src={
+              userState?.user?.avatar
+                ? `${userState?.user?.avatar}`
+                : `${IMAGES_PATH}/avatar-user.png`
+            }
+            alt=""
+          />
         </div>
         <div className="info">
-          <div className="name">{`${authUser?.name ?? ""} ${
-            authUser?.family ?? ""
+          <div className="name">{`${userState?.user?.name ?? ""} ${
+            userState?.user?.family ?? ""
           }`}</div>
-          <div className="userid">{`${authUser?.username ?? ""}`}</div>
+          <div className="userid">{`${userState?.user?.username ?? ""}`}</div>
         </div>
       </div>
       <div className="submenu dropdown-list">

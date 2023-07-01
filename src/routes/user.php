@@ -9,22 +9,26 @@ use App\Http\Controllers\User\ChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController;
+use App\Http\Controllers\User\ErrorController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-// not logged users
+// all users
 Route::middleware(['cors'])->group(function () {
-    Route::post('users/login', [UserController::class, 'login']);
-    Route::post('users/forgot_password', [UserController::class, 'forgotPassword']);
-    Route::post('users/signup', [UserController::class, 'signup']);
     Route::post('users/logout', [UserController::class, 'logout']);
     Route::post('users/set_locale', [UserController::class, 'setLocale']);
-    Route::post('users/verify_request_1', [UserController::class, 'verifyRequest1']);
-    Route::post('users/verify_request_2', [UserController::class, 'verifyRequest2']);
-    Route::post('users/verify_email', [UserController::class, 'verifyEmail']);
-    Route::post('users/verify_request_3', [UserController::class, 'verifyRequest3']);
+
+    Route::post('errors/store', [ErrorController::class, 'store']);
+});
+
+// not logged in users
+Route::middleware(['cors', 'auth.notLoggedIn'])->group(function () {
+    Route::post('users/login', [UserController::class, 'login']);
+    Route::post('users/login_token', [UserController::class, 'loginByToken']);
+    Route::post('users/forgot_password', [UserController::class, 'forgotPassword']);
+    Route::post('users/signup', [UserController::class, 'signup']);
 });
 
 // 'user' type users
@@ -32,6 +36,10 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
     Route::post('dashboard', [DashboardController::class, 'index']);
 
     Route::post('users/change_password', [UserController::class, 'changePassword']);
+    Route::post('users/verify_request_1', [UserController::class, 'verifyRequest1']);
+    Route::post('users/verify_request_2', [UserController::class, 'verifyRequest2']);
+    Route::post('users/verify_email', [UserController::class, 'verifyEmail']);
+    Route::post('users/verify_request_3', [UserController::class, 'verifyRequest3']);
 
     Route::post('tickets', [TicketController::class, 'index']);
     Route::post('tickets/show/{model}', [TicketController::class, 'show']);

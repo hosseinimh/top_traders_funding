@@ -9,6 +9,7 @@ abstract class ErrorCode
 
     const USER_NOT_FOUND = 1;
     const USER_NOT_AUTHORIZED = 2;
+    const USER_ALREADY_LOGGED_IN = 3;
 
     const FORM_INPUT_INVALID = 7;
     const STORE_ERROR = 8;

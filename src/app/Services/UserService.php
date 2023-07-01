@@ -90,6 +90,16 @@ class UserService
         return $model->update($data);
     }
 
+    public function updateByGoogle(Model $model, string $googleId, string $avatar, string $avatarOriginal): bool
+    {
+        $data = [
+            'google_id' => $googleId,
+            'avatar' => $avatar,
+            'avatar_original' => $avatarOriginal,
+        ];
+        return $model->update($data);
+    }
+
     public function changePassword(Model $user, string $password): bool
     {
         $password = Hash::make($password);

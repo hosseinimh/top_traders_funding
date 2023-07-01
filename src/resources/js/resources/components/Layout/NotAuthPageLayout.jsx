@@ -11,8 +11,8 @@ const NotAuthPageLayout = ({ children, pageUtils }) => {
   const locale = utils.getLSVariable("locale") ?? LOCALES.FA;
   const screen =
     locale === LOCALES.FA
-      ? `${IMAGES_PATH}/screen-rtl1.png`
-      : `${IMAGES_PATH}/screen-ltr1.png`;
+      ? `${IMAGES_PATH}/screen-rtl.png`
+      : `${IMAGES_PATH}/screen-ltr.png`;
 
   return (
     <BasePageLayout authPage={false} pageUtils={pageUtils}>

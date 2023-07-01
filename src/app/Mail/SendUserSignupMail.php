@@ -14,6 +14,7 @@ class SendUserSignupMail extends Mailable
     public function build()
     {
         $locale = session('_locale', Locale::FA);
+        $locale = Locale::short($locale);
         $dir = $locale === Locale::FA ? 'rtl' : 'ltr';
         $username = $this->username;
         $password = $this->password;

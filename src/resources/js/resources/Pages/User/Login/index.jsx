@@ -53,16 +53,16 @@ const Login = () => {
         >
           {strings.submit}
         </button>
-        <button
+        <a
           className="btn text"
           style={{ backgroundColor: "#e94235" }}
-          onClick={pageUtils.useForm.handleSubmit(pageUtils.onSubmit)}
+          href={`${BASE_PATH}/users/login_google`}
           type="button"
           title={strings.loginByGoogle}
           disabled={layoutState?.loading}
         >
           {strings.loginByGoogle}
-        </button>
+        </a>
         <div className="mt-20 mb-10 text">
           {strings.forgot}
           <Link to={`${BASE_PATH}/users/forgot`} className="dark-warning mx-5">

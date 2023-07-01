@@ -4,19 +4,19 @@ import { Provider } from "react-redux";
 
 import store from "../state/store";
 import ErrorBoundary from "./components/Error/ErrorBoundry";
-import { Routes } from "./navigation";
+import { AppRoutes } from "./navigation";
 
-const ServerConfig = require("../../../server-config.json");
+const serverConfig = require("../../../server-config.json");
 
 function App() {
-  const { environment } = ServerConfig;
+  const { environment } = serverConfig;
 
   return (
     <Provider store={store}>
-      {environment === "local" && <Routes />}
+      {environment === "local" && <AppRoutes />}
       {environment !== "local" && (
         <ErrorBoundary>
-          <Routes />
+          <AppRoutes />
         </ErrorBoundary>
       )}
     </Provider>
