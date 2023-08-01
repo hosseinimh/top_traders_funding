@@ -42,8 +42,7 @@ class ChallengeController extends Controller
 
     public function show(Model $model): HttpJsonResponse
     {
-        $challenge = $this->service->get($model->id);
-        if ($challenge && $challenge->user_id === auth()->user()->id) {
+        if ($model->user_id === auth()->user()->id) {
             $challengeRuleService = new ChallengeRuleService();
             return $this->onItems(['item' => new ChallengeResource($this->service->get($model->id)), 'challengeRule' => new ChallengeRuleResource($challengeRuleService->get())]);
         }

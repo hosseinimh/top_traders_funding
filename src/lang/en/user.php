@@ -34,7 +34,6 @@ return [
     'family_required' => $requiredMessage('نام خانوادگی'),
     'family_min' => $minStringMessage('نام خانوادگی', 2),
     'family_max' => $maxStringMessage('نام خانوادگی', 50),
-    'name_family_max' => $maxStringMessage('نام / نام خانوادگی', 50),
     'not_authorized' => 'شما مجوز ورود به این قسمت را ندارید.',
     'name' => 'کاربر',
     'father_name_required' => $requiredMessage('نام پدر'),
@@ -80,4 +79,5 @@ return [
     'reject_reason_numeric' => $numericMessage('علت عدم تایید'),
     'reject_reason_min' => $minNumericMessage('علت عدم تایید', 1),
     'reject_reason_max' => $maxNumericMessage('علت عدم تایید', 3),
+    'token_required' => $requiredMessage('توکن'),
 ];

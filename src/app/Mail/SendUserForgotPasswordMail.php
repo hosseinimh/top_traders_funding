@@ -14,8 +14,8 @@ class SendUserForgotPasswordMail extends Mailable
     public function build()
     {
         $locale = session('_locale', Locale::FA);
-        $locale = Locale::short($locale);
         $dir = $locale === Locale::FA ? 'rtl' : 'ltr';
+        $locale = Locale::short($locale);
         $username = $this->username;
         $password = $this->newPassword;
         return $this->subject(__('user.forgot_password_subject'))

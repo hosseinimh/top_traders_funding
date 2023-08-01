@@ -32,5 +32,6 @@ class ChallengeTrade extends Model
         'price',
         'account_currency_exchange_rate',
         'update_sequence_number',
+        'comment',
     ];
 }

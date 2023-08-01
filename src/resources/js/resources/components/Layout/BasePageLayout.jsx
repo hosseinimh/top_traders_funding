@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { slideUp } from "es6-slide-up-down";
 
-import { BASE_PATH, MESSAGE_CODES, MESSAGE_TYPES } from "../../../constants";
+import {
+  BASE_PATH,
+  IMAGES_PATH,
+  LOCALES,
+  MESSAGE_CODES,
+  MESSAGE_TYPES,
+} from "../../../constants";
 import {
   setDropDownElementAction,
   setLoadingAction,
@@ -28,7 +34,13 @@ import {
 } from "../../../state/page/pageActions";
 import { clearLogoutAction } from "../../../state/user/userActions";
 import utils from "../../../utils/Utils";
-import { Footer, Header, Sidebar, TopLoadingBar } from "../../components";
+import {
+  AlertState,
+  Footer,
+  Header,
+  Sidebar,
+  TopLoadingBar,
+} from "../../components";
 import { useLocale } from "../../../hooks";
 
 const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
@@ -247,7 +259,46 @@ const BasePageLayout = ({ pageUtils, children, authPage = true }) => {
       </div>
     );
   }
-  return { ...children };
+  const { notAuthPages: strings } = useLocale();
+  const locale = utils.getLSVariable("locale") ?? LOCALES.FA;
+  const screen =
+    locale === LOCALES.FA
+      ? `${IMAGES_PATH}/screen-rtl.png`
+      : `${IMAGES_PATH}/screen-ltr.png`;
+  return (
+    <div onClick={(e) => onAppContainerClick(e)}>
+      <TopLoadingBar />
+      <div className="login-page d-flex-wrap">
+        <div className="login-info d-flex-column">
+          <div className="logo">
+            <img src={`${IMAGES_PATH}/logo-dark.png`} alt="" />
+          </div>
+          <div className="img">
+            <img src={screen} alt="" />
+          </div>
+          <div className="info">
+            <div>{strings._title}</div>
+            <div style={{ direction: "ltr" }}>{strings._subTitle}</div>
+          </div>
+        </div>
+        <div
+          className="login-box d-flex-column"
+          style={{ justifyContent: "flex-start" }}
+        >
+          <Header />
+          <div className="login-form">
+            <div className="title pd-t-30 pd-d-20">
+              <h2 className="text">{pageUtils.strings._title}</h2>
+              <span>{pageUtils.strings._subTitle}</span>
+            </div>
+            <div className="line-gr mb-20"></div>
+            <AlertState />
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BasePageLayout;

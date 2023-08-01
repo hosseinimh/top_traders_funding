@@ -12,21 +12,12 @@ import * as Pages from "../Pages";
 
 const renderNotAuthRoutes = () => (
   <>
-    <Route
-      path={`${BASE_PATH}/users/login`}
-      exact={true}
-      element={<Pages.Login />}
-    />
+    <Route path={`${BASE_PATH}/users/login`} element={<Pages.Login />} />
     <Route
       path={`${BASE_PATH}/users/forgot`}
-      exact={true}
       element={<Pages.ForgotPassword />}
     />
-    <Route
-      path={`${BASE_PATH}/users/signup`}
-      exact={true}
-      element={<Pages.Signup />}
-    />
+    <Route path={`${BASE_PATH}/users/signup`} element={<Pages.Signup />} />
     <Route path="*" element={<Navigate to={`${BASE_PATH}/users/login`} />} />
   </>
 );
@@ -52,7 +43,6 @@ const renderAuthRoutes = () => (
     />
     <Route
       path={`${BASE_PATH}/notifications`}
-      exact={true}
       element={<Pages.Notifications />}
     />
     <Route
@@ -167,6 +157,7 @@ const renderAdministratorRoutes = () => (
       path={`${BASE_PATH}/challenges/edit/:challengeId`}
       element={<Pages.EditChallenge />}
     />
+    <Route path={`${BASE_PATH}/errors`} element={<Pages.Errors />} />
   </>
 );
 

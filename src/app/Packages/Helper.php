@@ -2,6 +2,7 @@
 
 namespace App\Packages;
 
+use App\Constants\Locale;
 use App\Models\Error;
 use DateTime;
 use Exception;
@@ -65,7 +66,7 @@ class Helper
     public function localeNumbers($number)
     {
         try {
-            if (app()->getLocale() === 'fa') {
+            if (app()->getLocale() === Locale::short(Locale::FA)) {
                 return Helper::persianNumbers($number);
             }
         } catch (Exception) {

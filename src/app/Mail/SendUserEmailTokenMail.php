@@ -14,8 +14,8 @@ class SendUserEmailTokenMail extends Mailable
     public function build()
     {
         $locale = session('_locale', Locale::FA);
-        $locale = Locale::short($locale);
         $dir = $locale === Locale::FA ? 'rtl' : 'ltr';
+        $locale = Locale::short($locale);
         $token = $this->token;
         return $this->subject(__('user.email_token_subject'))
             ->view('emails.user.email_token', compact('locale', 'dir', 'token'));

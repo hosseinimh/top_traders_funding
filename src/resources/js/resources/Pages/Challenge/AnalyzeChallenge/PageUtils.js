@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 
-import { Challenge as Entity, MetaApi } from "../../../../http/entities";
+import {
+  ChallengeTrade,
+  Challenge as Entity,
+  MetaApi,
+} from "../../../../http/entities";
 import {
   setPagePropsAction,
   setPageTitleAction,
@@ -57,6 +61,12 @@ export class PageUtils extends BasePageUtils {
       const result = await this.fetchItem(this.pageState?.props?.challengeId);
       if (result?.item) {
         const accountDataResult = await this.fetchAccount(result.item);
+        if (accountDataResult?.accountData?.deals?.deals) {
+          this.updateChallengeTrades(
+            this.pageState?.props?.challengeId,
+            accountDataResult?.accountData?.deals?.deals
+          );
+        }
         this.dispatch(
           setPagePropsAction({
             item: result.item,
@@ -99,5 +109,33 @@ export class PageUtils extends BasePageUtils {
         accountData: accountDataResult?.accountData ?? null,
       })
     );
+  }
+
+  async updateChallengeTrades(challengeId, deals) {
+    const challengeTrade = new ChallengeTrade();
+    const challengeTrades = deals.map((deal) => {
+      return {
+        deal_id: deal.id,
+        platform: deal.platform,
+        type: deal.type,
+        time: deal.time,
+        broker_time: deal.brokerTime,
+        commission: deal.commission,
+        swap: deal.swap,
+        profit: deal.profit,
+        symbol: deal?.symbol ?? null,
+        magic: deal?.magic ?? null,
+        order_id: deal?.orderId ?? null,
+        position_id: deal?.positionId ?? null,
+        reason: deal?.reason ?? null,
+        entry_type: deal?.entryType ?? null,
+        volume: deal?.volume ?? null,
+        price: deal?.price ?? null,
+        account_currency_exchange_rate: deal.accountCurrencyExchangeRate,
+        update_sequence_number: deal?.updateSequenceNumber ?? null,
+        comment: deal?.comment ?? null,
+      };
+    });
+    await challengeTrade.store(challengeId, challengeTrades);
   }
 }

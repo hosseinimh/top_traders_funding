@@ -298,6 +298,13 @@ function Sidebar() {
                 "Users",
                 "Users"
               )}
+              {renderMenuItem(
+                `${BASE_PATH}/errors`,
+                strings.errors,
+                "icon-close-square4",
+                "Errors",
+                "Errors"
+              )}
             </>
           )}
           {userState?.user?.role === USER_ROLES.USER &&
@@ -343,9 +350,9 @@ function Sidebar() {
           </li>
         </ul>
         <div className="menu-title">{strings.telSupport}</div>
-        <ul>
+        <ul style={{ paddingBottom: "2rem" }}>
           <li>
-            <a href="tel:02191306781">
+            <a href={`tel:${strings.tel}`}>
               <i className="icon-call"></i>
               <span className="tel">{strings.tel}</span>
             </a>

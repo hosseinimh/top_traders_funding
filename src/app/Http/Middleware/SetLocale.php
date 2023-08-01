@@ -3,9 +3,11 @@
 namespace App\Http\Middleware;
 
 use App\Constants\Locale;
+use App\Models\Error;
 use App\Services\UserService;
 use Closure;
 use Illuminate\Http\Request;
+use PharIo\Manifest\Url;
 
 class SetLocale
 {
@@ -18,8 +20,11 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->setlocale($request->_locale)) {
-            $this->setlocale(session('_locale'));
+        if (!$this->setLocale($request->_locale)) {
+            $this->setLocale($request->session()->pull('_locale', Locale::FA));
+        }
+        if ($request->query->has('_locale')) {
+            return redirect($request->url());
         }
         return $next($request);
     }

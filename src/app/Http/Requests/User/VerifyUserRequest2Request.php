@@ -20,7 +20,7 @@ class VerifyUserRequest2Request extends FormRequest
 
     public function rules()
     {
-        if (app()->getLocale() === Locale::FA) {
+        if (app()->getLocale() === Locale::short(Locale::FA)) {
             return [
                 'mobile' => 'required|max_digits:11',
                 'tel' => 'required|max_digits:11',

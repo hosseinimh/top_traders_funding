@@ -155,6 +155,7 @@ export const sidebar = {
   challengesAdmin: "چالش‌ها",
   verifyRequests: "درخواست‌های احراز هویت",
   users: "کاربران",
+  errors: "خطاها",
   quickAccess: "دسترسی سریع",
   appRules: "قوانین",
   campaigns: "کمپین‌ها",
@@ -171,7 +172,7 @@ export const sidebar = {
   changePassword: "تغییر کلمه عبور",
   logout: "خروج از حساب کاربری",
   telSupport: "تلفن پشتیبانی",
-  tel: "09301234567",
+  tel: "09155128083",
   supportHours: "پاسخگوی تلفنی 9 صبح تا 9 شب",
 };
 
@@ -190,15 +191,26 @@ export const dashboardPage = {
   verified: "مشاهده اطلاعات",
 };
 
+export const errorsPage = {
+  _title: "خطاها",
+  _subTitle: "فهرست خطاهای رخ داده در سامانه",
+  message: "متن خطا",
+  date: "تاریخ",
+  errorDetails: "جزییات خطا",
+};
+
 export const usersPage = {
-  _title: "کاربران",
+  _title: "Users",
   _subTitle: "فهرست کاربران سامانه",
   username: "نام کاربری",
   usernamePlaceholder: "نام کاربری",
-  nameFamily: "نام / نام خانوادگی",
-  nameFamilyPlaceholder: "نام / نام خانوادگی",
+  name: "نام",
+  namePlaceholder: "نام",
+  family: "نام خانوادگی",
+  familyPlaceholder: "نام خانوادگی",
   email: "پست الکترونیک",
   emailPlaceholder: "پست الکترونیک",
+  nameFamily: "نام / نام خانوادگی",
   role: "نوع کاربری",
   status: "وضعیت",
   active: "فعال",
@@ -461,7 +473,7 @@ export const editCampaignPage = {
 };
 
 export const ticketTypes = {
-  type1: "مورد شکایت",
+  type1: "شکایت",
   type2: "پیشنهاد",
   type3: "اعلام خرابی",
   type4: "پشتیبانی فنی، مالی",
@@ -763,7 +775,7 @@ export const analyzeChallengePage = {
   accountNo: "شماره حساب",
   platform: "پلتفرم",
   status: "وضعیت",
-  accountType: "Account type",
+  accountType: "نوع اکانت",
   chart: "نمودار",
   balanceStartDay: "بالانس ابتدای روز",
   totalProfit: "سود ایجادشده",

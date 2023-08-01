@@ -20,7 +20,7 @@ class VerifyUserRequest1Request extends FormRequest
 
     public function rules()
     {
-        if (app()->getLocale() === Locale::FA) {
+        if (app()->getLocale() === Locale::short(Locale::FA)) {
             return [
                 'name' => 'required|min:2|max:50',
                 'family' => 'required|min:2|max:50',

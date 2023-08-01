@@ -12,7 +12,7 @@ class SignupUserRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
-        $response = new Response(['_result' => '0', '_error' => $validator->errors()->first(), '_errorCode' => ErrorCode::USER_NOT_FOUND], 200);
+        $response = new Response(['_result' => '0', '_error' => $validator->errors()->first(), '_errorCode' => ErrorCode::FORM_INPUT_INVALID], 200);
 
         throw new ValidationException($validator, $response);
     }

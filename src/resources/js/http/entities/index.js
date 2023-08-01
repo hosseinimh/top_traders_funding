@@ -9,6 +9,7 @@ import { ChallengeBalance } from "./ChallengeBalance";
 import { ChallengeLeverage } from "./ChallengeLeverage";
 import { ChallengeRule } from "./ChallengeRule";
 import { ChallengePlatform } from "./ChallengePlatform";
+import { ChallengeTrade } from "./ChallengeTrade";
 import { Challenge } from "./Challenge";
 import { Notification } from "./Notification";
 import { MetaApi } from "./MetaApi";
@@ -25,6 +26,7 @@ export {
   ChallengeLeverage,
   ChallengeRule,
   ChallengePlatform,
+  ChallengeTrade,
   Challenge,
   Notification,
   MetaApi,

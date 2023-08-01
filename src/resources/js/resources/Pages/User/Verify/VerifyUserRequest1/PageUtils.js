@@ -78,7 +78,7 @@ export class PageUtils extends BasePageUtils {
       data.fatherName,
       data.nationalNo,
       data.identityNo,
-      data.birthDate.replaceAll("/", ""),
+      parseInt(data.birthDate.replaceAll("/", "")),
       data.gender
     );
     this.dispatch(setLoadingAction(false));

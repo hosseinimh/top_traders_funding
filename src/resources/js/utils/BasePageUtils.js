@@ -278,7 +278,7 @@ export class BasePageUtils {
   }
 
   onSubmit(data = null) {
-    this.dispatch(clearMessageAction());
+    this.onSendRequest();
     this.fillForm(data);
   }
 

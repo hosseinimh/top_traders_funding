@@ -39,10 +39,12 @@ const AnalyzeChallenge = () => {
 
   useEffect(() => {
     if (accountData) {
-      getProfits();
-      setTimeout(async () => {
-        await pageUtils?.fetchData();
-      }, 10000);
+      try {
+        getProfits();
+        setTimeout(async () => {
+          await pageUtils?.fetchData();
+        }, 10000);
+      } catch {}
     }
   }, [accountData]);
 
@@ -125,7 +127,7 @@ const AnalyzeChallenge = () => {
         },
       },
       yaxis: {
-        min: 0,
+        min: Math.min(item.balance * 0.8, item.equity * 0.8),
         max: Math.max(item.balance * 1.2, item.equity * 1.2),
         labels: {
           formatter: (value) => value.toFixed(0),
@@ -283,7 +285,7 @@ const AnalyzeChallenge = () => {
           <div className="title">{strings.status}</div>
         </div>
         <div className="item pd-10">
-          <span>{item?.balance}</span>
+          <span>{item?.balance} $</span>
           <div className="title">{strings.accountType}</div>
         </div>
       </div>
@@ -292,6 +294,8 @@ const AnalyzeChallenge = () => {
 
   const renderMainChart = () => {
     if (mainChartOptions && mainSeries) {
+      console.log(mainChartOptions);
+      console.log(mainSeries);
       return (
         <Chart
           options={mainChartOptions}
@@ -306,7 +310,7 @@ const AnalyzeChallenge = () => {
 
   const renderProfit = () => (
     <div className="d-flex align-center">
-      <div className="pd-rdir-10">
+      <div className="pd-rdir-30">
         <h4 className="text">{strings.totalProfit}</h4>
         <div className="text-center text" style={{ direction: "ltr" }}>
           <span
@@ -329,7 +333,9 @@ const AnalyzeChallenge = () => {
           className="progress-bar bg-success"
           style={{
             width: `${
-              totalProfit < 0 ? "0px" : `${(totalProfit / 800).toFixed(0)}px`
+              totalProfit < 0
+                ? "0px"
+                : `${(Math.min(totalProfit, 800) / 800).toFixed(0)}px`
             }`,
           }}
         ></div>

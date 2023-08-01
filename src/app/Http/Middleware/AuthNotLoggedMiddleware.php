@@ -22,6 +22,7 @@ class AuthNotLoggedMiddleware
     {
         try {
             if (auth()->user()) {
+                auth()->logout();
                 throw new \Exception(__('user.user_already_logged_in'));
             }
         } catch (\Exception $e) {

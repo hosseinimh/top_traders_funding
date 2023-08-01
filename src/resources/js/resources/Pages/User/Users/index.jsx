@@ -35,7 +35,12 @@ const Users = () => {
           fullRow={false}
         />
         <InputTextColumn
-          field="nameFamily"
+          field="name"
+          icon={"icon-personalcard4"}
+          fullRow={false}
+        />
+        <InputTextColumn
+          field="family"
           icon={"icon-personalcard4"}
           fullRow={false}
         />

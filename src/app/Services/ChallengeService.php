@@ -59,6 +59,14 @@ class ChallengeService
         return $model->update($data);
     }
 
+    public function updateEquity(int $id, int $equity): bool
+    {
+        $data = [
+            'equity' => $equity,
+        ];
+        return Model::where('id', $id)->update($data);
+    }
+
     public function changeStatus(Model $model, int $challengeStatus): bool
     {
         $data = [

@@ -30,6 +30,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { header: strings, date, general } = useLocale();
   const notificationEntity = new Notification();
+  const [notificationInterval, setNotificationInterval] = useState(null);
 
   useEffect(() => {
     let countUnSeenUserNotifications =
@@ -77,7 +78,19 @@ const Header = () => {
   }, [layoutState?.notifications]);
 
   useEffect(() => {
-    getNotifications();
+    if (userState?.user) {
+      setNotificationInterval(
+        setInterval(() => {
+          getNotifications();
+        }, 10000)
+      );
+    }
+
+    return () => {
+      if (notificationInterval) {
+        clearInterval(notificationInterval);
+      }
+    };
   }, []);
 
   const getNotifications = async () => {
@@ -89,9 +102,6 @@ const Header = () => {
           systemNotifications: result.systemNotifications,
         })
       );
-      setTimeout(() => {
-        getNotifications();
-      }, 10000);
     }
   };
 
@@ -115,7 +125,7 @@ const Header = () => {
     dispatch(setLocaleAction(locale));
     const user = new User();
     await user.setLocale(locale);
-    window.location.reload();
+    window.location.href = `${window.location.href}?_locale=${locale}`;
   };
 
   const onLogout = () => {
@@ -492,13 +502,21 @@ const Header = () => {
 
   return (
     <div className="navbar d-flex align-center">
-      <div className="menu-toggle" onClick={toggleSidebar}>
-        <i className="icon-category4"></i>
-      </div>
-      {renderUserDropdown()}
+      {userState?.user && (
+        <>
+          <div className="menu-toggle" onClick={toggleSidebar}>
+            <i className="icon-category4"></i>
+          </div>
+          {renderUserDropdown()}
+        </>
+      )}
       <div className="navbar-actions">
-        <ProfileModal />
-        {renderNotificationsDropdown()}
+        {userState?.user && (
+          <>
+            <ProfileModal />
+            {renderNotificationsDropdown()}
+          </>
+        )}
         {renderLocalesDropdown()}
         {renderToggleTheme()}
         {renderColorsDropdown()}

@@ -9,6 +9,7 @@ use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
 use App\Http\Controllers\Administrator\DashboardController;
+use App\Http\Controllers\Administrator\ErrorController;
 use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.administrator'])->group(function () {
     Route::post('dashboard', [DashboardController::class, 'index']);
+
+    Route::post('errors', [ErrorController::class, 'index']);
 
     Route::post('users', [UserController::class, 'index']);
     Route::post('users/verify_requests', [UserController::class, 'indexVerifyRequests']);

@@ -10194,7 +10194,7 @@ div.dataTables_wrapper {
   height: 0.6rem;
   overflow: hidden;
   font-size: 0.75rem;
-  background-color: var(--placeholder);
+  background-color: var(--dark);
   border-radius: 0.625rem;
 }
 .progress-bar {

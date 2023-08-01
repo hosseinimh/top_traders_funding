@@ -59,7 +59,8 @@ export class PageUtils extends BasePageUtils {
         props.action = null;
         this.onSubmit({
           username: this.useForm.getValues("username") ?? "",
-          nameFamily: this.useForm.getValues("nameFamily") ?? "",
+          name: this.useForm.getValues("name") ?? "",
+          family: this.useForm.getValues("family") ?? "",
           email: this.useForm.getValues("email") ?? "",
         });
 
@@ -98,7 +99,8 @@ export class PageUtils extends BasePageUtils {
   async fillForm(data = null) {
     const promise = this.entity.getPaginate(
       data?.username ?? "",
-      data?.nameFamily ?? "",
+      data?.name ?? "",
+      data?.family ?? "",
       data?.email ?? "",
       this.pageState.props?.pageNumber ?? 1
     );

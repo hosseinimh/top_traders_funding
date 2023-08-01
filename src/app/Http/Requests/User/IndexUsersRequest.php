@@ -21,7 +21,9 @@ class IndexUsersRequest extends FormRequest
     {
         return [
             'username' => 'max:50',
-            'name_family' => 'max:50',
+            'name' => 'max:50',
+            'family' => 'max:50',
+            'email' => 'max:50',
         ];
     }
 
@@ -29,7 +31,9 @@ class IndexUsersRequest extends FormRequest
     {
         return [
             'username.max' => __('user.username_max'),
-            'name_family.max' => __('user.name_family_max'),
+            'name.max' => __('user.name_max'),
+            'family.max' => __('user.family_max'),
+            'email.max' => __('user.email_max'),
         ];
     }
 }

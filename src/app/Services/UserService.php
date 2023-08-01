@@ -10,8 +10,10 @@ use App\Constants\Status;
 use App\Constants\StoragePath;
 use App\Facades\Helper;
 use App\Facades\AppMailer;
+use App\Models\PersoanlAccessToken;
 use App\Models\User as Model;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,11 +38,9 @@ class UserService
         return Model::where('role', Role::ADMINISTRATOR)->where('is_active', 1)->first();
     }
 
-    public function getPaginate(string|null $username, string|null $name, string|null $email, int $page, int $pageItems): mixed
+    public function getPaginate(string|null $username, string|null $name, string|null $family, string|null $email, int $page, int $pageItems): mixed
     {
-        return Model::where('username', 'LIKE', '%' . $username . '%')->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%' . $name . '%')->orWhere('family', 'LIKE', '%' . $name . '%');
-        })->where('email', 'LIKE', '%' . $email . '%')->orderBy('family', 'ASC')->orderBy('name', 'ASC')->orderBy('id', 'ASC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+        return Model::where('username', 'LIKE', '%' . $username . '%')->where('name', 'LIKE', '%' . $name . '%')->where('family', 'LIKE', '%' . $family . '%')->where('email', 'LIKE', '%' . $email . '%')->orderBy('family', 'ASC')->orderBy('name', 'ASC')->orderBy('id', 'ASC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
     }
 
     public function getPaginateVerifyRequests(int $page, int $pageItems): mixed
@@ -100,6 +100,16 @@ class UserService
         return $model->update($data);
     }
 
+    public function loginByToken(string $token): bool
+    {
+        $record = PersoanlAccessToken::where('name', 'google_login')->where('token', $token)->orderBy('id', 'DESC')->first();
+        if ($record && Auth::loginUsingId($record->tokenable_id)) {
+            PersoanlAccessToken::where('name', 'google_login')->where('tokenable_id', $record->tokenable_id)->delete();
+            return true;
+        }
+        return false;
+    }
+
     public function changePassword(Model $user, string $password): bool
     {
         $password = Hash::make($password);
@@ -132,7 +142,7 @@ class UserService
 
     public function verifyRequest1(Model $model, string $name, string $family, string $fatherName, string $nationalNo, string $identityNo, string $birthDate, int $gender): mixed
     {
-        if (app()->getLocale() === Locale::FA) {
+        if (app()->getLocale() === Locale::short(Locale::FA)) {
             $year = substr($birthDate, 0, 4);
             $month = substr($birthDate, 4, 2);
             $day = substr($birthDate, 6, 2);
@@ -235,11 +245,9 @@ class UserService
         return $result;
     }
 
-    public function count(string|null $username, string|null $name, string|null $email): int
+    public function count(string|null $username, string|null $name, string|null $family, string|null $email): int
     {
-        return Model::where('username', 'LIKE', '%' . $username . '%')->where(function ($query) use ($name) {
-            $query->where('name', 'LIKE', '%' . $name . '%')->orWhere('family', 'LIKE', '%' . $name . '%');
-        })->where('email', 'LIKE', '%' . $email . '%')->count();
+        return Model::where('username', 'LIKE', '%' . $username . '%')->where('name', 'LIKE', '%' . $name . '%')->where('family', 'LIKE', '%' . $family . '%')->where('email', 'LIKE', '%' . $email . '%')->count();
     }
 
     public function countVerifyRequests(): int

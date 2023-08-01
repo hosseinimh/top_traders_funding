@@ -11,7 +11,9 @@ use App\Http\Controllers\Administrator\ChallengeLeverageController;
 use App\Http\Controllers\Administrator\ChallengePlatformController;
 use App\Http\Controllers\Administrator\ChallengeRuleController;
 use App\Http\Controllers\Administrator\ChallengeServerController;
+use App\Http\Controllers\Administrator\ChallengeTradeController;
 use App\Http\Controllers\Administrator\DashboardController;
+use App\Http\Controllers\Administrator\ErrorController;
 use App\Http\Controllers\Administrator\NotificationController;
 use App\Http\Controllers\Administrator\TicketController;
 use App\Http\Controllers\Administrator\UserController;
@@ -23,8 +25,9 @@ use App\Http\Controllers\User\ChallengeLeverageController as UserChallengeLevera
 use App\Http\Controllers\User\ChallengePlatformController as UserChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController as UserChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController as UserChallengeServerController;
+use App\Http\Controllers\User\ChallengeTradeController as UserChallengeTradeController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
-use App\Http\Controllers\User\ErrorController;
+use App\Http\Controllers\User\ErrorController as UserErrorController;
 use App\Http\Controllers\User\NotificationController as UserNotificationController;
 use App\Http\Controllers\User\TicketController as UserTicketController;
 use App\Http\Controllers\User\UserController as UserUserController;
@@ -36,6 +39,7 @@ use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
 use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
 use App\Http\Resources\ChallengeRule\ChallengeRuleResource;
 use App\Http\Resources\ChallengeServer\ChallengeServerResource;
+use App\Http\Resources\ChallengeTrade\ChallengeTradeResource;
 use App\Http\Resources\Error\ErrorResource;
 use App\Http\Resources\Notification\NotificationResource;
 use App\Http\Resources\Ticket\TicketResource;
@@ -43,6 +47,7 @@ use App\Http\Resources\User\UserResource;
 use App\Packages\Helper;
 use App\Packages\JsonResponse;
 use App\Packages\AppMailer;
+use App\Packages\MetaApi;
 use App\Packages\Notification;
 use App\Services\AppRuleService;
 use App\Services\CampaignService;
@@ -52,6 +57,7 @@ use App\Services\ChallengePlatformService;
 use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
+use App\Services\ChallengeTradeService;
 use App\Services\ErrorService;
 use App\Services\NotificationService;
 use App\Services\TicketService;
@@ -76,6 +82,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('notification', function () {
             return new Notification();
         });
+
+        $this->app->bind('meta_api', function () {
+            return new MetaApi();
+        });
     }
 
     public function boot()
@@ -88,6 +98,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ErrorController::class, function ($app) {
             return new ErrorController(new JsonResponse(ErrorResource::class), $app->make(ErrorService::class));
+        });
+
+        $this->app->bind(UserErrorController::class, function ($app) {
+            return new UserErrorController(new JsonResponse(ErrorResource::class), $app->make(ErrorService::class));
         });
 
         $this->app->bind(DashboardController::class, function ($app) {
@@ -168,6 +182,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserChallengePlatformController::class, function ($app) {
             return new UserChallengePlatformController(new JsonResponse(ChallengePlatformResource::class), $app->make(ChallengePlatformService::class));
+        });
+
+        $this->app->bind(ChallengeTradeController::class, function ($app) {
+            return new ChallengeTradeController(new JsonResponse(ChallengeTradeResource::class), $app->make(ChallengeTradeService::class));
+        });
+
+        $this->app->bind(UserChallengeTradeController::class, function ($app) {
+            return new UserChallengeTradeController(new JsonResponse(ChallengeTradeResource::class), $app->make(ChallengeTradeService::class));
         });
 
         $this->app->bind(ChallengeController::class, function ($app) {

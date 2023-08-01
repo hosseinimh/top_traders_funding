@@ -13,13 +13,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ForgotPasswordRequest;
+use App\Http\Requests\User\LoginTokenUserRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\SignupUserRequest;
 use App\Http\Requests\User\VerifyEmailRequest;
 use App\Http\Requests\User\VerifyUserRequest1Request;
 use App\Http\Requests\User\VerifyUserRequest2Request;
 use App\Http\Resources\User\UserResource;
-use App\Models\PersoanlAccessToken;
 use App\Packages\JsonResponse;
 use App\Services\UserService;
 use Exception;
@@ -27,8 +27,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
@@ -57,9 +55,9 @@ class UserController extends Controller
         return $this->onUpdate($this->service->forgotPassword($user, $request->email));
     }
 
-    public function setLocale(Request $request): HttpJsonResponse
+    public function setLocale(): HttpJsonResponse
     {
-        return $this->onUpdate($this->service->setLocale(auth()->user(), $request->_locale));
+        return $this->onOk();
     }
 
     public function login(LoginRequest $request): HttpJsonResponse
@@ -72,7 +70,7 @@ class UserController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function loginByGoogleCallback(Request $request)
+    public function loginByGoogleCallback()
     {
         try {
             if ($googleUser = Socialite::driver('google')->user()) {
@@ -90,14 +88,11 @@ class UserController extends Controller
         return redirect(BASE_URL . '/users/login');
     }
 
-    public function loginByToken(Request $request): HttpJsonResponse
+    public function loginByToken(LoginTokenUserRequest $request): HttpJsonResponse
     {
-        if (isset($request->token)) {
-            $token = PersoanlAccessToken::where('name', 'google_login')->where('token', $request->token)->orderBy('id', 'DESC')->first();
-            if ($token && Auth::loginUsingId($token->tokenable_id)) {
-                PersoanlAccessToken::where('name', 'google_login')->where('tokenable_id', $token->tokenable_id)->delete();
-                return $this->onItem(new UserResource(auth()->user()));
-            }
+        if ($this->service->loginByToken($request->token)) {
+            Notification::onLoginSuccess(auth()->user());
+            return $this->onItem(new UserResource(auth()->user()));
         }
         return $this->onError(['_error' => __('user.user_not_found'), '_errorCode' => ErrorCode::USER_NOT_FOUND]);
     }
@@ -175,11 +170,12 @@ class UserController extends Controller
     private function handleGoogleLogin(Model $user)
     {
         $token = $user->createToken('google_login')->accessToken->token;
-        auth()->logout();
         if ($token) {
-            return view('google', ['token' => $token]);
+            $view = view('google', ['token' => $token]);
         } else {
-            return view('index');
+            $view = view('index');
         }
+        auth()->logout();
+        return $view;
     }
 }

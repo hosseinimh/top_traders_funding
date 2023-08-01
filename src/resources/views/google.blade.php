@@ -1,9 +1,27 @@
+@php
+if (!app()->isLocale(\App\Constants\Locale::short(\App\Constants\Locale::FA))) {
+$direction = 'ltr';
+$cssFilename = 'style.css';
+}else {
+$direction = 'rtl';
+$cssFilename = 'style_rtl.css';
+}
+
+try {
+$cssFileModified = substr(md5(filemtime('assets/css/'.$cssFilename)), 0, 6);
+} catch (\Exception) {
+$cssFileModified = '';
+}
+
+try {
+$jsFilename = 'assets/js/index.js';
+$jsFileModified = substr(md5(filemtime($jsFilename)), 0, 6);
+} catch (\Exception) {
+$jsFileModified = '';
+}
+@endphp
 <!DOCTYPE html>
-@if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
-<html lang="{{app()->currentLocale()}}" dir="ltr">
-@else
-<html lang="fa" dir="rtl">
-@endif
+<html lang="{{app()->currentLocale()}}" dir="{{$direction}}">
 
 <head>
     <base href="./">
@@ -21,19 +39,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <title>{{ __('general._title') }}</title>
-    @php
-    try {
-    $filename = 'assets/css/style.css';
-    $fileModified = substr(md5(filemtime($filename)), 0, 6);
-    } catch (\Exception) {
-    $fileModified = '';
-    }
-    @endphp
-    @if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
-    <link href="{{$THEME::CSS_PATH}}/style.css?v={{$fileModified}}" rel="stylesheet">
-    @else
-    <link href="{{$THEME::CSS_PATH}}/style_rtl.css?v={{$fileModified}}" rel="stylesheet">
-    @endif
+    <link href="{{$THEME::CSS_PATH}}/{{$cssFilename}}?v={{$cssFileModified}}" rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
@@ -81,7 +87,7 @@
         if (isset($token)) {
             echo "token = '$token';";
         }
-        echo "var BASE_URL='" . BASE_URL . "';";
+        echo "var BASE_URL='" . $THEME::BASE_URL . "';";
         ?>
         axios.defaults.withCredentials = true;
         if (token) {

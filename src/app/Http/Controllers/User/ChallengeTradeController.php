@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Constants\ErrorCode;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChallengeTrade\StoreChallengeTradeRequest;
+use App\Http\Requests\ChallengeTrade\StoreChallengeTradesRequest;
 use App\Models\Challenge;
 use App\Packages\JsonResponse;
 use App\Services\ChallengeTradeService;
@@ -16,8 +17,16 @@ class ChallengeTradeController extends Controller
         parent::__construct($response);
     }
 
-    public function store(Challenge $challenge, StoreChallengeTradeRequest $request): HttpJsonResponse
+    public function store(Challenge $challenge, StoreChallengeTradesRequest $request): HttpJsonResponse
     {
-        return $this->onStore($this->service->store($challenge->id, $request->deal_id, $request->platform, $request->type, $request->time, $request->broker_time, $request->commission, $request->swap, $request->profit, $request->symbol, $request->magic, $request->order_id, $request->position_id, $request->reason, $request->entry_type, $request->volume, $request->price, $request->account_currency_exchange_rate, $request->update_sequence_number));
+        if ($challenge->user_id === auth()->user()->id) {
+            return $this->onStore($this->service->updateTrades($challenge->id, $request->trades));
+        }
+        return $this->onError(['_error' => __('general.store_error'), '_errorCode' => ErrorCode::STORE_ERROR]);
+    }
+
+    public function getAccountInfo(Challenge $challenge): HttpJsonResponse
+    {
+        return $this->onStore($this->service->getAndUpdateAccountInfo($challenge));
     }
 }

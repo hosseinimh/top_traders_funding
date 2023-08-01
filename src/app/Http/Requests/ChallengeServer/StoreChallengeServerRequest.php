@@ -12,7 +12,7 @@ class StoreChallengeServerRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
-        $response = new Response(['_result' => '0', '_error' => $validator->errors()->first(), '_errorCode' => ErrorCode::UPDATE_ERROR], 200);
+        $response = new Response(['_result' => '0', '_error' => $validator->errors()->first(), '_errorCode' => ErrorCode::STORE_ERROR], 200);
 
         throw new ValidationException($validator, $response);
     }

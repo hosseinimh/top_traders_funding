@@ -1,9 +1,27 @@
+@php
+if (!app()->isLocale(\App\Constants\Locale::short(\App\Constants\Locale::FA))) {
+$direction = 'ltr';
+$cssFilename = 'style.css';
+}else {
+$direction = 'rtl';
+$cssFilename = 'style_rtl.css';
+}
+
+try {
+$cssFileModified = substr(md5(filemtime('assets/css/'.$cssFilename)), 0, 6);
+} catch (\Exception) {
+$cssFileModified = '';
+}
+
+try {
+$jsFilename = 'assets/js/index.js';
+$jsFileModified = substr(md5(filemtime($jsFilename)), 0, 6);
+} catch (\Exception) {
+$jsFileModified = '';
+}
+@endphp
 <!DOCTYPE html>
-@if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
-<html lang="{{app()->currentLocale()}}" dir="ltr">
-@else
-<html lang="fa" dir="rtl">
-@endif
+<html lang="{{app()->currentLocale()}}" dir="{{$direction}}">
 
 <head>
     <base href="./">
@@ -21,32 +39,12 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <title>{{ __('general._title') }}</title>
-    @php
-    try {
-    $filename = 'assets/css/style.css';
-    $fileModified = substr(md5(filemtime($filename)), 0, 6);
-    } catch (\Exception) {
-    $fileModified = '';
-    }
-    @endphp
-    @if (app()->currentLocale() !== \App\Constants\Locale::short(\App\Constants\Locale::FA))
-    <link href="{{$THEME::CSS_PATH}}/style.css?v={{$fileModified}}" rel="stylesheet">
-    @else
-    <link href="{{$THEME::CSS_PATH}}/style_rtl.css?v={{$fileModified}}" rel="stylesheet">
-    @endif
+    <link href="{{$THEME::CSS_PATH}}/{{$cssFilename}}?v={{$cssFileModified}}" rel="stylesheet">
 </head>
 
 <body>
     <div id="root"></div>
-    @php
-    try {
-    $filename = 'assets/js/index.js';
-    $fileModified = substr(md5(filemtime($filename)), 0, 6);
-    } catch (\Exception) {
-    $fileModified = '';
-    }
-    @endphp
-    <script src="{{$THEME::JS_PATH}}/index.js?v={{$fileModified}}"></script>
+    <script src="{{$THEME::JS_PATH}}/index.js?v={{$jsFileModified}}"></script>
 </body>
 
 </html>

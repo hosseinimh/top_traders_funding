@@ -4,7 +4,7 @@ require_once __DIR__ . '/Helper/MessageHelper.php';
 
 return [
     'type_undefined' => "نامشخص",
-    'type_1' => "مورد شکایت",
+    'type_1' => "شکایت",
     'type_2' => "پیشنهاد",
     'type_3' => "اعلام خرابی",
     'type_4' => "پشتیبانی فنی، مالی",

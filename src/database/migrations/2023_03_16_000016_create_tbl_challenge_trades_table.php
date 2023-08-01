@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('tbl_challenge_trades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('challenge_id');
-            $table->unsignedBigInteger('deal_id');
+            $table->string('deal_id');
             $table->string('platform');
-            $table->unsignedTinyInteger('type');
+            $table->string('type');
             $table->string('time');
             $table->string('broker_time');
             $table->double('commission');
@@ -26,14 +26,17 @@ return new class extends Migration
             $table->double('profit');
             $table->string('symbol')->nullable();
             $table->unsignedBigInteger('magic')->nullable();
-            $table->unsignedBigInteger('order_id')->nullable();
-            $table->unsignedBigInteger('position_id')->nullable();
-            $table->unsignedTinyInteger('reason')->nullable();
-            $table->unsignedTinyInteger('entry_type')->nullable();
+            $table->string('order_id')->nullable();
+            $table->string('position_id')->nullable();
+            $table->string('reason')->nullable();
+            $table->string('entry_type')->nullable();
             $table->double('volume')->nullable();
             $table->double('price')->nullable();
             $table->double('account_currency_exchange_rate');
-            $table->unsignedBigInteger('update_sequence_number');
+            $table->unsignedBigInteger('update_sequence_number')->nullable();
+            $table->string('comment')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('challenge_id')->references('id')->on('tbl_challenges');
         });
@@ -46,6 +49,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_challenge_trades');
+        Schema::table('tbl_challenge_trades', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

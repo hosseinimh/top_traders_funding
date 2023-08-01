@@ -9,6 +9,7 @@ use App\Http\Controllers\User\ChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController;
+use App\Http\Controllers\User\ChallengeTradeController;
 use App\Http\Controllers\User\ErrorController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\TicketController;
@@ -35,7 +36,6 @@ Route::middleware(['cors', 'auth.notLoggedIn'])->group(function () {
 Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
     Route::post('dashboard', [DashboardController::class, 'index']);
 
-    Route::post('users/change_password', [UserController::class, 'changePassword']);
     Route::post('users/verify_request_1', [UserController::class, 'verifyRequest1']);
     Route::post('users/verify_request_2', [UserController::class, 'verifyRequest2']);
     Route::post('users/verify_email', [UserController::class, 'verifyEmail']);
@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum', 'auth.user'])->group(function () {
 // 'user' | 'administrator' type users
 Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
     Route::post('users/auth', [UserController::class, 'showAuth']);
+    Route::post('users/change_password', [UserController::class, 'changePassword']);
 
     Route::post('app_rules', [AppRuleController::class, 'index']);
     Route::post('app_rules/show/{model}', [AppRuleController::class, 'show']);
@@ -76,6 +77,8 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
 
     Route::post('challenge_platforms', [ChallengePlatformController::class, 'index']);
     Route::post('challenge_platforms/show/{model}', [ChallengePlatformController::class, 'show']);
+
+    Route::post('challenge_trades/store/{challenge}', [ChallengeTradeController::class, 'store']);
 
     Route::post('challenges/take', [ChallengeController::class, 'take']);
     Route::post('challenges/store/{balance}/{server}/{platform}/{leverage}', [ChallengeController::class, 'store']);

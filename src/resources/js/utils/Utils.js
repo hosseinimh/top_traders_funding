@@ -581,6 +581,15 @@ const toLocaleDateString = (date, locale) => {
   return new Date(date).toLocaleDateString(locale, options);
 };
 
+const toNumericLocaleDateString = (date, locale) => {
+  let options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
+  return new Date(date).toLocaleDateString(locale, options);
+};
+
 const getTimezoneDate = (date, locale) => {
   const d = new Date(
     new Date(date).getTime() - new Date().getTimezoneOffset() * 60 * 1000
@@ -622,6 +631,7 @@ const utils = {
   setTheme,
   relativeDate,
   toLocaleDateString,
+  toNumericLocaleDateString,
   getTimezoneDate,
   getExtension,
 };

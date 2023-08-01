@@ -60,7 +60,7 @@ export class PageUtils extends BasePageUtils {
   }
 
   async fetchItem(id) {
-    await this.entity.get(id);
+    return await this.entity.get(id);
   }
 
   handleFetchResult(result) {
