@@ -9,7 +9,6 @@ use App\Http\Controllers\User\ChallengeLeverageController;
 use App\Http\Controllers\User\ChallengePlatformController;
 use App\Http\Controllers\User\ChallengeRuleController;
 use App\Http\Controllers\User\ChallengeServerController;
-use App\Http\Controllers\User\ChallengeTradeController;
 use App\Http\Controllers\User\ErrorController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\TicketController;
@@ -78,10 +77,10 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
     Route::post('challenge_platforms', [ChallengePlatformController::class, 'index']);
     Route::post('challenge_platforms/show/{model}', [ChallengePlatformController::class, 'show']);
 
-    Route::post('challenge_trades/store/{challenge}', [ChallengeTradeController::class, 'store']);
-
     Route::post('challenges/take', [ChallengeController::class, 'take']);
     Route::post('challenges/store/{balance}/{server}/{platform}/{leverage}', [ChallengeController::class, 'store']);
+    Route::post('challenges/show/{model}', [ChallengeController::class, 'show']);
+    Route::post('challenges/show_w_trades/{model}', [ChallengeController::class, 'showWithTrades']);
 
     Route::post('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/review', [NotificationController::class, 'review']);

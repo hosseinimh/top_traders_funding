@@ -12,7 +12,6 @@ import { ChallengePlatform } from "./ChallengePlatform";
 import { ChallengeTrade } from "./ChallengeTrade";
 import { Challenge } from "./Challenge";
 import { Notification } from "./Notification";
-import { MetaApi } from "./MetaApi";
 
 export {
   Error,
@@ -29,5 +28,4 @@ export {
   ChallengeTrade,
   Challenge,
   Notification,
-  MetaApi,
 };

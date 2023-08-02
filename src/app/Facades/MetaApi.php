@@ -5,7 +5,7 @@ namespace App\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void getAccountInfo(string $token, string $accountId)
+ * @method static mixed fetchAccountData(string $token, string $accountId)
  */
 class MetaApi extends Facade
 {

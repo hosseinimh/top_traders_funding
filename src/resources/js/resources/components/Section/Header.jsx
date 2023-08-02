@@ -19,7 +19,7 @@ import {
 } from "../../../state/layout/layoutActions";
 import { useLocale } from "../../../hooks";
 import { User, Notification } from "../../../http/entities";
-import notification from "../../../utils/Notification";
+import { default as notificationUtils } from "../../../utils/Notification";
 import ProfileModal from "../Modal/ProfileModal";
 
 const Header = () => {
@@ -27,10 +27,10 @@ const Header = () => {
   const userState = useSelector((state) => state.userReducer);
   const [notifications, setNotifications] = useState(false);
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
+  const [loadingNotifications, setLoadingNotifications] = useState(false);
   const dispatch = useDispatch();
   const { header: strings, date, general } = useLocale();
-  const notificationEntity = new Notification();
-  const [notificationInterval, setNotificationInterval] = useState(null);
+  const notification = new Notification();
 
   useEffect(() => {
     let countUnSeenUserNotifications =
@@ -78,31 +78,30 @@ const Header = () => {
   }, [layoutState?.notifications]);
 
   useEffect(() => {
-    if (userState?.user) {
-      setNotificationInterval(
-        setInterval(() => {
-          getNotifications();
-        }, 10000)
-      );
+    if (!loadingNotifications && userState?.user) {
+      setTimeout(async () => {
+        await getNotifications();
+      }, 10000);
     }
-
-    return () => {
-      if (notificationInterval) {
-        clearInterval(notificationInterval);
-      }
-    };
-  }, []);
+  }, [loadingNotifications]);
 
   const getNotifications = async () => {
-    const result = await notificationEntity.getReview();
-    if (result) {
-      dispatch(
-        setNotificationsAction({
-          userNotifications: result.userNotifications,
-          systemNotifications: result.systemNotifications,
-        })
-      );
+    if (loadingNotifications) {
+      return;
     }
+    try {
+      setLoadingNotifications(true);
+      const result = await notification.getReview();
+      if (result) {
+        dispatch(
+          setNotificationsAction({
+            userNotifications: result.userNotifications,
+            systemNotifications: result.systemNotifications,
+          })
+        );
+      }
+    } catch {}
+    setLoadingNotifications(false);
   };
 
   const toggleSidebar = () => {
@@ -187,7 +186,6 @@ const Header = () => {
           })
         );
         if (!seen) {
-          const notification = new Notification();
           notification.seen(item.id);
         }
       }
@@ -219,7 +217,6 @@ const Header = () => {
         systemNotifications,
       })
     );
-    const notification = new Notification();
     notification.seenReview();
   };
 
@@ -355,7 +352,7 @@ const Header = () => {
               </div>
               <div className="notification-text">
                 <div>
-                  {notification.getSubCategoryText(item, general.locale)}
+                  {notificationUtils.getSubCategoryText(item, general.locale)}
                 </div>
               </div>
             </div>

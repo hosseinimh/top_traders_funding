@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Constants\ChallengeLevel;
 use App\Constants\ErrorCode;
+use App\Constants\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Challenge\IndexChallengesRequest;
 use App\Http\Requests\Challenge\StoreChallengeRequest;
@@ -13,6 +14,7 @@ use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
 use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
 use App\Http\Resources\ChallengeRule\ChallengeRuleResource;
 use App\Http\Resources\ChallengeServer\ChallengeServerResource;
+use App\Http\Resources\ChallengeTrade\ChallengeTradeResource;
 use App\Models\ChallengeBalance;
 use App\Models\ChallengeLeverage;
 use App\Models\ChallengePlatform;
@@ -25,7 +27,7 @@ use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
 use App\Models\Challenge as Model;
-use App\Models\ChallengeRule;
+use App\Services\ChallengeTradeService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 
 class ChallengeController extends Controller
@@ -42,9 +44,19 @@ class ChallengeController extends Controller
 
     public function show(Model $model): HttpJsonResponse
     {
-        if ($model->user_id === auth()->user()->id) {
+        if ($model->user_id === auth()->user()->id || auth()->user()->role === Role::ADMINISTRATOR) {
             $challengeRuleService = new ChallengeRuleService();
             return $this->onItems(['item' => new ChallengeResource($this->service->get($model->id)), 'challengeRule' => new ChallengeRuleResource($challengeRuleService->get())]);
+        }
+        return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
+    }
+
+    public function showWithTrades(Model $model): HttpJsonResponse
+    {
+        if ($model->user_id === auth()->user()->id || auth()->user()->role === Role::ADMINISTRATOR) {
+            $trades = ChallengeTradeResource::collection((new ChallengeTradeService())->getAll($model));
+            $item = new ChallengeResource($this->service->get($model->id));
+            return $this->onItems(['item' => $item, 'trades' => $trades]);
         }
         return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
     }

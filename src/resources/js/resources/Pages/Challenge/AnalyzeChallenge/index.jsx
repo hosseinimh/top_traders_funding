@@ -11,7 +11,8 @@ const AnalyzeChallenge = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const [item, setItem] = useState(null);
-  const [accountData, setAccountData] = useState(null);
+  const [loadingTrades, setLoadingTrades] = useState(null);
+  const [trades, setTrades] = useState(null);
   const [profits, setProfits] = useState(null);
   const [totalProfit, setTotalProfit] = useState(0);
   const [dailyLoss, setDailyLoss] = useState(0);
@@ -28,25 +29,33 @@ const AnalyzeChallenge = () => {
   useEffect(() => {
     if (pageState?.props?.item) {
       setItem(pageState?.props?.item);
+      if (loadingTrades === null) {
+        setTimeout(async () => {
+          await getTrades();
+        }, 1000);
+      }
     }
   }, [pageState?.props?.item]);
 
   useEffect(() => {
-    if (pageState?.props?.accountData) {
-      setAccountData(pageState?.props?.accountData);
+    if (!loadingTrades) {
+      setTimeout(async () => {
+        await getTrades();
+      }, 15000);
     }
-  }, [pageState?.props?.accountData]);
+  }, [loadingTrades]);
 
   useEffect(() => {
-    if (accountData) {
-      try {
-        getProfits();
-        setTimeout(async () => {
-          await pageUtils?.fetchData();
-        }, 10000);
-      } catch {}
+    if (pageState?.props?.trades) {
+      setTrades(pageState?.props?.trades);
     }
-  }, [accountData]);
+  }, [pageState?.props?.trades]);
+
+  useEffect(() => {
+    if (trades) {
+      getProfits();
+    }
+  }, [trades]);
 
   useEffect(() => {
     if (profits) {
@@ -56,9 +65,19 @@ const AnalyzeChallenge = () => {
     }
   }, [profits]);
 
+  const getTrades = async () => {
+    if (loadingTrades) {
+      return;
+    }
+    try {
+      setLoadingTrades(true);
+      await pageUtils?.fetchData();
+    } catch {}
+    setLoadingTrades(false);
+  };
+
   const getProfits = () => {
-    const deals = accountData?.deals?.deals;
-    const dealItems = deals.filter(
+    const dealItems = trades?.filter(
       (deal) =>
         deal.type === "DEAL_TYPE_BALANCE" ||
         deal?.entryType === "DEAL_ENTRY_OUT"

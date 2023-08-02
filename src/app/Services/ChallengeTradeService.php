@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Constants\ChallengeStatus;
 use App\Constants\ErrorCode;
+use App\Facades\Helper;
 use App\Facades\MetaApi;
 use App\Models\Challenge;
 use App\Models\ChallengeTrade as Model;
@@ -15,40 +17,28 @@ class ChallengeTradeService
         return Model::where('deal_id', $dealId)->where('type', $type)->first();
     }
 
-    public function getPaginate(int|null $userId, int $status, int $page, int $pageItems): mixed
+    public function getAll(Challenge $challenge): mixed
     {
-        $query = Model::query()->join('tbl_users', 'tbl_challenges.user_id', '=', 'tbl_users.id')
-            ->join('tbl_challenge_balances', 'tbl_challenges.balance_id', '=', 'tbl_challenge_balances.id')
-            ->join('tbl_challenge_servers', 'tbl_challenges.server_id', '=', 'tbl_challenge_servers.id')
-            ->join('tbl_challenge_platforms', 'tbl_challenges.platform_id', '=', 'tbl_challenge_platforms.id')
-            ->join('tbl_challenge_leverages', 'tbl_challenges.leverage_id', '=', 'tbl_challenge_leverages.id');
-        if ($userId) {
-            $query = $query->where('user_id', $userId);
+        if (in_array($challenge->status, [ChallengeStatus::WAITING_TRADE, ChallengeStatus::TRADING])) {
+            $accountData = $this->fetchAccountData($challenge);
+            if ($accountData) {
+                $this->updateDeals($challenge->id, $accountData->deals->deals);
+            }
         }
-        if ($status !== 0) {
-            $query = $query->where('status', $status);
-        }
-        return $query->select('tbl_challenges.*', 'tbl_users.username', 'tbl_challenge_balances.value AS balance', 'tbl_challenge_servers.title AS server', 'tbl_challenge_platforms.value AS platform', 'tbl_challenge_leverages.value AS leverage')->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->skip(($page - 1) * $pageItems)->take($pageItems)->get();
+        return Model::where('challenge_id', $challenge->id)->orderBy('update_sequence_number', 'ASC')->orderBy('id', 'ASC')->get();
     }
 
-    public function getAndUpdateAccountInfo(Challenge $challenge): bool
-    {
-        $accountInfo = $this->getAccountInfo($challenge);
-
-        dd($accountInfo);
-        if (!$accountInfo) {
-            return false;
-        }
-    }
-
-    public function updateTrades(int $challengeId, array $trades): bool
+    private function updateDeals(int $challengeId, array $deals): bool
     {
         $inserted = false;
-        foreach ($trades as $trade) {
+        foreach ($deals as $deal) {
             try {
-                $result = $this->store($challengeId, $trade['deal_id'], $trade['platform'], $trade['type'], $trade['time'], $trade['broker_time'], $trade['commission'], $trade['swap'], $trade['profit'], $trade['symbol'], $trade['magic'], $trade['order_id'], $trade['position_id'], $trade['reason'], $trade['entry_type'], $trade['volume'], $trade['price'], $trade['account_currency_exchange_rate'], $trade['update_sequence_number'], $trade['comment']);
+                $result = $this->store($challengeId, $deal->id, $deal->platform, $deal->type, $deal->time, $deal->brokerTime, $deal->commission, $deal->swap, $deal->profit, $deal->symbol, $deal->magic, $deal->orderId, $deal->positionId, $deal->reason, $deal->entryType, $deal->volume, $deal->price, $deal->accountCurrencyExchangeRate, $deal->updateSequenceNumber, $deal->comment);
                 $inserted = $inserted || ($result !== null);
-            } catch (Exception) {
+            } catch (Exception $e) {
+                if ($e->getCode() !== ErrorCode::CUSTOM_ERROR) {
+                    Helper::logError($e);
+                }
             }
         }
         if ($inserted) {
@@ -88,9 +78,9 @@ class ChallengeTradeService
         return $model ?? null;
     }
 
-    private function getAccountInfo(Challenge $challenge)
+    private function fetchAccountData(Challenge $challenge): mixed
     {
-        return MetaApi::getAccountInfo($challenge->meta_api_token, $challenge->meta_api_account_id);
+        return MetaApi::fetchAccountData($challenge->meta_api_token, $challenge->meta_api_account_id);
     }
 
     private function throwIfDealIdNotUnique(string $dealId, string $type)

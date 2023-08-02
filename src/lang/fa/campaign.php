@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/Helper/MessageHelper.php';
+require __DIR__ . '/Helper/MessageHelper.php';
 
 return [
     'title_required' => $requiredMessage('عنوان'),

@@ -1,20 +1,12 @@
 import { useForm } from "react-hook-form";
 
-import {
-  ChallengeTrade,
-  Challenge as Entity,
-  MetaApi,
-} from "../../../../http/entities";
+import { Challenge as Entity } from "../../../../http/entities";
 import {
   setPagePropsAction,
   setPageTitleAction,
 } from "../../../../state/page/pageActions";
 import { BasePageUtils } from "../../../../utils/BasePageUtils";
-import {
-  BASE_PATH,
-  CHALLENGE_STATUSES,
-  USER_ROLES,
-} from "../../../../constants";
+import { BASE_PATH, CHALLENGE_STATUSES } from "../../../../constants";
 import { setLoadingAction } from "../../../../state/layout/layoutActions";
 import { useLocale } from "../../../../hooks";
 
@@ -26,11 +18,11 @@ export class PageUtils extends BasePageUtils {
     this.entity = new Entity();
     this.initialPageProps = {
       item: null,
-      challengeId: null,
       challengeRule: null,
-      accountData: null,
+      trades: null,
     };
     this.callbackUrl = `${BASE_PATH}/challenges`;
+    this.fetchData = this.fetchData.bind(this);
   }
 
   onLoad() {
@@ -48,8 +40,7 @@ export class PageUtils extends BasePageUtils {
       this.dispatch(setLoadingAction(true));
       const result = await this.fetchItem(data.challengeId);
       this.navigateIfItemNotFound(result);
-      const accountDataResult = await this.fetchAccount(result.item);
-      this.handleFetchResult(result, accountDataResult);
+      this.handleFetchResult(result);
     } catch {
     } finally {
       this.dispatch(setLoadingAction(false));
@@ -58,43 +49,31 @@ export class PageUtils extends BasePageUtils {
 
   async fetchData() {
     try {
-      const result = await this.fetchItem(this.pageState?.props?.challengeId);
-      if (result?.item) {
-        const accountDataResult = await this.fetchAccount(result.item);
-        if (accountDataResult?.accountData?.deals?.deals) {
-          this.updateChallengeTrades(
-            this.pageState?.props?.challengeId,
-            accountDataResult?.accountData?.deals?.deals
-          );
-        }
+      const result = await this.fetchItem(
+        this.pageState.params.challengeId || this.pageState.props.challengeId,
+        true
+      );
+      if (result?.trades) {
         this.dispatch(
           setPagePropsAction({
             item: result.item,
-            accountData: accountDataResult?.accountData ?? null,
+            trades: result.trades,
           })
         );
       }
     } catch {}
   }
 
-  async fetchItem(id) {
-    const result =
-      this.userState?.user?.role === USER_ROLES.ADMINISTRATOR
-        ? await this.entity.get(id)
-        : await this.entity.getFromUser(id);
-
-    if (result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION) {
-      return null;
-    }
-    return result;
+  async fetchItem(id, withTrades = false) {
+    const result = withTrades
+      ? await this.entity.getWithTrades(id)
+      : await this.entity.get(id);
+    return result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
+      ? null
+      : result;
   }
 
-  async fetchAccount(item) {
-    const metaApi = new MetaApi();
-    return await metaApi.get(item.metaApiToken, item.metaApiAccountId);
-  }
-
-  handleFetchResult(result, accountDataResult) {
+  handleFetchResult(result) {
     this.dispatch(
       setPageTitleAction(
         `${this.strings._title} [ ${result.item.levelText} ]`,
@@ -104,38 +83,8 @@ export class PageUtils extends BasePageUtils {
     this.dispatch(
       setPagePropsAction({
         item: result.item,
-        challengeId: result.item.id,
         challengeRule: result.challengeRule,
-        accountData: accountDataResult?.accountData ?? null,
       })
     );
-  }
-
-  async updateChallengeTrades(challengeId, deals) {
-    const challengeTrade = new ChallengeTrade();
-    const challengeTrades = deals.map((deal) => {
-      return {
-        deal_id: deal.id,
-        platform: deal.platform,
-        type: deal.type,
-        time: deal.time,
-        broker_time: deal.brokerTime,
-        commission: deal.commission,
-        swap: deal.swap,
-        profit: deal.profit,
-        symbol: deal?.symbol ?? null,
-        magic: deal?.magic ?? null,
-        order_id: deal?.orderId ?? null,
-        position_id: deal?.positionId ?? null,
-        reason: deal?.reason ?? null,
-        entry_type: deal?.entryType ?? null,
-        volume: deal?.volume ?? null,
-        price: deal?.price ?? null,
-        account_currency_exchange_rate: deal.accountCurrencyExchangeRate,
-        update_sequence_number: deal?.updateSequenceNumber ?? null,
-        comment: deal?.comment ?? null,
-      };
-    });
-    await challengeTrade.store(challengeId, challengeTrades);
   }
 }

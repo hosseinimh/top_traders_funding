@@ -14,11 +14,13 @@ export class Challenge extends Entity {
   }
 
   async get(id) {
-    return await this.handlePost(`${BASE_URL}/a/challenges/show/${id}`);
+    return await this.handlePost(`${BASE_URL}/u/challenges/show/${id}`);
   }
 
-  async getFromUser(id) {
-    return await this.handlePost(`${BASE_URL}/u/challenges/show/${id}`);
+  async getWithTrades(id) {
+    return await this.handlePost(
+      `${BASE_URL}/u/challenges/show_w_trades/${id}`
+    );
   }
 
   async getPaginateFromUser(_pn = 1, _pi = PAGE_ITEMS) {

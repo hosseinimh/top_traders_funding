@@ -16,7 +16,7 @@ class MetaApi
         $this->bearerToken = 'hosseinimh@gmail.com';
     }
 
-    public function getAccountInfo(string $token, string $accountId)
+    public function fetchAccountData(string $token, string $accountId): mixed
     {
         $url = $this->baseAddress;
         $postFields = [
@@ -55,6 +55,9 @@ class MetaApi
                 if (!isset($deal->price)) {
                     $deal->price = null;
                 }
+                if (!isset($deal->updateSequenceNumber)) {
+                    $deal->updateSequenceNumber = null;
+                }
             }
             return $result->accountData;
         }
@@ -78,7 +81,6 @@ class MetaApi
 
             $result = curl_exec($ch);
             $curl_errno = curl_errno($ch);
-
             curl_close($ch);
 
             if ($curl_errno > 0) {
