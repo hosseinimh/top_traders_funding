@@ -19,7 +19,7 @@ export class PageUtils extends BasePageUtils {
     this.initialPageProps = {
       item: null,
       challengeRule: null,
-      trades: null,
+      deals: null,
     };
     this.callbackUrl = `${BASE_PATH}/challenges`;
     this.fetchData = this.fetchData.bind(this);
@@ -47,32 +47,6 @@ export class PageUtils extends BasePageUtils {
     }
   }
 
-  async fetchData() {
-    try {
-      const result = await this.fetchItem(
-        this.pageState.params.challengeId || this.pageState.props.challengeId,
-        true
-      );
-      if (result?.trades) {
-        this.dispatch(
-          setPagePropsAction({
-            item: result.item,
-            trades: result.trades,
-          })
-        );
-      }
-    } catch {}
-  }
-
-  async fetchItem(id, withTrades = false) {
-    const result = withTrades
-      ? await this.entity.getWithTrades(id)
-      : await this.entity.get(id);
-    return result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
-      ? null
-      : result;
-  }
-
   handleFetchResult(result) {
     this.dispatch(
       setPageTitleAction(
@@ -86,5 +60,32 @@ export class PageUtils extends BasePageUtils {
         challengeRule: result.challengeRule,
       })
     );
+  }
+
+  async fetchData() {
+    try {
+      const result = await this.fetchItem(
+        this.pageState.params.challengeId || this.pageState.props.challengeId,
+        true
+      );
+      if (result?.deals) {
+        this.dispatch(
+          setPagePropsAction({
+            item: result.item,
+            deals: result.deals,
+            dealsDetails: result.dealsDetails,
+          })
+        );
+      }
+    } catch {}
+  }
+
+  async fetchItem(id, withDeals = false) {
+    const result = withDeals
+      ? await this.entity.getWithDeals(id)
+      : await this.entity.get(id);
+    return result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
+      ? null
+      : result;
   }
 }

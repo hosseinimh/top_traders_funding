@@ -308,6 +308,7 @@ function Sidebar() {
             </>
           )}
           {userState?.user?.role === USER_ROLES.USER &&
+            !userState?.user?.verifiedAt &&
             renderMenuItem(
               `${BASE_PATH}/users/verify_request1`,
               strings.verifyUserRequest,

@@ -6,13 +6,14 @@ import { BlankPage } from "../../../components";
 import { PageUtils } from "./PageUtils";
 import { useLocale } from "../../../../hooks";
 import { CHALLENGE_LEVELS } from "../../../../constants";
+import utils from "../../../../utils/Utils";
 
 const AnalyzeChallenge = () => {
   const layoutState = useSelector((state) => state.layoutReducer);
   const pageState = useSelector((state) => state.pageReducer);
   const [item, setItem] = useState(null);
-  const [loadingTrades, setLoadingTrades] = useState(null);
-  const [trades, setTrades] = useState(null);
+  const [loadingDeals, setLoadingDeals] = useState(null);
+  const [deals, setDeals] = useState(null);
   const [profits, setProfits] = useState(null);
   const [totalProfit, setTotalProfit] = useState(0);
   const [dailyLoss, setDailyLoss] = useState(0);
@@ -29,33 +30,33 @@ const AnalyzeChallenge = () => {
   useEffect(() => {
     if (pageState?.props?.item) {
       setItem(pageState?.props?.item);
-      if (loadingTrades === null) {
+      if (loadingDeals === null) {
         setTimeout(async () => {
-          await getTrades();
+          await getDeals();
         }, 1000);
       }
     }
   }, [pageState?.props?.item]);
 
   useEffect(() => {
-    if (!loadingTrades) {
+    if (!loadingDeals) {
       setTimeout(async () => {
-        await getTrades();
+        await getDeals();
       }, 15000);
     }
-  }, [loadingTrades]);
+  }, [loadingDeals]);
 
   useEffect(() => {
-    if (pageState?.props?.trades) {
-      setTrades(pageState?.props?.trades);
+    if (pageState?.props?.deals) {
+      setDeals(pageState?.props?.deals);
     }
-  }, [pageState?.props?.trades]);
+  }, [pageState?.props?.deals]);
 
   useEffect(() => {
-    if (trades) {
+    if (deals) {
       getProfits();
     }
-  }, [trades]);
+  }, [deals]);
 
   useEffect(() => {
     if (profits) {
@@ -65,19 +66,19 @@ const AnalyzeChallenge = () => {
     }
   }, [profits]);
 
-  const getTrades = async () => {
-    if (loadingTrades) {
+  const getDeals = async () => {
+    if (loadingDeals) {
       return;
     }
     try {
-      setLoadingTrades(true);
+      setLoadingDeals(true);
       await pageUtils?.fetchData();
     } catch {}
-    setLoadingTrades(false);
+    setLoadingDeals(false);
   };
 
   const getProfits = () => {
-    const dealItems = trades?.filter(
+    const dealItems = deals?.filter(
       (deal) =>
         deal.type === "DEAL_TYPE_BALANCE" ||
         deal?.entryType === "DEAL_ENTRY_OUT"
@@ -313,8 +314,6 @@ const AnalyzeChallenge = () => {
 
   const renderMainChart = () => {
     if (mainChartOptions && mainSeries) {
-      console.log(mainChartOptions);
-      console.log(mainSeries);
       return (
         <Chart
           options={mainChartOptions}
@@ -326,6 +325,25 @@ const AnalyzeChallenge = () => {
     }
     return <></>;
   };
+
+  const renderEquity = () => (
+    <div
+      className="bg-primary light-effect pd-10 mb-20"
+      style={{
+        borderRadius: "0.625rem",
+      }}
+    >
+      <div className="d-flex just-between align-center pxdir-10">
+        <div className="pd-td-10 grow-1 text-center">
+          <h3 className="pd-d-10 text">{strings.balance}</h3>
+          <span
+            className="text"
+            style={{ fontSize: "1.1rem" }}
+          >{`${utils.addCommas(pageState?.props?.item?.equity)} $`}</span>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderProfit = () => (
     <div className="d-flex align-center">
@@ -492,11 +510,11 @@ const AnalyzeChallenge = () => {
           <div className="grow-1 pd-lr-10">
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem1}</div>
-              <span>-</span>
+              <span>{pageState?.props?.dealsDetails?.dealsCount ?? "-"}</span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem3}</div>
-              <span>-</span>
+              <span>{pageState?.props?.dealsDetails?.failedDeals ?? "-"}</span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem5}</div>
@@ -504,25 +522,33 @@ const AnalyzeChallenge = () => {
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem7}</div>
-              <span>-</span>
+              <span>
+                {pageState?.props?.dealsDetails?.averageProfit ?? "-"}
+              </span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem9}</div>
-              <span>-</span>
+              <span style={{ direction: "ltr" }}>
+                {pageState?.props?.dealsDetails?.averageLoss ?? "-"}
+              </span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem11}</div>
-              <span>-</span>
+              <span>{pageState?.props?.dealsDetails?.maxProfit ?? "-"}</span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem13}</div>
-              <span>-</span>
+              <span style={{ direction: "ltr" }}>
+                {pageState?.props?.dealsDetails?.maxLoss ?? "-"}
+              </span>
             </div>
           </div>
           <div className="grow-1 side pd-lr-10">
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem2}</div>
-              <span>-</span>
+              <span>
+                {pageState?.props?.dealsDetails?.successfulDeals ?? "-"}
+              </span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem4}</div>
@@ -530,7 +556,9 @@ const AnalyzeChallenge = () => {
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem6}</div>
-              <span>-</span>
+              <span>
+                {pageState?.props?.dealsDetails?.averageVolume ?? "-"}
+              </span>
             </div>
             <div className="item-horizontal">
               <div>{strings.accountDetailsItem8}</div>
@@ -606,6 +634,7 @@ const AnalyzeChallenge = () => {
               <div className="section-main">{renderMainChart()}</div>
               <div className="section-side grow-1 pd-20">
                 <h3 className="text pd-d-20">{item?.levelText}</h3>
+                {renderEquity()}
                 {renderProfit()}
                 {renderRules()}
                 <div

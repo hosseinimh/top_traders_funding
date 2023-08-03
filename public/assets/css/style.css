@@ -10818,3 +10818,9 @@ div.dataTables_wrapper {
 .rounded {
   border-radius: 0.625rem;
 }
+.light-effect {
+  background-image: url("../images/bg-light.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: 20px;
+}

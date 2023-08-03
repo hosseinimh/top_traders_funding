@@ -14,7 +14,7 @@ use App\Http\Resources\ChallengeLeverage\ChallengeLeverageResource;
 use App\Http\Resources\ChallengePlatform\ChallengePlatformResource;
 use App\Http\Resources\ChallengeRule\ChallengeRuleResource;
 use App\Http\Resources\ChallengeServer\ChallengeServerResource;
-use App\Http\Resources\ChallengeTrade\ChallengeTradeResource;
+use App\Http\Resources\ChallengeDeal\ChallengeDealResource;
 use App\Models\ChallengeBalance;
 use App\Models\ChallengeLeverage;
 use App\Models\ChallengePlatform;
@@ -27,7 +27,7 @@ use App\Services\ChallengeRuleService;
 use App\Services\ChallengeServerService;
 use App\Services\ChallengeService;
 use App\Models\Challenge as Model;
-use App\Services\ChallengeTradeService;
+use App\Services\ChallengeDealService;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 
 class ChallengeController extends Controller
@@ -44,21 +44,12 @@ class ChallengeController extends Controller
 
     public function show(Model $model): HttpJsonResponse
     {
-        if ($model->user_id === auth()->user()->id || auth()->user()->role === Role::ADMINISTRATOR) {
-            $challengeRuleService = new ChallengeRuleService();
-            return $this->onItems(['item' => new ChallengeResource($this->service->get($model->id)), 'challengeRule' => new ChallengeRuleResource($challengeRuleService->get())]);
-        }
-        return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
+        return $this->handleShow($model);
     }
 
-    public function showWithTrades(Model $model): HttpJsonResponse
+    public function showWithDeals(Model $model): HttpJsonResponse
     {
-        if ($model->user_id === auth()->user()->id || auth()->user()->role === Role::ADMINISTRATOR) {
-            $trades = ChallengeTradeResource::collection((new ChallengeTradeService())->getAll($model));
-            $item = new ChallengeResource($this->service->get($model->id));
-            return $this->onItems(['item' => $item, 'trades' => $trades]);
-        }
-        return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
+        return $this->handleShow($model, true);
     }
 
     public function take(IndexChallengesRequest $request): HttpJsonResponse
@@ -82,5 +73,26 @@ class ChallengeController extends Controller
     public function store(StoreChallengeRequest $request, ChallengeBalance $balance, ChallengeServer $server, ChallengePlatform $platform, ChallengeLeverage $leverage): HttpJsonResponse
     {
         return $this->onStore($this->service->store(auth()->user()->id, $balance->id, $server->id,  $platform->id, $leverage->id, $request->level, $balance->value));
+    }
+
+    private function handleShow(Model $model, bool $fetchDeals = false): HttpJsonResponse
+    {
+        if ($model->user_id === auth()->user()->id || auth()->user()->role === Role::ADMINISTRATOR) {
+            $challengeDealService = new ChallengeDealService();
+            $deals = $challengeDealService->getAll($model, $fetchDeals);
+            $dealsDetails = $challengeDealService->getDealsDetails($deals);
+            $deals = ChallengeDealResource::collection($deals);
+            $item = new ChallengeResource($this->service->get($model->id));
+            $data = [];
+            $data['item'] = $item;
+            $data['deals'] = $deals;
+            $data['dealsDetails'] = $dealsDetails;
+            if (!$fetchDeals) {
+                $challengeRuleService = new ChallengeRuleService();
+                $data['challengeRule'] = new ChallengeRuleResource($challengeRuleService->get());
+            }
+            return $this->onItems($data);
+        }
+        return $this->onError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCode::ITEM_NOT_FOUND]);
     }
 }

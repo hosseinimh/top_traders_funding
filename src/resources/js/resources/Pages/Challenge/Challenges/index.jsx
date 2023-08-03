@@ -60,7 +60,7 @@ const Challenges = () => {
   };
 
   const renderModal = () => (
-    <Modal id="challengeModal" title={strings.accountDetails}>
+    <Modal id="challengeModal" title={strings.challengeDetails}>
       <InputTextColumn
         field="accountNo"
         readonly={true}
@@ -197,9 +197,9 @@ const Challenges = () => {
                   onClick={(e) =>
                     pageUtils?.onShowModal(e, "challengeModal", item)
                   }
-                  title={strings.accountDetails}
+                  title={strings.challengeDetails}
                 >
-                  {strings.accountDetails}
+                  {strings.challengeDetails}
                 </button>
               </>
             )}

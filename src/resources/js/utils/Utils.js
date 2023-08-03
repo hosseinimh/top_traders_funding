@@ -221,7 +221,7 @@ const en2faDigits = (s) =>
   "";
 
 const addCommas = (num) =>
-  num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") ?? "";
 
 const addCommasPersian = (num) =>
   en2faDigits(num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
