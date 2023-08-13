@@ -18,11 +18,12 @@ export class PageUtils extends BasePageUtils {
     this.entity = new Entity();
     this.initialPageProps = {
       item: null,
+      challengeId: this?.pageState?.params?.challengeId,
       challengeRule: null,
       deals: null,
+      dealsDetails: null,
     };
     this.callbackUrl = `${BASE_PATH}/challenges`;
-    this.fetchData = this.fetchData.bind(this);
   }
 
   onLoad() {
@@ -38,7 +39,7 @@ export class PageUtils extends BasePageUtils {
   async fillForm(data) {
     try {
       this.dispatch(setLoadingAction(true));
-      const result = await this.fetchItem(data.challengeId);
+      const result = await this.getItem(data.challengeId);
       this.navigateIfItemNotFound(result);
       this.handleFetchResult(result);
     } catch {
@@ -54,38 +55,31 @@ export class PageUtils extends BasePageUtils {
         this.strings._subTitle
       )
     );
-    this.dispatch(
-      setPagePropsAction({
-        item: result.item,
-        challengeRule: result.challengeRule,
-      })
-    );
   }
 
-  async fetchData() {
+  async getAndFetchDeals() {
     try {
-      const result = await this.fetchItem(
-        this.pageState.params.challengeId || this.pageState.props.challengeId,
-        true
-      );
-      if (result?.deals) {
-        this.dispatch(
-          setPagePropsAction({
-            item: result.item,
-            deals: result.deals,
-            dealsDetails: result.dealsDetails,
-          })
-        );
-      }
+      await this.getItem(this.pageState?.params?.challengeId, true);
     } catch {}
   }
 
-  async fetchItem(id, withDeals = false) {
-    const result = withDeals
-      ? await this.entity.getWithDeals(id)
+  async getItem(id, fetchDeals = false) {
+    const result = fetchDeals
+      ? await this.entity.getAndFetchDeals(id)
       : await this.entity.get(id);
-    return result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION
-      ? null
-      : result;
+    if (result?.item?.status === CHALLENGE_STATUSES.WAITING_VERIFICATION) {
+      return null;
+    }
+    let props = {
+      item: result.item,
+      challengeId: result.item.id,
+      deals: result.deals,
+      dealsDetails: result.dealsDetails,
+    };
+    if (!fetchDeals) {
+      props.challengeRule = result.challengeRule;
+    }
+    this.dispatch(setPagePropsAction(props));
+    return result;
   }
 }

@@ -31,17 +31,15 @@ const AnalyzeChallenge = () => {
     if (pageState?.props?.item) {
       setItem(pageState?.props?.item);
       if (loadingDeals === null) {
-        setTimeout(async () => {
-          await getDeals();
-        }, 1000);
+        setLoadingDeals(false);
       }
     }
   }, [pageState?.props?.item]);
 
   useEffect(() => {
-    if (!loadingDeals) {
+    if (loadingDeals === false) {
       setTimeout(async () => {
-        await getDeals();
+        await getAndFetchDeals();
       }, 15000);
     }
   }, [loadingDeals]);
@@ -66,13 +64,19 @@ const AnalyzeChallenge = () => {
     }
   }, [profits]);
 
-  const getDeals = async () => {
+  useEffect(() => {
+    return () => {
+      setLoadingDeals(true);
+    };
+  }, []);
+
+  const getAndFetchDeals = async () => {
     if (loadingDeals) {
       return;
     }
     try {
       setLoadingDeals(true);
-      await pageUtils?.fetchData();
+      await pageUtils?.getAndFetchDeals();
     } catch {}
     setLoadingDeals(false);
   };

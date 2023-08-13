@@ -78,12 +78,18 @@ const Header = () => {
   }, [layoutState?.notifications]);
 
   useEffect(() => {
-    if (!loadingNotifications && userState?.user) {
+    if (loadingNotifications === false && userState?.user) {
       setTimeout(async () => {
         await getNotifications();
       }, 10000);
     }
   }, [loadingNotifications]);
+
+  useEffect(() => {
+    return () => {
+      setLoadingNotifications(true);
+    };
+  }, []);
 
   const getNotifications = async () => {
     if (loadingNotifications) {

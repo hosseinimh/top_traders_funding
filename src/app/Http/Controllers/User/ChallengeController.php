@@ -47,7 +47,7 @@ class ChallengeController extends Controller
         return $this->handleShow($model);
     }
 
-    public function showWithDeals(Model $model): HttpJsonResponse
+    public function showAndFetchDeals(Model $model): HttpJsonResponse
     {
         return $this->handleShow($model, true);
     }

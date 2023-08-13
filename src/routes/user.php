@@ -80,7 +80,7 @@ Route::middleware(['auth:sanctum', 'auth.logged'])->group(function () {
     Route::post('challenges/take', [ChallengeController::class, 'take']);
     Route::post('challenges/store/{balance}/{server}/{platform}/{leverage}', [ChallengeController::class, 'store']);
     Route::post('challenges/show/{model}', [ChallengeController::class, 'show']);
-    Route::post('challenges/show_w_deals/{model}', [ChallengeController::class, 'showWithDeals']);
+    Route::post('challenges/show_f_deals/{model}', [ChallengeController::class, 'showAndFetchDeals']);
 
     Route::post('notifications', [NotificationController::class, 'index']);
     Route::post('notifications/review', [NotificationController::class, 'review']);

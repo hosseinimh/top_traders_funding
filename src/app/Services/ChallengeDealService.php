@@ -8,6 +8,7 @@ use App\Facades\Helper;
 use App\Facades\MetaApi;
 use App\Models\Challenge;
 use App\Models\ChallengeDeal as Model;
+use Error;
 use Exception;
 
 class ChallengeDealService
@@ -20,10 +21,7 @@ class ChallengeDealService
     public function getAll(Challenge $challenge, bool $fetchDeals): mixed
     {
         if (in_array($challenge->status, [ChallengeStatus::WAITING_TRADE, ChallengeStatus::TRADING]) && $fetchDeals) {
-            $accountData = $this->fetchAccountData($challenge);
-            if ($accountData) {
-                $this->updateDeals($challenge->id, $accountData->deals->deals);
-            }
+            $this->fetchAndUpdateDeals($challenge);
         }
         return Model::where('challenge_id', $challenge->id)->orderBy('update_sequence_number', 'ASC')->orderBy('id', 'ASC')->get();
     }
@@ -78,27 +76,6 @@ class ChallengeDealService
         }
     }
 
-    private function updateDeals(int $challengeId, array $deals): bool
-    {
-        $inserted = false;
-        foreach ($deals as $deal) {
-            try {
-                $result = $this->store($challengeId, $deal->id, $deal->platform, $deal->type, $deal->time, $deal->brokerTime, $deal->commission, $deal->swap, $deal->profit, $deal->symbol, $deal->magic, $deal->orderId, $deal->positionId, $deal->reason, $deal->entryType, $deal->volume, $deal->price, $deal->accountCurrencyExchangeRate, $deal->updateSequenceNumber, $deal->comment);
-                $inserted = $inserted || ($result !== null);
-            } catch (Exception $e) {
-                if ($e->getCode() !== ErrorCode::CUSTOM_ERROR) {
-                    Helper::logError($e);
-                }
-            }
-        }
-        if ($inserted) {
-            $equity = $this->sum($challengeId);
-            $challengeService = new ChallengeService();
-            $challengeService->updateEquity($challengeId, $equity);
-        }
-        return $inserted;
-    }
-
     private function store(int $challengeId, string $dealId, string $platform, string $type, string $time, string $brokerTime, float $commission, float $swap, float $profit, string|null $symbol, int|null $magic, string|null $orderId, string|null $positionId, string|null $reason, string|null $entryType, float|null $volume, float|null $price, float $accountCurrencyExchangeRate, float|null $updateSequenceNumber, string|null $comment): mixed
     {
         $this->throwIfDealIdNotUnique($dealId, $type);
@@ -128,9 +105,41 @@ class ChallengeDealService
         return $model ?? null;
     }
 
+    private function fetchAndUpdateDeals(Challenge $challenge)
+    {
+        try {
+            $accountData = $this->fetchAccountData($challenge);
+            if ($accountData) {
+                $this->updateDeals($challenge->id, $accountData->deals->deals);
+            }
+        } catch (Error) {
+        }
+    }
+
     private function fetchAccountData(Challenge $challenge): mixed
     {
         return MetaApi::fetchAccountData($challenge->meta_api_token, $challenge->meta_api_account_id);
+    }
+
+    private function updateDeals(int $challengeId, array $deals): bool
+    {
+        $inserted = false;
+        foreach ($deals as $deal) {
+            try {
+                $result = $this->store($challengeId, $deal->id, $deal->platform, $deal->type, $deal->time, $deal->brokerTime, $deal->commission, $deal->swap, $deal->profit, $deal->symbol, $deal->magic, $deal->orderId, $deal->positionId, $deal->reason, $deal->entryType, $deal->volume, $deal->price, $deal->accountCurrencyExchangeRate, $deal->updateSequenceNumber, $deal->comment);
+                $inserted = $inserted || ($result !== null);
+            } catch (Exception $e) {
+                if ($e->getCode() !== ErrorCode::CUSTOM_ERROR) {
+                    Helper::logError($e);
+                }
+            }
+        }
+        if ($inserted) {
+            $equity = $this->sum($challengeId);
+            $challengeService = new ChallengeService();
+            $challengeService->updateEquity($challengeId, $equity);
+        }
+        return $inserted;
     }
 
     private function findEntryIn($deals, $dealOut)

@@ -17,8 +17,8 @@ export class Challenge extends Entity {
     return await this.handlePost(`${BASE_URL}/u/challenges/show/${id}`);
   }
 
-  async getWithDeals(id) {
-    return await this.handlePost(`${BASE_URL}/u/challenges/show_w_deals/${id}`);
+  async getAndFetchDeals(id) {
+    return await this.handlePost(`${BASE_URL}/u/challenges/show_f_deals/${id}`);
   }
 
   async getPaginateFromUser(_pn = 1, _pi = PAGE_ITEMS) {
